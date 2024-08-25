@@ -1,0 +1,57 @@
+### GLOBAL DEFINITIONS
+
+muon_sel:   (Muon_looseId>0)           && (Muon_eta<2.4)     && (Muon_pt>10)
+ele_sel:    (Electron_cutBased>=1)     && (Electron_eta<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1)       && (Photon_eta<2.5)   && (Photon_pt>15)
+tau_sel:    (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3)      && (Tau_pt>18)
+
+presel: MET_pt>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && Jet_pt[0]>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8 
+
+new_variables:
+  SDVTrack_isInSV: Track_isInSV(SDVIdxLUT_TrackIdx,nSDVTrack)
+  SDVTrack_qoverp: SDVTrack_charge/SDVTrack_pt
+  SDVTrack_dxySig: abs(SDVTrack_dxy)/SDVTrack_dxyError
+  SDVTrack_dzSig:  abs(SDVTrack_dz)/SDVTrack_dzError
+  SDVTrack_ptSig:  SDVTrack_pt / SDVTrack_ptError
+  SDVTrack_dphi_jet0:   acos(cos(SDVTrack_phi-Jet_phi[0]))
+  SDVTrack_deta_jet0:   abs(SDVTrack_eta-Jet_eta[0])
+  SDVTrack_dR_jet0:     sqrt(SDVTrack_dphi_jet0*SDVTrack_dphi_jet0 + SDVTrack_deta_jet0*SDVTrack_deta_jet0)
+  SDVTrack_dphi_MET:    acos(cos(SDVTrack_phi-MET_phi))
+  SDVTrack_dxydzratio:  abs(SDVTrack_dxy/SDVTrack_dz)
+  SDVTrack_isGoodTrack: ((abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && (SDVTrack_pfRelIso03_all<5)
+  SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
+  SDVSecVtx_dphiMET:  acos(cos(SDVSecVtx_L_phi-MET_phi))
+  SDVSecVtx_dphijet0: acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))
+  
+  nMuon_sel:    ['Sum({0})', muon_sel  ]
+  nEle_sel:     ['Sum({0})', ele_sel   ]
+  nPhoton_sel:  ['Sum({0})', photon_sel]
+  nTau_sel:     ['Sum({0})', tau_sel   ]
+
+  SP_vertexCuts: SDVSecVtx_ndof>1  && SDVSecVtx_nGoodTrack>=2 && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 && SDVSecVtx_matchedLLPnDau_bydau>1
+  VP_vertexCuts: SDVSecVtx_ndof<=1 && SDVSecVtx_nGoodTrack<2  && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 && SDVSecVtx_matchedLLPnDau_bydau>1
+  nGoodVtx_SP:   Sum(SP_vertexCuts)
+  nGoodVtx_VP:   Sum(VP_vertexCuts)
+  SPMaxLxySig:   Max(SDVSecVtx_LxySig[SP_vertexCuts])
+  VPMaxLxySig:   Max(SDVSecVtx_LxySig[VP_vertexCuts])
+
+regions:
+  All: 
+  presele: nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+  VP:      nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && nGoodVtx_SP==0 && nGoodVtx_VP>0
+  SP:      nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && nGoodVtx_SP>0
+
+event_variables:
+- MET_pt
+- SPMaxLxySig
+- VPMaxLxySig
+event_2d_plots:
+  - [MET_pt,SPMaxLxySig]
+  - [MET_pt,VPMaxLxySig]
+objects:
+
+plot_setting:
+  MET_pt: [MET_pt, ';MET (GeV);A.U.', 100, 0, 1500]
+  SPMaxLxySig: [SPMaxLxySig, ';max vertex L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+  VPMaxLxySig: [VPMaxLxySig, ';max vertex L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+
