@@ -69,8 +69,8 @@ class Sample:
     return fileNames
 
   def getFileDirs(self,label):
+    print(self.dirs[label])
     return self.dirs[label]
-
 
   # Make sure getNEvents are getting the number of events in the full dataset before using this method. Otherwise it will be very wrong
   #def getLumiWeights(self, lumi):

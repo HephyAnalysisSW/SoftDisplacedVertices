@@ -116,13 +116,24 @@ c1n2_2018 = [
     Sample("C1N2_M1400_1385_ct20_2018", xsec=0.131074e-03),
     Sample("C1N2_M1400_1380_ct2_2018", xsec=0.131074e-03),
     Sample("C1N2_M1400_1375_ct0p2_2018", xsec=0.131074e-03),
-    Sample("C1N2_M1000_988_ct200_2018", xsec=1e-03),
-    Sample("C1N2_M1000_988_ct2_2018", xsec=1e-03),
-    Sample("C1N2_M1000_988_ct0p2_2018", xsec=1e-03),
-    Sample("C1N2_M1000_980_ct200_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_988_ct200_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_988_ct2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_988_ct0p2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_980_ct200_2018", xsec=1e-03),
     Sample("C1N2_M1000_980_ct2_2018", xsec=1e-03),
-    Sample("C1N2_M1000_980_ct0p2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_980_ct0p2_2018", xsec=1e-03),
     ]
+
+all_bkg_2018 = [
+  znunu_2018,
+  wlnu_2018,
+  qcd_2018,
+]
+
+all_sig_2018 = [
+  stop_2018,
+  c1n2_2018,
+]
 
 all_samples = [
     wlnu_2017,
@@ -135,7 +146,6 @@ all_samples = [
     qcd_2018,
     stop_2018,
     c1n2_2018,
-    qcd_2018
 ]
 
 tmp_2017 = [

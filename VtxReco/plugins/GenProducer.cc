@@ -64,7 +64,7 @@ GenProducer::GenProducer(const edm::ParameterSet& cfg)
     match_by_daughter(cfg.getParameter<bool>("match_by_daughter")),
     debug(cfg.getParameter<bool>("debug"))
 {
-  usesResource();
+  // usesResource();
   if (match_by_dist + match_by_daughter != 1)
     throw cms::Exception("GenProducer", "Only one of match_by_dist and match_by_daughter should be true.");
   produces<std::vector<SoftDV::LLP>>();
