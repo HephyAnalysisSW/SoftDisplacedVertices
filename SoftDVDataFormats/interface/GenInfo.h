@@ -19,6 +19,18 @@
 
 namespace SoftDV {
 
+  enum DecayMode {
+    Undefined, // no matched decay mode
+    STOP_4body, // stop->bffChi0
+    STOP_2body, // stop->cChi0
+    N2_Zbb, // N2->ZChi0->bbChi0
+    N2_Zqq, // N2->ZChi0->qqChi0
+    N2_Zll, // N2->ZChi0->llChi0
+    N2_Hbb, // N2->HChi0->bbChi0
+    N2_Hqq, // N2->HChi0->qqChi0
+    N2_Hll  // N2->HChi0->llChi0
+  };
+
   typedef math::XYZPoint Point;
   typedef math::XYZVector Vector;
   typedef math::PtEtaPhiMLorentzVector PolarLorentzVector;
@@ -88,6 +100,8 @@ namespace SoftDV {
 
   reco::GenParticleRef get_gen(const reco::Candidate* c, const edm::Handle<reco::GenParticleCollection>& gens);
   //reco::GenParticleCollection FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, int LLP_id, int LSP_id, bool debug);
+  SoftDV::DecayMode  try_STOP(const reco::GenParticle& gen, bool debug);
+  SoftDV::DecayMode  try_N2(const reco::GenParticle& gen, bool debug);
   std::vector<int> FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, std::vector<int> LLP_id, int LSP_id, bool debug);
   //reco::GenParticleCollection GetDaughters(const reco::GenParticle& gen, const edm::Handle<reco::GenParticleCollection>& gen_particles, bool debug);
   //std::vector<int> GetDaughters(const reco::GenParticle& gen, const edm::Handle<reco::GenParticleCollection>& gen_particles, bool debug);

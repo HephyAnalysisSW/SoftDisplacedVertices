@@ -13,6 +13,139 @@ reco::GenParticleRef SoftDV::get_gen(const reco::Candidate* c, const edm::Handle
   return reco::GenParticleRef();
 }
 
+SoftDV::DecayMode SoftDV::try_STOP(const reco::GenParticle& gen, bool debug) {
+  if (!gen.isLastCopy()) return SoftDV::Undefined;
+  if (abs(gen.pdgId())!=1000006) return SoftDV::Undefined;
+  if (debug){
+    std::cout << "try_STOP for particle " << gen.pdgId() << std::endl;
+    std::cout << "Decay products: ";
+    for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+      std::cout << gen.daughter(j)->pdgId() << ", ";
+    }
+    std::cout << std::endl;
+  }
+  bool found=false;
+  for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+    if (abs(gen.daughter(j)->pdgId())==1000022){
+      found = true;
+    }
+    if (abs(gen.daughter(j)->pdgId()) == 1000006){
+      if (debug){
+        std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
+      }
+      found = false;
+      break;
+    }
+  }
+  if (!found) return SoftDV::Undefined;
+  if (gen.numberOfDaughters()==3) {
+    if (debug)
+      std::cout << "Found 4 body decay!" << std::endl;
+    return SoftDV::STOP_4body;
+  }
+  if (gen.numberOfDaughters()==2){ 
+    if (debug)
+      std::cout << "Found 2 body decay!" << std::endl;
+    return SoftDV::STOP_2body;
+  }
+  if (debug)
+    std::cout << "Something unexpected!!! N dau " << gen.numberOfDaughters() << std::endl;
+  return SoftDV::Undefined;
+}
+
+SoftDV::DecayMode SoftDV::try_N2(const reco::GenParticle& gen, bool debug) {
+  if (!gen.isLastCopy()) return SoftDV::Undefined;
+  if (abs(gen.pdgId())!=1000023) return SoftDV::Undefined;
+  if (debug){
+    std::cout << "try_N2 for particle " << gen.pdgId() << std::endl;
+    std::cout << "Decay products: ";
+    for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+      std::cout << gen.daughter(j)->pdgId() << ", ";
+    }
+    std::cout << std::endl;
+  }
+  bool found=false;
+  SoftDV::DecayMode dm = SoftDV::Undefined;
+  std::vector<int> ZorH = {23,25};
+  for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+    if (abs(gen.daughter(j)->pdgId())==1000022){
+      found = true;
+    }
+    else{
+      for (auto& f : ZorH) {
+        if (abs(gen.daughter(j)->pdgId())==f) {
+          std::vector<const reco::Candidate*> daus;
+          daus.push_back(gen.daughter(j));
+          //auto& dau = SoftDV::get_gen(gen.daughter(j), gen_particles);
+          bool foundItself=true;
+          while (foundItself) {
+            foundItself=false;
+            const reco::Candidate* dau = daus[0];
+            if (debug)
+              std::cout << "dau " << dau->pdgId() << " : ";
+            for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+              if (debug)
+                std::cout << dau->daughter(jj)->pdgId() << ", ";
+              if (abs(dau->daughter(jj)->pdgId())==f){
+                foundItself=true;
+                //dau = SoftDV::get_gen(dau->daughter(jj), gen_particles);
+                daus.pop_back();
+                daus.push_back(dau->daughter(jj));
+              }
+            }
+            if (debug)
+              std::cout << std::endl;
+          }
+          const reco::Candidate* dau = daus[0];
+          if (debug){
+            std::cout << "Daughter Decay products: ";
+            for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+              std::cout << dau->daughter(jj)->pdgId() << ", ";
+            }
+            std::cout << std::endl;
+          }
+          for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+            if (abs(dau->daughter(jj)->pdgId())==5){
+              if (f==23){
+                dm = SoftDV::N2_Zbb;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hbb;
+              }
+            }
+            else if (abs(dau->daughter(jj)->pdgId())<5){
+              if (f==23){
+                dm = SoftDV::N2_Zqq;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hqq;
+              }
+            }
+            else {
+              if (f==23){
+                dm = SoftDV::N2_Zll;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hll;
+              }
+            }
+          }
+        }
+      }
+    }
+    if (abs(gen.daughter(j)->pdgId()) == 1000023){
+      if (debug){
+        std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
+      }
+      found = false;
+      break;
+    }
+  }
+  if (!found) return SoftDV::Undefined;
+  if (debug)
+    std::cout << "Found decay mode " << dm << std::endl;
+  return dm;
+}
 
 std::vector<int> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, std::vector<int> LLP_id, int LSP_id, bool debug){
   if (debug)
@@ -22,28 +155,12 @@ std::vector<int> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>&
   std::vector<int> llps;
   for (size_t i=0; i<gen_particles->size(); ++i) {
     const reco::GenParticle& gen = gen_particles->at(i);
-    if ( std::find(LLP_id.begin(), LLP_id.end(), abs(gen.pdgId())) != LLP_id.end() ) {
-      if (!gen.isLastCopy()) continue;
+    SoftDV::DecayMode stop_mode = try_STOP(gen,true);
+    SoftDV::DecayMode c1n2_mode = try_N2(gen,true);
+    if (stop_mode>SoftDV::Undefined || c1n2_mode>SoftDV::Undefined){
       if (debug)
-        std::cout << "llp id: " << gen.pdgId() << " vertex " << gen.vertex().x() << " " << gen.vertex().y() << " " << gen.vertex().z() << std::endl;
-      for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
-        if (abs(gen.daughter(j)->pdgId())==LSP_id){
-          found = true;
-        }
-        if (std::find(LLP_id.begin(), LLP_id.end(), abs(gen.daughter(j)->pdgId())) != LLP_id.end()){
-          if (debug){
-            std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
-          }
-          found = false;
-          break;
-        }
-      }
-    }
-    if (found){
-      if (debug)
-        std::cout << "LLP found." << std::endl;
+        std::cout << "LLP with decay mode " << c1n2_mode+stop_mode << " found." << std::endl;
       llps.push_back(i);
-      found = false;
     }
   }
 
