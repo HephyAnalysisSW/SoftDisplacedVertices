@@ -147,27 +147,33 @@ SoftDV::DecayMode SoftDV::try_N2(const reco::GenParticle& gen, bool debug) {
   return dm;
 }
 
-std::vector<int> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, std::vector<int> LLP_id, int LSP_id, bool debug){
+std::pair<std::vector<int>,std::vector<int>> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, bool debug){
   if (debug)
     std::cout << "Start looking for LLP." << std::endl;
 
-  bool found = false;
   std::vector<int> llps;
+  std::vector<int> llps_decay_mode;
   for (size_t i=0; i<gen_particles->size(); ++i) {
     const reco::GenParticle& gen = gen_particles->at(i);
-    SoftDV::DecayMode stop_mode = try_STOP(gen,true);
-    SoftDV::DecayMode c1n2_mode = try_N2(gen,true);
+    SoftDV::DecayMode stop_mode = try_STOP(gen,debug);
+    SoftDV::DecayMode c1n2_mode = try_N2(gen,debug);
     if (stop_mode>SoftDV::Undefined || c1n2_mode>SoftDV::Undefined){
       if (debug)
         std::cout << "LLP with decay mode " << c1n2_mode+stop_mode << " found." << std::endl;
       llps.push_back(i);
+      if (stop_mode>SoftDV::Undefined){
+        llps_decay_mode.push_back(stop_mode);
+      }
+      else{
+        llps_decay_mode.push_back(c1n2_mode);
+      }
     }
   }
 
   if (debug){
     std::cout << "Total LLPs: " << llps.size() << std::endl;
   }
-  return llps;
+  return std::pair<std::vector<int>,std::vector<int>>({llps,llps_decay_mode});
   
 }
 
@@ -307,10 +313,10 @@ bool SoftDV::pass_gentk(const reco::GenParticle& gtk, const SoftDV::Point& refpo
 // A map is returned: 
 //   Key: vertex index
 //   Value: a std::pair of (matched LLP index, number of matched tracks)
-std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::GenParticleCollection>& genPart, const edm::Handle<reco::VertexCollection>& vertices, const edm::Handle<reco::TrackCollection>& tracks, const SoftDV::Point& refpoint, std::vector<int> LLPid, int LSPid, bool debug) {
+std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::GenParticleCollection>& genPart, const edm::Handle<reco::VertexCollection>& vertices, const edm::Handle<reco::TrackCollection>& tracks, const SoftDV::Point& refpoint, bool debug) {
   std::map<int,std::pair<int,int>> res;
   // Get all LLPs
-  std::vector<int> llp_idx = SoftDV::FindLLP(genPart, LLPid, LSPid, debug);
+  std::vector<int> llp_idx = SoftDV::FindLLP(genPart, debug).first;
   std::map<int,std::vector<int>> tk_llp_map; // first element is track key; second element is a vector of indices of matched LLPs
   for (size_t illp=0; illp<llp_idx.size(); ++illp){
     std::vector<int> llp_daus = SoftDV::GetDaughters(llp_idx[illp], genPart, debug);
@@ -353,7 +359,7 @@ std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::Gen
       int tkkey = (*v_tk).key();
       if (debug)
         std::cout << tkkey << ", ";
-      const auto& otk = tracks->at(tkkey);
+      //const auto& otk = tracks->at(tkkey);
       // If a track is matched with LLP, increment the corresponding number in the vector
       if (tk_llp_map.find(tkkey)!=tk_llp_map.end()) {
         for (auto& imllp:tk_llp_map[tkkey]){

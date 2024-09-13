@@ -208,8 +208,6 @@ class MFVRecowithGen: public edm::EDProducer {
 
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> genToken_;
     const edm::EDGetTokenT<reco::VertexCollection> pvToken_;
-    const std::vector<int> LLPid_;
-    const int LSPid_;
 
 
     TH1F* h_n_seed_vertices;
@@ -348,9 +346,7 @@ MFVRecowithGen<Jet>::MFVRecowithGen(const edm::ParameterSet& cfg)
     verbose(cfg.getUntrackedParameter<bool>("verbose", false)),
     module_label(cfg.getParameter<std::string>("@module_label")),
     genToken_(consumes<std::vector<reco::GenParticle>>(cfg.getParameter<edm::InputTag>("gensrc"))),
-    pvToken_(consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("pvToken"))),
-    LLPid_(cfg.getParameter<std::vector<int>>("LLPid_")),
-    LSPid_(cfg.getParameter<int>("LSPid_"))
+    pvToken_(consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("pvToken")))
 {
   if (n_tracks_per_seed_vertex < 2 || n_tracks_per_seed_vertex > 5)
     throw cms::Exception("MFVRecowithGen", "n_tracks_per_seed_vertex must be one of 2,3,4,5");
@@ -577,7 +573,7 @@ void MFVRecowithGen<Jet>::produce(edm::Event& event, const edm::EventSetup& setu
   event.getByToken(genToken_, genParticles);
   std::map<reco::TrackRef, std::vector<size_t>> seed_track_llp_map;
 
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, false);
+  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, false).first;
   std::vector<int> gen_daus;
 
   for (size_t illp=0; illp<llp_idx.size(); ++illp){

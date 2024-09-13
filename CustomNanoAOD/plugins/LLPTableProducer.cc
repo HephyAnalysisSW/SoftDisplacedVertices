@@ -39,8 +39,6 @@ class LLPTableProducer : public edm::stream::EDProducer<> {
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> genToken_;
     const std::string LLPName_;
     const std::string LLPDoc_;
-    const std::vector<int> LLPid_;
-    const int LSPid_;
     const edm::EDGetTokenT<reco::VertexCollection> pvToken_;
     const edm::EDGetTokenT<reco::TrackCollection> tkToken_;
     const edm::EDGetTokenT<reco::VertexCollection> svToken_;
@@ -51,8 +49,6 @@ LLPTableProducer::LLPTableProducer(const edm::ParameterSet& params)
   : genToken_(consumes<std::vector<reco::GenParticle>>(params.getParameter<edm::InputTag>("src"))),
     LLPName_(params.getParameter<std::string>("LLPName")),
     LLPDoc_(params.getParameter<std::string>("LLPDoc")),
-    LLPid_(params.getParameter<std::vector<int>>("LLPid_")),
-    LSPid_(params.getParameter<int>("LSPid_")),
     pvToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("pvToken"))),
     tkToken_(consumes<reco::TrackCollection>(params.getParameter<edm::InputTag>("tkToken"))),
     svToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("svToken"))),
@@ -83,9 +79,11 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   edm::Handle<reco::VertexCollection> secondary_vertices;
   iEvent.getByToken(svToken_, secondary_vertices);
 
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, debug);
+  std::pair<std::vector<int>,std::vector<int>> llp_idx_dm = SoftDV::FindLLP(genParticles, debug);
+  std::vector<int> llp_idx = llp_idx_dm.first;
+  std::vector<int> llp_decaymdoe = llp_idx_dm.second;
   std::vector<float> llp_pt, llp_eta, llp_phi, llp_mass, llp_ctau, llp_decay_x, llp_decay_y, llp_decay_z;
-  std::vector<int> llp_pdgId, llp_status, llp_statusFlags, llp_ngentk, llp_nrecotk;
+  std::vector<int> llp_pdgId, llp_status, llp_statusFlags, llp_ngentk, llp_nrecotk, llp_dm;
 
   std::vector<int> genpart_llpidx(genParticles->size(), -1);
   std::vector<int> genpart_isgentk(genParticles->size(), 0);
@@ -107,6 +105,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
     llp_phi.push_back(llp.phi());
     llp_mass.push_back(llp.mass());
     llp_pdgId.push_back(llp.pdgId());
+    llp_dm.push_back(llp_decaymdoe[illp]);
     llp_status.push_back(llp.status());
     llp_statusFlags.push_back( llp.statusFlags().isLastCopyBeforeFSR()             * 16384 +llp.statusFlags().isLastCopy()                           * 8192  +llp.statusFlags().isFirstCopy()                          * 4096  +llp.statusFlags().fromHardProcessBeforeFSR()             * 2048  +llp.statusFlags().isDirectHardProcessTauDecayProduct()   * 1024  +llp.statusFlags().isHardProcessTauDecayProduct()         * 512   +llp.statusFlags().fromHardProcess()                      * 256   +llp.statusFlags().isHardProcess()                        * 128   +llp.statusFlags().isDirectHadronDecayProduct()           * 64    +llp.statusFlags().isDirectPromptTauDecayProduct()        * 32    +llp.statusFlags().isDirectTauDecayProduct()              * 16    +llp.statusFlags().isPromptTauDecayProduct()              * 8     +llp.statusFlags().isTauDecayProduct()                    * 4     +llp.statusFlags().isDecayedLeptonHadron()                * 2     +llp.statusFlags().isPrompt()                             * 1);
 
@@ -180,7 +179,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
 
   // Match LLP and reco vertices by daughter
   //
-  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
+  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), debug);
   for (size_t ivtx=0; ivtx<secondary_vertices->size(); ++ivtx) {
     if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){
       int llp_matched_idx = vtxllpmatch[ivtx].first;
@@ -233,6 +232,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   llpTable->addColumn<float>("decay_y", llp_decay_y, "y position of LLP decay in cm", nanoaod::FlatTable::FloatColumn, 10);
   llpTable->addColumn<float>("decay_z", llp_decay_z, "z position of LLP decay in cm", nanoaod::FlatTable::FloatColumn, 10);
   llpTable->addColumn<int>("pdgId", llp_pdgId, "pdgID of LLP", nanoaod::FlatTable::IntColumn);
+  llpTable->addColumn<int>("decaymode", llp_dm, "Decay mode of LLP: 0-undefined; 1-stop->bffChi0; 2-stop->cChi0; 3-N2->ZChi0->bbChi0; 4-N2->ZChi0->qqChi0; 5-N2->ZChi0->llChi0; 6-N2->HChi0->bbChi0; 7-N2->HChi0->qqChi0; 8-N2->HChi0->llChi0", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("status", llp_status, "status of LLP", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("statusFlags", llp_statusFlags, "gen status flags stored bitwise, bits are: 0 : isPrompt, 1 : isDecayedLeptonHadron, 2 : isTauDecayProduct, 3 : isPromptTauDecayProduct, 4 : isDirectTauDecayProduct, 5 : isDirectPromptTauDecayProduct, 6 : isDirectHadronDecayProduct, 7 : isHardProcess, 8 : fromHardProcess, 9 : isHardProcessTauDecayProduct, 10 : isDirectHardProcessTauDecayProduct, 11 : fromHardProcessBeforeFSR, 12 : isFirstCopy, 13 : isLastCopy, 14 : isLastCopyBeforeFSR, ", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("ngentk", llp_ngentk, "Number of gen tracks", nanoaod::FlatTable::IntColumn);
