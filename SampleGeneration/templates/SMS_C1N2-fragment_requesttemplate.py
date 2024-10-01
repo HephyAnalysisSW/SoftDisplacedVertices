@@ -1,26 +1,19 @@
 import FWCore.ParameterSet.Config as cms
+
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
-mStop = STOPMASS
-mLSP = LSPMASS
-ctau = CTAUVALUE
-
+#Need hbar*c to convert lifetime to width
 hBarCinGeVmm = 1.973269788e-13
-gevWidth = hBarCinGeVmm / ctau
 
-externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring("GRIDPACKFILE"),
-    nEvents = cms.untracked.uint32(EVENTCOUNT),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
-#Link to datacards:
-#https://github.com/CMS-SUS-XPAG/GenLHEfiles/tree/master/GridpackWorkflow/production/SMS-StopStop/templatecards
+mC1N2 = C1N2MASS
+mLSP = LSPMASS
+CTAU = CTAUVALUE
 
+WCHI2 = hBarCinGeVmm/CTAU
 
-baseSLHATable="""
+SLHA_TABLE="""
 BLOCK MASS  # Mass Spectrum
 # PDG code           mass       particle
    1000001     1.00000000E+05   # ~d_L
@@ -33,7 +26,7 @@ BLOCK MASS  # Mass Spectrum
    2000004     1.00000000E+05   # ~c_R
    1000005     1.00000000E+05   # ~b_1
    2000005     1.00000000E+05   # ~b_2
-   1000006     %MSTOP%          # ~t_1
+   1000006     1.00000000E+05   # ~t_1
    2000006     1.00000000E+05   # ~t_2
    1000011     1.00000000E+05   # ~e_L
    2000011     1.00000000E+05   # ~e_R
@@ -44,13 +37,14 @@ BLOCK MASS  # Mass Spectrum
    1000015     1.00000000E+05   # ~tau_1
    2000015     1.00000000E+05   # ~tau_2
    1000016     1.00000000E+05   # ~nu_tauL
-   1000021     1.00000000E+05    # ~g
+   1000021     1.00000000E+05   # ~g
    1000022     %MLSP%           # ~chi_10
-   1000023     1.00000000E+05   # ~chi_20
+   1000023     %MC1N2%          # ~chi_20
    1000025     1.00000000E+05   # ~chi_30
    1000035     1.00000000E+05   # ~chi_40
-   1000024     1.00000000E+05   # ~chi_1+
+   1000024     %MC1N2%          # ~chi_1+
    1000037     1.00000000E+05   # ~chi_2+
+   1000039     1.00000000E+05   # ~gravitino
 
 # DECAY TABLE
 #         PDG            Width
@@ -64,10 +58,7 @@ DECAY   1000004     0.00000000E+00   # scharm_L decays
 DECAY   2000004     0.00000000E+00   # scharm_R decays
 DECAY   1000005     0.00000000E+00   # sbottom1 decays
 DECAY   2000005     0.00000000E+00   # sbottom2 decays
-DECAY   1000006     %CTAU0%   # stop1 decays
-    0.00000000E+00    4    1000022      5     -1    2  # dummy allowed decay, in order to turn on off-shell decays
-    0.50000000E+00    3    1000022      5   24
-    0.50000000E+00    2    1000022      4 
+DECAY   1000006     0.00000000E+00   # stop1 decays
 DECAY   2000006     0.00000000E+00   # stop2 decays
 DECAY   1000011     0.00000000E+00   # selectron_L decays
 DECAY   2000011     0.00000000E+00   # selectron_R decays
@@ -80,75 +71,68 @@ DECAY   2000015     0.00000000E+00   # stau_2 decays
 DECAY   1000016     0.00000000E+00   # snu_tauL decays
 DECAY   1000021     0.00000000E+00   # gluino decays
 DECAY   1000022     0.00000000E+00   # neutralino1 decays
-DECAY   1000023     0.00000000E+00   # neutralino2 decays
-DECAY   1000024     0.00000000E+00   # chargino1+ decays
+DECAY   1000023     %WCHI2%   # neutralino2 decays
+    0.00000000E+00    3     1000022   5   -5  # Dummy decay
+    0.50000000E+00    2     1000022   25      # BR(N2 -> N1 + H)
+    0.500000000E+00   2     1000022   23      # BR(N2 -> N1 + Z)
+DECAY   1000024     1.00000000E-01   # chargino1+ decays
+    0.00000000E+00    3     1000022   5   -5  # Dummy decay 
+    1.00000000E+00    2     1000022   24      # BR(N3 -> N1 + W)
 DECAY   1000025     0.00000000E+00   # neutralino3 decays
 DECAY   1000035     0.00000000E+00   # neutralino4 decays
 DECAY   1000037     0.00000000E+00   # chargino2+ decays
-"""
-  
-slhatable = baseSLHATable.replace('%MSTOP%','%e' % mStop)
-slhatable = slhatable.replace('%MLSP%','%e' % mLSP)
-slhatable = slhatable.replace('%CTAU0%','%e' % gevWidth)
-model = "T2tt_dM-10to80"
+""".replace('%MLSP%','%e' % mLSP).replace('%MC1N2%','%e' % mC1N2).replace('%WCHI2%','%e' % WCHI2)
 
-def matchParams(mass):
-  if mass>99 and mass<199: return 62., 0.498
-  elif mass<299: return 62., 0.361
-  elif mass<399: return 62., 0.302
-  elif mass<499: return 64., 0.275
-  elif mass<599: return 64., 0.254
-  elif mass<1299: return 68., 0.237
-  elif mass<1801: return 70., 0.243
+import FWCore.ParameterSet.Config as cms
 
-qcut, tru_eff = matchParams(mStop)
-#wgt = 50/tru_eff #NOTE: config weight
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
-basePythiaParameters = cms.PSet(
-    pythia8CommonSettingsBlock,
-    pythia8CP2SettingsBlock,
-    JetMatchingParameters = cms.vstring(
-      'JetMatching:setMad = off',
-      'JetMatching:scheme = 1',
-      'JetMatching:merge = on',
-      'JetMatching:jetAlgorithm = 2',
-      'JetMatching:etaJetMax = 5.',
-      'JetMatching:coneRadius = 1.',
-      'JetMatching:slowJetPower = 1',
-      'JetMatching:qCut = %.0f' % qcut, #this is the actual merging scale
-      'JetMatching:nQmatch = 5', #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
-      'JetMatching:nJetMax = 2', #number of partons in born matrix element for highest multiplicity
-      'JetMatching:doShowerKt = off', #off for MLM matching, turn on for shower-kT matching
-      '6:m0 = 172.5',
-      '24:mMin = 0.1',
-      'Check:abortIfVeto = on',
-    ),
-    parameterSets = cms.vstring('pythia8CommonSettings',
-                                'pythia8CP2Settings',
-                                'JetMatchingParameters'
+generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
+    maxEventsToPrint = cms.untracked.int32(1),
+    pythiaPylistVerbosity = cms.untracked.int32(1),
+    filterEfficiency = cms.untracked.double(1.0),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    SLHATableForPythia8 = cms.string('%s' % SLHA_TABLE),
+    comEnergy = cms.double(13000.),
+    PythiaParameters = cms.PSet(
+        pythia8CommonSettingsBlock,
+        pythia8CP2SettingsBlock,
+        pythia8PSweightsSettingsBlock,
+        processParameters = cms.vstring(
+            '1000023:tau0 = %.1f' % CTAU,
+            'LesHouches:setLifetime = 2',
+        ),
+        JetMatchingParameters = cms.vstring(
+            'JetMatching:setMad = off',
+            'JetMatching:scheme = 1',
+            'JetMatching:merge = on',
+            'JetMatching:jetAlgorithm = 2',
+            'JetMatching:etaJetMax = 5.',
+            'JetMatching:coneRadius = 1.',
+            'JetMatching:slowJetPower = 1',
+            'JetMatching:qCut = 76.', #this is the actual merging scale
+            'JetMatching:nQmatch = 5', #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
+            'JetMatching:nJetMax = 2', #number of partons in born matrix element for highest multiplicity
+            'JetMatching:doShowerKt = off', #off for MLM matching, turn on for shower-kT matching
+            '6:m0 = 172.5',
+#            '25:onMode = off',
+#            '25:onIfMatch = 5 -5', # Only H->bb decays
+            '25:m0 = 125.0',
+#            '23:onMode = off',
+#            '23:onIfAny = 1 2 3 4 5', # Only Z->qq decays
+        ),
+        parameterSets = cms.vstring('pythia8CommonSettings',
+                                    'pythia8CP2Settings',
+                                    'pythia8PSweightsSettings',
+                                    'processParameters',
+                                    'JetMatchingParameters',
+                                    )
     )
-    )
-
-basePythiaParameters.pythia8CommonSettings.extend(['1000006:tau0 = %e' % ctau])
-basePythiaParameters.pythia8CommonSettings.extend(['ParticleDecays:tau0Max = 1000.1'])
-basePythiaParameters.pythia8CommonSettings.extend(['LesHouches:setLifetime = 2'])
-
-basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:allow  = on'])
-basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:allowDecay = on'])
-basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:setMasses = on'])
-
-generator = cms.EDFilter("Pythia8HadronizerFilter",
-  maxEventsToPrint = cms.untracked.int32(1),
-  pythiaPylistVerbosity = cms.untracked.int32(1),
-  filterEfficiency = cms.untracked.double(1.0),
-  pythiaHepMCVerbosity = cms.untracked.bool(False),
-  comEnergy = cms.double(13000.),
-  PythiaParameters = basePythiaParameters,
-  SLHATableForPythia8 = cms.string('%s' % slhatable),
-  ConfigDescription = cms.string('%s_%i_%i' % (model, mStop, mLSP)),
-  #ConfigWeight = cms.double(wgt),
 )
 
+#ProductionFilterSequence = cms.Sequence(generator)
 
 #     Filter setup
 # ------------------------
@@ -229,7 +213,6 @@ jetEtaCut = cms.double(5.0), #GenJet eta cut for HT
 genHTcut = cms.double(200.0) #genHT cut
 )
 
-
 tmpGenMetTrue = cms.EDProducer("GenMETProducer",
 src = cms.InputTag("tmpGenParticlesForJetsNoNu"),
 onlyFiducialParticles = cms.bool(False), ## Use only fiducial GenParticles
@@ -248,10 +231,8 @@ src = cms.InputTag("genMETfilter1"),
 minNumber = cms.uint32(1),
 )
 
-
 ProductionFilterSequence = cms.Sequence(generator*
                                     tmpGenParticles * tmpGenParticlesForJetsNoNu *
                                     tmpAk4GenJetsNoNu * genHTFilter *
                                     tmpGenMetTrue * genMETfilter1 * genMETfilter2
 )
-

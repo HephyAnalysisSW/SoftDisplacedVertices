@@ -26,11 +26,12 @@ home = os.getcwd()
 dirtemplates = home + "/templates"
 dirdrivers = home + "/drivers"
 #wdir = home + "/simulations"
-wdir = "/scratch/felix.lang/SignalProduction/simulations"
+#wdir = "/scratch/ang.li/GenProduction_24bodystop_log"
+wdir = "/scratch/ang.li/GenProduction_2017STOP"
 
 ########## options
 
-opts, args = getopt.getopt(sys.argv[1:], "rbm:l:c:n:", ["reset", "bash", "llpmass=", "lspmass=", "ctau=", "nevents="])
+opts, args = getopt.getopt(sys.argv[1:], "rbm:l:c:n:y:", ["reset", "bash", "llpmass=", "lspmass=", "ctau=", "nevents=", "year="])
 
 reset = False
 bash = False
@@ -38,6 +39,7 @@ llpmass = 600.
 lspmass = 588.
 ctau = 200.  # in mm!
 nevents = 5000
+year = 2018
 
 for opt, arg in opts:
     if opt in ("-r", "--reset"):
@@ -52,6 +54,8 @@ for opt, arg in opts:
         ctau = float(arg)
     if opt in ("-n", "--nevents"):
         nevents = int(arg)
+    if opt in ("-y", "--year"):
+        year = int(arg)
 
 if reset:
     save_value_to_file(1)
@@ -59,7 +63,7 @@ firstEvent = read_value_from_file()
 save_value_to_file(firstEvent + nevents)
 
 #drivers_t = dirdrivers + "/C1N2_{}_{}_{}_{}".format(llpmass, lspmass, ctau, nevents)
-drivers_t = dirdrivers + "/STOP_{}_{}_{}_{}".format(llpmass, lspmass, ctau, nevents)
+drivers_t = dirdrivers + "/STOP_{}_{}_{}_{}_{}".format(llpmass, lspmass, ctau, nevents, year)
 #drivers_t = dirdrivers + "/N2N3_{}_{}_{}_{}".format(n2n3mass, lspmass, ctau, nevents)
 
 if not os.path.exists(drivers_t):
@@ -85,7 +89,7 @@ os.chdir(thiswdir)
 os.environ["RUN_NUMBER"] = thiswdir
 os.environ["FIRST_EVENT"] = str(firstEvent)
 
-jobfile_t = dirtemplates + "/job_template.sh"
+jobfile_t = dirtemplates + "/job_template_{}.sh".format(year)
 jobfile = "job.sh"
 
 #fragmentfile_t = dirtemplates + "/SMS_C1N2-fragment_template.py"

@@ -66,8 +66,7 @@ DECAY   1000005     0.00000000E+00   # sbottom1 decays
 DECAY   2000005     0.00000000E+00   # sbottom2 decays
 DECAY   1000006     %CTAU0%   # stop1 decays
     0.00000000E+00    4    1000022      5     -1    2  # dummy allowed decay, in order to turn on off-shell decays
-    0.50000000E+00    3    1000022      5   24
-    0.50000000E+00    2    1000022      4 
+    1.00000000E+00    3    1000022      5   24
 DECAY   2000006     0.00000000E+00   # stop2 decays
 DECAY   1000011     0.00000000E+00   # selectron_L decays
 DECAY   2000011     0.00000000E+00   # selectron_R decays

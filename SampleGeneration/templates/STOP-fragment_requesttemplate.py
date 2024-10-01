@@ -9,13 +9,6 @@ ctau = CTAUVALUE
 hBarCinGeVmm = 1.973269788e-13
 gevWidth = hBarCinGeVmm / ctau
 
-externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring("GRIDPACKFILE"),
-    nEvents = cms.untracked.uint32(EVENTCOUNT),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
 #Link to datacards:
 #https://github.com/CMS-SUS-XPAG/GenLHEfiles/tree/master/GridpackWorkflow/production/SMS-StopStop/templatecards
 
