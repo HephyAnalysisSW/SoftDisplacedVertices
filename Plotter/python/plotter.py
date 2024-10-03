@@ -146,9 +146,9 @@ class Plotter:
   
   def AddVars(self,d):
       # MET xy corrections
-      d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
-      d = d.Define("MET_pt_corr",'MET_corr.first')
-      d = d.Define("MET_phi_corr",'MET_corr.second')
+      # d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
+      # d = d.Define("MET_pt_corr",'MET_corr.first')
+      # d = d.Define("MET_phi_corr",'MET_corr.second')
       vars_to_define = ['new_variables']
       for v in vars_to_define:
         if (not v in self.cfg) or (self.cfg[v] is None):
@@ -277,6 +277,13 @@ class Plotter:
     return dhs
   
   def getplots(self,d,weight,plots_1d,plots_2d,plots_nm1,varlabel):
+    print('DEBUG: Getting...')
+    print('DEBUG: d', d)
+    print('DEBUG: weight', weight)
+    print('DEBUG: plots_1d', plots_1d)
+    print('DEBUG: plots_2d', plots_2d)
+    print('DEBUG: plots_nm1', plots_nm1)
+    print('DEBUG: varlabel', varlabel)
     hs = []
     if plots_1d is None:
       plots_1d = []
@@ -349,6 +356,7 @@ class Plotter:
       d,w = self.getRDF()
 
       for sr in self.cfg['regions']:
+        print(f"DEBUG: sr {sr}.")
         d_sr = d
         if self.cfg['regions'][sr] is not None:
           d_sr = d_sr.Filter(self.cfg['regions'][sr])

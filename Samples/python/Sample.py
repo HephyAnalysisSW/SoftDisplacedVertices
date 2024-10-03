@@ -1,5 +1,6 @@
 # This is a class that include necessary information of a sample.
 import os
+import subprocess
 from XRootD import client
 from XRootD.client.flags import DirListFlags, OpenFlags, MkDirFlags, QueryCode
 
@@ -40,37 +41,60 @@ class Sample:
     self.dataset[label] = dataset
     self.dataset_instance[label] = instance
 
-  def getFileList(self, label, namebase):
-    #FIXME: Make this work for DBS
-    assert (label in self.dirs) or (label in self.eosdirs)
+  def _dasPopen(self, label):
+    command = f"dasgoclient -query=\"file dataset={self.dataset[label]} instance=prod/{self.dataset_instance[label]}\""
+    _dasOut = os.popen(command)
+    dasOut = _dasOut.readlines()
+    return dasOut
+
+
+  def getFileList(self, label, namebase, useDAS=True):
     fileNames = []
+    redirector =   'root://eos.grid.vbc.ac.at/'
+    VIE_prefix = '/eos/vbc/experiments/cms'
+    assert (label in self.dirs) or (label in self.eosdirs)
+
+    if useDAS and self.dataset and self.dataset_instance:
+      print("Retrieving filenames from DAS/DBS...")
+      dasOut = self._dasPopen(label)
+      for line in dasOut:
+        if line.startswith('/store/'):
+          if label in self.dirs:
+            fileNames.append(os.path.join(VIE_prefix, line.rstrip()[1:]))
+          elif label in self.eosdirs:
+            print("label not in self.dirs")
+            fileNames.append(line.rstrip())
+      print("The filenames are retrieved.")
     if label in self.dirs:
-      for root, dirs, files in os.walk(self.dirs[label]):
-        for ifile in files:
-          if (namebase in ifile and ifile.endswith('.root')):
-            fileNames.append(os.path.join(root,ifile))
+      if not useDAS or not self.dataset or not self.dataset_instance: # Walk
+        for root, dirs, files in os.walk(self.dirs[label]):
+          for ifile in files:
+            if (namebase in ifile and ifile.endswith('.root')):
+              fileNames.append(os.path.join(root,ifile))
     elif label in self.eosdirs:
-      redirector = 'root://eos.grid.vbc.ac.at/'
-      myclient = client.FileSystem(redirector)
-      dirstack = [self.eosdirs[label]]
-      while len(dirstack)>0:
-        d_temp = dirstack.pop(0)
-        if d_temp[-1] != '/':
-          d_temp += '/'
-        status, listing = myclient.dirlist(d_temp, DirListFlags.STAT)
-        for ele in listing:
-          if ele.statinfo.flags == client.flags.StatInfoFlags.IS_DIR:
-            dirstack.append(d_temp+ele.name)
-          elif (namebase in ele.name) and (ele.name.endswith('.root')):
-            fileNames.append(redirector+d_temp+ele.name)
+      if not useDAS or not self.dataset or not self.dataset_instance: # xrdfs ls
+        myclient = client.FileSystem(redirector)
+        dirstack = [self.eosdirs[label]]
+        while len(dirstack)>0:
+          d_temp = dirstack.pop(0)
+          if d_temp[-1] != '/':
+            d_temp += '/'
+          status, listing = myclient.dirlist(d_temp, DirListFlags.STAT)
+          for ele in listing:
+            if ele.statinfo.flags == client.flags.StatInfoFlags.IS_DIR:
+              dirstack.append(d_temp+ele.name)
+            elif (namebase in ele.name) and (ele.name.endswith('.root')):
+              fileNames.append(redirector+d_temp+ele.name)
+      elif useDAS and self.dataset and self.dataset_instance:
+        filenames = [redirector + file for file in filenames]
     else:
       print("No files found for {}!".format(self.name))
 
     return fileNames
 
   def getFileDirs(self,label):
+    print(self.dirs[label])
     return self.dirs[label]
-
 
   # Make sure getNEvents are getting the number of events in the full dataset before using this method. Otherwise it will be very wrong
   #def getLumiWeights(self, lumi):

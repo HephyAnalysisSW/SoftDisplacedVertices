@@ -1,4 +1,10 @@
 {
+    "CustomMiniAODv3": {
+        "dir" : {
+            "C1N2_M1000_988_ct200_2018" : "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_988_200/CustomMiniAODv3/"
+        }
+    },
+
     "CustomNanoAODv3": {
         "dir": {
             "stop_M1000_985_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M1000_985_ct20_2018/output", 
@@ -23,7 +29,8 @@
             "C1N2_M1400_1388_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1388_200/CustomNanoAODv3/",
             "C1N2_M1400_1385_ct20_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1385_20/CustomNanoAODv3/",
             "C1N2_M1400_1380_ct2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1380_2/CustomNanoAODv3/", 
-            "C1N2_M1400_1375_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1375_0p2/CustomNanoAODv3/"
+            "C1N2_M1400_1375_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1375_0p2/CustomNanoAODv3/",
+            "C1N2_M1000_988_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_988_200/CustomNanoAODv3/"
         },
         "totalsumWeights": {
             "stop_M1000_975_ct0p2_2018": 145527.0,
@@ -48,7 +55,8 @@
             "C1N2_M600_575_ct0p2_2018": 279941.0,
             "C1N2_M600_580_ct2_2018": 275297.0,
             "C1N2_M600_585_ct20_2018": 279876.0,
-            "C1N2_M600_588_ct200_2018": 327358.0
+            "C1N2_M600_588_ct200_2018": 327358.0,
+            "C1N2_M1000_988_ct200_2018": 257729.0
             }
     }
 }

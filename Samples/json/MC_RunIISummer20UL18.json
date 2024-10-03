@@ -27,11 +27,13 @@
             "qcdht1000_2018" : "/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
             "qcdht1500_2018" : "/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v3/AODSIM",
             "qcdht2000_2018" : "/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
+
             "ttbar_2018"         : "/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
             "st_tch_tbar_2018"   : "/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
             "st_tch_t_2018"      : "/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
             "st_tW_tbar_2018"    : "/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM",
             "st_tW_t_2018"       : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18RECO-106X_upgrade2018_realistic_v11_L1v1-v1/AODSIM"
+
         }
     },
 
@@ -63,11 +65,14 @@
             "qcdht1000_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
             "qcdht1500_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
             "qcdht2000_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
+
             "ttbar_2018"         : "/eos/vbc/experiments/cms/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tch_tbar_2018"   : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tch_t_2018"      : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tW_tbar_2018"    : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tW_t_2018"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/"
+
+
         },
 
         "logical_dir": {
@@ -97,6 +102,7 @@
             "qcdht1000_2018" : "/store/user/aguven/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
             "qcdht1500_2018" : "/store/user/aguven/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
             "qcdht2000_2018" : "/store/user/aguven/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1/",
+
             "ttbar_2018"         : "/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tch_tbar_2018"   : "/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
             "st_tch_t_2018"      : "/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1/",
@@ -133,6 +139,7 @@
             "qcdht1000_2018" : "/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
             "qcdht1500_2018" : "/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
             "qcdht2000_2018" : "/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v16_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
+
             "ttbar_2018"         : "/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
             "st_tch_tbar_2018"   : "/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
             "st_tch_t_2018"      : "/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/aguven-RunIISummer20UL18CustomMiniAOD-106X_upgrade2018_realistic_v11_L1v1_pv1-d13e91b570034360476e0a62dfd690a8/USER",
@@ -159,46 +166,22 @@
             "zjetstonunuht1200_2018" : 381695,
             "zjetstonunuht2500_2018" : 268224,
 
-            "qcdht0050_2018" : 32596954.0,
-            "qcdht0100_2018" : 22666233.0,
-            "qcdht0200_2018" : 48075834.0,
-            "qcdht0300_2018" : 61189248.0,
-            "qcdht0500_2018" : 49184771.0,
-            "qcdht0700_2018" : 48747645.0,
-            "qcdht1000_2018" : 14451531.0,
-            "qcdht1500_2018" : 10871473.0,
-            "qcdht2000_2018" : 3248181.0,
+            "qcdht0050_2018" : 32596954,
+            "qcdht0100_2018" : 22666233,
+            "qcdht0200_2018" : 48075834,
+            "qcdht0300_2018" : 61033835,
+            "qcdht0500_2018" : 49184771,
+            "qcdht0700_2018" : 48318047,
+            "qcdht1000_2018" : 14451531,
+            "qcdht1500_2018" : 10871473,
+            "qcdht2000_2018" : 3248181,
 
-            "ttbar_2018"         : 560569055403.2,
-            "st_tch_tbar_2018"   :   6128118469.6,
-            "st_tch_t_2018"      :  14659279175.6,
+            "ttbar_2018"         : 559902711492.6,
+            "st_tch_tbar_2018"   :   6128118469.5,
+            "st_tch_t_2018"      :  12833838431.9,
             "st_tW_tbar_2018"    :    251902163.2,
-            "st_tW_t_2018"       :    371534846.6,
+            "st_tW_t_2018"       :    258137398.5
 
-            "stop_M1000_975_ct0p2_2018": 145527.0,
-            "stop_M1000_980_ct2_2018": 104080.0,
-            "stop_M1000_985_ct20_2018": 121057.0,
-            "stop_M1000_988_ct200_2018": 119827.0,
-            "stop_M1400_1375_ct0p2_2018": 148207.0,
-            "stop_M1400_1380_ct2_2018": 121877.0,
-            "stop_M1400_1385_ct20_2018": 120713.0,
-            "stop_M1400_1388_ct200_2018": 118113.0,
-            "stop_M600_575_ct0p2_2018": 156053.0,
-            "stop_M600_580_ct2_2018": 129364.0,
-            "stop_M600_585_ct20_2018": 127533.0,
-            "stop_M600_588_ct200_2018": 128483.0,
-            "C1N2_M1000_975_ct0p2_2018": 256159.0,
-            "C1N2_M1000_980_ct2_2018": 260083.0,
-            "C1N2_M1000_985_ct20_2018": 258181.0,
-            "C1N2_M1000_988_ct200_2018": 257729.0,
-            "C1N2_M1400_1375_ct0p2_2018": 242181.0,
-            "C1N2_M1400_1380_ct2_2018": 244165.0,
-            "C1N2_M1400_1385_ct20_2018": 245952.0,
-            "C1N2_M1400_1388_ct200_2018": 246597.0,
-            "C1N2_M600_575_ct0p2_2018": 279941.0,
-            "C1N2_M600_580_ct2_2018": 275297.0,
-            "C1N2_M600_585_ct20_2018": 279876.0,
-            "C1N2_M600_588_ct200_2018": 327358.0
             }
     },
 
@@ -230,35 +213,14 @@
             "qcdht1000_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
             "qcdht1500_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
             "qcdht2000_2018" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
+
             "ttbar_2018"         : "/eos/vbc/experiments/cms/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tch_tbar_2018"   : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tch_t_2018"      : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tW_tbar_2018"    : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
-            "st_tW_t_2018"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
-            "stop_M1000_985_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M1000_985_ct20_2018/output", 
-            "stop_M600_580_ct2_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M600_580_ct2_2018/output", 
-            "stop_M600_588_ct200_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M600_588_ct200_2018/output", 
-            "stop_M1000_980_ct2_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M1000_980_ct2_2018/output", 
-            "stop_M600_585_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M600_585_ct20_2018/output", 
-            "stop_M1000_988_ct200_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3/stop_M1000_988_ct200_2018/output",
-            "stop_M600_575_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/600_575_0p2/CustomNanoAODv3/",
-            "stop_M1000_975_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/1000_975_0p2/CustomNanoAODv3/",
-            "stop_M1400_1388_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/1400_1388_200/CustomNanoAODv3/",
-            "stop_M1400_1385_ct20_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/1400_1385_20/CustomNanoAODv3/",
-            "stop_M1400_1380_ct2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/1400_1380_2/CustomNanoAODv3/",
-            "stop_M1400_1375_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/Stop/1400_1375_0p2/CustomNanoAODv3/",
-            "C1N2_M600_588_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/600_588_200/CustomNanoAODv3/",
-            "C1N2_M600_585_ct20_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/600_585_20/CustomNanoAODv3/",
-            "C1N2_M600_580_ct2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/600_580_2/CustomNanoAODv3/",
-            "C1N2_M600_575_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/600_575_0p2/CustomNanoAODv3/",
-            "C1N2_M1000_988_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_988_200/CustomNanoAODv3/",
-            "C1N2_M1000_985_ct20_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_985_20/CustomNanoAODv3/",
-            "C1N2_M1000_980_ct2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_980_2/CustomNanoAODv3/", 
-            "C1N2_M1000_975_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_975_0p2/CustomNanoAODv3/",
-            "C1N2_M1400_1388_ct200_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1388_200/CustomNanoAODv3/",
-            "C1N2_M1400_1385_ct20_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1385_20/CustomNanoAODv3/",
-            "C1N2_M1400_1380_ct2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1380_2/CustomNanoAODv3/", 
-            "C1N2_M1400_1375_ct0p2_2018": "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1400_1375_0p2/CustomNanoAODv3/"
+            "st_tW_t_2018"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/"
+
+
         },
         "logical_dir": {
             "wjetstolnuht0070_2018" : "/store/user/aguven/WJetsToLNu_HT-70To100_TuneCP5_13TeV-madgraphMLM-pythia8/CustomNanoAOD_pv1",
@@ -287,11 +249,13 @@
             "qcdht1000_2018" : "/store/user/aguven/QCD_HT1000to1500_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
             "qcdht1500_2018" : "/store/user/aguven/QCD_HT1500to2000_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
             "qcdht2000_2018" : "/store/user/aguven/QCD_HT2000toInf_TuneCP5_PSWeights_13TeV-madgraph-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1_pv1/",
+
             "ttbar_2018"         : "/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tch_tbar_2018"   : "/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tch_t_2018"      : "/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tW_tbar_2018"    : "/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/",
             "st_tW_t_2018"       : "/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2/"
+
 
         },
 
@@ -330,6 +294,7 @@
             "st_tW_t_2018"       : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/aguven-RunIISummer20UL18CustomNanoAOD-106X_upgrade2018_realistic_v16_L1v1_pv2-00000000000000000000000000000000/USER"
 
         },
+
         "totalsumWeights": {
             "wjetstolnuht0070_2018" : 66949006,
             "wjetstolnuht0100_2018" : 57843857,
@@ -348,46 +313,21 @@
             "zjetstonunuht1200_2018" : 381695,
             "zjetstonunuht2500_2018" : 268224,
 
-            "qcdht0050_2018" : 32596954.0,
-            "qcdht0100_2018" : 22666233.0,
-            "qcdht0200_2018" : 48075834.0,
-            "qcdht0300_2018" : 61189248.0,
-            "qcdht0500_2018" : 49184771.0,
-            "qcdht0700_2018" : 48747645.0,
-            "qcdht1000_2018" : 14451531.0,
-            "qcdht1500_2018" : 10871473.0,
-            "qcdht2000_2018" : 3248181.0,
+            "qcdht0050_2018" : 32596954,
+            "qcdht0100_2018" : 22666233,
+            "qcdht0200_2018" : 48075834,
+            "qcdht0300_2018" : 61033835,
+            "qcdht0500_2018" : 49184771,
+            "qcdht0700_2018" : 48318047,
+            "qcdht1000_2018" : 14451531,
+            "qcdht1500_2018" : 10871473,
+            "qcdht2000_2018" : 3248181,
 
-            "ttbar_2018"         : 560569055403.2,
-            "st_tch_tbar_2018"   :   6128118469.6,
-            "st_tch_t_2018"      :  14659279175.6,
+            "ttbar_2018"         : 559902711492.6,
+            "st_tch_tbar_2018"   :   6128118469.5,
+            "st_tch_t_2018"      :  12833838431.9,
             "st_tW_tbar_2018"    :    251902163.2,
-            "st_tW_t_2018"       :    371534846.6,
-
-            "stop_M1000_975_ct0p2_2018": 145527.0,
-            "stop_M1000_980_ct2_2018": 104080.0,
-            "stop_M1000_985_ct20_2018": 121057.0,
-            "stop_M1000_988_ct200_2018": 119827.0,
-            "stop_M1400_1375_ct0p2_2018": 148207.0,
-            "stop_M1400_1380_ct2_2018": 121877.0,
-            "stop_M1400_1385_ct20_2018": 120713.0,
-            "stop_M1400_1388_ct200_2018": 118113.0,
-            "stop_M600_575_ct0p2_2018": 156053.0,
-            "stop_M600_580_ct2_2018": 129364.0,
-            "stop_M600_585_ct20_2018": 127533.0,
-            "stop_M600_588_ct200_2018": 128483.0,
-            "C1N2_M1000_975_ct0p2_2018": 256159.0,
-            "C1N2_M1000_980_ct2_2018": 260083.0,
-            "C1N2_M1000_985_ct20_2018": 258181.0,
-            "C1N2_M1000_988_ct200_2018": 257729.0,
-            "C1N2_M1400_1375_ct0p2_2018": 242181.0,
-            "C1N2_M1400_1380_ct2_2018": 244165.0,
-            "C1N2_M1400_1385_ct20_2018": 245952.0,
-            "C1N2_M1400_1388_ct200_2018": 246597.0,
-            "C1N2_M600_575_ct0p2_2018": 279941.0,
-            "C1N2_M600_580_ct2_2018": 275297.0,
-            "C1N2_M600_585_ct20_2018": 279876.0,
-            "C1N2_M600_588_ct200_2018": 327358.0
+            "st_tW_t_2018"       :    258137398.5
             }
     },
 

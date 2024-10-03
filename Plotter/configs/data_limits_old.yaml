@@ -5,6 +5,8 @@ ele_sel:    (Electron_cutBased>=1)     && (Electron_eta<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1)       && (Photon_eta<2.5)   && (Photon_pt>15)
 tau_sel:    (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3)      && (Tau_pt>18)
 
+corrections:
+
 presel: MET_pt>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && Jet_pt[0]>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8 
 
 new_variables:
@@ -28,8 +30,8 @@ new_variables:
   nPhoton_sel:  ['Sum({0})', photon_sel]
   nTau_sel:     ['Sum({0})', tau_sel   ]
 
-  SP_vertexCuts: SDVSecVtx_ndof>1  && SDVSecVtx_nGoodTrack>=2 && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 && SDVSecVtx_matchedLLPnDau_bydau>1
-  VP_vertexCuts: SDVSecVtx_ndof<=1 && SDVSecVtx_nGoodTrack<2  && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 && SDVSecVtx_matchedLLPnDau_bydau>1
+  SP_vertexCuts: SDVSecVtx_ndof>1  && SDVSecVtx_nGoodTrack>=2 && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1
+  VP_vertexCuts: SDVSecVtx_ndof>1  && SDVSecVtx_nGoodTrack<2  && SDVSecVtx_pAngle>0.2 && acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 && acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1
   nGoodVtx_SP:   Sum(SP_vertexCuts)
   nGoodVtx_VP:   Sum(VP_vertexCuts)
   SPMaxLxySig:   Max(SDVSecVtx_LxySig[SP_vertexCuts])
@@ -51,7 +53,7 @@ event_2d_plots:
 objects:
 
 plot_setting:
-  MET_pt: [MET_pt, ';MET (GeV);A.U.', 100, 0, 1500]
+  MET_pt: [MET_pt, ';MET (GeV);A.U.', 100, 0, 1000]
   SPMaxLxySig: [SPMaxLxySig, ';max vertex L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
   VPMaxLxySig: [VPMaxLxySig, ';max vertex L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
 

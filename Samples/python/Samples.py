@@ -90,6 +90,27 @@ znunu_2017 = [
     Sample("zjetstonunuht2500_2017",xsec=0.00855),
     ]
 
+qcd_2017 = [
+  Sample("qcdht0050_2017", xsec=187700000.0),
+  Sample("qcdht0100_2017", xsec=23640000.0),
+  Sample("qcdht0200_2017", xsec=1555000.0),
+  Sample("qcdht0300_2017", xsec=324500.0),
+  Sample("qcdht0500_2017", xsec=30980.0),
+  Sample("qcdht0700_2017", xsec=6444.0),
+  Sample("qcdht1000_2017", xsec=1127.0),
+  Sample("qcdht1500_2017", xsec=109.8),
+  Sample("qcdht2000_2017", xsec=22.36)
+]
+
+
+top_2017 = [
+  Sample("ttbar_2017",       xsec=833.9),
+  Sample("st_tch_tbar_2017", xsec=80.00),
+  Sample("st_tch_t_2017",    xsec=134.2),
+  Sample("st_tW_tbar_2017",  xsec=39.68),
+  Sample("st_tW_t_2017",     xsec=39.91)
+]
+
 met_2018 = [
     Sample("met2018a", xsec=-1),
     Sample("met2018b", xsec=-1),
@@ -128,15 +149,15 @@ qcd_2018 = [
   Sample("qcdht1000_2018", xsec=1127.0),
   Sample("qcdht1500_2018", xsec=109.8),
   Sample("qcdht2000_2018", xsec=22.36)
-
 ]
 
+
 top_2018 = [
-  Sample("ttbar_2018", xsec=833.9),
-  Sample("st_tch_tbar_2018", xsec=80.0),
-  Sample("st_tch_t_2018", xsec=134.2),
-  Sample("st_tW_tbar_2018", xsec=39.68),
-  Sample("st_tW_t_2018", xsec=39.91),
+  Sample("ttbar_2018",       xsec=833.9),
+  Sample("st_tch_tbar_2018", xsec=80.00),
+  Sample("st_tch_t_2018",    xsec=134.2),
+  Sample("st_tW_tbar_2018",  xsec=39.68),
+  Sample("st_tW_t_2018",     xsec=39.91)
 ]
 
 stop_2018 = [
@@ -154,58 +175,40 @@ stop_2018 = [
     #Sample("stop_M1400_1375_ct0p2_2018", xsec=0.473E-03),
     ]
 
+
+
 c1n2_2018 = [
-    #Sample("C1N2_M600_588_ct200_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M600_585_ct20_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M600_580_ct2_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M600_575_ct0p2_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M1000_988_ct200_2018", xsec=1.34352e-03),
-    #Sample("C1N2_M1000_985_ct20_2018", xsec=1.34352e-03),
-    #Sample("C1N2_M1000_980_ct2_2018", xsec=1.34352e-03),
-    #Sample("C1N2_M1000_975_ct0p2_2018", xsec=1.34352e-03),
-    #Sample("C1N2_M1400_1388_ct200_2018", xsec=0.131074e-03),
-    #Sample("C1N2_M1400_1385_ct20_2018", xsec=0.131074e-03),
-    #Sample("C1N2_M1400_1380_ct2_2018", xsec=0.131074e-03),
-    #Sample("C1N2_M1400_1375_ct0p2_2018", xsec=0.131074e-03),
-    #Sample("C1N2_M1000_988_ct200_2018", xsec=1e-03),
-    #Sample("C1N2_M1000_988_ct2_2018", xsec=1e-03),
-    #Sample("C1N2_M1000_988_ct0p2_2018", xsec=1e-03),
-    #Sample("C1N2_M1000_980_ct200_2018", xsec=1e-03),
-    #Sample("C1N2_M1000_980_ct2_2018", xsec=1e-03),
-    #Sample("C1N2_M1000_980_ct0p2_2018", xsec=1e-03),
-    #Sample("C1N2_M200_190_ct0p2_2018", xsec=1.807),
-    #Sample("C1N2_M200_190_ct2_2018", xsec=1.807),
-    #Sample("C1N2_M200_190_ct20_2018", xsec=1.807),
-    #Sample("C1N2_M200_190_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct200_2018", xsec=1.807),
-    #Sample("C1N2_M400_390_ct0p2_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct2_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct20_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
+    Sample("C1N2_M600_588_ct200_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_585_ct20_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_580_ct2_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_575_ct0p2_2018", xsec=20.1372e-03),
+    Sample("C1N2_M1000_988_ct200_2018", xsec=1.34352e-03),
+    Sample("C1N2_M1000_985_ct20_2018", xsec=1.34352e-03),
+    Sample("C1N2_M1000_980_ct2_2018", xsec=1.34352e-03),
+    Sample("C1N2_M1000_975_ct0p2_2018", xsec=1.34352e-03),
+    Sample("C1N2_M1400_1388_ct200_2018", xsec=0.131074e-03),
+    Sample("C1N2_M1400_1385_ct20_2018", xsec=0.131074e-03),
+    Sample("C1N2_M1400_1380_ct2_2018", xsec=0.131074e-03),
+    Sample("C1N2_M1400_1375_ct0p2_2018", xsec=0.131074e-03),
+    # Sample("C1N2_M1000_988_ct200_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_988_ct2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_988_ct0p2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_980_ct200_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_980_ct2_2018", xsec=1e-03),
+    # Sample("C1N2_M1000_980_ct0p2_2018", xsec=1e-03),
     ]
+
+all_bkg_2018 = [
+  znunu_2018,
+  wlnu_2018,
+  qcd_2018,
+]
+
+
+all_sig_2018 = [
+  stop_2018,
+  c1n2_2018,
+]
 
 all_samples = [
     wlnu_2017,
@@ -218,7 +221,6 @@ all_samples = [
     qcd_2018,
     stop_2018,
     c1n2_2018,
-    qcd_2018,
     top_2018
 ]
 

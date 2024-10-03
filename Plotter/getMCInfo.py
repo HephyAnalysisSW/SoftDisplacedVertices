@@ -1,5 +1,5 @@
 # Usage:
-# python3 getMCInfo.py --sample_version CustomMiniAOD_v3 --json CustomMiniAOD_v3 --outDir ./
+# python3 getMCInfo.py --sample_version CustomMiniAOD_v3 --json CustomMiniAOD_v3.json --outDir ./
 
 
 from DataFormats.FWLite import Lumis, Handle
@@ -7,9 +7,10 @@ import os
 import fnmatch
 import yaml,json
 import SoftDisplacedVertices.Samples.Samples as s
+import subprocess
 
 
-def get_metadata(ss, sample_version):
+def get_metadata(ss, sample_version, outDir="./", useDAS=True):
     """
     Gets sum of event weights for each ROOT file in each subdirectory.
     Creates a metadata.yaml file.
@@ -29,14 +30,37 @@ def get_metadata(ss, sample_version):
       filename_list = []
       sumPassWeights = []
       sumWeights = []
-      for root, dirnames, filenames in os.walk(sample_dir):
-        
 
-        for filename in fnmatch.filter(filenames, '*.root'):
-            #print(filename)
-            filename_list.append(filename)
-            file_path = os.path.join(root, filename)
-            lumis = Lumis(file_path)
+      if not useDAS:
+        for root, dirnames, filenames in os.walk(sample_dir):
+            for filename in fnmatch.filter(filenames, '*.root'):
+                print(filename)
+                filename_list.append(filename)
+                file_path = os.path.join(root, filename)
+                lumis = Lumis(file_path)
+                lumisumWeights = []
+                lumisumPassWeights = []
+                for lumi in lumis:
+                    handle = Handle("GenFilterInfo")
+                    lumi.getByLabel('genFilterEfficiencyProducer', handle)
+                    GenFilterInfo = handle.product()
+                    lumisumWeights.append(GenFilterInfo.sumWeights())
+                    lumisumPassWeights.append(GenFilterInfo.sumPassWeights())
+                
+                sumWeights.append(sum(lumisumWeights))
+                sumPassWeights.append(sum(lumisumPassWeights))
+
+                yaml_dict[sp.name]['files'].append({'filename': filename,
+                                                'sumWeights': sum(lumisumWeights),
+                                                'sumPassWeights': sum(lumisumPassWeights)})
+                
+                if lumis._tfile:
+                    lumis._tfile.Close()
+      elif useDAS:
+        files = sp.getFileList(sample_version, "")
+        for i, file in enumerate(files):
+            print(i, "files are read.") if i%10 == 0 else None
+            lumis = Lumis(file)
             lumisumWeights = []
             lumisumPassWeights = []
             for lumi in lumis:
@@ -49,13 +73,14 @@ def get_metadata(ss, sample_version):
             sumWeights.append(sum(lumisumWeights))
             sumPassWeights.append(sum(lumisumPassWeights))
 
-            yaml_dict[sp.name]['files'].append({'filename': filename,
-                                             'sumWeights': sum(lumisumWeights),
-                                             'sumPassWeights': sum(lumisumPassWeights)})
+            yaml_dict[sp.name]['files'].append({'filename': file,
+                                            'sumWeights': sum(lumisumWeights),
+                                            'sumPassWeights': sum(lumisumPassWeights)})
             
             if lumis._tfile:
-              lumis._tfile.Close()
+                lumis._tfile.Close()
 
+        
         
       totalsumWeights = sum(sumWeights)
       totalsumPassWeights = sum(sumPassWeights)
@@ -67,11 +92,11 @@ def get_metadata(ss, sample_version):
       if not yaml_dict[sp.name]['files']:
           yaml_dict.pop(sp.name)
 
-
-    with open(args.outDir+'/metadata_'+sample_version+'.yaml', 'w') as outfile:
+    os.makedirs(outDir, exist_ok=True)
+    with open(os.path.join(outDir, 'metadata_'+sample_version+'.yaml'), 'w') as outfile:
         yaml.safe_dump(yaml_dict, outfile, default_flow_style=False)
         
-    with open(args.outDir+'/metadata_'+sample_version+'.json', 'w') as outfile:
+    with open(os.path.join(outDir, 'metadata_'+sample_version+'.json'), 'w') as outfile:
         json.dump(json_dict, outfile)
 
 def get_metadata_dir(directory, outFileName):
@@ -137,10 +162,9 @@ if __name__ == '__main__':
     parser.add_argument('--outDir')
     parser.add_argument('--json')
     args = parser.parse_args()
-    if not os.path.exists(args.outDir):
-      os.makedirs(args.outDir)
-    #input_samples = s.c1n2_2018
-    input_samples = s.stop_2017
-    #input_samples = [s.C1N2_M1000_988_ct200_2018]
+    # print(s.__dir__())
+    input_samples = s.znunu_2018
+    # print(input_samples)
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
-    get_metadata(input_samples,args.sample_version)
+    print(input_samples[0].__dict__)
+    get_metadata(input_samples,args.sample_version, args.outDir)

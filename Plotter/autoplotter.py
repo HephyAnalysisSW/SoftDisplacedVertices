@@ -124,5 +124,12 @@ if __name__=="__main__":
     plotter = p.Plotter(datalabel=args.datalabel,outputDir=args.output,lumi=lumi,info_path=info_path,input_filelist=args.filelist,config=args.config,year=args.year,isData=args.data,postfix=args.postfix)
 
     for sample in all_samples:
+      # print(f"DEBUG: Setting sample {sample}.")
       plotter.setSample(sample)
+      # print(f"DEBUG: Sample {sample} is set.")
       plotter.makeHistFiles()
+      # print(f"DEBUG: Hist is made for {sample}.")
+    # print(f"DEBUG: all_samples are finished.")
+  # print(f"DEBUG: exiting.")
+  # os._exit(0)
+  # print(f"DEBUG: exit() is completed.")

@@ -24,12 +24,17 @@ samples = [
     "qcdht1000_2018",
     "qcdht1500_2018",
     "qcdht2000_2018",
+    "ttbar",
+    "st_tch_tbar",
+    "st_tch_t",
+    "st_tW_tbar",
+    "st_tW_t"
 ]
 
 
 # sample = "wjetstolnuht0100_2018"
-outDir = "/scratch-cbe/users/alikaan.gueven/2018_limits"
-config = "../configs/calc_limits.yaml"
+outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/histograms"
+config = "../configs/plotconfig_template.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
 json_path = "MC_RunIISummer20UL18.json"
 tier = "CustomNanoAOD"
 

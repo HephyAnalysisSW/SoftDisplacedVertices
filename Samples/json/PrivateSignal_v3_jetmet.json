@@ -1,0 +1,62 @@
+{
+    "CustomMiniAODv3": {
+        "dir" : {
+            "C1N2_M1000_988_ct200_2018" : "/eos/vbc/experiments/cms/store/user/felang/SignalProduction/samples/C1N2/1000_988_200/CustomMiniAODv3/"
+        }
+    },
+
+    "CustomNanoAODv3": {
+        "dir": {
+            "stop_M1000_985_ct20_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1000_985_ct20_2018/", 
+            "stop_M600_580_ct2_2018":       "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M600_580_ct2_2018/", 
+            "stop_M600_588_ct200_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M600_588_ct200_2018/", 
+            "stop_M1000_980_ct2_2018":      "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1000_980_ct2_2018/", 
+            "stop_M600_585_ct20_2018":      "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M600_585_ct20_2018/", 
+            "stop_M1000_988_ct200_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1000_988_ct200_2018/",
+            "stop_M600_575_ct0p2_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M600_575_ct0p2_2018/",
+            "stop_M1000_975_ct0p2_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1000_975_ct0p2_2018/",
+            "stop_M1400_1388_ct200_2018":   "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1400_1388_ct200_2018/",
+            "stop_M1400_1385_ct20_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1400_1385_ct20_2018/",
+            "stop_M1400_1380_ct2_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1400_1380_ct2_2018/",
+            "stop_M1400_1375_ct0p2_2018":   "/scratch-cbe/users/alikaan.gueven/jetmet_post/stop_M1400_1375_ct0p2_2018/",
+            "C1N2_M600_588_ct200_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M600_588_ct200_2018/",
+            "C1N2_M600_585_ct20_2018":      "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M600_585_ct20_2018/",
+            "C1N2_M600_580_ct2_2018":       "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M600_580_ct2_2018/",
+            "C1N2_M600_575_ct0p2_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M600_575_ct0p2_2018/",
+            "C1N2_M1000_985_ct20_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1000_985_ct20_2018/",
+            "C1N2_M1000_980_ct2_2018":      "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1000_980_ct2_2018/", 
+            "C1N2_M1000_975_ct0p2_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1000_975_ct0p2_2018/",
+            "C1N2_M1400_1388_ct200_2018":   "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1400_1388_ct200_2018/",
+            "C1N2_M1400_1385_ct20_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1400_1385_ct20_2018/",
+            "C1N2_M1400_1380_ct2_2018":     "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1400_1380_ct2_2018/", 
+            "C1N2_M1400_1375_ct0p2_2018":   "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1400_1375_ct0p2_2018/",
+            "C1N2_M1000_988_ct200_2018":    "/scratch-cbe/users/alikaan.gueven/jetmet_post/C1N2_M1000_988_ct200_2018/"
+        },
+        "totalsumWeights": {
+            "stop_M1000_975_ct0p2_2018": 145527.0,
+            "stop_M1000_980_ct2_2018": 104080.0,
+            "stop_M1000_985_ct20_2018": 121057.0,
+            "stop_M1000_988_ct200_2018": 119827.0,
+            "stop_M1400_1375_ct0p2_2018": 148207.0,
+            "stop_M1400_1380_ct2_2018": 121877.0,
+            "stop_M1400_1385_ct20_2018": 120713.0,
+            "stop_M1400_1388_ct200_2018": 118113.0,
+            "stop_M600_575_ct0p2_2018": 156053.0,
+            "stop_M600_580_ct2_2018": 129364.0,
+            "stop_M600_585_ct20_2018": 127533.0,
+            "stop_M600_588_ct200_2018": 128483.0,
+            "C1N2_M1000_975_ct0p2_2018": 256159.0,
+            "C1N2_M1000_980_ct2_2018": 260083.0,
+            "C1N2_M1000_985_ct20_2018": 258181.0,
+            "C1N2_M1400_1375_ct0p2_2018": 242181.0,
+            "C1N2_M1400_1380_ct2_2018": 244165.0,
+            "C1N2_M1400_1385_ct20_2018": 245952.0,
+            "C1N2_M1400_1388_ct200_2018": 246597.0,
+            "C1N2_M600_575_ct0p2_2018": 279941.0,
+            "C1N2_M600_580_ct2_2018": 275297.0,
+            "C1N2_M600_585_ct20_2018": 279876.0,
+            "C1N2_M600_588_ct200_2018": 327358.0,
+            "C1N2_M1000_988_ct200_2018": 257729.0
+            }
+    }
+}

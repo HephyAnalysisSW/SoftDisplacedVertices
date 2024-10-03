@@ -2,7 +2,7 @@ import os
 import ROOT
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
-ROOT.EnableImplicitMT(4)
+ROOT.EnableImplicitMT(16)
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
