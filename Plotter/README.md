@@ -115,3 +115,24 @@ python3 printNevt2D.py --input /eos/vbc/group/cms/ang.li/DataHistos_VRCRVRdPhire
 ```
 
 Two different sets of scripts are provided, `printNevt` and `getNevt`, basically they do the same thing. But the printouts are formatted differently.
+
+
+# JETMET Uncertainty Calculation
+
+```
+python3 Plotter/testK/submit_jetmet_hists.py
+```
+
+```
+python3 print_jetmet_2017.py --input /scratch-cbe/users/alikaan.gueven/AN_plots/jetmet_histograms --SR SRs_evt/MET_pt_corr_vs_SRsMaxLxySig VR1s_evt/MET_pt_corr_vs_VR1sMaxLxySig VR2s_evt/MET_pt_corr_vs_VR2sMaxLxySig --metcut 0
+python3 print_jetmet_2018.py --input /scratch-cbe/users/alikaan.gueven/AN_plots/jetmet_histograms --SR SRs_evt/MET_pt_corr_vs_SRsMaxLxySig VR1s_evt/MET_pt_corr_vs_VR1sMaxLxySig VR2s_evt/MET_pt_corr_vs_VR2sMaxLxySig --metcut 0
+```
+
+```
+python3 plot_jetmet.py 
+```
+
+```
+python3 fit_sysUnc_2017.py
+python3 fit_sysUnc_2018.py
+```

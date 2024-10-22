@@ -89,6 +89,7 @@ def makeSysUncTable(dsig_fn, subdirs, outDir=args.input):
       print("fluctuated yield [stat. unc.]: ", x.s)
       print("nominal yield    [stat. unc.]: ", y.s)
       print("Setting df2 to 0.")
+      df2 = 0
       print("-"*60)
     elif df2<0 and abs(df2)<=1e-8:
       # Minimal numerical errors are okay.

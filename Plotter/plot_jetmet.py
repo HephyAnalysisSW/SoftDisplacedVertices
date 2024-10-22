@@ -28,7 +28,7 @@ subdirs = ["jet_nom_met_smear_2017",
 
 # Plot systematic uncertainties
 print('Plotting systematic uncertainties...')
-for subdir in subdirs[1:]:
+for subdir in subdirs[2:]:
   print(subdir)
   storeDir = os.path.join(inputDir, subdir)
   plotDir = os.path.join(storeDir, "figures_sysunc")
