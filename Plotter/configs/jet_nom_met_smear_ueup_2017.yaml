@@ -8,23 +8,24 @@ tau_sel:    (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3)      && (Tau_pt>18)
 jet_selHEM: (Jet_jetId==6) 
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (new_jet_pt>20)
 nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
-presel: HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+presel: HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && DM==2
 # preselection: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 
 corrections:
   PU:
-    path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-    name: "Collisions18_UltraLegacy_goldenJSON"
+    path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
+    name: "Collisions17_UltraLegacy_goldenJSON"
     mode: "nominal"
 
-
+new_variables_mc:
+  DM: 'Sum(LLP_decaymode)'
 
 new_variables:
-  new_jet_pt:   Jet_pt_jerDown
-  new_MET_pt:   MET_T1Smear_pt_jerDown
-  new_MET_phi:  MET_T1Smear_phi_jerDown
+  new_jet_pt:   Jet_pt_nom
+  new_MET_pt:   MET_T1Smear_pt_unclustEnUp
+  new_MET_phi:  MET_T1Smear_phi_unclustEnUp
 
-  MET_corr:     SDV::METXYCorr_Met_MetPhi(new_MET_pt,new_MET_phi,run,"2018",false,PV_npvs)
+  MET_corr:     SDV::METXYCorr_Met_MetPhi(new_MET_pt,new_MET_phi,run,"2017",false,PV_npvs)
   MET_pt_corr:  MET_corr.first
   MET_phi_corr: MET_corr.second
 
@@ -38,7 +39,7 @@ new_variables:
   SDVTrack_dR_jet0:     sqrt(SDVTrack_dphi_jet0*SDVTrack_dphi_jet0 + SDVTrack_deta_jet0*SDVTrack_deta_jet0)
   SDVTrack_dphi_MET:    acos(cos(SDVTrack_phi-MET_phi_corr))
   SDVTrack_dxydzratio:  abs(SDVTrack_dxy/SDVTrack_dz)
-  SDVTrack_isGoodTrack: ((abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && (SDVTrack_pfRelIso03_all<5)
+  SDVTrack_isGoodTrack: ((abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi_corr))<1.5 ) && (SDVTrack_pfRelIso03_all<5)
   SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
   SDVSecVtx_dphiMET:    acos(cos(SDVSecVtx_L_phi-MET_phi_corr))
   SDVSecVtx_dphijet0:   acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))

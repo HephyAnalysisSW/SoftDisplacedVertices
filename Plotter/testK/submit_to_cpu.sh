@@ -6,12 +6,12 @@
 #SBATCH --job-name=autoplotter
 #SBATCH --output=/scratch-cbe/users/alikaan.gueven/job_outs/job_%j.out 
 #SBATCH --ntasks 1 
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=2G 
 #SBATCH --nodes=1-1 
 #SBATCH --partition=c 
-#SBATCH --qos=short
-#SBATCH --time=02:00:00 
+#SBATCH --qos=rapid
+#SBATCH --time=00:10:00 
 echo ----------------------------------------------- 
 echo "COMMAND: $1"
 $1

@@ -80,6 +80,8 @@ wlnu_2017 = [
     Sample("wjetstolnuht2500_2017",xsec=0.03255),
     ]
 
+wlnu_2017_100 = [Sample("wjetstolnuht0100_2017",xsec=1530.0)]
+
 znunu_2017 = [
     Sample("zjetstonunuht0100_2017",xsec=344.83),
     Sample("zjetstonunuht0200_2017", xsec=95.53),
@@ -110,6 +112,21 @@ top_2017 = [
   Sample("st_tW_tbar_2017",  xsec=39.68),
   Sample("st_tW_t_2017",     xsec=39.91)
 ]
+
+stop_2017 = [
+    Sample("stop_M600_588_ct200_2017", xsec=0.205),
+    Sample("stop_M600_585_ct20_2017", xsec=0.205),
+    Sample("stop_M600_580_ct2_2017", xsec=0.205),
+    Sample("stop_M600_575_ct0p2_2017", xsec=0.205),
+    Sample("stop_M1000_988_ct200_2017", xsec=0.00683),
+    Sample("stop_M1000_985_ct20_2017", xsec=0.00683),
+    Sample("stop_M1000_980_ct2_2017", xsec=0.00683),
+    Sample("stop_M1000_975_ct0p2_2017", xsec=0.00683),
+    Sample("stop_M1400_1388_ct200_2017", xsec=0.473E-03),
+    Sample("stop_M1400_1385_ct20_2017", xsec=0.473E-03),
+    Sample("stop_M1400_1380_ct2_2017", xsec=0.473E-03),
+    Sample("stop_M1400_1375_ct0p2_2017", xsec=0.473E-03),
+    ]
 
 met_2018 = [
     Sample("met2018a", xsec=-1),
@@ -165,14 +182,14 @@ stop_2018 = [
     Sample("stop_M600_585_ct20_2018", xsec=0.205),
     Sample("stop_M600_580_ct2_2018", xsec=0.205),
     Sample("stop_M600_575_ct0p2_2018", xsec=0.205),
-    #Sample("stop_M1000_988_ct200_2018", xsec=0.00683),
-    #Sample("stop_M1000_985_ct20_2018", xsec=0.00683),
-    #Sample("stop_M1000_980_ct2_2018", xsec=0.00683),
-    #Sample("stop_M1000_975_ct0p2_2018", xsec=0.00683),
-    #Sample("stop_M1400_1388_ct200_2018", xsec=0.473E-03),
-    #Sample("stop_M1400_1385_ct20_2018", xsec=0.473E-03),
-    #Sample("stop_M1400_1380_ct2_2018", xsec=0.473E-03),
-    #Sample("stop_M1400_1375_ct0p2_2018", xsec=0.473E-03),
+    Sample("stop_M1000_988_ct200_2018", xsec=0.00683),
+    Sample("stop_M1000_985_ct20_2018", xsec=0.00683),
+    Sample("stop_M1000_980_ct2_2018", xsec=0.00683),
+    Sample("stop_M1000_975_ct0p2_2018", xsec=0.00683),
+    Sample("stop_M1400_1388_ct200_2018", xsec=0.473E-03),
+    Sample("stop_M1400_1385_ct20_2018", xsec=0.473E-03),
+    Sample("stop_M1400_1380_ct2_2018", xsec=0.473E-03),
+    Sample("stop_M1400_1375_ct0p2_2018", xsec=0.473E-03),
     ]
 
 
@@ -208,6 +225,7 @@ all_bkg_2018 = [
 all_sig_2018 = [
   stop_2018,
   c1n2_2018,
+  stop_2017
 ]
 
 all_samples = [
@@ -220,6 +238,7 @@ all_samples = [
     wlnu_2018,
     qcd_2018,
     stop_2018,
+    stop_2017,
     c1n2_2018,
     top_2018
 ]
@@ -231,6 +250,7 @@ tmp_2017 = [
 
 all_signals = [
     stop_2018,
+    stop_2017,
     c1n2_2018,
 ]
 

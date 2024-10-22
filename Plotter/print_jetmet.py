@@ -1,0 +1,252 @@
+# python3 print_jetmet.py --input /scratch-cbe/users/alikaan.gueven/AN_plots/jetmet_histograms \ 
+# --SR SRs_evt/MET_pt_corr_vs_SRsMaxLxySig VR1s_evt/MET_pt_corr_vs_VR1sMaxLxySig VR2s_evt/MET_pt_corr_vs_VR2sMaxLxySig --metcut 0
+
+import os
+import uuid
+import shutil
+import itertools
+import ctypes
+import subprocess
+from uncertainties import ufloat
+import math
+import ROOT
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+import matplotlib as mpl
+import SoftDisplacedVertices.Plotter.plotter as p
+import SoftDisplacedVertices.Plotter.plot_setting as ps
+import SoftDisplacedVertices.Samples.Samples as s
+import argparse
+import pandas as pd
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--input', type=str,
+                        help='input dir')
+parser.add_argument('--SR', type=str, nargs='+', 
+                        help='Signal region')
+parser.add_argument('--metcut', type=float, #nargs='+', 
+                        help='MET cut')
+args = parser.parse_args()
+
+
+def getEvts(fn, SRnames):
+    out_d = {}
+    fs_sig = []
+
+    for SRname in SRnames:
+      nevt = {
+          }
+      nevt_sig_uncert = ctypes.c_double(0)
+      fs_sig.append(ROOT.TFile.Open(os.path.join(args.input,fn)))
+      hsig = fs_sig[-1].Get(SRname)
+      binlow = hsig.FindBin(args.metcut)
+      xcut = hsig.GetXaxis().FindBin(700)
+      ycut = hsig.GetYaxis().FindBin(20)
+      nevt_A_uncert = ctypes.c_double(0)
+      nevt_A = hsig.IntegralAndError(xcut,1000000,ycut,1000000,nevt_A_uncert)
+      nevt_A_uncert = nevt_A_uncert.value
+      nevt_B_uncert = ctypes.c_double(0)
+      nevt_B = hsig.IntegralAndError(0,xcut-1,ycut,1000000,nevt_B_uncert)
+      nevt_B_uncert = nevt_B_uncert.value
+      nevt_C_uncert = ctypes.c_double(0)
+      nevt_C = hsig.IntegralAndError(xcut,1000000,0,ycut-1,nevt_C_uncert)
+      nevt_C_uncert = nevt_C_uncert.value
+      nevt_D_uncert = ctypes.c_double(0)
+      nevt_D = hsig.IntegralAndError(0,xcut-1,0,ycut-1,nevt_D_uncert)
+      nevt_D_uncert = nevt_D_uncert.value
+
+      for r in ['A','B','C','D']:
+        exec("nevt['{0}'] = ufloat(nevt_{0},nevt_{0}_uncert)".format(r))
+      out_d[SRname[:SRname.find('s')]] = nevt
+
+    return out_d
+
+def print_fluctuations(d, fluctuated, nominal, plane):
+  print("A:    ", (d[fluctuated][plane]["A"] - d[nominal][plane]["A"]) / d[nominal][plane]["A"])
+  print("B:    ", (d[fluctuated][plane]["B"] - d[nominal][plane]["B"]) / d[nominal][plane]["B"])
+  print("C:    ", (d[fluctuated][plane]["C"] - d[nominal][plane]["C"]) / d[nominal][plane]["C"])
+  print("D:    ", (d[fluctuated][plane]["D"] - d[nominal][plane]["D"]) / d[nominal][plane]["D"])
+
+def makeSysUncTable(dsig_fn, subdirs, outDir=args.input):
+  def df(x,y):
+    """
+    Assuming the measurements respcet Poissonian statistics for f=X/Y:
+    Calculates the df assuming X random variable is defined as X = Y + Z, or 
+                               Y random variable is defined as Y = X + Z.
+    """
+
+    if x.n>y.n:
+      df2 = (x/y).n**2 * ((x.s/x.n)**2 + (y.s/y.n)**2 -2*(y.s**2/(x*y).n))
+    elif x.n<y.n:
+      df2 = (x/y).n**2 * ((x.s/x.n)**2 + (y.s/y.n)**2 -2*(x.s**2/(x*y).n))
+    # elif x.n==y.n:
+    #   # print("(x.n/x.s)**2: ",              (x.n/x.s)**2)
+    #   # print("round((x.n/x.s)**2): ", round((x.n/x.s)**2))
+    #   n_event = round((x.n/x.s)**2)
+    #   weight = x.n / n_event # x.n = sum of (w_i * n_i) from i==1 to i==N
+    #   n_event +=1
+    #   x_new = ufloat(weight * n_event, weight * n_event**0.5)
+    #   # print("x_new: ", x_new)
+    #   df2 = (x_new/y).n**2 * ((x_new.s/x_new.n)**2 + (y.s/y.n)**2 -2*(y.s**2/(x_new*y).n))
+    #   # print("(x_new/y).n**2: ", (x_new/y).n**2)
+    #   # print("(x_new.s/x_new.n)**2: ", (x_new.s/x_new.n)**2)
+    #   # print("(y.s/y.n)**2: ", (y.s/y.n)**2)
+    #   # print("-2*(x_new.s**2/(x_new*y).n): ", -2*(x_new.s**2/(x_new*y).n))
+    if df2<0 and abs(df2)>1e-10:
+      print("WARNING: df squared is negative. How??")
+      print("df2 = ", df2)
+    if df2<0 and abs(df2)<=1e-10:
+      df2 = 1e-10
+    # print("f: ", (x/y))
+    # print("x.s: ", x.s)
+    # print("x.n: ", x.n)
+    # print("y.s: ", y.s)
+    # print("y.n: ", y.n)
+    # print("df2: ", df2)
+    # print("-"*30)
+    return df2**0.5
+  for subdir in subdirs[1:]:
+    storeDir = os.path.join(outDir, subdir)
+    store = pd.HDFStore(os.path.join(storeDir, 'SysUnc.h5'), 'w')
+    for sig_fn in dsig_fn.keys():
+      sysUncTable_n = pd.DataFrame(columns=['A', 'B', 'C', 'D'], index=['SR', 'VR1', 'VR2'], dtype=float)
+      sysUncTable_s = pd.DataFrame(columns=['A', 'B', 'C', 'D'], index=['SR', 'VR1', 'VR2'], dtype=float)
+      
+      fluctuated = subdir
+      nominal = "jet_nom_met_smear_2017"
+      
+      d = dsig_fn[sig_fn]
+      for plane in d[subdir].keys():
+        for region in d[subdir][plane].keys():
+          try:
+            sysUncTable_n.loc[plane, region] = ((d[fluctuated][plane][region] - d[nominal][plane][region]) / d[nominal][plane][region]).n
+          except ZeroDivisionError:
+            sysUncTable_n.loc[plane, region] = 0.0
+            
+          try:
+            sysUncTable_s.loc[plane, region] = df(d[fluctuated][plane][region], d[nominal][plane][region])
+          except ZeroDivisionError:
+            sysUncTable_s.loc[plane, region] = 0.0
+          # if fluctuated == "jet_jerdown_met_smear_jerdown_2017" and plane == "SR" and region == "C":
+          #   print(fluctuated, plane, region, sig_fn)
+          #   print(sysUncTable_n.loc[plane, region])
+          #   print(sysUncTable_s.loc[plane, region])
+          # if fluctuated == "jet_jerup_met_smear_jerup_2017" and plane == "SR" and region == "C":
+          #   print(fluctuated, plane, region, sig_fn)
+          #   print(sysUncTable_n.loc[plane, region])
+          #   print(sysUncTable_s.loc[plane, region])
+  
+      store[sig_fn + '_n'] = sysUncTable_n
+      store[sig_fn + '_s'] = sysUncTable_s
+      # print(store[subdir])
+    store.close()
+
+def makeYieldTable(dsig_fn, subdirs, outDir=args.input):
+  for subdir in subdirs:
+    storeDir = os.path.join(outDir, subdir)
+    store = pd.HDFStore(os.path.join(storeDir, 'Yields.h5'), 'w')
+    for sig_fn in dsig_fn.keys():
+      yieldTable    = pd.DataFrame(columns=['A', 'B', 'C', 'D'], index=['SR', 'VR1', 'VR2'], dtype=float)
+      yieldUncTable = pd.DataFrame(columns=['A', 'B', 'C', 'D'], index=['SR', 'VR1', 'VR2'], dtype=float)
+      
+  
+      d = dsig_fn[sig_fn]
+      for plane in d[subdir].keys():
+        for region in d[subdir][plane].keys():
+          yieldTable.loc[plane, region]    = d[subdir][plane][region].n
+          yieldUncTable.loc[plane, region] = d[subdir][plane][region].s
+  
+      store[sig_fn + '_n'] = yieldTable
+      store[sig_fn + '_s'] = yieldUncTable
+      # print(store[subdir])
+    store.close()
+    
+  
+if __name__=="__main__":
+  sig_fns = [
+    "stop_M600_575_ct0p2_2017",
+    "stop_M600_580_ct2_2017",
+    "stop_M600_585_ct20_2017",
+    "stop_M600_588_ct200_2017",
+
+    "stop_M1000_975_ct0p2_2017",
+    "stop_M1000_980_ct2_2017",
+    "stop_M1000_985_ct20_2017",
+    "stop_M1000_988_ct200_2017",
+
+    "stop_M1400_1375_ct0p2_2017",
+    "stop_M1400_1380_ct2_2017",
+    "stop_M1400_1385_ct20_2017",
+    "stop_M1400_1388_ct200_2017",
+    ]
+  
+  sig_fns = [sample + "_hist.root" for sample in sig_fns]
+  
+  # Nominal is always the first.
+  # Don't touch this.
+  subdirs = ["jet_nom_met_smear",
+             "jet_jerdown_met_smear_jerdown",
+             "jet_jerup_met_smear_jerup",
+             "jet_jesdown_met_smear_jesdown",
+             "jet_jesup_met_smear_jesup",
+             "jet_nom_met_smear_uedown",
+             "jet_nom_met_smear_ueup",
+             ]
+  
+
+  dsig_fn = {}
+  for sig_fn in sig_fns:
+    print("="*20)
+    print(sig_fn)
+    devt = {}
+    for subdir in subdirs:
+      devt[subdir] = getEvts(os.path.join(subdir, sig_fn), args.SR)
+
+    dsig_fn[sig_fn[:-10]] = devt
+
+  debug = False
+  # Calculate systematic uncertainties
+  if not debug:
+    makeSysUncTable(dsig_fn, subdirs, outDir=args.input)
+    makeYieldTable(dsig_fn, subdirs, outDir=args.input)
+  elif debug:
+    print()
+    print("JER Down")
+    print("."*10)
+
+    for plane in devt[subdir].keys():
+      print()
+      print(plane)
+      print("-"*20)
+      print_fluctuations(devt, "jet_jerdown_met_smear_jerdown", "jet_nom_met_smear", plane)
+
+    print()
+    print("JER Up")
+    print("."*10)
+
+    for plane in devt[subdir].keys():
+      print()
+      print(plane)
+      print("-"*20)
+      print_fluctuations(devt, "jet_jerup_met_smear_jerup", "jet_nom_met_smear", plane)
+
+    print()
+    print("JES Up")
+    print("."*10)
+
+    for plane in devt[subdir].keys():
+      print()
+      print(plane)
+      print("-"*20)
+      print_fluctuations(devt, "jet_jesup_met_smear_jesup", "jet_nom_met_smear", plane)
+
+    print()
+    print("JES Down")
+    print("."*10)
+
+    for plane in devt[subdir].keys():
+      print()
+      print(plane)
+      print("-"*20)
+      print_fluctuations(devt, "jet_jesdown_met_smear_jesdown", "jet_nom_met_smear", plane)

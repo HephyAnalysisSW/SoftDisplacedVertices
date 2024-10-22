@@ -20,9 +20,9 @@ corrections:
 
 
 new_variables:
-  new_jet_pt:   Jet_pt_jerDown
-  new_MET_pt:   MET_T1Smear_pt_jerDown
-  new_MET_phi:  MET_T1Smear_phi_jerDown
+  new_jet_pt:   Jet_pt_nom
+  new_MET_pt:   MET_T1Smear_pt_unclustEnDown
+  new_MET_phi:  MET_T1Smear_phi_unclustEnDown
 
   MET_corr:     SDV::METXYCorr_Met_MetPhi(new_MET_pt,new_MET_phi,run,"2018",false,PV_npvs)
   MET_pt_corr:  MET_corr.first
@@ -38,7 +38,7 @@ new_variables:
   SDVTrack_dR_jet0:     sqrt(SDVTrack_dphi_jet0*SDVTrack_dphi_jet0 + SDVTrack_deta_jet0*SDVTrack_deta_jet0)
   SDVTrack_dphi_MET:    acos(cos(SDVTrack_phi-MET_phi_corr))
   SDVTrack_dxydzratio:  abs(SDVTrack_dxy/SDVTrack_dz)
-  SDVTrack_isGoodTrack: ((abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && (SDVTrack_pfRelIso03_all<5)
+  SDVTrack_isGoodTrack: ((abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi_corr))<1.5 ) && (SDVTrack_pfRelIso03_all<5)
   SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
   SDVSecVtx_dphiMET:    acos(cos(SDVSecVtx_L_phi-MET_phi_corr))
   SDVSecVtx_dphijet0:   acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))

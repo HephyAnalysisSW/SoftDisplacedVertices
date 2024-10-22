@@ -1,0 +1,361 @@
+C1N2_M1000_988_ct200_2018:
+  files:
+  - filename: run2984-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 355.0
+    sumWeights: 2227.0
+  - filename: run2985-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2174.0
+  - filename: run2986-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 352.0
+    sumWeights: 2223.0
+  - filename: run2987-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 351.0
+    sumWeights: 2183.0
+  - filename: run2988-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 330.0
+    sumWeights: 2151.0
+  - filename: run2989-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 298.0
+    sumWeights: 2194.0
+  - filename: run2990-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 328.0
+    sumWeights: 2157.0
+  - filename: run2991-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 322.0
+    sumWeights: 2162.0
+  - filename: run2992-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 368.0
+    sumWeights: 2210.0
+  - filename: run2993-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 329.0
+    sumWeights: 2124.0
+  - filename: run2994-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 352.0
+    sumWeights: 2215.0
+  - filename: run2995-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 314.0
+    sumWeights: 2164.0
+  - filename: run2996-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 313.0
+    sumWeights: 2167.0
+  - filename: run2997-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2179.0
+  - filename: run2998-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2133.0
+  - filename: run2999-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 324.0
+    sumWeights: 2166.0
+  - filename: run3000-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 335.0
+    sumWeights: 2164.0
+  - filename: run3001-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 324.0
+    sumWeights: 2236.0
+  - filename: run3002-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 308.0
+    sumWeights: 2147.0
+  - filename: run3003-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 343.0
+    sumWeights: 2122.0
+  - filename: run3004-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 336.0
+    sumWeights: 2168.0
+  - filename: run3005-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 346.0
+    sumWeights: 2210.0
+  - filename: run3006-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 336.0
+    sumWeights: 2190.0
+  - filename: run3007-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2171.0
+  - filename: run3008-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 339.0
+    sumWeights: 2208.0
+  - filename: run3009-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 329.0
+    sumWeights: 2164.0
+  - filename: run3010-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2114.0
+  - filename: run3011-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 333.0
+    sumWeights: 2209.0
+  - filename: run3012-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 325.0
+    sumWeights: 2123.0
+  - filename: run3013-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 334.0
+    sumWeights: 2144.0
+  - filename: run3014-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2133.0
+  - filename: run3015-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 313.0
+    sumWeights: 2180.0
+  - filename: run3016-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 374.0
+    sumWeights: 2238.0
+  - filename: run3017-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 315.0
+    sumWeights: 2082.0
+  - filename: run3018-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 312.0
+    sumWeights: 2135.0
+  - filename: run3019-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 315.0
+    sumWeights: 2156.0
+  - filename: run3020-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 321.0
+    sumWeights: 2160.0
+  - filename: run3021-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 327.0
+    sumWeights: 2158.0
+  - filename: run3022-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 320.0
+    sumWeights: 2201.0
+  - filename: run3023-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2143.0
+  - filename: run3024-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 326.0
+    sumWeights: 2180.0
+  - filename: run3025-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 324.0
+    sumWeights: 2181.0
+  - filename: run3026-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 300.0
+    sumWeights: 2150.0
+  - filename: run3027-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 301.0
+    sumWeights: 2132.0
+  - filename: run3028-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 335.0
+    sumWeights: 2201.0
+  - filename: run3029-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 346.0
+    sumWeights: 2196.0
+  - filename: run3030-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 315.0
+    sumWeights: 2178.0
+  - filename: run3031-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 344.0
+    sumWeights: 2204.0
+  - filename: run3032-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 306.0
+    sumWeights: 2154.0
+  - filename: run3033-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2158.0
+  - filename: run3034-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2202.0
+  - filename: run3035-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 334.0
+    sumWeights: 2127.0
+  - filename: run3036-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 357.0
+    sumWeights: 2190.0
+  - filename: run3037-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2153.0
+  - filename: run3038-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 319.0
+    sumWeights: 2145.0
+  - filename: run3039-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 308.0
+    sumWeights: 2158.0
+  - filename: run3040-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 329.0
+    sumWeights: 2163.0
+  - filename: run3041-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 306.0
+    sumWeights: 2177.0
+  - filename: run3042-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 338.0
+    sumWeights: 2210.0
+  - filename: run3043-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 313.0
+    sumWeights: 2205.0
+  - filename: run3044-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 330.0
+    sumWeights: 2164.0
+  - filename: run3045-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 308.0
+    sumWeights: 2127.0
+  - filename: run3046-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 304.0
+    sumWeights: 2148.0
+  - filename: run3047-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2156.0
+  - filename: run3048-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2118.0
+  - filename: run3049-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 333.0
+    sumWeights: 2175.0
+  - filename: run3050-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 296.0
+    sumWeights: 2153.0
+  - filename: run3051-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 334.0
+    sumWeights: 2155.0
+  - filename: run3052-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 353.0
+    sumWeights: 2174.0
+  - filename: run3053-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 297.0
+    sumWeights: 2225.0
+  - filename: run3054-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 345.0
+    sumWeights: 2152.0
+  - filename: run3055-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 287.0
+    sumWeights: 2141.0
+  - filename: run3057-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2199.0
+  - filename: run3058-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2139.0
+  - filename: run3059-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 328.0
+    sumWeights: 2179.0
+  - filename: run3060-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 320.0
+    sumWeights: 2160.0
+  - filename: run3061-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 327.0
+    sumWeights: 2199.0
+  - filename: run3062-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2183.0
+  - filename: run3063-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 321.0
+    sumWeights: 2177.0
+  - filename: run3064-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 321.0
+    sumWeights: 2136.0
+  - filename: run3065-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 308.0
+    sumWeights: 2164.0
+  - filename: run3066-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 333.0
+    sumWeights: 2133.0
+  - filename: run3067-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 314.0
+    sumWeights: 2204.0
+  - filename: run3068-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 344.0
+    sumWeights: 2235.0
+  - filename: run3069-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 322.0
+    sumWeights: 2121.0
+  - filename: run3070-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 346.0
+    sumWeights: 2201.0
+  - filename: run3071-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 293.0
+    sumWeights: 2164.0
+  - filename: run3072-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2129.0
+  - filename: run3073-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 292.0
+    sumWeights: 2133.0
+  - filename: run3074-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 372.0
+    sumWeights: 2181.0
+  - filename: run3075-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 305.0
+    sumWeights: 2150.0
+  - filename: run3076-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 295.0
+    sumWeights: 2138.0
+  - filename: run3077-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2134.0
+  - filename: run3078-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 307.0
+    sumWeights: 2156.0
+  - filename: run3079-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 337.0
+    sumWeights: 2178.0
+  - filename: run3080-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 320.0
+    sumWeights: 2129.0
+  - filename: run3081-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 298.0
+    sumWeights: 2146.0
+  - filename: run3082-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 323.0
+    sumWeights: 2192.0
+  - filename: run3083-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 340.0
+    sumWeights: 2181.0
+  - filename: run3084-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 327.0
+    sumWeights: 2152.0
+  - filename: run3085-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 315.0
+    sumWeights: 2192.0
+  - filename: run3086-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 284.0
+    sumWeights: 2126.0
+  - filename: run3087-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 325.0
+    sumWeights: 2133.0
+  - filename: run3088-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 322.0
+    sumWeights: 2166.0
+  - filename: run3089-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 298.0
+    sumWeights: 2161.0
+  - filename: run3090-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 290.0
+    sumWeights: 2155.0
+  - filename: run3091-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 293.0
+    sumWeights: 2149.0
+  - filename: run3092-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 341.0
+    sumWeights: 2179.0
+  - filename: run3093-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2113.0
+  - filename: run3094-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 303.0
+    sumWeights: 2147.0
+  - filename: run3095-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 333.0
+    sumWeights: 2128.0
+  - filename: run3096-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 325.0
+    sumWeights: 2145.0
+  - filename: run3097-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 326.0
+    sumWeights: 2193.0
+  - filename: run3098-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 316.0
+    sumWeights: 2148.0
+  - filename: run3099-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 340.0
+    sumWeights: 2170.0
+  - filename: run3100-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 317.0
+    sumWeights: 2224.0
+  - filename: run3101-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 354.0
+    sumWeights: 2169.0
+  - filename: run3102-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 295.0
+    sumWeights: 2149.0
+  - filename: run3103-testIVF1_CustomMiniAOD_C1N2_1000_988_200_Standard_5000.root
+    sumPassWeights: 308.0
+    sumWeights: 2152.0
+  totalsumPassWeights: 38337.0
+  totalsumWeights: 257729.0

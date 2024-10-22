@@ -1,0 +1,2310 @@
+qcdht0050_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_42.root
+    sumPassWeights: 755323.0
+    sumWeights: 755323.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_16.root
+    sumPassWeights: 755608.0
+    sumWeights: 755608.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_17.root
+    sumPassWeights: 755006.0
+    sumWeights: 755006.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_34.root
+    sumPassWeights: 754821.0
+    sumWeights: 754821.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_39.root
+    sumPassWeights: 755166.0
+    sumWeights: 755166.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_43.root
+    sumPassWeights: 755336.0
+    sumWeights: 755336.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_4.root
+    sumPassWeights: 755212.0
+    sumWeights: 755212.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_20.root
+    sumPassWeights: 755829.0
+    sumWeights: 755829.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_31.root
+    sumPassWeights: 755500.0
+    sumWeights: 755500.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_32.root
+    sumPassWeights: 755428.0
+    sumWeights: 755428.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_23.root
+    sumPassWeights: 755334.0
+    sumWeights: 755334.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_11.root
+    sumPassWeights: 755379.0
+    sumWeights: 755379.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_30.root
+    sumPassWeights: 755401.0
+    sumWeights: 755401.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_14.root
+    sumPassWeights: 755386.0
+    sumWeights: 755386.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_50.root
+    sumPassWeights: 754928.0
+    sumWeights: 754928.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_38.root
+    sumPassWeights: 755767.0
+    sumWeights: 755767.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_48.root
+    sumPassWeights: 755583.0
+    sumWeights: 755583.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_13.root
+    sumPassWeights: 755247.0
+    sumWeights: 755247.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_51.root
+    sumPassWeights: 755407.0
+    sumWeights: 755407.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_29.root
+    sumPassWeights: 754812.0
+    sumWeights: 754812.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_8.root
+    sumPassWeights: 755170.0
+    sumWeights: 755170.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_18.root
+    sumPassWeights: 754998.0
+    sumWeights: 754998.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_36.root
+    sumPassWeights: 755285.0
+    sumWeights: 755285.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_19.root
+    sumPassWeights: 755115.0
+    sumWeights: 755115.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_15.root
+    sumPassWeights: 755025.0
+    sumWeights: 755025.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_7.root
+    sumPassWeights: 755198.0
+    sumWeights: 755198.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_26.root
+    sumPassWeights: 755181.0
+    sumWeights: 755181.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_49.root
+    sumPassWeights: 754969.0
+    sumWeights: 754969.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_1.root
+    sumPassWeights: 755101.0
+    sumWeights: 755101.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_22.root
+    sumPassWeights: 755899.0
+    sumWeights: 755899.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_3.root
+    sumPassWeights: 755565.0
+    sumWeights: 755565.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_6.root
+    sumPassWeights: 755070.0
+    sumWeights: 755070.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_5.root
+    sumPassWeights: 755558.0
+    sumWeights: 755558.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_28.root
+    sumPassWeights: 755413.0
+    sumWeights: 755413.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_2.root
+    sumPassWeights: 755606.0
+    sumWeights: 755606.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_52.root
+    sumPassWeights: 755723.0
+    sumWeights: 755723.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_41.root
+    sumPassWeights: 755302.0
+    sumWeights: 755302.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_21.root
+    sumPassWeights: 755462.0
+    sumWeights: 755462.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_35.root
+    sumPassWeights: 755053.0
+    sumWeights: 755053.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_37.root
+    sumPassWeights: 755547.0
+    sumWeights: 755547.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_9.root
+    sumPassWeights: 755698.0
+    sumWeights: 755698.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_44.root
+    sumPassWeights: 755063.0
+    sumWeights: 755063.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_47.root
+    sumPassWeights: 755190.0
+    sumWeights: 755190.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_46.root
+    sumPassWeights: 755750.0
+    sumWeights: 755750.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_40.root
+    sumPassWeights: 755070.0
+    sumWeights: 755070.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_12.root
+    sumPassWeights: 754942.0
+    sumWeights: 754942.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_53.root
+    sumPassWeights: 713004.0
+    sumWeights: 713004.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_25.root
+    sumPassWeights: 755099.0
+    sumWeights: 755099.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_10.root
+    sumPassWeights: 755300.0
+    sumWeights: 755300.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_45.root
+    sumPassWeights: 755114.0
+    sumWeights: 755114.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_24.root
+    sumPassWeights: 754906.0
+    sumWeights: 754906.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_27.root
+    sumPassWeights: 755374.0
+    sumWeights: 755374.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094710/0000/output_33.root
+    sumPassWeights: 755052.0
+    sumWeights: 755052.0
+  totalsumPassWeights: 39988275.0
+  totalsumWeights: 39988275.0
+qcdht0100_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_99.root
+    sumPassWeights: 632719.0
+    sumWeights: 632719.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_113.root
+    sumPassWeights: 633036.0
+    sumWeights: 633036.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_22.root
+    sumPassWeights: 632956.0
+    sumWeights: 632956.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_12.root
+    sumPassWeights: 632899.0
+    sumWeights: 632899.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_104.root
+    sumPassWeights: 632908.0
+    sumWeights: 632908.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_123.root
+    sumPassWeights: 632985.0
+    sumWeights: 632985.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_82.root
+    sumPassWeights: 632763.0
+    sumWeights: 632763.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_80.root
+    sumPassWeights: 633585.0
+    sumWeights: 633585.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_86.root
+    sumPassWeights: 633009.0
+    sumWeights: 633009.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_52.root
+    sumPassWeights: 632809.0
+    sumWeights: 632809.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_45.root
+    sumPassWeights: 632863.0
+    sumWeights: 632863.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_10.root
+    sumPassWeights: 633738.0
+    sumWeights: 633738.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_125.root
+    sumPassWeights: 632811.0
+    sumWeights: 632811.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_85.root
+    sumPassWeights: 620308.0
+    sumWeights: 620308.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_56.root
+    sumPassWeights: 633404.0
+    sumWeights: 633404.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_44.root
+    sumPassWeights: 633674.0
+    sumWeights: 633674.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_83.root
+    sumPassWeights: 632774.0
+    sumWeights: 632774.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_34.root
+    sumPassWeights: 633050.0
+    sumWeights: 633050.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_28.root
+    sumPassWeights: 633565.0
+    sumWeights: 633565.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_122.root
+    sumPassWeights: 632997.0
+    sumWeights: 632997.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_70.root
+    sumPassWeights: 633194.0
+    sumWeights: 633194.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_72.root
+    sumPassWeights: 633135.0
+    sumWeights: 633135.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_116.root
+    sumPassWeights: 632773.0
+    sumWeights: 632773.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_109.root
+    sumPassWeights: 633394.0
+    sumWeights: 633394.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_49.root
+    sumPassWeights: 633594.0
+    sumWeights: 633594.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_127.root
+    sumPassWeights: 543571.0
+    sumWeights: 543571.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_89.root
+    sumPassWeights: 633066.0
+    sumWeights: 633066.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_63.root
+    sumPassWeights: 633386.0
+    sumWeights: 633386.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_15.root
+    sumPassWeights: 631111.0
+    sumWeights: 631111.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_91.root
+    sumPassWeights: 633312.0
+    sumWeights: 633312.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_59.root
+    sumPassWeights: 633440.0
+    sumWeights: 633440.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_112.root
+    sumPassWeights: 633614.0
+    sumWeights: 633614.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_107.root
+    sumPassWeights: 633216.0
+    sumWeights: 633216.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_61.root
+    sumPassWeights: 633412.0
+    sumWeights: 633412.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_126.root
+    sumPassWeights: 631864.0
+    sumWeights: 631864.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_42.root
+    sumPassWeights: 632765.0
+    sumWeights: 632765.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_39.root
+    sumPassWeights: 633209.0
+    sumWeights: 633209.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_35.root
+    sumPassWeights: 633074.0
+    sumWeights: 633074.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_14.root
+    sumPassWeights: 633077.0
+    sumWeights: 633077.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_115.root
+    sumPassWeights: 633686.0
+    sumWeights: 633686.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_120.root
+    sumPassWeights: 633525.0
+    sumWeights: 633525.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_74.root
+    sumPassWeights: 633483.0
+    sumWeights: 633483.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_92.root
+    sumPassWeights: 632866.0
+    sumWeights: 632866.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_30.root
+    sumPassWeights: 632798.0
+    sumWeights: 632798.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_23.root
+    sumPassWeights: 633478.0
+    sumWeights: 633478.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_101.root
+    sumPassWeights: 632970.0
+    sumWeights: 632970.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_105.root
+    sumPassWeights: 633459.0
+    sumWeights: 633459.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_26.root
+    sumPassWeights: 633193.0
+    sumWeights: 633193.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_79.root
+    sumPassWeights: 568800.0
+    sumWeights: 568800.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_13.root
+    sumPassWeights: 633108.0
+    sumWeights: 633108.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_50.root
+    sumPassWeights: 633385.0
+    sumWeights: 633385.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_111.root
+    sumPassWeights: 633186.0
+    sumWeights: 633186.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_7.root
+    sumPassWeights: 554087.0
+    sumWeights: 554087.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_27.root
+    sumPassWeights: 553331.0
+    sumWeights: 553331.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_17.root
+    sumPassWeights: 633568.0
+    sumWeights: 633568.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_16.root
+    sumPassWeights: 633488.0
+    sumWeights: 633488.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_48.root
+    sumPassWeights: 632748.0
+    sumWeights: 632748.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_76.root
+    sumPassWeights: 632983.0
+    sumWeights: 632983.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_96.root
+    sumPassWeights: 633726.0
+    sumWeights: 633726.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_124.root
+    sumPassWeights: 633183.0
+    sumWeights: 633183.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_66.root
+    sumPassWeights: 633263.0
+    sumWeights: 633263.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_78.root
+    sumPassWeights: 633151.0
+    sumWeights: 633151.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_94.root
+    sumPassWeights: 633244.0
+    sumWeights: 633244.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_33.root
+    sumPassWeights: 633591.0
+    sumWeights: 633591.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_21.root
+    sumPassWeights: 632769.0
+    sumWeights: 632769.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_129.root
+    sumPassWeights: 493474.0
+    sumWeights: 493474.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_53.root
+    sumPassWeights: 633356.0
+    sumWeights: 633356.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_4.root
+    sumPassWeights: 633108.0
+    sumWeights: 633108.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_121.root
+    sumPassWeights: 632966.0
+    sumWeights: 632966.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_60.root
+    sumPassWeights: 633018.0
+    sumWeights: 633018.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_71.root
+    sumPassWeights: 633417.0
+    sumWeights: 633417.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_46.root
+    sumPassWeights: 633553.0
+    sumWeights: 633553.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_98.root
+    sumPassWeights: 633107.0
+    sumWeights: 633107.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_51.root
+    sumPassWeights: 632682.0
+    sumWeights: 632682.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_5.root
+    sumPassWeights: 633282.0
+    sumWeights: 633282.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_54.root
+    sumPassWeights: 633588.0
+    sumWeights: 633588.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_32.root
+    sumPassWeights: 633518.0
+    sumWeights: 633518.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_88.root
+    sumPassWeights: 632764.0
+    sumWeights: 632764.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_6.root
+    sumPassWeights: 633157.0
+    sumWeights: 633157.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_55.root
+    sumPassWeights: 633246.0
+    sumWeights: 633246.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_19.root
+    sumPassWeights: 633373.0
+    sumWeights: 633373.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_38.root
+    sumPassWeights: 633274.0
+    sumWeights: 633274.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_58.root
+    sumPassWeights: 633129.0
+    sumWeights: 633129.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_95.root
+    sumPassWeights: 632930.0
+    sumWeights: 632930.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_103.root
+    sumPassWeights: 632936.0
+    sumWeights: 632936.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_90.root
+    sumPassWeights: 632896.0
+    sumWeights: 632896.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_69.root
+    sumPassWeights: 633413.0
+    sumWeights: 633413.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_11.root
+    sumPassWeights: 633620.0
+    sumWeights: 633620.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_87.root
+    sumPassWeights: 633704.0
+    sumWeights: 633704.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_128.root
+    sumPassWeights: 633344.0
+    sumWeights: 633344.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_24.root
+    sumPassWeights: 632783.0
+    sumWeights: 632783.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_117.root
+    sumPassWeights: 633116.0
+    sumWeights: 633116.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_25.root
+    sumPassWeights: 633433.0
+    sumWeights: 633433.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_68.root
+    sumPassWeights: 632873.0
+    sumWeights: 632873.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_31.root
+    sumPassWeights: 633577.0
+    sumWeights: 633577.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_8.root
+    sumPassWeights: 632903.0
+    sumWeights: 632903.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_102.root
+    sumPassWeights: 633190.0
+    sumWeights: 633190.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_47.root
+    sumPassWeights: 633347.0
+    sumWeights: 633347.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_75.root
+    sumPassWeights: 633301.0
+    sumWeights: 633301.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_97.root
+    sumPassWeights: 632636.0
+    sumWeights: 632636.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_93.root
+    sumPassWeights: 632866.0
+    sumWeights: 632866.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_64.root
+    sumPassWeights: 633438.0
+    sumWeights: 633438.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_100.root
+    sumPassWeights: 633186.0
+    sumWeights: 633186.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_106.root
+    sumPassWeights: 632905.0
+    sumWeights: 632905.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_40.root
+    sumPassWeights: 632962.0
+    sumWeights: 632962.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_108.root
+    sumPassWeights: 632796.0
+    sumWeights: 632796.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_1.root
+    sumPassWeights: 633254.0
+    sumWeights: 633254.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_57.root
+    sumPassWeights: 633167.0
+    sumWeights: 633167.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_20.root
+    sumPassWeights: 632831.0
+    sumWeights: 632831.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_9.root
+    sumPassWeights: 547067.0
+    sumWeights: 547067.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_81.root
+    sumPassWeights: 632968.0
+    sumWeights: 632968.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_67.root
+    sumPassWeights: 633630.0
+    sumWeights: 633630.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_36.root
+    sumPassWeights: 555145.0
+    sumWeights: 555145.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_114.root
+    sumPassWeights: 632717.0
+    sumWeights: 632717.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_73.root
+    sumPassWeights: 632752.0
+    sumWeights: 632752.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_119.root
+    sumPassWeights: 630677.0
+    sumWeights: 630677.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_41.root
+    sumPassWeights: 551982.0
+    sumWeights: 551982.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_3.root
+    sumPassWeights: 633724.0
+    sumWeights: 633724.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_110.root
+    sumPassWeights: 626937.0
+    sumWeights: 626937.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_77.root
+    sumPassWeights: 633434.0
+    sumWeights: 633434.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_84.root
+    sumPassWeights: 632848.0
+    sumWeights: 632848.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_37.root
+    sumPassWeights: 547715.0
+    sumWeights: 547715.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_65.root
+    sumPassWeights: 632815.0
+    sumWeights: 632815.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_2.root
+    sumPassWeights: 633688.0
+    sumWeights: 633688.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_29.root
+    sumPassWeights: 633242.0
+    sumWeights: 633242.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_43.root
+    sumPassWeights: 633508.0
+    sumWeights: 633508.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_18.root
+    sumPassWeights: 549552.0
+    sumWeights: 549552.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162528/0000/output_118.root
+    sumPassWeights: 633089.0
+    sumWeights: 633089.0
+  totalsumPassWeights: 80155038.0
+  totalsumWeights: 80155038.0
+qcdht0200_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_33.root
+    sumPassWeights: 766196.0
+    sumWeights: 766196.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_20.root
+    sumPassWeights: 765704.0
+    sumWeights: 765704.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_1.root
+    sumPassWeights: 766025.0
+    sumWeights: 766025.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_41.root
+    sumPassWeights: 766329.0
+    sumWeights: 766329.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_44.root
+    sumPassWeights: 766308.0
+    sumWeights: 766308.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_64.root
+    sumPassWeights: 766108.0
+    sumWeights: 766108.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_37.root
+    sumPassWeights: 765905.0
+    sumWeights: 765905.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_79.root
+    sumPassWeights: 766010.0
+    sumWeights: 766010.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_60.root
+    sumPassWeights: 765785.0
+    sumWeights: 765785.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_75.root
+    sumPassWeights: 765767.0
+    sumWeights: 765767.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_1-3.root
+    sumPassWeights: 227811.0
+    sumWeights: 227811.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_1-1.root
+    sumPassWeights: 227456.0
+    sumWeights: 227456.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_1-2.root
+    sumPassWeights: 227571.0
+    sumWeights: 227571.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_66.root
+    sumPassWeights: 765605.0
+    sumWeights: 765605.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_72.root
+    sumPassWeights: 765593.0
+    sumWeights: 765593.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_17.root
+    sumPassWeights: 766434.0
+    sumWeights: 766434.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_29.root
+    sumPassWeights: 766116.0
+    sumWeights: 766116.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_22.root
+    sumPassWeights: 766343.0
+    sumWeights: 766343.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_76.root
+    sumPassWeights: 765954.0
+    sumWeights: 765954.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_25.root
+    sumPassWeights: 766462.0
+    sumWeights: 766462.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_13.root
+    sumPassWeights: 765898.0
+    sumWeights: 765898.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_6.root
+    sumPassWeights: 766206.0
+    sumWeights: 766206.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_9.root
+    sumPassWeights: 765616.0
+    sumWeights: 765616.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_27.root
+    sumPassWeights: 766169.0
+    sumWeights: 766169.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_59.root
+    sumPassWeights: 765958.0
+    sumWeights: 765958.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_67.root
+    sumPassWeights: 766146.0
+    sumWeights: 766146.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_45.root
+    sumPassWeights: 766019.0
+    sumWeights: 766019.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_48.root
+    sumPassWeights: 766470.0
+    sumWeights: 766470.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_58.root
+    sumPassWeights: 766199.0
+    sumWeights: 766199.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_42.root
+    sumPassWeights: 766211.0
+    sumWeights: 766211.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_2.root
+    sumPassWeights: 765900.0
+    sumWeights: 765900.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_35.root
+    sumPassWeights: 765837.0
+    sumWeights: 765837.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_18.root
+    sumPassWeights: 766700.0
+    sumWeights: 766700.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_68.root
+    sumPassWeights: 765517.0
+    sumWeights: 765517.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_28.root
+    sumPassWeights: 766228.0
+    sumWeights: 766228.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_80.root
+    sumPassWeights: 55570.0
+    sumWeights: 55570.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_32.root
+    sumPassWeights: 766342.0
+    sumWeights: 766342.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_49.root
+    sumPassWeights: 766186.0
+    sumWeights: 766186.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_46.root
+    sumPassWeights: 766244.0
+    sumWeights: 766244.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_71.root
+    sumPassWeights: 765916.0
+    sumWeights: 765916.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_78.root
+    sumPassWeights: 766167.0
+    sumWeights: 766167.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_26.root
+    sumPassWeights: 766056.0
+    sumWeights: 766056.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_16.root
+    sumPassWeights: 765676.0
+    sumWeights: 765676.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_4.root
+    sumPassWeights: 765775.0
+    sumWeights: 765775.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_23.root
+    sumPassWeights: 765717.0
+    sumWeights: 765717.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_54.root
+    sumPassWeights: 765618.0
+    sumWeights: 765618.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_74.root
+    sumPassWeights: 766602.0
+    sumWeights: 766602.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_55.root
+    sumPassWeights: 765941.0
+    sumWeights: 765941.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_73.root
+    sumPassWeights: 766510.0
+    sumWeights: 766510.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_69.root
+    sumPassWeights: 766346.0
+    sumWeights: 766346.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_10.root
+    sumPassWeights: 765900.0
+    sumWeights: 765900.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_38.root
+    sumPassWeights: 766004.0
+    sumWeights: 766004.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_3.root
+    sumPassWeights: 766504.0
+    sumWeights: 766504.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_12.root
+    sumPassWeights: 765836.0
+    sumWeights: 765836.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_53.root
+    sumPassWeights: 766296.0
+    sumWeights: 766296.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_47.root
+    sumPassWeights: 748401.0
+    sumWeights: 748401.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_65.root
+    sumPassWeights: 716447.0
+    sumWeights: 716447.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_50.root
+    sumPassWeights: 766020.0
+    sumWeights: 766020.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_21.root
+    sumPassWeights: 765705.0
+    sumWeights: 765705.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_34.root
+    sumPassWeights: 766552.0
+    sumWeights: 766552.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_15.root
+    sumPassWeights: 766219.0
+    sumWeights: 766219.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_61.root
+    sumPassWeights: 766102.0
+    sumWeights: 766102.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_63.root
+    sumPassWeights: 766038.0
+    sumWeights: 766038.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_1-4.root
+    sumPassWeights: 149670.0
+    sumWeights: 149670.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_36.root
+    sumPassWeights: 765764.0
+    sumWeights: 765764.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_40.root
+    sumPassWeights: 766018.0
+    sumWeights: 766018.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_8.root
+    sumPassWeights: 765654.0
+    sumWeights: 765654.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_7.root
+    sumPassWeights: 766359.0
+    sumWeights: 766359.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_39.root
+    sumPassWeights: 766162.0
+    sumWeights: 766162.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_30.root
+    sumPassWeights: 766093.0
+    sumWeights: 766093.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_77.root
+    sumPassWeights: 766183.0
+    sumWeights: 766183.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_52.root
+    sumPassWeights: 766073.0
+    sumWeights: 766073.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_43.root
+    sumPassWeights: 766195.0
+    sumWeights: 766195.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_57.root
+    sumPassWeights: 766065.0
+    sumWeights: 766065.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_51.root
+    sumPassWeights: 766544.0
+    sumWeights: 766544.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_24.root
+    sumPassWeights: 766100.0
+    sumWeights: 766100.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_14.root
+    sumPassWeights: 766173.0
+    sumWeights: 766173.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_19.root
+    sumPassWeights: 765725.0
+    sumWeights: 765725.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_11.root
+    sumPassWeights: 765835.0
+    sumWeights: 765835.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_5.root
+    sumPassWeights: 765696.0
+    sumWeights: 765696.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_56.root
+    sumPassWeights: 765842.0
+    sumWeights: 765842.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_70.root
+    sumPassWeights: 765846.0
+    sumWeights: 765846.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094622/0000/output_31.root
+    sumPassWeights: 765943.0
+    sumWeights: 765943.0
+  totalsumPassWeights: 60573186.0
+  totalsumWeights: 60573186.0
+qcdht0300_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_67.root
+    sumPassWeights: 583684.0
+    sumWeights: 583684.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_64.root
+    sumPassWeights: 831117.0
+    sumWeights: 831117.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_61.root
+    sumPassWeights: 831456.0
+    sumWeights: 831456.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_65.root
+    sumPassWeights: 831623.0
+    sumWeights: 831623.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_49.root
+    sumPassWeights: 831244.0
+    sumWeights: 831244.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_48.root
+    sumPassWeights: 831511.0
+    sumWeights: 831511.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_62.root
+    sumPassWeights: 831453.0
+    sumWeights: 831453.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_43.root
+    sumPassWeights: 830965.0
+    sumWeights: 830965.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_2.root
+    sumPassWeights: 831784.0
+    sumWeights: 831784.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_45.root
+    sumPassWeights: 831110.0
+    sumWeights: 831110.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_1.root
+    sumPassWeights: 831094.0
+    sumWeights: 831094.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_57.root
+    sumPassWeights: 830994.0
+    sumWeights: 830994.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_20.root
+    sumPassWeights: 831583.0
+    sumWeights: 831583.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_10.root
+    sumPassWeights: 831762.0
+    sumWeights: 831762.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_47.root
+    sumPassWeights: 831018.0
+    sumWeights: 831018.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_9.root
+    sumPassWeights: 831166.0
+    sumWeights: 831166.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_15.root
+    sumPassWeights: 831173.0
+    sumWeights: 831173.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_17.root
+    sumPassWeights: 831335.0
+    sumWeights: 831335.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_7.root
+    sumPassWeights: 831214.0
+    sumWeights: 831214.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_63.root
+    sumPassWeights: 831823.0
+    sumWeights: 831823.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_66.root
+    sumPassWeights: 831448.0
+    sumWeights: 831448.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_14.root
+    sumPassWeights: 831563.0
+    sumWeights: 831563.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_11.root
+    sumPassWeights: 831272.0
+    sumWeights: 831272.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_19.root
+    sumPassWeights: 831616.0
+    sumWeights: 831616.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_12.root
+    sumPassWeights: 831090.0
+    sumWeights: 831090.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_35.root
+    sumPassWeights: 831237.0
+    sumWeights: 831237.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_53.root
+    sumPassWeights: 830794.0
+    sumWeights: 830794.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_29.root
+    sumPassWeights: 831626.0
+    sumWeights: 831626.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_27.root
+    sumPassWeights: 831622.0
+    sumWeights: 831622.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_24.root
+    sumPassWeights: 830872.0
+    sumWeights: 830872.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_39.root
+    sumPassWeights: 830756.0
+    sumWeights: 830756.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_46.root
+    sumPassWeights: 830865.0
+    sumWeights: 830865.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_36.root
+    sumPassWeights: 831376.0
+    sumWeights: 831376.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_28.root
+    sumPassWeights: 831033.0
+    sumWeights: 831033.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_18.root
+    sumPassWeights: 830931.0
+    sumWeights: 830931.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_42.root
+    sumPassWeights: 831260.0
+    sumWeights: 831260.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_60.root
+    sumPassWeights: 529146.0
+    sumWeights: 529146.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_6.root
+    sumPassWeights: 831582.0
+    sumWeights: 831582.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_37.root
+    sumPassWeights: 831738.0
+    sumWeights: 831738.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_32.root
+    sumPassWeights: 830991.0
+    sumWeights: 830991.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_34.root
+    sumPassWeights: 831104.0
+    sumWeights: 831104.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_33.root
+    sumPassWeights: 831348.0
+    sumWeights: 831348.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_44.root
+    sumPassWeights: 830953.0
+    sumWeights: 830953.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_25.root
+    sumPassWeights: 831420.0
+    sumWeights: 831420.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_30.root
+    sumPassWeights: 831315.0
+    sumWeights: 831315.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_40.root
+    sumPassWeights: 831214.0
+    sumWeights: 831214.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_26.root
+    sumPassWeights: 831873.0
+    sumWeights: 831873.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_16.root
+    sumPassWeights: 831489.0
+    sumWeights: 831489.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_41.root
+    sumPassWeights: 831078.0
+    sumWeights: 831078.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_50.root
+    sumPassWeights: 831473.0
+    sumWeights: 831473.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_38.root
+    sumPassWeights: 831900.0
+    sumWeights: 831900.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_22.root
+    sumPassWeights: 831126.0
+    sumWeights: 831126.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_23.root
+    sumPassWeights: 831820.0
+    sumWeights: 831820.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_31.root
+    sumPassWeights: 831578.0
+    sumWeights: 831578.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_13.root
+    sumPassWeights: 831767.0
+    sumWeights: 831767.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_4.root
+    sumPassWeights: 831703.0
+    sumWeights: 831703.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_56.root
+    sumPassWeights: 831782.0
+    sumWeights: 831782.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_59.root
+    sumPassWeights: 831614.0
+    sumWeights: 831614.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_58.root
+    sumPassWeights: 831350.0
+    sumWeights: 831350.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_51.root
+    sumPassWeights: 831614.0
+    sumWeights: 831614.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_52.root
+    sumPassWeights: 831474.0
+    sumWeights: 831474.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_54.root
+    sumPassWeights: 831166.0
+    sumWeights: 831166.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_5.root
+    sumPassWeights: 831537.0
+    sumWeights: 831537.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_55.root
+    sumPassWeights: 830928.0
+    sumWeights: 830928.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_3.root
+    sumPassWeights: 831384.0
+    sumWeights: 831384.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_21.root
+    sumPassWeights: 831093.0
+    sumWeights: 831093.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094646/0000/output_8.root
+    sumPassWeights: 831086.0
+    sumWeights: 831086.0
+  totalsumPassWeights: 55150116.0
+  totalsumWeights: 55150116.0
+qcdht0500_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_49.root
+    sumPassWeights: 659794.0
+    sumWeights: 659794.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_40.root
+    sumPassWeights: 659927.0
+    sumWeights: 659927.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_18.root
+    sumPassWeights: 659345.0
+    sumWeights: 659345.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_14.root
+    sumPassWeights: 659763.0
+    sumWeights: 659763.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_72.root
+    sumPassWeights: 659830.0
+    sumWeights: 659830.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_60.root
+    sumPassWeights: 660099.0
+    sumWeights: 660099.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_31.root
+    sumPassWeights: 660328.0
+    sumWeights: 660328.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_20.root
+    sumPassWeights: 659587.0
+    sumWeights: 659587.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_25.root
+    sumPassWeights: 659690.0
+    sumWeights: 659690.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_57.root
+    sumPassWeights: 659581.0
+    sumWeights: 659581.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_30.root
+    sumPassWeights: 659339.0
+    sumWeights: 659339.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_95.root
+    sumPassWeights: 14453.0
+    sumWeights: 14453.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_19.root
+    sumPassWeights: 659305.0
+    sumWeights: 659305.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_36.root
+    sumPassWeights: 660271.0
+    sumWeights: 660271.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_29.root
+    sumPassWeights: 659358.0
+    sumWeights: 659358.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_28.root
+    sumPassWeights: 659464.0
+    sumWeights: 659464.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_15.root
+    sumPassWeights: 659678.0
+    sumWeights: 659678.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_33.root
+    sumPassWeights: 659723.0
+    sumWeights: 659723.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_47.root
+    sumPassWeights: 659541.0
+    sumWeights: 659541.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_70.root
+    sumPassWeights: 659664.0
+    sumWeights: 659664.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_42.root
+    sumPassWeights: 659923.0
+    sumWeights: 659923.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_39.root
+    sumPassWeights: 659416.0
+    sumWeights: 659416.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_65.root
+    sumPassWeights: 659910.0
+    sumWeights: 659910.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_50.root
+    sumPassWeights: 659871.0
+    sumWeights: 659871.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_21.root
+    sumPassWeights: 659727.0
+    sumWeights: 659727.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_12.root
+    sumPassWeights: 659565.0
+    sumWeights: 659565.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_44.root
+    sumPassWeights: 660153.0
+    sumWeights: 660153.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_6.root
+    sumPassWeights: 659792.0
+    sumWeights: 659792.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_8.root
+    sumPassWeights: 660056.0
+    sumWeights: 660056.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_34.root
+    sumPassWeights: 659832.0
+    sumWeights: 659832.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_48.root
+    sumPassWeights: 660059.0
+    sumWeights: 660059.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_27.root
+    sumPassWeights: 659564.0
+    sumWeights: 659564.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_24.root
+    sumPassWeights: 659288.0
+    sumWeights: 659288.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_37.root
+    sumPassWeights: 659388.0
+    sumWeights: 659388.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_11.root
+    sumPassWeights: 659893.0
+    sumWeights: 659893.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_10.root
+    sumPassWeights: 659399.0
+    sumWeights: 659399.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_63.root
+    sumPassWeights: 660177.0
+    sumWeights: 660177.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_92.root
+    sumPassWeights: 597761.0
+    sumWeights: 597761.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_82.root
+    sumPassWeights: 489222.0
+    sumWeights: 489222.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_87.root
+    sumPassWeights: 543097.0
+    sumWeights: 543097.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_69.root
+    sumPassWeights: 604644.0
+    sumWeights: 604644.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_71.root
+    sumPassWeights: 565986.0
+    sumWeights: 565986.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_67.root
+    sumPassWeights: 659967.0
+    sumWeights: 659967.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_88.root
+    sumPassWeights: 395309.0
+    sumWeights: 395309.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_89.root
+    sumPassWeights: 573972.0
+    sumWeights: 573972.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_84.root
+    sumPassWeights: 437626.0
+    sumWeights: 437626.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_68.root
+    sumPassWeights: 659437.0
+    sumWeights: 659437.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_85.root
+    sumPassWeights: 568381.0
+    sumWeights: 568381.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_62.root
+    sumPassWeights: 586050.0
+    sumWeights: 586050.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_78.root
+    sumPassWeights: 448387.0
+    sumWeights: 448387.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_55.root
+    sumPassWeights: 646975.0
+    sumWeights: 646975.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_2.root
+    sumPassWeights: 547508.0
+    sumWeights: 547508.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_77.root
+    sumPassWeights: 636350.0
+    sumWeights: 636350.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_91.root
+    sumPassWeights: 571426.0
+    sumWeights: 571426.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_74.root
+    sumPassWeights: 532358.0
+    sumWeights: 532358.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_86.root
+    sumPassWeights: 334279.0
+    sumWeights: 334279.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_81.root
+    sumPassWeights: 660059.0
+    sumWeights: 660059.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-18.root
+    sumPassWeights: 162960.0
+    sumWeights: 162960.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-5.root
+    sumPassWeights: 163236.0
+    sumWeights: 163236.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-15.root
+    sumPassWeights: 162861.0
+    sumWeights: 162861.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-11.root
+    sumPassWeights: 162315.0
+    sumWeights: 162315.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-4.root
+    sumPassWeights: 163186.0
+    sumWeights: 163186.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-17.root
+    sumPassWeights: 162881.0
+    sumWeights: 162881.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-20.root
+    sumPassWeights: 163096.0
+    sumWeights: 163096.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-30.root
+    sumPassWeights: 162322.0
+    sumWeights: 162322.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-22.root
+    sumPassWeights: 163059.0
+    sumWeights: 163059.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-1.root
+    sumPassWeights: 162304.0
+    sumWeights: 162304.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-19.root
+    sumPassWeights: 163265.0
+    sumWeights: 163265.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-23.root
+    sumPassWeights: 163144.0
+    sumWeights: 163144.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-8.root
+    sumPassWeights: 162393.0
+    sumWeights: 162393.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-38.root
+    sumPassWeights: 69433.0
+    sumWeights: 69433.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-14.root
+    sumPassWeights: 162328.0
+    sumWeights: 162328.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-33.root
+    sumPassWeights: 162692.0
+    sumWeights: 162692.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-32.root
+    sumPassWeights: 162782.0
+    sumWeights: 162782.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-28.root
+    sumPassWeights: 162401.0
+    sumWeights: 162401.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-26.root
+    sumPassWeights: 162836.0
+    sumWeights: 162836.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-25.root
+    sumPassWeights: 162400.0
+    sumWeights: 162400.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-10.root
+    sumPassWeights: 163096.0
+    sumWeights: 163096.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-6.root
+    sumPassWeights: 163121.0
+    sumWeights: 163121.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-24.root
+    sumPassWeights: 162922.0
+    sumWeights: 162922.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-16.root
+    sumPassWeights: 162967.0
+    sumWeights: 162967.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-9.root
+    sumPassWeights: 163120.0
+    sumWeights: 163120.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-7.root
+    sumPassWeights: 162400.0
+    sumWeights: 162400.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-13.root
+    sumPassWeights: 162416.0
+    sumWeights: 162416.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-34.root
+    sumPassWeights: 163265.0
+    sumWeights: 163265.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-12.root
+    sumPassWeights: 162914.0
+    sumWeights: 162914.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-36.root
+    sumPassWeights: 163247.0
+    sumWeights: 163247.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-3.root
+    sumPassWeights: 162741.0
+    sumWeights: 162741.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-27.root
+    sumPassWeights: 162331.0
+    sumWeights: 162331.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_35.root
+    sumPassWeights: 660227.0
+    sumWeights: 660227.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_7.root
+    sumPassWeights: 659643.0
+    sumWeights: 659643.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_26.root
+    sumPassWeights: 660064.0
+    sumWeights: 660064.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_9.root
+    sumPassWeights: 659985.0
+    sumWeights: 659985.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_23.root
+    sumPassWeights: 659314.0
+    sumWeights: 659314.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_45.root
+    sumPassWeights: 659731.0
+    sumWeights: 659731.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_4.root
+    sumPassWeights: 659656.0
+    sumWeights: 659656.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_56.root
+    sumPassWeights: 660185.0
+    sumWeights: 660185.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_16.root
+    sumPassWeights: 659742.0
+    sumWeights: 659742.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_59.root
+    sumPassWeights: 660257.0
+    sumWeights: 660257.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_58.root
+    sumPassWeights: 660210.0
+    sumWeights: 660210.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_76.root
+    sumPassWeights: 660236.0
+    sumWeights: 660236.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_46.root
+    sumPassWeights: 660192.0
+    sumWeights: 660192.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_13.root
+    sumPassWeights: 659999.0
+    sumWeights: 659999.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_54.root
+    sumPassWeights: 660173.0
+    sumWeights: 660173.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_32.root
+    sumPassWeights: 659850.0
+    sumWeights: 659850.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_61.root
+    sumPassWeights: 659675.0
+    sumWeights: 659675.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_41.root
+    sumPassWeights: 659793.0
+    sumWeights: 659793.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_43.root
+    sumPassWeights: 659438.0
+    sumWeights: 659438.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_22.root
+    sumPassWeights: 660256.0
+    sumWeights: 660256.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_51.root
+    sumPassWeights: 659748.0
+    sumWeights: 659748.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_17.root
+    sumPassWeights: 659456.0
+    sumWeights: 659456.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_38.root
+    sumPassWeights: 659710.0
+    sumWeights: 659710.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1.root
+    sumPassWeights: 660061.0
+    sumWeights: 660061.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_94.root
+    sumPassWeights: 659711.0
+    sumWeights: 659711.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_80.root
+    sumPassWeights: 660139.0
+    sumWeights: 660139.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_93.root
+    sumPassWeights: 659440.0
+    sumWeights: 659440.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_3.root
+    sumPassWeights: 659801.0
+    sumWeights: 659801.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_90.root
+    sumPassWeights: 660114.0
+    sumWeights: 660114.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_73.root
+    sumPassWeights: 659808.0
+    sumWeights: 659808.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_5.root
+    sumPassWeights: 659752.0
+    sumWeights: 659752.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_64.root
+    sumPassWeights: 659447.0
+    sumWeights: 659447.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-31.root
+    sumPassWeights: 163090.0
+    sumWeights: 163090.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-2.root
+    sumPassWeights: 163046.0
+    sumWeights: 163046.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-29.root
+    sumPassWeights: 162395.0
+    sumWeights: 162395.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-37.root
+    sumPassWeights: 163292.0
+    sumWeights: 163292.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-21.root
+    sumPassWeights: 163168.0
+    sumWeights: 163168.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162323/0000/output_1-35.root
+    sumPassWeights: 162475.0
+    sumWeights: 162475.0
+  totalsumPassWeights: 62033260.0
+  totalsumWeights: 62033260.0
+qcdht0700_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_14.root
+    sumPassWeights: 555483.0
+    sumWeights: 555483.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_13.root
+    sumPassWeights: 555662.0
+    sumWeights: 555662.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_10.root
+    sumPassWeights: 555204.0
+    sumWeights: 555204.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_52.root
+    sumPassWeights: 555662.0
+    sumWeights: 555662.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_1-2.root
+    sumPassWeights: 162814.0
+    sumWeights: 162814.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_88.root
+    sumPassWeights: 423146.0
+    sumWeights: 423146.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_1-1.root
+    sumPassWeights: 163693.0
+    sumWeights: 163693.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_7.root
+    sumPassWeights: 555085.0
+    sumWeights: 555085.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_87.root
+    sumPassWeights: 555098.0
+    sumWeights: 555098.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_71.root
+    sumPassWeights: 555432.0
+    sumWeights: 555432.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_27.root
+    sumPassWeights: 555137.0
+    sumWeights: 555137.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_81.root
+    sumPassWeights: 555765.0
+    sumWeights: 555765.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_3.root
+    sumPassWeights: 555270.0
+    sumWeights: 555270.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_59.root
+    sumPassWeights: 555716.0
+    sumWeights: 555716.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_77.root
+    sumPassWeights: 555507.0
+    sumWeights: 555507.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_1-3.root
+    sumPassWeights: 43044.0
+    sumWeights: 43044.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_73.root
+    sumPassWeights: 519992.0
+    sumWeights: 519992.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_69.root
+    sumPassWeights: 537310.0
+    sumWeights: 537310.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_76.root
+    sumPassWeights: 425731.0
+    sumWeights: 425731.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_61.root
+    sumPassWeights: 459937.0
+    sumWeights: 459937.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_65.root
+    sumPassWeights: 465327.0
+    sumWeights: 465327.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_75.root
+    sumPassWeights: 555248.0
+    sumWeights: 555248.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_9.root
+    sumPassWeights: 555122.0
+    sumWeights: 555122.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_54.root
+    sumPassWeights: 555642.0
+    sumWeights: 555642.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_12.root
+    sumPassWeights: 555393.0
+    sumWeights: 555393.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_51.root
+    sumPassWeights: 554762.0
+    sumWeights: 554762.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_56.root
+    sumPassWeights: 554955.0
+    sumWeights: 554955.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_37.root
+    sumPassWeights: 555814.0
+    sumWeights: 555814.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_4.root
+    sumPassWeights: 555000.0
+    sumWeights: 555000.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_28.root
+    sumPassWeights: 554804.0
+    sumWeights: 554804.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_11.root
+    sumPassWeights: 554733.0
+    sumWeights: 554733.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_72.root
+    sumPassWeights: 555613.0
+    sumWeights: 555613.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_66.root
+    sumPassWeights: 555385.0
+    sumWeights: 555385.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_79.root
+    sumPassWeights: 555754.0
+    sumWeights: 555754.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_17.root
+    sumPassWeights: 555101.0
+    sumWeights: 555101.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_34.root
+    sumPassWeights: 555133.0
+    sumWeights: 555133.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_57.root
+    sumPassWeights: 555024.0
+    sumWeights: 555024.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_58.root
+    sumPassWeights: 555650.0
+    sumWeights: 555650.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_60.root
+    sumPassWeights: 555079.0
+    sumWeights: 555079.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_29.root
+    sumPassWeights: 555203.0
+    sumWeights: 555203.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_78.root
+    sumPassWeights: 555230.0
+    sumWeights: 555230.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_82.root
+    sumPassWeights: 554873.0
+    sumWeights: 554873.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_85.root
+    sumPassWeights: 555785.0
+    sumWeights: 555785.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_2.root
+    sumPassWeights: 555771.0
+    sumWeights: 555771.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_49.root
+    sumPassWeights: 555139.0
+    sumWeights: 555139.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_86.root
+    sumPassWeights: 555342.0
+    sumWeights: 555342.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_46.root
+    sumPassWeights: 554862.0
+    sumWeights: 554862.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_43.root
+    sumPassWeights: 555195.0
+    sumWeights: 555195.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_38.root
+    sumPassWeights: 554992.0
+    sumWeights: 554992.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_42.root
+    sumPassWeights: 555363.0
+    sumWeights: 555363.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_31.root
+    sumPassWeights: 555530.0
+    sumWeights: 555530.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_70.root
+    sumPassWeights: 555533.0
+    sumWeights: 555533.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_33.root
+    sumPassWeights: 555449.0
+    sumWeights: 555449.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_6.root
+    sumPassWeights: 555136.0
+    sumWeights: 555136.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_40.root
+    sumPassWeights: 555694.0
+    sumWeights: 555694.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_53.root
+    sumPassWeights: 555239.0
+    sumWeights: 555239.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_26.root
+    sumPassWeights: 555233.0
+    sumWeights: 555233.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_50.root
+    sumPassWeights: 555179.0
+    sumWeights: 555179.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_74.root
+    sumPassWeights: 555208.0
+    sumWeights: 555208.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_55.root
+    sumPassWeights: 555592.0
+    sumWeights: 555592.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_44.root
+    sumPassWeights: 555326.0
+    sumWeights: 555326.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_22.root
+    sumPassWeights: 555005.0
+    sumWeights: 555005.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_83.root
+    sumPassWeights: 555442.0
+    sumWeights: 555442.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_16.root
+    sumPassWeights: 555334.0
+    sumWeights: 555334.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_30.root
+    sumPassWeights: 555571.0
+    sumWeights: 555571.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_23.root
+    sumPassWeights: 555482.0
+    sumWeights: 555482.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_21.root
+    sumPassWeights: 555676.0
+    sumWeights: 555676.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_25.root
+    sumPassWeights: 555345.0
+    sumWeights: 555345.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_1.root
+    sumPassWeights: 555071.0
+    sumWeights: 555071.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_5.root
+    sumPassWeights: 555636.0
+    sumWeights: 555636.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_80.root
+    sumPassWeights: 554817.0
+    sumWeights: 554817.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_64.root
+    sumPassWeights: 554849.0
+    sumWeights: 554849.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_68.root
+    sumPassWeights: 555324.0
+    sumWeights: 555324.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_39.root
+    sumPassWeights: 555912.0
+    sumWeights: 555912.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_19.root
+    sumPassWeights: 555590.0
+    sumWeights: 555590.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_84.root
+    sumPassWeights: 554838.0
+    sumWeights: 554838.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_48.root
+    sumPassWeights: 555538.0
+    sumWeights: 555538.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_41.root
+    sumPassWeights: 555253.0
+    sumWeights: 555253.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_62.root
+    sumPassWeights: 555599.0
+    sumWeights: 555599.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_32.root
+    sumPassWeights: 555550.0
+    sumWeights: 555550.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_20.root
+    sumPassWeights: 555593.0
+    sumWeights: 555593.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_36.root
+    sumPassWeights: 555410.0
+    sumWeights: 555410.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_18.root
+    sumPassWeights: 555352.0
+    sumWeights: 555352.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_24.root
+    sumPassWeights: 555362.0
+    sumWeights: 555362.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_35.root
+    sumPassWeights: 555625.0
+    sumWeights: 555625.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_63.root
+    sumPassWeights: 555743.0
+    sumWeights: 555743.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_8.root
+    sumPassWeights: 554907.0
+    sumWeights: 554907.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_45.root
+    sumPassWeights: 555278.0
+    sumWeights: 555278.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_15.root
+    sumPassWeights: 554777.0
+    sumWeights: 554777.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_47.root
+    sumPassWeights: 554891.0
+    sumWeights: 554891.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094758/0000/output_67.root
+    sumPassWeights: 555818.0
+    sumWeights: 555818.0
+  totalsumPassWeights: 48737689.0
+  totalsumWeights: 48737689.0
+qcdht1000_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_9.root
+    sumPassWeights: 524984.0
+    sumWeights: 524984.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_20.root
+    sumPassWeights: 524858.0
+    sumWeights: 524858.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_3.root
+    sumPassWeights: 525193.0
+    sumWeights: 525193.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_13.root
+    sumPassWeights: 525102.0
+    sumWeights: 525102.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_25.root
+    sumPassWeights: 525139.0
+    sumWeights: 525139.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_21.root
+    sumPassWeights: 525006.0
+    sumWeights: 525006.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_8.root
+    sumPassWeights: 525235.0
+    sumWeights: 525235.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_24.root
+    sumPassWeights: 505904.0
+    sumWeights: 505904.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_4.root
+    sumPassWeights: 489374.0
+    sumWeights: 489374.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_11.root
+    sumPassWeights: 525098.0
+    sumWeights: 525098.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_18.root
+    sumPassWeights: 524721.0
+    sumWeights: 524721.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_14.root
+    sumPassWeights: 524977.0
+    sumWeights: 524977.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_28.root
+    sumPassWeights: 314218.0
+    sumWeights: 314218.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_19.root
+    sumPassWeights: 524886.0
+    sumWeights: 524886.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_16.root
+    sumPassWeights: 525278.0
+    sumWeights: 525278.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_22.root
+    sumPassWeights: 525000.0
+    sumWeights: 525000.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_26.root
+    sumPassWeights: 524979.0
+    sumWeights: 524979.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_6.root
+    sumPassWeights: 525013.0
+    sumWeights: 525013.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_15.root
+    sumPassWeights: 525559.0
+    sumWeights: 525559.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_23.root
+    sumPassWeights: 525310.0
+    sumWeights: 525310.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_1.root
+    sumPassWeights: 525523.0
+    sumWeights: 525523.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_12.root
+    sumPassWeights: 525059.0
+    sumWeights: 525059.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_10.root
+    sumPassWeights: 524620.0
+    sumWeights: 524620.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/240821_162818/0000/output_7.root
+    sumPassWeights: 525211.0
+    sumWeights: 525211.0
+  totalsumPassWeights: 12336247.0
+  totalsumWeights: 12336247.0
+qcdht1500_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-9.root
+    sumPassWeights: 45788.0
+    sumWeights: 45788.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-102.root
+    sumPassWeights: 8703.0
+    sumWeights: 8703.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-53.root
+    sumPassWeights: 45594.0
+    sumWeights: 45594.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-70.root
+    sumPassWeights: 45744.0
+    sumWeights: 45744.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-57.root
+    sumPassWeights: 46569.0
+    sumWeights: 46569.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-68.root
+    sumPassWeights: 45836.0
+    sumWeights: 45836.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-81.root
+    sumPassWeights: 46430.0
+    sumWeights: 46430.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-10.root
+    sumPassWeights: 46072.0
+    sumWeights: 46072.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-5.root
+    sumPassWeights: 45608.0
+    sumWeights: 45608.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-2.root
+    sumPassWeights: 45957.0
+    sumWeights: 45957.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-20.root
+    sumPassWeights: 45656.0
+    sumWeights: 45656.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-19.root
+    sumPassWeights: 45637.0
+    sumWeights: 45637.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-51.root
+    sumPassWeights: 46370.0
+    sumWeights: 46370.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-8.root
+    sumPassWeights: 45871.0
+    sumWeights: 45871.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-64.root
+    sumPassWeights: 45844.0
+    sumWeights: 45844.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-84.root
+    sumPassWeights: 46596.0
+    sumWeights: 46596.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-11.root
+    sumPassWeights: 45873.0
+    sumWeights: 45873.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-17.root
+    sumPassWeights: 46593.0
+    sumWeights: 46593.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-22.root
+    sumPassWeights: 45898.0
+    sumWeights: 45898.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-52.root
+    sumPassWeights: 46000.0
+    sumWeights: 46000.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-13.root
+    sumPassWeights: 46663.0
+    sumWeights: 46663.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-60.root
+    sumPassWeights: 46662.0
+    sumWeights: 46662.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-54.root
+    sumPassWeights: 45894.0
+    sumWeights: 45894.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-15.root
+    sumPassWeights: 46658.0
+    sumWeights: 46658.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-62.root
+    sumPassWeights: 45828.0
+    sumWeights: 45828.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-56.root
+    sumPassWeights: 45697.0
+    sumWeights: 45697.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-83.root
+    sumPassWeights: 46102.0
+    sumWeights: 46102.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-1.root
+    sumPassWeights: 45638.0
+    sumWeights: 45638.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-72.root
+    sumPassWeights: 45715.0
+    sumWeights: 45715.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-47.root
+    sumPassWeights: 45900.0
+    sumWeights: 45900.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-6.root
+    sumPassWeights: 46174.0
+    sumWeights: 46174.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-77.root
+    sumPassWeights: 46544.0
+    sumWeights: 46544.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-14.root
+    sumPassWeights: 45598.0
+    sumWeights: 45598.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-7.root
+    sumPassWeights: 46374.0
+    sumWeights: 46374.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-59.root
+    sumPassWeights: 45615.0
+    sumWeights: 45615.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-49.root
+    sumPassWeights: 45903.0
+    sumWeights: 45903.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-4.root
+    sumPassWeights: 46659.0
+    sumWeights: 46659.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_37.root
+    sumPassWeights: 40111.0
+    sumWeights: 40111.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-66.root
+    sumPassWeights: 45641.0
+    sumWeights: 45641.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-50.root
+    sumPassWeights: 45814.0
+    sumWeights: 45814.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-65.root
+    sumPassWeights: 45920.0
+    sumWeights: 45920.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-33.root
+    sumPassWeights: 46551.0
+    sumWeights: 46551.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-87.root
+    sumPassWeights: 45674.0
+    sumWeights: 45674.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-30.root
+    sumPassWeights: 45722.0
+    sumWeights: 45722.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-89.root
+    sumPassWeights: 45807.0
+    sumWeights: 45807.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-24.root
+    sumPassWeights: 45937.0
+    sumWeights: 45937.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-25.root
+    sumPassWeights: 45788.0
+    sumWeights: 45788.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-101.root
+    sumPassWeights: 45691.0
+    sumWeights: 45691.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-46.root
+    sumPassWeights: 45597.0
+    sumWeights: 45597.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-23.root
+    sumPassWeights: 45920.0
+    sumWeights: 45920.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-34.root
+    sumPassWeights: 46671.0
+    sumWeights: 46671.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-98.root
+    sumPassWeights: 46475.0
+    sumWeights: 46475.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-93.root
+    sumPassWeights: 45975.0
+    sumWeights: 45975.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-85.root
+    sumPassWeights: 46722.0
+    sumWeights: 46722.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-12.root
+    sumPassWeights: 45833.0
+    sumWeights: 45833.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-99.root
+    sumPassWeights: 45835.0
+    sumWeights: 45835.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-86.root
+    sumPassWeights: 46631.0
+    sumWeights: 46631.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-71.root
+    sumPassWeights: 45834.0
+    sumWeights: 45834.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-90.root
+    sumPassWeights: 46555.0
+    sumWeights: 46555.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-48.root
+    sumPassWeights: 45574.0
+    sumWeights: 45574.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-100.root
+    sumPassWeights: 46606.0
+    sumWeights: 46606.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-63.root
+    sumPassWeights: 45745.0
+    sumWeights: 45745.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-67.root
+    sumPassWeights: 45922.0
+    sumWeights: 45922.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-75.root
+    sumPassWeights: 45814.0
+    sumWeights: 45814.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-95.root
+    sumPassWeights: 45661.0
+    sumWeights: 45661.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_14.root
+    sumPassWeights: 354711.0
+    sumWeights: 354711.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_10.root
+    sumPassWeights: 343699.0
+    sumWeights: 343699.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_17.root
+    sumPassWeights: 232152.0
+    sumWeights: 232152.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_7.root
+    sumPassWeights: 358740.0
+    sumWeights: 358740.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-61.root
+    sumPassWeights: 45876.0
+    sumWeights: 45876.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-18.root
+    sumPassWeights: 45909.0
+    sumWeights: 45909.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-39.root
+    sumPassWeights: 45619.0
+    sumWeights: 45619.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-58.root
+    sumPassWeights: 45712.0
+    sumWeights: 45712.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-40.root
+    sumPassWeights: 45613.0
+    sumWeights: 45613.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-41.root
+    sumPassWeights: 45941.0
+    sumWeights: 45941.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-79.root
+    sumPassWeights: 45950.0
+    sumWeights: 45950.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-73.root
+    sumPassWeights: 45722.0
+    sumWeights: 45722.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-36.root
+    sumPassWeights: 45963.0
+    sumWeights: 45963.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-31.root
+    sumPassWeights: 46462.0
+    sumWeights: 46462.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-76.root
+    sumPassWeights: 45896.0
+    sumWeights: 45896.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-88.root
+    sumPassWeights: 45696.0
+    sumWeights: 45696.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-96.root
+    sumPassWeights: 45749.0
+    sumWeights: 45749.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-42.root
+    sumPassWeights: 45698.0
+    sumWeights: 45698.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-74.root
+    sumPassWeights: 45631.0
+    sumWeights: 45631.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-55.root
+    sumPassWeights: 46600.0
+    sumWeights: 46600.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-44.root
+    sumPassWeights: 45820.0
+    sumWeights: 45820.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-32.root
+    sumPassWeights: 45635.0
+    sumWeights: 45635.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-38.root
+    sumPassWeights: 46710.0
+    sumWeights: 46710.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-82.root
+    sumPassWeights: 45866.0
+    sumWeights: 45866.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-80.root
+    sumPassWeights: 45762.0
+    sumWeights: 45762.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-28.root
+    sumPassWeights: 46703.0
+    sumWeights: 46703.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-91.root
+    sumPassWeights: 45666.0
+    sumWeights: 45666.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-37.root
+    sumPassWeights: 45771.0
+    sumWeights: 45771.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-29.root
+    sumPassWeights: 45787.0
+    sumWeights: 45787.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-45.root
+    sumPassWeights: 46684.0
+    sumWeights: 46684.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-27.root
+    sumPassWeights: 46504.0
+    sumWeights: 46504.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-43.root
+    sumPassWeights: 46430.0
+    sumWeights: 46430.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-92.root
+    sumPassWeights: 46173.0
+    sumWeights: 46173.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-97.root
+    sumPassWeights: 46734.0
+    sumWeights: 46734.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-3.root
+    sumPassWeights: 45936.0
+    sumWeights: 45936.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-21.root
+    sumPassWeights: 45601.0
+    sumWeights: 45601.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-35.root
+    sumPassWeights: 46341.0
+    sumWeights: 46341.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-94.root
+    sumPassWeights: 45674.0
+    sumWeights: 45674.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-69.root
+    sumPassWeights: 46757.0
+    sumWeights: 46757.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-16.root
+    sumPassWeights: 46046.0
+    sumWeights: 46046.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-26.root
+    sumPassWeights: 46704.0
+    sumWeights: 46704.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1-78.root
+    sumPassWeights: 45604.0
+    sumWeights: 45604.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_12.root
+    sumPassWeights: 358318.0
+    sumWeights: 358318.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_19.root
+    sumPassWeights: 358781.0
+    sumWeights: 358781.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_16.root
+    sumPassWeights: 358285.0
+    sumWeights: 358285.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_13.root
+    sumPassWeights: 358518.0
+    sumWeights: 358518.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_22.root
+    sumPassWeights: 197585.0
+    sumWeights: 197585.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_1.root
+    sumPassWeights: 105081.0
+    sumWeights: 105081.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_33.root
+    sumPassWeights: 225523.0
+    sumWeights: 225523.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_36.root
+    sumPassWeights: 126261.0
+    sumWeights: 126261.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_5.root
+    sumPassWeights: 243748.0
+    sumWeights: 243748.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_15.root
+    sumPassWeights: 188944.0
+    sumWeights: 188944.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_29.root
+    sumPassWeights: 222620.0
+    sumWeights: 222620.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_26.root
+    sumPassWeights: 229258.0
+    sumWeights: 229258.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_30.root
+    sumPassWeights: 218815.0
+    sumWeights: 218815.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_20.root
+    sumPassWeights: 234215.0
+    sumWeights: 234215.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_27.root
+    sumPassWeights: 277265.0
+    sumWeights: 277265.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_3.root
+    sumPassWeights: 198291.0
+    sumWeights: 198291.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_24.root
+    sumPassWeights: 194000.0
+    sumWeights: 194000.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_23.root
+    sumPassWeights: 192157.0
+    sumWeights: 192157.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_18.root
+    sumPassWeights: 209864.0
+    sumWeights: 209864.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_28.root
+    sumPassWeights: 94207.0
+    sumWeights: 94207.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_21.root
+    sumPassWeights: 108615.0
+    sumWeights: 108615.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_11.root
+    sumPassWeights: 145314.0
+    sumWeights: 145314.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_2.root
+    sumPassWeights: 170771.0
+    sumWeights: 170771.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_25.root
+    sumPassWeights: 217753.0
+    sumWeights: 217753.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_31.root
+    sumPassWeights: 187142.0
+    sumWeights: 187142.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_4.root
+    sumPassWeights: 211847.0
+    sumWeights: 211847.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_34.root
+    sumPassWeights: 195879.0
+    sumWeights: 195879.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_6.root
+    sumPassWeights: 169543.0
+    sumWeights: 169543.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_9.root
+    sumPassWeights: 287981.0
+    sumWeights: 287981.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_32.root
+    sumPassWeights: 190367.0
+    sumWeights: 190367.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_35.root
+    sumPassWeights: 119735.0
+    sumWeights: 119735.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094822/0000/output_8.root
+    sumPassWeights: 358482.0
+    sumWeights: 358482.0
+  totalsumPassWeights: 12941701.0
+  totalsumWeights: 12941701.0
+qcdht2000_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_1-3.root
+    sumPassWeights: 9044.0
+    sumWeights: 9044.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_29.root
+    sumPassWeights: 140406.0
+    sumWeights: 140406.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_22.root
+    sumPassWeights: 140462.0
+    sumWeights: 140462.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_17.root
+    sumPassWeights: 140378.0
+    sumWeights: 140378.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_1-1.root
+    sumPassWeights: 38820.0
+    sumWeights: 38820.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_7.root
+    sumPassWeights: 140228.0
+    sumWeights: 140228.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_33.root
+    sumPassWeights: 139967.0
+    sumWeights: 139967.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_28.root
+    sumPassWeights: 140760.0
+    sumWeights: 140760.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_8.root
+    sumPassWeights: 139900.0
+    sumWeights: 139900.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_31.root
+    sumPassWeights: 140374.0
+    sumWeights: 140374.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_41.root
+    sumPassWeights: 140133.0
+    sumWeights: 140133.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_42.root
+    sumPassWeights: 140181.0
+    sumWeights: 140181.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_37.root
+    sumPassWeights: 140153.0
+    sumWeights: 140153.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_34.root
+    sumPassWeights: 139872.0
+    sumWeights: 139872.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_38.root
+    sumPassWeights: 140497.0
+    sumWeights: 140497.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_1-2.root
+    sumPassWeights: 25637.0
+    sumWeights: 25637.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_5.root
+    sumPassWeights: 139985.0
+    sumWeights: 139985.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_35.root
+    sumPassWeights: 139929.0
+    sumWeights: 139929.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_2.root
+    sumPassWeights: 140002.0
+    sumWeights: 140002.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_20.root
+    sumPassWeights: 30690.0
+    sumWeights: 30690.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_43.root
+    sumPassWeights: 115474.0
+    sumWeights: 115474.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_30.root
+    sumPassWeights: 140013.0
+    sumWeights: 140013.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_15.root
+    sumPassWeights: 140374.0
+    sumWeights: 140374.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_11.root
+    sumPassWeights: 140512.0
+    sumWeights: 140512.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_13.root
+    sumPassWeights: 140885.0
+    sumWeights: 140885.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_40.root
+    sumPassWeights: 139878.0
+    sumWeights: 139878.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_18.root
+    sumPassWeights: 140265.0
+    sumWeights: 140265.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_9.root
+    sumPassWeights: 140544.0
+    sumWeights: 140544.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_14.root
+    sumPassWeights: 140201.0
+    sumWeights: 140201.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_3.root
+    sumPassWeights: 140616.0
+    sumWeights: 140616.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_19.root
+    sumPassWeights: 140423.0
+    sumWeights: 140423.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_26.root
+    sumPassWeights: 140409.0
+    sumWeights: 140409.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_4.root
+    sumPassWeights: 140765.0
+    sumWeights: 140765.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_25.root
+    sumPassWeights: 140534.0
+    sumWeights: 140534.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_27.root
+    sumPassWeights: 140821.0
+    sumWeights: 140821.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_10.root
+    sumPassWeights: 140236.0
+    sumWeights: 140236.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_39.root
+    sumPassWeights: 140157.0
+    sumWeights: 140157.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_23.root
+    sumPassWeights: 140311.0
+    sumWeights: 140311.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_1.root
+    sumPassWeights: 140122.0
+    sumWeights: 140122.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_21.root
+    sumPassWeights: 140505.0
+    sumWeights: 140505.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_36.root
+    sumPassWeights: 140175.0
+    sumWeights: 140175.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_24.root
+    sumPassWeights: 140323.0
+    sumWeights: 140323.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_16.root
+    sumPassWeights: 140315.0
+    sumWeights: 140315.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_12.root
+    sumPassWeights: 94803.0
+    sumWeights: 94803.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_6.root
+    sumPassWeights: 121042.0
+    sumWeights: 121042.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv2/240918_094734/0000/output_32.root
+    sumPassWeights: 131169.0
+    sumWeights: 131169.0
+  totalsumPassWeights: 5898290.0
+  totalsumWeights: 5898290.0

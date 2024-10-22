@@ -1,0 +1,529 @@
+wjetstolnuht0100_2017:
+  files:
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1.root
+    sumPassWeights: 980.0
+    sumWeights: 980.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_6.root
+    sumPassWeights: 502353.0
+    sumWeights: 502353.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_21.root
+    sumPassWeights: 502246.0
+    sumWeights: 502246.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_31.root
+    sumPassWeights: 502498.0
+    sumWeights: 502498.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_20.root
+    sumPassWeights: 503264.0
+    sumWeights: 503264.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_13.root
+    sumPassWeights: 502846.0
+    sumWeights: 502846.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_30.root
+    sumPassWeights: 503273.0
+    sumWeights: 503273.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_16.root
+    sumPassWeights: 502756.0
+    sumWeights: 502756.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_39.root
+    sumPassWeights: 502585.0
+    sumWeights: 502585.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_28.root
+    sumPassWeights: 502792.0
+    sumWeights: 502792.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_29.root
+    sumPassWeights: 502937.0
+    sumWeights: 502937.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_22.root
+    sumPassWeights: 502591.0
+    sumWeights: 502591.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_36.root
+    sumPassWeights: 502786.0
+    sumWeights: 502786.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_37.root
+    sumPassWeights: 502520.0
+    sumWeights: 502520.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_24.root
+    sumPassWeights: 502632.0
+    sumWeights: 502632.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_8.root
+    sumPassWeights: 502161.0
+    sumWeights: 502161.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_17.root
+    sumPassWeights: 503125.0
+    sumWeights: 503125.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_14.root
+    sumPassWeights: 502867.0
+    sumWeights: 502867.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_11.root
+    sumPassWeights: 502457.0
+    sumWeights: 502457.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_25.root
+    sumPassWeights: 502699.0
+    sumWeights: 502699.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_34.root
+    sumPassWeights: 443960.0
+    sumWeights: 443960.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_35.root
+    sumPassWeights: 489457.0
+    sumWeights: 489457.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_38.root
+    sumPassWeights: 502620.0
+    sumWeights: 502620.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_33.root
+    sumPassWeights: 499018.0
+    sumWeights: 499018.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_7.root
+    sumPassWeights: 502503.0
+    sumWeights: 502503.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_9.root
+    sumPassWeights: 502567.0
+    sumWeights: 502567.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_19.root
+    sumPassWeights: 502857.0
+    sumWeights: 502857.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_15.root
+    sumPassWeights: 502717.0
+    sumWeights: 502717.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_45.root
+    sumPassWeights: 503045.0
+    sumWeights: 503045.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_59.root
+    sumPassWeights: 502249.0
+    sumWeights: 502249.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_61.root
+    sumPassWeights: 502785.0
+    sumWeights: 502785.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_51.root
+    sumPassWeights: 502584.0
+    sumWeights: 502584.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_41.root
+    sumPassWeights: 502913.0
+    sumWeights: 502913.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_40.root
+    sumPassWeights: 502542.0
+    sumWeights: 502542.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_42.root
+    sumPassWeights: 502256.0
+    sumWeights: 502256.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_65.root
+    sumPassWeights: 421208.0
+    sumWeights: 421208.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_57.root
+    sumPassWeights: 502686.0
+    sumWeights: 502686.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_49.root
+    sumPassWeights: 502539.0
+    sumWeights: 502539.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-29.root
+    sumPassWeights: 141388.0
+    sumWeights: 141388.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-30.root
+    sumPassWeights: 141782.0
+    sumWeights: 141782.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-23.root
+    sumPassWeights: 140906.0
+    sumWeights: 140906.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-80.root
+    sumPassWeights: 141291.0
+    sumWeights: 141291.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-92.root
+    sumPassWeights: 140645.0
+    sumWeights: 140645.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-83.root
+    sumPassWeights: 141164.0
+    sumWeights: 141164.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-84.root
+    sumPassWeights: 141038.0
+    sumWeights: 141038.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-88.root
+    sumPassWeights: 141154.0
+    sumWeights: 141154.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-108.root
+    sumPassWeights: 141439.0
+    sumWeights: 141439.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-102.root
+    sumPassWeights: 140859.0
+    sumWeights: 140859.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-109.root
+    sumPassWeights: 141655.0
+    sumWeights: 141655.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-21.root
+    sumPassWeights: 141664.0
+    sumWeights: 141664.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-117.root
+    sumPassWeights: 105453.0
+    sumWeights: 105453.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-111.root
+    sumPassWeights: 141425.0
+    sumWeights: 141425.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-103.root
+    sumPassWeights: 141454.0
+    sumWeights: 141454.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_69.root
+    sumPassWeights: 502683.0
+    sumWeights: 502683.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_95.root
+    sumPassWeights: 502627.0
+    sumWeights: 502627.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_89.root
+    sumPassWeights: 502917.0
+    sumWeights: 502917.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_64.root
+    sumPassWeights: 502923.0
+    sumWeights: 502923.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_79.root
+    sumPassWeights: 502930.0
+    sumWeights: 502930.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_50.root
+    sumPassWeights: 503110.0
+    sumWeights: 503110.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-37.root
+    sumPassWeights: 140991.0
+    sumWeights: 140991.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-41.root
+    sumPassWeights: 141082.0
+    sumWeights: 141082.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-35.root
+    sumPassWeights: 141475.0
+    sumWeights: 141475.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-46.root
+    sumPassWeights: 141201.0
+    sumWeights: 141201.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-26.root
+    sumPassWeights: 141361.0
+    sumWeights: 141361.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-8.root
+    sumPassWeights: 141673.0
+    sumWeights: 141673.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_96.root
+    sumPassWeights: 447372.0
+    sumWeights: 447372.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-9.root
+    sumPassWeights: 140991.0
+    sumWeights: 140991.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-11.root
+    sumPassWeights: 141598.0
+    sumWeights: 141598.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-36.root
+    sumPassWeights: 141026.0
+    sumWeights: 141026.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-22.root
+    sumPassWeights: 141478.0
+    sumWeights: 141478.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-13.root
+    sumPassWeights: 140880.0
+    sumWeights: 140880.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_92.root
+    sumPassWeights: 502872.0
+    sumWeights: 502872.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_75.root
+    sumPassWeights: 454454.0
+    sumWeights: 454454.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_54.root
+    sumPassWeights: 402426.0
+    sumWeights: 402426.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_93.root
+    sumPassWeights: 425386.0
+    sumWeights: 425386.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-27.root
+    sumPassWeights: 140888.0
+    sumWeights: 140888.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-24.root
+    sumPassWeights: 140895.0
+    sumWeights: 140895.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-33.root
+    sumPassWeights: 141251.0
+    sumWeights: 141251.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-32.root
+    sumPassWeights: 141401.0
+    sumWeights: 141401.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-31.root
+    sumPassWeights: 141052.0
+    sumWeights: 141052.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-14.root
+    sumPassWeights: 141796.0
+    sumWeights: 141796.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-5.root
+    sumPassWeights: 141398.0
+    sumWeights: 141398.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-18.root
+    sumPassWeights: 141589.0
+    sumWeights: 141589.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-6.root
+    sumPassWeights: 141045.0
+    sumWeights: 141045.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_94.root
+    sumPassWeights: 503102.0
+    sumWeights: 503102.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_2.root
+    sumPassWeights: 502859.0
+    sumWeights: 502859.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-19.root
+    sumPassWeights: 141222.0
+    sumWeights: 141222.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-7.root
+    sumPassWeights: 141330.0
+    sumWeights: 141330.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_62.root
+    sumPassWeights: 502748.0
+    sumWeights: 502748.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_73.root
+    sumPassWeights: 503212.0
+    sumWeights: 503212.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_53.root
+    sumPassWeights: 502865.0
+    sumWeights: 502865.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_60.root
+    sumPassWeights: 502519.0
+    sumWeights: 502519.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_72.root
+    sumPassWeights: 502493.0
+    sumWeights: 502493.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-10.root
+    sumPassWeights: 140950.0
+    sumWeights: 140950.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-15.root
+    sumPassWeights: 141353.0
+    sumWeights: 141353.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-114.root
+    sumPassWeights: 141493.0
+    sumWeights: 141493.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-86.root
+    sumPassWeights: 141831.0
+    sumWeights: 141831.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-95.root
+    sumPassWeights: 141243.0
+    sumWeights: 141243.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-96.root
+    sumPassWeights: 141549.0
+    sumWeights: 141549.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-91.root
+    sumPassWeights: 141688.0
+    sumWeights: 141688.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-87.root
+    sumPassWeights: 140960.0
+    sumWeights: 140960.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-100.root
+    sumPassWeights: 141295.0
+    sumWeights: 141295.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-98.root
+    sumPassWeights: 141621.0
+    sumWeights: 141621.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-76.root
+    sumPassWeights: 140735.0
+    sumWeights: 140735.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-73.root
+    sumPassWeights: 141128.0
+    sumWeights: 141128.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-81.root
+    sumPassWeights: 141673.0
+    sumWeights: 141673.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-97.root
+    sumPassWeights: 141124.0
+    sumWeights: 141124.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-112.root
+    sumPassWeights: 141265.0
+    sumWeights: 141265.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-107.root
+    sumPassWeights: 141010.0
+    sumWeights: 141010.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-105.root
+    sumPassWeights: 141192.0
+    sumWeights: 141192.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-113.root
+    sumPassWeights: 140921.0
+    sumWeights: 140921.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-110.root
+    sumPassWeights: 141086.0
+    sumWeights: 141086.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-116.root
+    sumPassWeights: 141574.0
+    sumWeights: 141574.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-106.root
+    sumPassWeights: 141673.0
+    sumWeights: 141673.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-115.root
+    sumPassWeights: 141651.0
+    sumWeights: 141651.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-69.root
+    sumPassWeights: 140800.0
+    sumWeights: 140800.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-59.root
+    sumPassWeights: 140828.0
+    sumWeights: 140828.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-65.root
+    sumPassWeights: 141247.0
+    sumWeights: 141247.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-54.root
+    sumPassWeights: 141645.0
+    sumWeights: 141645.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-85.root
+    sumPassWeights: 140866.0
+    sumWeights: 140866.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-93.root
+    sumPassWeights: 141628.0
+    sumWeights: 141628.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-101.root
+    sumPassWeights: 141123.0
+    sumWeights: 141123.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-2.root
+    sumPassWeights: 140983.0
+    sumWeights: 140983.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-56.root
+    sumPassWeights: 141530.0
+    sumWeights: 141530.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-49.root
+    sumPassWeights: 140879.0
+    sumWeights: 140879.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-34.root
+    sumPassWeights: 141030.0
+    sumWeights: 141030.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_66.root
+    sumPassWeights: 502885.0
+    sumWeights: 502885.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_77.root
+    sumPassWeights: 495983.0
+    sumWeights: 495983.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-20.root
+    sumPassWeights: 141244.0
+    sumWeights: 141244.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-16.root
+    sumPassWeights: 140838.0
+    sumWeights: 140838.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-4.root
+    sumPassWeights: 141257.0
+    sumWeights: 141257.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_3.root
+    sumPassWeights: 494503.0
+    sumWeights: 494503.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_4.root
+    sumPassWeights: 495510.0
+    sumWeights: 495510.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-17.root
+    sumPassWeights: 141695.0
+    sumWeights: 141695.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_83.root
+    sumPassWeights: 503122.0
+    sumWeights: 503122.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_70.root
+    sumPassWeights: 502287.0
+    sumWeights: 502287.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_74.root
+    sumPassWeights: 502400.0
+    sumWeights: 502400.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_88.root
+    sumPassWeights: 502893.0
+    sumWeights: 502893.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-51.root
+    sumPassWeights: 141617.0
+    sumWeights: 141617.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-53.root
+    sumPassWeights: 141052.0
+    sumWeights: 141052.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-48.root
+    sumPassWeights: 141053.0
+    sumWeights: 141053.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-57.root
+    sumPassWeights: 141208.0
+    sumWeights: 141208.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-55.root
+    sumPassWeights: 141216.0
+    sumWeights: 141216.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-40.root
+    sumPassWeights: 141276.0
+    sumWeights: 141276.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-39.root
+    sumPassWeights: 141638.0
+    sumWeights: 141638.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-38.root
+    sumPassWeights: 141163.0
+    sumWeights: 141163.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-25.root
+    sumPassWeights: 140811.0
+    sumWeights: 140811.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-89.root
+    sumPassWeights: 141367.0
+    sumWeights: 141367.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-99.root
+    sumPassWeights: 141689.0
+    sumWeights: 141689.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-77.root
+    sumPassWeights: 141344.0
+    sumWeights: 141344.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-90.root
+    sumPassWeights: 141102.0
+    sumWeights: 141102.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-79.root
+    sumPassWeights: 141018.0
+    sumWeights: 141018.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-82.root
+    sumPassWeights: 141410.0
+    sumWeights: 141410.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-66.root
+    sumPassWeights: 141146.0
+    sumWeights: 141146.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-61.root
+    sumPassWeights: 141524.0
+    sumWeights: 141524.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-47.root
+    sumPassWeights: 141171.0
+    sumWeights: 141171.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-50.root
+    sumPassWeights: 141567.0
+    sumWeights: 141567.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-70.root
+    sumPassWeights: 141592.0
+    sumWeights: 141592.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-63.root
+    sumPassWeights: 141279.0
+    sumWeights: 141279.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-60.root
+    sumPassWeights: 141894.0
+    sumWeights: 141894.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-45.root
+    sumPassWeights: 141440.0
+    sumWeights: 141440.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-44.root
+    sumPassWeights: 141541.0
+    sumWeights: 141541.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-52.root
+    sumPassWeights: 141776.0
+    sumWeights: 141776.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-62.root
+    sumPassWeights: 140791.0
+    sumWeights: 140791.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-68.root
+    sumPassWeights: 141780.0
+    sumWeights: 141780.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-75.root
+    sumPassWeights: 141669.0
+    sumWeights: 141669.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-71.root
+    sumPassWeights: 141546.0
+    sumWeights: 141546.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-78.root
+    sumPassWeights: 140794.0
+    sumWeights: 140794.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-67.root
+    sumPassWeights: 141166.0
+    sumWeights: 141166.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-64.root
+    sumPassWeights: 140842.0
+    sumWeights: 140842.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-58.root
+    sumPassWeights: 141536.0
+    sumWeights: 141536.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-1.root
+    sumPassWeights: 140833.0
+    sumWeights: 140833.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-12.root
+    sumPassWeights: 141880.0
+    sumWeights: 141880.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-3.root
+    sumPassWeights: 141144.0
+    sumWeights: 141144.0
+  - filename: /eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/0000/output_1-28.root
+    sumPassWeights: 140978.0
+    sumWeights: 140978.0
+  totalsumPassWeights: 46858356.0
+  totalsumWeights: 46858356.0

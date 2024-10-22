@@ -6,9 +6,9 @@ correctionlib.register_pyroot_binding()
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/METxyCorrection.h"'.format(os.environ['CMSSW_BASE']))
-#ROOT.EnableImplicitMT(4)
+ROOT.EnableImplicitMT(2)
 # Maybe let ROOT decide the number of threads to use
-ROOT.EnableImplicitMT()
+# ROOT.EnableImplicitMT()
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)

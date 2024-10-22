@@ -163,7 +163,7 @@ if __name__ == '__main__':
     parser.add_argument('--json')
     args = parser.parse_args()
     # print(s.__dir__())
-    input_samples = s.znunu_2018
+    input_samples = s.wlnu_2017_100
     # print(input_samples)
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
     print(input_samples[0].__dict__)

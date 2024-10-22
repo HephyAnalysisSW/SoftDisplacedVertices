@@ -1,6 +1,6 @@
 {
     "AOD": {
-        "dataset" : {
+        "datasets" : {
             "wjetstolnuht0100_2017":  "/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "wjetstolnuht0200_2017":  "/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "wjetstolnuht0400_2017":  "/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
@@ -8,7 +8,6 @@
             "wjetstolnuht0800_2017":  "/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "wjetstolnuht1200_2017":  "/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "wjetstolnuht2500_2017":  "/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
-
             "zjetstonunuht0100_2017": "/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "zjetstonunuht0200_2017": "/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
             "zjetstonunuht0400_2017": "/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v6-v1/AODSIM",
@@ -36,7 +35,7 @@
     },
 
     "CustomMiniAOD": {
-        "dataset" : {
+        "datasets" : {
             "wjetstolnuht0100_2017":  "/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "wjetstolnuht0200_2017":  "/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomMiniAODpv2-106X_mc2017_realistic_v9-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "wjetstolnuht0400_2017":  "/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
@@ -44,7 +43,6 @@
             "wjetstolnuht0800_2017":  "/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "wjetstolnuht1200_2017":  "/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "wjetstolnuht2500_2017":  "/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
-
             "zjetstonunuht0100_2017": "/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "zjetstonunuht0200_2017": "/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
             "zjetstonunuht0400_2017": "/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-CustomMiniAOD_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER",
@@ -70,14 +68,13 @@
             "st_tW_t_2017"       : "/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/aguven-RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1-5306fa3cc36163977ea2b20adcb3ab1a/USER"
         },
         "dir": {
-            "wjetstolnuht0100_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv2/240806_144424/",
+            "wjetstolnuht0100_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065255/",
             "wjetstolnuht0200_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomMiniAODpv2-106X_mc2017_realistic_v9/240807_114608/",
             "wjetstolnuht0400_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065354/",
             "wjetstolnuht0600_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-600To800_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065634/",
             "wjetstolnuht0800_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065613/",
             "wjetstolnuht1200_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065654/",
             "wjetstolnuht2500_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065234/",
-
             "zjetstonunuht0100_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065316/",
             "zjetstonunuht0200_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065455/",
             "zjetstonunuht0400_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065553/",
@@ -100,7 +97,20 @@
             "st_tch_tbar_2017"   : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomMiniAOD-106X_mc2017_realistic_v9_pv2/",
             "st_tch_t_2017"      : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomMiniAOD-106X_mc2017_realistic_v9_pv2/",
             "st_tW_tbar_2017"    : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/",
-            "st_tW_t_2017"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/"
+            "st_tW_t_2017"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/",
+
+            "stop_M600_588_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M600_588_ct200_2017/output", 
+            "stop_M600_585_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M600_585_ct20_2017/output", 
+            "stop_M1400_1385_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1400_1385_ct20_2017/output", 
+            "stop_M1400_1375_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1400_1375_ct0p2_2017/output", 
+            "stop_M1000_985_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1000_985_ct20_2017/output", 
+            "stop_M1000_975_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1000_975_ct0p2_2017/output", 
+            "stop_M1400_1388_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1400_1388_ct200_2017/output", 
+            "stop_M1000_988_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1000_988_ct200_2017/output", 
+            "stop_M1400_1380_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1400_1380_ct2_2017/output", 
+            "stop_M1000_980_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M1000_980_ct2_2017/output", 
+            "stop_M600_580_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M600_580_ct2_2017/output", 
+            "stop_M600_575_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_2017STOP/stop_M600_575_ct0p2_2017/output"
         },
         "logical_dir": {
             "wjetstolnuht0100_2017":  "/store/user/aguven/WJetsToLNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv2/240806_144424/",
@@ -110,7 +120,6 @@
             "wjetstolnuht0800_2017":  "/store/user/aguven/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065613/",
             "wjetstolnuht1200_2017":  "/store/user/aguven/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065654/",
             "wjetstolnuht2500_2017":  "/store/user/aguven/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065234/",
-
             "zjetstonunuht0100_2017": "/store/user/aguven/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065316/",
             "zjetstonunuht0200_2017": "/store/user/aguven/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065455/",
             "zjetstonunuht0400_2017": "/store/user/aguven/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/CustomMiniAOD_pv1/240806_065553/",
@@ -136,37 +145,50 @@
             "st_tW_t_2017"       : "/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17RECO-106X_mc2017_realistic_v9_pv1/"
         },
         "totalsumWeights": {
-            "wjetstolnuht0100_2017":  11220175.0,
-            "wjetstolnuht0200_2017":  42602407.0,
-            "wjetstolnuht0400_2017":  5645169.0,
-            "wjetstolnuht0600_2017":  5552478.0,
-            "wjetstolnuht0800_2017":  5222822.0,
-            "wjetstolnuht1200_2017":  4955636.0,
-            "wjetstolnuht2500_2017":  1185699.0,
+            "wjetstolnuht0100_2017":  46858356,
+            "wjetstolnuht0200_2017":  42602407,
+            "wjetstolnuht0400_2017":  5645169,
+            "wjetstolnuht0600_2017":  5552478,
+            "wjetstolnuht0800_2017":  5222822,
+            "wjetstolnuht1200_2017":  4955636,
+            "wjetstolnuht2500_2017":  1185699,
+            
+            "zjetstonunuht0100_2017": 19136812,
+            "zjetstonunuht0200_2017": 17468549,
+            "zjetstonunuht0400_2017": 13963690,
+            "zjetstonunuht0600_2017": 4418971,
+            "zjetstonunuht0800_2017": 1513585,
+            "zjetstonunuht1200_2017": 267125,
+            "zjetstonunuht2500_2017": 176201,
 
-            "zjetstonunuht0100_2017": 19136812.0,
-            "zjetstonunuht0200_2017": 17468549.0,
-            "zjetstonunuht0400_2017": 13963690.0,
-            "zjetstonunuht0600_2017": 4418971.0,
-            "zjetstonunuht0800_2017": 1513585.0,
-            "zjetstonunuht1200_2017": 267125.0,
-            "zjetstonunuht2500_2017": 176201.0,
-
-            "qcdht0050_2017" : 0.0,
-            "qcdht0100_2017" : 0.0,
-            "qcdht0200_2017" : 0.0,
-            "qcdht0300_2017" : 0.0,
-            "qcdht0500_2017" : 0.0,
-            "qcdht0700_2017" : 0.0,
-            "qcdht1000_2017" : 0.0,
-            "qcdht1500_2017" : 0.0,
-            "qcdht2000_2017" : 0.0,
+            "qcdht0050_2017" : 39988275,
+            "qcdht0100_2017" : 80155038,
+            "qcdht0200_2017" : 60573186,
+            "qcdht0300_2017" : 55150116,
+            "qcdht0500_2017" : 62033260,
+            "qcdht0700_2017" : 48737689,
+            "qcdht1000_2017" : 12336247,
+            "qcdht1500_2017" : 12941701,
+            "qcdht2000_2017" : 5898290,
 
             "ttbar_2017"         : 96263174153.7, 
             "st_tch_tbar_2017"   : 2283096199.9, 
             "st_tch_t_2017"      : 6417535270.6, 
             "st_tW_tbar_2017"    : 184446313.2, 
-            "st_tW_t_2017"       : 183933832.0
+            "st_tW_t_2017"       : 183933832.0,
+
+            "stop_M600_588_ct200_2017": 129148.0, 
+            "stop_M600_585_ct20_2017": 128854.0, 
+            "stop_M600_580_ct2_2017": 129014.0, 
+            "stop_M600_575_ct0p2_2017": 129264.0, 
+            "stop_M1000_988_ct200_2017": 114358.0, 
+            "stop_M1000_985_ct20_2017": 113911.0, 
+            "stop_M1000_980_ct2_2017": 114201.0, 
+            "stop_M1000_975_ct0p2_2017": 114635.0, 
+            "stop_M1400_1388_ct200_2017": 107096.0, 
+            "stop_M1400_1385_ct20_2017": 109507.0, 
+            "stop_M1400_1380_ct2_2017": 104202.0, 
+            "stop_M1400_1375_ct0p2_2017": 108611.0
         }
     },
 
@@ -179,7 +201,6 @@
             "wjetstolnuht0800_2017":  "/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "wjetstolnuht1200_2017":  "/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "wjetstolnuht2500_2017":  "/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
-
             "zjetstonunuht0100_2017": "/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "zjetstonunuht0200_2017": "/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "zjetstonunuht0400_2017": "/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
@@ -195,8 +216,8 @@
             "qcdht0500_2017" : "/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "qcdht0700_2017" : "/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "qcdht1000_2017" : "/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
-            "qcdht1500_2017" : "",
-            "qcdht2000_2017" : "",
+            "qcdht1500_2017" : "/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
+            "qcdht2000_2017" : "/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
 
             "ttbar_2017"         : "/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1-00000000000000000000000000000000/USER",
             "st_tch_tbar_2017"   : "/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/aguven-RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv2-00000000000000000000000000000000/USER",
@@ -213,7 +234,6 @@
             "wjetstolnuht0800_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082102/",
             "wjetstolnuht1200_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082139/",
             "wjetstolnuht2500_2017":  "/eos/vbc/experiments/cms/store/user/aguven/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240807_123124/",
-
             "zjetstonunuht0100_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082151/",
             "zjetstonunuht0200_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240810_080605/",
             "zjetstonunuht0400_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240810_080554/",
@@ -222,21 +242,34 @@
             "zjetstonunuht1200_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240807_123111/",
             "zjetstonunuht2500_2017": "/eos/vbc/experiments/cms/store/user/aguven/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082126/",
 
-            "qcdht0050_2017" : "",
-            "qcdht0100_2017" : "",
-            "qcdht0200_2017" : "",
-            "qcdht0300_2017" : "",
-            "qcdht0500_2017" : "",
-            "qcdht0700_2017" : "",
-            "qcdht1000_2017" : "",
-            "qcdht1500_2017" : "",
-            "qcdht2000_2017" : "",
+            "qcdht0050_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0100_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0200_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0300_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0500_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0700_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht1000_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht1500_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht2000_2017" : "/eos/vbc/experiments/cms/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
 
-            "ttbar_2017"         : "", 
-            "st_tch_tbar_2017"   : "", 
-            "st_tch_t_2017"      : "", 
-            "st_tW_tbar_2017"    : "", 
-            "st_tW_t_2017"       : ""
+            "ttbar_2017"         : "/eos/vbc/experiments/cms/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/", 
+            "st_tch_tbar_2017"   : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv2/", 
+            "st_tch_t_2017"      : "/eos/vbc/experiments/cms/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv2/", 
+            "st_tW_tbar_2017"    : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/", 
+            "st_tW_t_2017"       : "/eos/vbc/experiments/cms/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+
+            "stop_M600_588_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M600_588_ct200_2017/output", 
+            "stop_M600_580_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M600_580_ct2_2017/output", 
+            "stop_M1400_1385_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1400_1385_ct20_2017/output", 
+            "stop_M1400_1375_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1400_1375_ct0p2_2017/output", 
+            "stop_M1000_985_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1000_985_ct20_2017/output", 
+            "stop_M1400_1388_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1400_1388_ct200_2017/output", 
+            "stop_M1000_975_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1000_975_ct0p2_2017/output", 
+            "stop_M1000_988_ct200_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1000_988_ct200_2017/output", 
+            "stop_M600_585_ct20_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M600_585_ct20_2017/output", 
+            "stop_M1400_1380_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP_sup/stop_M1400_1380_ct2_2017/output", 
+            "stop_M1000_980_ct2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M1000_980_ct2_2017/output", 
+            "stop_M600_575_ct0p2_2017": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_2017STOP/stop_M600_575_ct0p2_2017/output"
         },
 
         "logical_dir": {
@@ -247,7 +280,6 @@
             "wjetstolnuht0800_2017":  "/store/user/aguven/WJetsToLNu_HT-800To1200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082102/",
             "wjetstolnuht1200_2017":  "/store/user/aguven/WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082139/",
             "wjetstolnuht2500_2017":  "/store/user/aguven/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240807_123124/",
-
             "zjetstonunuht0100_2017": "/store/user/aguven/ZJetsToNuNu_HT-100To200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082151/",
             "zjetstonunuht0200_2017": "/store/user/aguven/ZJetsToNuNu_HT-200To400_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240810_080605/",
             "zjetstonunuht0400_2017": "/store/user/aguven/ZJetsToNuNu_HT-400To600_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240810_080554/",
@@ -256,39 +288,39 @@
             "zjetstonunuht1200_2017": "/store/user/aguven/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240807_123111/",
             "zjetstonunuht2500_2017": "/store/user/aguven/ZJetsToNuNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/240811_082126/",
 
-            "qcdht0050_2017" : "",
-            "qcdht0100_2017" : "",
-            "qcdht0200_2017" : "",
-            "qcdht0300_2017" : "",
-            "qcdht0500_2017" : "",
-            "qcdht0700_2017" : "",
-            "qcdht1000_2017" : "",
-            "qcdht1500_2017" : "",
-            "qcdht2000_2017" : "",
+            "qcdht0050_2017" : "/store/user/aguven/QCD_HT50to100_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0100_2017" : "/store/user/aguven/QCD_HT100to200_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0200_2017" : "/store/user/aguven/QCD_HT200to300_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0300_2017" : "/store/user/aguven/QCD_HT300to500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0500_2017" : "/store/user/aguven/QCD_HT500to700_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht0700_2017" : "/store/user/aguven/QCD_HT700to1000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht1000_2017" : "/store/user/aguven/QCD_HT1000to1500_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht1500_2017" : "/store/user/aguven/QCD_HT1500to2000_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
+            "qcdht2000_2017" : "/store/user/aguven/QCD_HT2000toInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/",
 
-            "ttbar_2017"         : "",
-            "st_tch_tbar_2017"   : "",
-            "st_tch_t_2017"      : "",
-            "st_tW_tbar_2017"    : "",
-            "st_tW_t_2017"       : ""
+            "ttbar_2017"         : "/store/user/aguven/TTJets_TuneCP5_13TeV-amcatnloFXFX-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/", 
+            "st_tch_tbar_2017"   : "/store/user/aguven/ST_t-channel_antitop_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv2/", 
+            "st_tch_t_2017"      : "/store/user/aguven/ST_t-channel_top_4f_InclusiveDecays_TuneCP5_13TeV-powheg-madspin-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv2/", 
+            "st_tW_tbar_2017"    : "/store/user/aguven/ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/", 
+            "st_tW_t_2017"       : "/store/user/aguven/ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17CustomNanoAOD-106X_mc2017_realistic_v9_pv1/"
         },
 
         "totalsumWeights": {
-            "wjetstolnuht0100_2017":  11220175.0,
-            "wjetstolnuht0200_2017":  42602407.0,
-            "wjetstolnuht0400_2017":  5645169.0,
-            "wjetstolnuht0600_2017":  5552478.0,
-            "wjetstolnuht0800_2017":  5222822.0,
-            "wjetstolnuht1200_2017":  4955636.0,
-            "wjetstolnuht2500_2017":  1185699.0,
-
-            "zjetstonunuht0100_2017": 19136812.0,
-            "zjetstonunuht0200_2017": 17468549.0,
-            "zjetstonunuht0400_2017": 13963690.0,
-            "zjetstonunuht0600_2017": 4418971.0,
-            "zjetstonunuht0800_2017": 1513585.0,
-            "zjetstonunuht1200_2017": 267125.0,
-            "zjetstonunuht2500_2017": 176201.0,
+            "wjetstolnuht0100_2017":  46858356,
+            "wjetstolnuht0200_2017":  42602407,
+            "wjetstolnuht0400_2017":  5645169,
+            "wjetstolnuht0600_2017":  5552478,
+            "wjetstolnuht0800_2017":  5222822,
+            "wjetstolnuht1200_2017":  4955636,
+            "wjetstolnuht2500_2017":  1185699,
+            
+            "zjetstonunuht0100_2017": 19136812,
+            "zjetstonunuht0200_2017": 17468549,
+            "zjetstonunuht0400_2017": 13963690,
+            "zjetstonunuht0600_2017": 4418971,
+            "zjetstonunuht0800_2017": 1513585,
+            "zjetstonunuht1200_2017": 267125,
+            "zjetstonunuht2500_2017": 176201,
 
             "qcdht0050_2017" : 39988275,
             "qcdht0100_2017" : 80155038,
@@ -304,7 +336,20 @@
             "st_tch_tbar_2017"   : 2283096199.9, 
             "st_tch_t_2017"      : 6417535270.6, 
             "st_tW_tbar_2017"    : 184446313.2, 
-            "st_tW_t_2017"       : 183933832.0
+            "st_tW_t_2017"       : 183933832.0,
+
+            "stop_M600_588_ct200_2017": 129148.0, 
+            "stop_M600_585_ct20_2017": 128854.0, 
+            "stop_M600_580_ct2_2017": 129014.0, 
+            "stop_M600_575_ct0p2_2017": 129264.0, 
+            "stop_M1000_988_ct200_2017": 114358.0, 
+            "stop_M1000_985_ct20_2017": 113911.0, 
+            "stop_M1000_980_ct2_2017": 114201.0, 
+            "stop_M1000_975_ct0p2_2017": 114635.0, 
+            "stop_M1400_1388_ct200_2017": 107096.0, 
+            "stop_M1400_1385_ct20_2017": 109507.0, 
+            "stop_M1400_1380_ct2_2017": 104202.0, 
+            "stop_M1400_1375_ct0p2_2017": 108611.0
         }
         
     },
@@ -325,21 +370,21 @@
         "zjetstonunuht0800_2017" : 1.451,
         "zjetstonunuht1200_2017" : 0.355,
         "zjetstonunuht2500_2017" : 0.00855,
-    
-        "qcdht0050_2018" : 187700000.0,
-        "qcdht0100_2018" : 23640000.0,
-        "qcdht0200_2018" : 1555000.0,
-        "qcdht0300_2018" : 324500.0,
-        "qcdht0500_2018" : 30980.0,
-        "qcdht0700_2018" : 6444.0,
-        "qcdht1000_2018" : 1127.0,
-        "qcdht1500_2018" : 109.8,
-        "qcdht2000_2018" : 22.36,
-
-        "ttbar_2018"       : 833.9,
-        "st_tch_tbar_2018" : 80.0,
-        "st_tch_t_2018"    : 134.2,
-        "st_tW_tbar_2018"  : 39.68,
-        "st_tW_t_2018"     : 39.91
+        
+        "qcdht0050_2017" : 187700000.0,
+        "qcdht0100_2017" : 23640000.0,
+        "qcdht0200_2017" : 1555000.0,
+        "qcdht0300_2017" : 324500.0,
+        "qcdht0500_2017" : 30980.0,
+        "qcdht0700_2017" : 6444.0,
+        "qcdht1000_2017" : 1127.0,
+        "qcdht1500_2017" : 109.8,
+        "qcdht2000_2017" : 22.36,
+        
+        "ttbar_2017"       : 833.9,
+        "st_tch_tbar_2017" : 80.0,
+        "st_tch_t_2017"    : 134.2,
+        "st_tW_tbar_2017"  : 39.68,
+        "st_tW_t_2017"     : 39.91
     }
 }
