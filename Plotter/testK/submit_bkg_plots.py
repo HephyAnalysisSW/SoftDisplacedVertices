@@ -24,17 +24,18 @@ samples = [
     "qcdht1000_2018",
     "qcdht1500_2018",
     "qcdht2000_2018",
-    "ttbar",
-    "st_tch_tbar",
-    "st_tch_t",
-    "st_tW_tbar",
-    "st_tW_t"
+    "ttbar_2018",
+    "st_tch_tbar_2018",
+    "st_tch_t_2018",
+    "st_tW_tbar_2018",
+    "st_tW_t_2018"
 ]
 
 
 # sample = "wjetstolnuht0100_2018"
-outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/histograms"
-config = "../configs/plotconfig_template.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
+outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/vtx_reco/mc_data/bkg/20241114"
+# config = "../configs/vtx_reco_unc_2018.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
+config = "../configs/vtx_reco_data_2018.yaml"
 json_path = "MC_RunIISummer20UL18.json"
 tier = "CustomNanoAOD"
 

@@ -1,5 +1,6 @@
 # This is a class that include necessary information of a sample.
 import os
+import sys
 import subprocess
 from XRootD import client
 from XRootD.client.flags import DirListFlags, OpenFlags, MkDirFlags, QueryCode
@@ -64,7 +65,13 @@ class Sample:
           elif label in self.eosdirs:
             print("label not in self.dirs")
             fileNames.append(line.rstrip())
-      print("The filenames are retrieved.")
+      if len(fileNames) == 0:
+        print("\nPlease initialize proxy first.")
+        print("COMMAND: voms-proxy-init -rfc -voms cms -valid 192:0")
+        print("\nExiting now...")
+        sys.exit()
+      else:
+        print("The filenames are retrieved.")
     if label in self.dirs:
       if not useDAS or not self.dataset or not self.dataset_instance: # Walk
         for root, dirs, files in os.walk(self.dirs[label]):

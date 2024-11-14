@@ -24,7 +24,7 @@ debug = False
 titles = [
     "JER syst 2018 region C",
     "JES syst 2018 region C",
-    "UE syst 2018 region C"
+    "UE  syst 2018 region C"
 ]
 
 def plot_df(df_n, df_s, signal, SR):
@@ -34,30 +34,59 @@ def plot_df(df_n, df_s, signal, SR):
     c1.SetBottomMargin(0.15)
 
     sameMass          = []
-    sameMassClone     = []
+    sameMassErrors    = []
+    data_to_fit       = []
+    errs_to_fit       = []
 
     for mass in df_n.index:
         # print(mass)
         sameMass.append(ROOT.TH1F(f'h_{mass}', signal + f'_{mass}', 4, 0, 3))
+        sameMassErrors.append(ROOT.TH1F(f'herr_{mass}', signal + f'_{mass}', 4, 0, 3))
         for i, ct in enumerate(df_n.columns):
             # print('Bin content: ', i, df_n.loc[mass].iloc[i])
             # print('Bin error: ', i, df_s.loc[mass].iloc[i])
+ 
             sameMass[-1].SetBinContent(i+1, df_n.loc[mass].iloc[i])
-            sameMass[-1].SetBinError(i+1, df_s.loc[mass].iloc[i])
             sameMass[-1].GetXaxis().SetBinLabel(i+1, ct)
+
+            sameMassErrors[-1].SetBinContent(i+1, df_n.loc[mass].iloc[i])
+            sameMassErrors[-1].SetBinError(i+1,   df_s.loc[mass].iloc[i])
+            sameMassErrors[-1].GetXaxis().SetBinLabel(i+1, ct)
+            
+            if df_n.loc[mass].iloc[i] != 0:
+                # print("mass: ", mass)
+                data_to_fit.append(df_n.loc[mass].iloc[i])
+                errs_to_fit.append(df_s.loc[mass].iloc[i])
+            else: pass
+
+    histogram_to_fit = ROOT.TH1F(f'hist_to_fit', 'Fit Values', len(data_to_fit), 0, len(data_to_fit) - 1)
+    for i in range(len(data_to_fit)):
+        histogram_to_fit.SetBinContent(i+1, data_to_fit[i])
+        histogram_to_fit.SetBinError(i+1,   errs_to_fit[i])
+    
+    fit_function = ROOT.TF1("fit_function", "[0]", -10, len(data_to_fit) +100)
+    histogram_to_fit.Fit("fit_function")
+    print("data_to_fit: ", data_to_fit)
+            
     
     ROOT.gStyle.SetErrorX(0.)
-        
+    ROOT.gStyle.SetEndErrorSize(4)
+    ROOT.gStyle.SetOptFit(1)
+    
+    mycolors = [ROOT.kSpring-4, ROOT.kTeal, ROOT.kAzure+6]
     for i, hist in enumerate(sameMass):
-        hist.SetLineColor(i+1)
-        hist.SetMarkerColor(i+1)
+        hist.SetFillColor(mycolors[i])
+        hist.SetLineColor(ROOT.kBlack)
+        hist.SetMarkerColor(mycolors[i])
         hist.SetMarkerStyle(21)
         hist.SetMarkerSize(.9)
+        hist.SetBarWidth(0.2)
+        hist.SetBarOffset(0.2 + i*0.2)
 
         if i==0:
-            hist.Draw('E1 E0')
-            hist.SetMinimum(-2)
-            hist.SetMaximum(30)
+            hist.Draw('b')
+            hist.SetMinimum(0)
+            hist.SetMaximum(20)
 
             hist.SetStats(0)
             hist.SetTitle(subdir.replace('down', ''))
@@ -68,20 +97,48 @@ def plot_df(df_n, df_s, signal, SR):
             hist.GetXaxis().SetTitleOffset(0.60)
 
         else:
-            hist.Draw('E1 E0 SAME')
+            hist.Draw('b SAME')
 
-        sameMassClone.append(hist.Clone())
+            
+    for i, hist in enumerate(sameMassErrors):
+        hist.SetBarWidth(0.2)
+        hist.SetBarOffset(0.2 + i*0.2)
+        # hist.SetFillStyle(3353)
+        hist.SetMarkerStyle(21)
+        hist.SetMarkerSize(.9)
+        hist.SetLineColor(ROOT.kBlack)
+        # hist.SetFillColor(ROOT.kBlack)
+        hist.Draw('e0 SAME')
 
-    for i, hist in enumerate(sameMass):
-        sameMassClone[i].Draw('P SAME')
+    # histogram_to_fit.Draw('func same')
+    fit_function.Draw('sames')
     
     legend = ROOT.TLegend(0.6,0.7,0.88,0.88)
     for i, mass in enumerate(df_n.index):
         legend.AddEntry(sameMass[i], signal + f'_{mass}', 'lep')
     legend.SetTextSize(0.03)
     legend.Draw()
+
+    pt = ROOT.TPaveText(.15, .75, .35, .85, "NDC") # casting shadow on Bottom Left and using NormaliZed Coordiantes
+    chi2 = fit_function.GetChisquare ()
+    ndof = fit_function.GetNDF()
+    prob = fit_function.GetProb()
+    par = fit_function.GetParameter(0)
+    parerr = fit_function.GetParError(0)
+    if ndof != 0:
+        pt.AddText("#chi^{2}/ndf = " + f"{chi2/ndof:.2g}")
+        pt.AddText("P(#chi^{2}, ndf) = " + f"{prob:.2g}")
+    else:
+        pt.AddText("ndof = " + f"{ndof:.2g}")
     
+    pt.AddText("y = " + f"{par:.2g}" + "#pm" + f"{parerr:.2g}")
+    pt.Draw()
+    
+    # c1.SetLogy()
     c1.SaveAs(os.path.join(outDir, signal + '2018_' + subdir.replace('down', '') + '_SR_' + SR + '.png'))
+    # ----------------------------------------------------------------------------------------------------
+
+
 
 for subdir in subdirs:
     if subdir[-9:-5] != 'down':
@@ -159,6 +216,9 @@ for subdir in subdirs:
     C1N2_dfC_n *= 100 # Go to percentage (%)
     C1N2_dfC_s *= 100 # Go to percentage (%)
 
+    # print(stop_dfC_n)
+    # print(stop_dfC_s)
+    # break
 
     # Start plotting
     plot_df(stop_dfA_n, stop_dfA_s, "stop", "A")

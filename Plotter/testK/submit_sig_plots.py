@@ -38,8 +38,11 @@ samples = [
 
 # sample = "wjetstolnuht0100_2018"
 # outDir = "/scratch-cbe/users/alikaan.gueven/2018_limits/MET400/histograms"
-outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/metjet_histograms"
-config = "../configs/mc_jetmet.yaml"
+outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/vtx_reco/mc_data/sig/20241114"
+# config = "../configs/mc_jetmet.yaml"
+# config = "../configs/vtx_reco_unc_2018.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
+config = "../configs/vtx_reco_data_2018.yaml"
+# config = "../configs/vtx_reco_data_genmatch_2018.yaml"
 json_path = "PrivateSignal_v3.json"
 tier = "CustomNanoAODv3"
 

@@ -109,12 +109,31 @@ def makeSysUncTable(dsig_fn, subdirs, outDir=args.input):
       for plane in d[subdir].keys():
         for region in d[subdir][plane].keys():
           try:
-            sysUncTable_n.loc[plane, region] = ((d[fluctuated][plane][region] - d[nominal][plane][region]) / d[nominal][plane][region]).n
+            N_fluctuated  = (d[fluctuated][plane][region].n / d[fluctuated][plane][region].s)**2
+            N_nominal     = (d[nominal][plane][region].n / d[nominal][plane][region].s)**2
+            if abs(N_fluctuated - N_nominal) < 0.5:
+              sysUncTable_n.loc[plane, region] = 0
+            else:
+              sysUncTable_n.loc[plane, region] = ((d[fluctuated][plane][region] - d[nominal][plane][region]) / d[nominal][plane][region]).n
+
+            if plane == "SR" and region=="C":
+              print("sig_fn: ", sig_fn)
+              print("plane: ",  plane)
+              print("region: ", region)
+              print("sysUncTable_n.loc[plane, region]: ", sysUncTable_n.loc[plane, region])
+              print("d[fluctuated][plane][region]: ", d[fluctuated][plane][region])
+              print("d[nominal][plane][region]: ", d[nominal][plane][region])
+              print("N_fluctuated: ", N_fluctuated)
+              print("N_nominal: ", N_nominal)
+              
           except ZeroDivisionError:
             sysUncTable_n.loc[plane, region] = 0.0
             
           try:
-            sysUncTable_s.loc[plane, region] = df(d[fluctuated][plane][region], d[nominal][plane][region])
+            if sysUncTable_n.loc[plane, region] == 0:
+              sysUncTable_s.loc[plane, region] = 0
+            else:
+              sysUncTable_s.loc[plane, region] = df(d[fluctuated][plane][region], d[nominal][plane][region])
           except ZeroDivisionError:
             sysUncTable_s.loc[plane, region] = 0.0
   

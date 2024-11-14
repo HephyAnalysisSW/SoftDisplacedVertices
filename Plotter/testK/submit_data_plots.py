@@ -10,8 +10,9 @@ samples = [
 
 
 # sample = "wjetstolnuht0100_2018"
-outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/histograms"
-config = "../configs/plotconfig_template.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
+outDir = "/scratch-cbe/users/alikaan.gueven/AN_plots/vtx_reco/mc_data/data/20241114"
+# config = "../configs/plotconfig_template.yaml" # "../configs/plotconfig_MC2.yaml" # "../configs/mc_limits.yaml"
+config = "../configs/vtx_reco_data_2018.yaml"
 json_path = "Data_production_20240326.json"
 tier = "CustomNanoAOD"
 

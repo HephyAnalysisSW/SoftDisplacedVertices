@@ -50,6 +50,7 @@ def loadData(samples, json_path, label):
   with open(json_path,'r') as fj:
     d = json.load(fj)
 
+  print(f"Asserting if {label} in sample json...")
   assert label in d
 
   for s in samples:

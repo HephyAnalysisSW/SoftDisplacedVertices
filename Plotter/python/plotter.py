@@ -6,7 +6,7 @@ correctionlib.register_pyroot_binding()
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/METxyCorrection.h"'.format(os.environ['CMSSW_BASE']))
-ROOT.EnableImplicitMT(2)
+ROOT.EnableImplicitMT(8)
 # Maybe let ROOT decide the number of threads to use
 # ROOT.EnableImplicitMT()
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -123,7 +123,8 @@ class Plotter:
               if line.endswith('.root'):
                   self.filelist.append(line)
     elif self.s is not None:
-      self.filelist = self.s.getFileList(self.datalabel,"")
+      self.filelist = self.s.getFileList(self.datalabel,"", useDAS=False)
+      # NanoAOD was processed already with respect to DAS database.
     if len(self.filelist)==0:
       print("No files provided as input!")
 
