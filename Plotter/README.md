@@ -25,6 +25,8 @@ Parameters:
 
 `--year`: The data-taking year of the input data or MC.
 
+`--ct`: OPTIONAL. Select the ct value to scale. If this option is selected one can combine samples with the same LLP&LSP mass into one, e.g. --sample stop_M600_588 --ct 155
+
 `--submit`: Optional. Whether to submit jobs to slurm. Only works in CLIP.
 
 ## Prerequisites:
