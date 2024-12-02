@@ -5,7 +5,6 @@
 #include "TLatex.h"
 #include "Math/Vector4D.h"
 #include "TStyle.h"
-#include "TMath.h"
 #include <algorithm> 
 #include "correction.h"
 
@@ -32,9 +31,6 @@ void printVec(T v) {
     std::cout << std::endl;
     return;
 }
-
-// template<typename T>
-// size_t size(T v) {return v.size();}
 
 //This function removes duplicated elements in a vector
 template<typename T>
@@ -88,67 +84,6 @@ Float_t METweight(Float_t MET_pt, std::string year, std::string mode)
     return val_rs;
 }
 
-template <class T1, class T2>
-T1 CheckIfSizesMatch(T1 Column1, T2 Column2)
-{
-  if (Column1.size() != Column2.size()) {
-    std::cout << "Col1.size(): " << Column1.size() << std::endl;
-    std::cout << "Col2.size(): " << Column2.size() << std::endl;
-    throw std::runtime_error("Input vectors have different sizes.");
-    }
-  return Column1;
-}
-
-ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecVtx_pAngle, ROOT::RVecF SDVSecVtx_Lxy)
-{
-    // std::cout << "DEBUG:    Enter SDVSecVtx_weight" << std::endl;
-    ROOT::RVecF TkMaxdxy_bins = {0,1,2,4,6,10,20};
-    ROOT::RVecF Lxy_bins      = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-    ROOT::RVecF pAngle_bins   = {0,0.1,0.2,0.4,0.8,1.5,3.14};
-
-    auto nSDVSecVtx    = SDVSecVtx_TkMaxdxy.size();
-    auto nbin_TkMaxdxy = TkMaxdxy_bins.size();
-    auto nbin_Lxy      = Lxy_bins.size();
-    auto nbin_pAngle   = pAngle_bins.size();
-
-    if (SDVSecVtx_TkMaxdxy.size() != SDVSecVtx_Lxy.size() || SDVSecVtx_TkMaxdxy.size() != SDVSecVtx_pAngle.size()) {
-      throw std::runtime_error("Input vectors have different sizes.");
-    }
-
-    ROOT::RVecF rsfactor_TkMaxdxy  = {1.02960284, 1.02188192, 1.00453674, 0.80158607, 0.86721481, 0.87043331};
-    // ROOT::RVecF rsfactor_Lxy       = {1.09443769, 1.05438238, 1.05420248, 1.03651855, 1.03851552, 1.07299949, 1.00225866, 1.02358284, 0.97323451, 0.96338892, 0.99230149, 0.96848438, 0.92154488, 0.78861695, 0.976129, 0.93846937, 0.91288319, 0.7952071, 0.83590965, 0.91259971};
-    // ROOT::RVecF rsfactor_pAngle    = {0.89571551, 1.10683332, 1.11705027, 1.14039125, 1.09683087, 1.16158508};
-    
-    ROOT::RVecF rs_factor_combined(nSDVSecVtx, 1.0);
-    // std::cout << "nSDVSecVtx: " << nSDVSecVtx << std::endl;
-    
-    for (auto k=0; k<nSDVSecVtx; ++k){
-      // std::cout << "k: " << k << std::endl;
-      for (auto i=1; i<nbin_TkMaxdxy; ++i){
-        if (SDVSecVtx_TkMaxdxy[k] < TkMaxdxy_bins[i]){
-            rs_factor_combined[k] *= rsfactor_TkMaxdxy[i-1];
-            // std::cout << "rsfactor_TkMaxdxy["<< i-1 << "]" << rsfactor_TkMaxdxy[i-1] << std::endl;
-            break;
-        }
-      }
-      // for (auto i=1; i<nbin_Lxy; ++i){
-      //   if (SDVSecVtx_Lxy[k] < Lxy_bins[i]){
-      //       rs_factor_combined[k] *= rsfactor_Lxy[i-1];
-      //       // std::cout << "rsfactor_Lxy["<< i-1 << "]" << rsfactor_Lxy[i-1] << std::endl;
-      //       break;
-      //   }
-      // }
-      // for (auto i=1; i<nbin_pAngle; ++i){
-      //   if (SDVSecVtx_pAngle[k] < pAngle_bins[i]){
-      //       rs_factor_combined[k] *= rsfactor_pAngle[i-1];
-      //       // std::cout << "rsfactor_pAngle["<< i-1 << "]" << rsfactor_pAngle[i-1] << std::endl;
-      //       break;
-      //   }
-      // }
-    }
-    return rs_factor_combined;
-}
-
 float EGamma_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF eta, std::string mode, std::string wp, std::string year, std::string kind) {
   float weight = 1;
   for (size_t i=0; i<pt.size(); ++i) {
@@ -199,73 +134,6 @@ int Leading_Vtx_Idx(ROOT::RVecI Vertex_nGoodTracks, ROOT::RVecF Vertex_LxySig) {
   return leading_idx;
 }
 
-std::vector<ROOT::RVecF> SDVGenPart_fourvec(ROOT::RVecF SDVGenPart_pt, ROOT::RVecF SDVGenPart_eta, ROOT::RVecF SDVGenPart_phi, ROOT::RVecF SDVGenPart_mass) {
-  size_t nGenPart = SDVGenPart_mass.size();
-  ROOT::RVecF SDVGenPart_E(nGenPart, -1);
-  ROOT::RVecF SDVGenPart_px(nGenPart, -1);
-  ROOT::RVecF SDVGenPart_py(nGenPart, -1);
-  ROOT::RVecF SDVGenPart_pz(nGenPart, -1);
-
-
-  for(size_t i=0; i<nGenPart; ++i){
-    const ROOT::Math::PtEtaPhiMVector p4(SDVGenPart_pt[i], SDVGenPart_eta[i], SDVGenPart_phi[i], SDVGenPart_mass[i]);
-    SDVGenPart_E[i]  = p4.E();
-    SDVGenPart_px[i] = p4.px();
-    SDVGenPart_py[i] = p4.py();
-    SDVGenPart_pz[i] = p4.pz();
-  }
-
-  std::vector<ROOT::RVecF> SDVGenPart_p = {SDVGenPart_E, SDVGenPart_px, SDVGenPart_py, SDVGenPart_pz};
-  return SDVGenPart_p;
-}
-
-ROOT::RVecF SDVGenPart_Dmeson_inv_mass(ROOT::RVecI SDVGenPart_pdgId, ROOT::RVecI SDVGenPart_status, ROOT::RVecI SDVGenPart_genPartIdxMother, 
-                                       ROOT::RVecI SDVGenPart_charge, ROOT::RVecF SDVGenPart_pt, ROOT::RVecF SDVGenPart_eta, ROOT::RVecF SDVGenPart_phi, ROOT::RVecF SDVGenPart_mass){
-  size_t nGenPart = SDVGenPart_mass.size();
-  ROOT::RVecB is_mother_Dmeson      = (abs(ROOT::VecOps::Take(SDVGenPart_pdgId, SDVGenPart_genPartIdxMother))==411);
-  ROOT::RVecI Dmeson_dau_pdgId      = SDVGenPart_pdgId[is_mother_Dmeson];
-  ROOT::RVecI Dmeson_dau_IdxMother  = SDVGenPart_genPartIdxMother[is_mother_Dmeson];
-  ROOT::RVecI Dmeson_dau_status     = SDVGenPart_status[is_mother_Dmeson];
-  ROOT::RVecF Dmeson_dau_pt         = SDVGenPart_pt[is_mother_Dmeson];
-  ROOT::RVecF Dmeson_dau_eta        = SDVGenPart_eta[is_mother_Dmeson];
-  ROOT::RVecF Dmeson_dau_phi        = SDVGenPart_phi[is_mother_Dmeson];
-  ROOT::RVecF Dmeson_dau_mass       = SDVGenPart_mass[is_mother_Dmeson];
-  ROOT::RVecF Dmeson_dau_charge     = SDVGenPart_charge[is_mother_Dmeson];
-
-  std::set<int> s(Dmeson_dau_IdxMother.begin(), Dmeson_dau_IdxMother.end());
-  ROOT::RVecF Dmeson_Idx;
-  Dmeson_Idx.assign(s.begin(), s.end());
-  ROOT::RVecF Dmeson_vtx_mass(Dmeson_Idx.size(), -1);
-
-  size_t nDmeson = Dmeson_Idx.size();
-  size_t nDmeson_dau = Dmeson_dau_status.size();
-  
-  ROOT::RVecF Dmeson_vtx_obs_mass(nDmeson, -1);
-  for(size_t i=0; i<nDmeson; i++){
-    ROOT::Math::PtEtaPhiMVector Dmeson_vtx_p4(0,0,0,0);
-    int nDau;
-    for(size_t j=0; j<nDmeson_dau; j++){
-      bool isMyMother   = (Dmeson_Idx[i]==Dmeson_dau_IdxMother[j]);
-      bool isCharged    = (Dmeson_dau_charge[j] != 0);
-      bool passesPtCut  = (Dmeson_dau_pt[j] > 0.5);
-      if( isMyMother && isCharged && passesPtCut ){
-        // ROOT::Math::PtEtaPhiMVector Dmeson_dau_p4(Dmeson_dau_pt[j], Dmeson_dau_eta[j], Dmeson_dau_phi[j], Dmeson_dau_mass[j]);
-        ROOT::Math::PtEtaPhiMVector Dmeson_dau_p4(Dmeson_dau_pt[j], Dmeson_dau_eta[j], Dmeson_dau_phi[j], 0.13957);
-        Dmeson_vtx_p4 += Dmeson_dau_p4;
-        nDau++;
-      }
-    }
-    if(nDau!=0){
-      Dmeson_vtx_obs_mass[i] = Dmeson_vtx_p4.M();
-    }
-    else{
-      Dmeson_vtx_obs_mass[i] = -1;
-    }
-    
-  }
-  return Dmeson_vtx_obs_mass;
-}
-
 // This function calculates the closest jet for each vertex by looking for the smallest dR
 // Then it calculated the dR, dphi, and deta between the vertex and the closest jet
 // It returns an array of 3 arrays, each array has the length of the number of vertices
@@ -283,84 +151,13 @@ std::vector<ROOT::VecOps::RVec<float>> Vertex_mindRdetadphi(ROOT::RVecF Vertex_p
         ROOT::RVecF jet_dR = ROOT::VecOps::hypot(jet_dphi,jet_deta);
     
         size_t jetidx = ROOT::VecOps::ArgMin(jet_dR);
-        minJetdR[i]   = jet_dR[jetidx];
+        minJetdR[i] = jet_dR[jetidx];
         minJetdphi[i] = jet_dphi[jetidx];
         minJetdeta[i] = jet_deta[jetidx];
       }
   }
   std::vector<ROOT::VecOps::RVec<float>> mindRdetadphi = {minJetdR,minJetdphi,minJetdeta};
   return mindRdetadphi;
-}
-
-ROOT::RVecI GetJetnTracks(ROOT::RVecF Track_pt, ROOT::RVecF Track_phi, ROOT::RVecF Track_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta, float dRThreshold, float ptCut=0) {
-  size_t nTrack = Track_phi.size();
-  size_t nJet   =   Jet_phi.size();
-  float dphi = 999;
-  float deta = 999;
-  float dR   = 999;
-  ROOT::RVecI Jet_nTracks(nJet, 0);
-
-  for (size_t i=0; i<nJet; ++i) {
-    for (size_t j=0; j<nTrack; ++j) {
-      dphi = TMath::Abs(ROOT::VecOps::DeltaPhi(Jet_phi[i], Track_phi[j]));
-      deta = TMath::Abs(Jet_eta[i]-Track_eta[j]);
-      dR   = TMath::Hypot(dphi,deta);
-      if ((dR <= dRThreshold) && (Track_pt[j] >= ptCut)){
-        Jet_nTracks[i] += 1;
-      }
-    }
-  }
-  return Jet_nTracks;
-}
-
-
-ROOT::RVecI vtx_jetidx_at_mindR(ROOT::RVecF Vertex_phi, ROOT::RVecF Vertex_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta) {
-  bool debug = false;
-
-  size_t nVertex = Vertex_phi.size();
-  ROOT::RVecF minJetdR(nVertex,999);
-  ROOT::RVecF minJetdphi(nVertex,999);
-  ROOT::RVecF minJetdeta(nVertex,999);
-  ROOT::RVecI jetidx_at_minJetdR(nVertex,999);
-  if(debug){
-    std::cout << "--------------------------------------------------------" << std::endl;
-    std::cout << "Jet_phi.size(): " << Jet_phi.size() << std::endl;
-  }
-  if (Jet_phi.size()>0){
-      for (size_t i=0; i<nVertex; ++i) {
-        ROOT::RVecF jet_dphi = ROOT::VecOps::abs(ROOT::VecOps::DeltaPhi(Jet_phi,Vertex_phi[i]));
-        ROOT::RVecF jet_deta = ROOT::VecOps::abs(Jet_eta-Vertex_eta[i]);
-        ROOT::RVecF jet_dR   = ROOT::VecOps::hypot(jet_dphi,jet_deta);
-    
-        size_t jetidx = ROOT::VecOps::ArgMin(jet_dR);
-        if(debug){
-          std::cout << "vtx: " << i<< std::endl;
-          std::cout << "jetidx: " << jetidx<< std::endl;
-        }
-        jetidx_at_minJetdR[i] = jetidx;
-        minJetdR[i]   = jet_dR[jetidx];
-        minJetdphi[i] = jet_dphi[jetidx];
-        minJetdeta[i] = jet_deta[jetidx];
-      }
-  }
-  if(debug){
-    std::cout << "--------------------------------------------------------" << std::endl;
-  }
-  return jetidx_at_minJetdR;
-}
-
-ROOT::RVecF tmp_func(ROOT::RVecF myvec, ROOT::RVecI myidx){
-    ROOT::RVecF return_vec = ROOT::VecOps::Take(myvec, myidx);
-    for(size_t i=0; i<myidx.size(); ++i){
-      if(return_vec[i] > 0 && return_vec[i] < 0.98){
-        std::cout << "myidx[" << i << "]: " << myidx[i] << std::endl;
-        std::cout << "return_vec[" << i << "]: " << return_vec[i] << std::endl;
-      }
-    }
-    // if(myidx.size() == 0){
-    //   std::cout << "return_vec: " << return_vec << std::endl;
-    // }
-    return return_vec;
 }
 
 // This function returns the modified PFIsolation
@@ -933,34 +730,3 @@ ROOT::RVecF SDV_TkMindR(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_Se
     return SDVSecVtx_mindR;
 }
 
-std::vector<ROOT::RVecF> SDV_TkMinMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDV, ROOT::RVecF SDVTrack_dxy)
-{
-    ROOT::RVecF SDVSecVtx_maxdxy(nSDV, -1);
-    ROOT::RVecF SDVSecVtx_mindxy(nSDV, -1);
-    for (size_t iSDV=0; iSDV<nSDV; ++iSDV){
-        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
-        ROOT::RVecF dxys;
-        for (size_t i=0; i<tkIdx.size(); ++i){
-                dxys.push_back(abs(SDVTrack_dxy[i]));
-        }
-        SDVSecVtx_mindxy[iSDV] = ROOT::VecOps::Min(dxys);
-        SDVSecVtx_maxdxy[iSDV] = ROOT::VecOps::Max(dxys);
-    }
-
-    std::vector<ROOT::RVecF> minmaxdxy = {SDVSecVtx_mindxy, SDVSecVtx_maxdxy};
-    return minmaxdxy;
-}
-
-/* ROOT::RVecF SDV_BJetMindR(int nSDV, int nJet, ROOT::RVecF SDVSecVtx_phi, ROOT::RVecF SDVSecVtx_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta)
-{
-    ROOT::RVecF SDV_bjetmindR(nSDV,-1);
-    for (size_t iSDV=0; iSDV<nSDV; ++iSDV){
-        
-        ROOT::RVecF dRs;
-        for (size_t iJet=0; i<nJet; ++iJet){
-                dRs.push_back(dR(SDVSecVtx_phi[iSDV], Jet_phi[iJet], SDVSecVtx_eta[iSDV], Jet_eta[iJet]));
-        }
-        SDV_bjetmindR[iSDV] = ROOT::VecOps::Min(dRs);
-    }
-    return SDV_bjetmindR;
-} */

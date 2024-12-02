@@ -42,7 +42,7 @@ def _massLSP(sample):
 def _set_signal_stuff(sample):
     sample.is_signal = True
     sample.model = _model(sample)
-    sample.tau = _tau(sample)
+    sample.ctau = _tau(sample)
     sample.mass = _mass(sample)
     sample.massLSP = _massLSP(sample)
 
@@ -199,10 +199,10 @@ stop_2018 = [
     ]
 
 c1n2_2018 = [
-    #Sample("C1N2_M600_588_ct200_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_588_ct200_2018", xsec=20.1372e-03),
     Sample("C1N2_M600_585_ct20_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M600_580_ct2_2018", xsec=20.1372e-03),
-    #Sample("C1N2_M600_575_ct0p2_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_580_ct2_2018", xsec=20.1372e-03),
+    Sample("C1N2_M600_575_ct0p2_2018", xsec=20.1372e-03),
     #Sample("C1N2_M1000_988_ct200_2018", xsec=1.34352e-03),
     #Sample("C1N2_M1000_985_ct20_2018", xsec=1.34352e-03),
     #Sample("C1N2_M1000_980_ct2_2018", xsec=1.34352e-03),
@@ -221,34 +221,34 @@ c1n2_2018 = [
     #Sample("C1N2_M200_190_ct2_2018", xsec=1.807),
     #Sample("C1N2_M200_190_ct20_2018", xsec=1.807),
     #Sample("C1N2_M200_190_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_185_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_180_ct200_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct0p2_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct2_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_175_ct200_2018", xsec=1.807),
-    #Sample("C1N2_M400_390_ct0p2_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct2_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct20_2018", xsec=0.121),
-    #Sample("C1N2_M400_390_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_385_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_380_ct200_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct0p2_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct2_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct20_2018", xsec=0.121),
-    Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
+    # Sample("C1N2_M200_185_ct0p2_2018", xsec=1.807),
+    # Sample("C1N2_M200_185_ct2_2018", xsec=1.807),
+    # Sample("C1N2_M200_185_ct20_2018", xsec=1.807),
+    # Sample("C1N2_M200_185_ct200_2018", xsec=1.807),
+    # Sample("C1N2_M200_180_ct0p2_2018", xsec=1.807),
+    # Sample("C1N2_M200_180_ct2_2018", xsec=1.807),
+    # Sample("C1N2_M200_180_ct20_2018", xsec=1.807),
+    # Sample("C1N2_M200_180_ct200_2018", xsec=1.807),
+    # Sample("C1N2_M200_175_ct0p2_2018", xsec=1.807),
+    # Sample("C1N2_M200_175_ct2_2018", xsec=1.807),
+    # Sample("C1N2_M200_175_ct20_2018", xsec=1.807),
+    # Sample("C1N2_M200_175_ct200_2018", xsec=1.807),
+    # #Sample("C1N2_M400_390_ct0p2_2018", xsec=0.121),
+    # #Sample("C1N2_M400_390_ct2_2018", xsec=0.121),
+    # #Sample("C1N2_M400_390_ct20_2018", xsec=0.121),
+    # #Sample("C1N2_M400_390_ct200_2018", xsec=0.121),
+    # Sample("C1N2_M400_385_ct0p2_2018", xsec=0.121),
+    # Sample("C1N2_M400_385_ct2_2018", xsec=0.121),
+    # Sample("C1N2_M400_385_ct20_2018", xsec=0.121),
+    # Sample("C1N2_M400_385_ct200_2018", xsec=0.121),
+    # Sample("C1N2_M400_380_ct0p2_2018", xsec=0.121),
+    # Sample("C1N2_M400_380_ct2_2018", xsec=0.121),
+    # Sample("C1N2_M400_380_ct20_2018", xsec=0.121),
+    # Sample("C1N2_M400_380_ct200_2018", xsec=0.121),
+    # Sample("C1N2_M400_375_ct0p2_2018", xsec=0.121),
+    # Sample("C1N2_M400_375_ct2_2018", xsec=0.121),
+    # Sample("C1N2_M400_375_ct20_2018", xsec=0.121),
+    # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
 all_samples = [
@@ -270,6 +270,19 @@ all_samples = [
 all_signals = [
     stop_2018,
     c1n2_2018,
+]
+
+all_bkg_2018 = [
+  *znunu_2018,
+  *wlnu_2018,
+  *qcd_2018,
+  *top_2018
+]
+
+
+all_sig_2018 = [
+  *stop_2018,
+  *c1n2_2018
 ]
 
 for samples in all_samples:

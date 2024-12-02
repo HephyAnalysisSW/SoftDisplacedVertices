@@ -1,3 +1,4 @@
+import sys
 import os
 import yaml
 import ROOT
@@ -14,7 +15,7 @@ ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
 
 class Plotter:
-  def __init__(self,s=None,datalabel="",outputDir="./",lumi=1,info_path="",input_json="",input_filelist=None,config="",year="",isData=False,postfix=""):
+  def __init__(self,s=None,datalabel="",outputDir="./",lumi=1,info_path="",input_json="",input_filelist=None,config="",year="",isData=False,ct=0,postfix=""):
     self.s = None
     self.datalabel = datalabel
     self.outputDir = outputDir
@@ -25,6 +26,7 @@ class Plotter:
     self.year = year
     self.isData = isData
     self.postfix = postfix
+    self.ct = ct
     with open(config, "r") as f_cfg:
       cfg = yaml.load(f_cfg, Loader=yaml.FullLoader)
     self.cfg = cfg
@@ -77,6 +79,23 @@ class Plotter:
         ROOT.gInterpreter.Declare('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon']['path']))
         ROOT.gInterpreter.Declare('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon']['name']))
 
+  def applyObjectCorrections(self, d):
+    self.objectweightstr = {}
+    try:
+      for key in self.cfg['corrections']['objects'].keys():
+        print('In applyObjectCorrections()')
+        print('key: ', key)
+        self.objectweightstr[key] = ''
+        if 'SDVSecVtx' in self.cfg['corrections']['objects']:
+          print('defining sdvsecvtx_object_weight ...')
+          d = d.Define("sdvsecvtx_object_weight", 'SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy)')
+          print('finished defining sdvsecvtx_object_weight ...')
+          self.objectweightstr[key] += ' * sdvsecvtx_object_weight'
+          print('self.objectweightstr[key]: ', self.objectweightstr[key])
+    except (KeyError, AttributeError):
+      pass
+    return d
+
 
   def applyCorrections(self,d):
     self.weightstr = ''
@@ -108,6 +127,35 @@ class Plotter:
       if ('mcweights' in self.cfg) and (self.cfg['mcweights'] is not None):
         for w in self.cfg['mcweights']:
           self.weightstr += ' * {}'.format(w)
+      if self.ct != 0:
+        # ct scaling is requested.
+        tau_old = self.s.ctau
+        tau_new = self.ct
+        if self.s.model == 'stop':
+          weight_ct = f'({tau_old}/{tau_new}) * ({tau_old}/{tau_new}) * exp(-LLP_ctau[0]/{tau_new}) / exp(-LLP_ctau[0]/{tau_old}) * exp(-LLP_ctau[1]/{tau_new}) / exp(-LLP_ctau[1]/{tau_old})'
+        elif self.s.model == 'C1N2':
+          weight_ct = f'({tau_old}/{tau_new}) * exp(-(LLP_ctau[0]*10)/{tau_new}) / exp(-(LLP_ctau[0]*10)/{tau_old})'
+        
+        d = d.Define("weight_ct", weight_ct)
+        print('weight_ct: ', weight_ct)
+        # print('weight_ct: ',   d.Take['double']("weight_ct").GetValue())
+        print('Max weight_ct: ',  d.Max("weight_ct").GetValue())
+        print('Max LLP_ctau: ',   d.Max("LLP_ctau").GetValue())
+        # d = d.Define("LLP_ctau0", "LLP_ctau[0]")
+        # d = d.Define("LLP_ctau1", "LLP_ctau[1]")
+        # d = d.Define("weight_ct1", f'({tau_old}/{tau_new}) * exp(-LLP_ctau[0]/{tau_new}) / exp(-LLP_ctau[0]/{tau_old})')
+        # d = d.Define("weight_ct2", f'({tau_old}/{tau_new}) * exp(-LLP_ctau[1]/{tau_new}) / exp(-LLP_ctau[1]/{tau_old})')
+        # d = d.Define("weight_ct12", f'weight_ct1 * weight_ct2')
+        
+        # print('LLP_ctau[0]: ', d.Take['float']("LLP_ctau0").GetValue()[:10])
+        # print('LLP_ctau[1]: ', d.Take['float']("LLP_ctau1").GetValue()[:10])
+        # print()
+        # print('weight_ct: ',   d.Take['double']("weight_ct").GetValue()[:10])
+        # print('weight_ct1: ',   d.Take['double']("weight_ct1").GetValue()[:10])
+        # print('weight_ct2: ',   d.Take['double']("weight_ct2").GetValue()[:10])
+        # print('weight_ct12: ',   d.Take['double']("weight_ct12").GetValue()[:10])
+        self.weightstr += ' * weight_ct'
+
 
     return d
 
@@ -226,7 +274,51 @@ class Plotter:
       d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
     else:
       d = self.applyCorrections(d)
+      d = self.applyObjectCorrections(d)
       d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
+      try:
+        for key in self.cfg['corrections']['objects'].keys():
+          print('key', key)
+          print('self.objectweightstr[key]', 'evt_weight' + self.objectweightstr[key])
+          print(f"Defining {key.lower()}_weight as {'evt_weight' + self.objectweightstr[key]}")
+          d = d.Define(f'{key.lower()}_weight', 'evt_weight' + self.objectweightstr[key])
+          print('Defined!')
+
+
+        #############################################################################################################################
+        for obj in self.cfg['corrections']['objects'].keys():
+          selections = self.cfg['objects'][obj]['selections']
+          for sel in selections:
+            if selections[sel]:
+              d = d.Define(obj.lower()+'_weight'+sel,"{0}[{1}]".format(obj.lower()+'_weight',selections[sel]))
+            else:
+              d = d.Define(obj.lower()+'_weight'+sel,"{0}".format(obj.lower()+'_weight'))
+            if ('nm1' in self.cfg['objects'][obj]) and (self.cfg['objects'][obj]['nm1']):
+              nm1s = self.cfg['objects'][obj]['nm1']
+              cutstr_objsel = ""
+              if selections[sel]:
+                cutstr_objsel = "({}) && ".format(selections[sel])
+              for i in range(len(nm1s)):
+                cutstrs = []
+                for j in range(len(nm1s)):
+                  if j==i:
+                    continue
+                  cutstrs.append("({})".format(''.join(nm1s[j])))
+                cutstr = "&&".join(cutstrs)
+                cutstr = cutstr_objsel + "({})".format(cutstr)
+                d = d.Define(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr))
+                #print("define {}: {}".format(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr)))
+        #############################################################################################################################
+      except (KeyError, AttributeError):
+        pass
+
+
+        # print('Trying to take values to check if everything is all right.')
+        # print(f'{key.lower()}_weight:    ', d.Take['ROOT::RVecD'](f'{key.lower()}_weight').GetValue()[:10])
+        # print('SDVSecVtx_TkMaxdxy:    ',    d.Take['ROOT::RVecF']('SDVSecVtx_TkMaxdxy').GetValue()[:10])
+
+    # print('DEBUG:    In AddWeights()')
+    # print('self.weightstr: ', self.weightstr)
     return d
   
   def getRDF(self):
@@ -256,45 +348,52 @@ class Plotter:
     d = self.AddWeights(d,xsec_weights)
     return d,xsec_weights
 
-  def getplotsOld(self,d,weight):
-    dhs = dict()
-    for varlabel in self.dplots:
-      hs = []
-      plots = self.dplots[varlabel][0]
-      plots_2d = self.dplots[varlabel][1]
-      for plt in plots:
-        if self.isData:
-          h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel)
-        else:
-          h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,weight)
-        hs.append(h)
+  # def getplotsOld(self,d,weight):
+  #   dhs = dict()
+  #   for varlabel in self.dplots:
+  #     hs = []
+  #     plots = self.dplots[varlabel][0]
+  #     plots_2d = self.dplots[varlabel][1]
+  #     for plt in plots:
+  #       if self.isData:
+  #         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel)
+  #       else:
+  #         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,weight)
+  #       hs.append(h)
+  # 
+  #     for x in plots_2d:
+  #       for y in plots_2d[x]:
+  #         xax = tuple(self.cfg['plot_setting'][x])
+  #         yax = tuple(self.cfg['plot_setting'][y])
+  #         xtitle_idx0 = xax[1].find(';')
+  #         xtitle_idx1 = xax[1].find(';',xtitle_idx0+1)
+  #         xtitle = xax[1][xtitle_idx0+1:xtitle_idx1]
+  #         ytitle_idx0 = yax[1].find(';')
+  #         ytitle_idx1 = yax[1].find(';',ytitle_idx0+1)
+  #         ytitle = yax[1][ytitle_idx0+1:ytitle_idx1]
+  #         hset = (xax[0]+'_vs_'+yax[0],";{0};{1}".format(xtitle,ytitle),xax[2],xax[3],xax[4],yax[2],yax[3],yax[4])
+  #         if self.isData:
+  #           h = d.Histo2D(hset,x+varlabel,y_varlabel)
+  #         else:
+  #           h = d.Histo2D(hset,x+varlabel,y_varlabel,weight)
+  #         hs.append(h)
+  # 
+  #     for i in range(len(hs)):
+  #       hs[i] = hs[i].Clone()
+  #       hs[i].SetName(hs[i].GetName())
+# 
+  #     dhs[varlabel] = hs
+  # 
+  #   return dhs
   
-      for x in plots_2d:
-        for y in plots_2d[x]:
-          xax = tuple(self.cfg['plot_setting'][x])
-          yax = tuple(self.cfg['plot_setting'][y])
-          xtitle_idx0 = xax[1].find(';')
-          xtitle_idx1 = xax[1].find(';',xtitle_idx0+1)
-          xtitle = xax[1][xtitle_idx0+1:xtitle_idx1]
-          ytitle_idx0 = yax[1].find(';')
-          ytitle_idx1 = yax[1].find(';',ytitle_idx0+1)
-          ytitle = yax[1][ytitle_idx0+1:ytitle_idx1]
-          hset = (xax[0]+'_vs_'+yax[0],";{0};{1}".format(xtitle,ytitle),xax[2],xax[3],xax[4],yax[2],yax[3],yax[4])
-          if self.isData:
-            h = d.Histo2D(hset,x+varlabel,y_varlabel)
-          else:
-            h = d.Histo2D(hset,x+varlabel,y_varlabel,weight)
-          hs.append(h)
-  
-      for i in range(len(hs)):
-        hs[i] = hs[i].Clone()
-        hs[i].SetName(hs[i].GetName())
+  def getplots(self,d,weight,objweight,plots_1d,plots_2d,plots_nm1,varlabel):
+    print('DEBUG:    Enter getplots')
+    d = d.Filter("nSDVSecVtx > 0")
+    # print('Snapshot phase...')
+    # d.Snapshot("Events", "/users/alikaan.gueven/AngPlotter/new_CMSSW/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/testK/outputFile.root", ["SDVSecVtx_TkMaxdxy", "sdvsecvtx_weight"])
+    # print('Done snapshot.')
+    # sys.exit()
 
-      dhs[varlabel] = hs
-  
-    return dhs
-  
-  def getplots(self,d,weight,plots_1d,plots_2d,plots_nm1,varlabel):
     hs = []
     if plots_1d is None:
       plots_1d = []
@@ -309,8 +408,21 @@ class Plotter:
       if self.isData:
         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel)
       else:
+        if objweight is not None:
+          for key in objweight:
+            if plt.startswith(key):
+              weight = f'{key.lower()}_weight' +varlabel
+              print('object: ', plt)
+              print('weight: ', weight)
+              print('-'*80)
+              break
+        print(f"DEBUG:    Running command d.Histo1D(tuple(self.cfg['plot_setting']['{plt}']),'{plt+varlabel}','{weight}')")
         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,weight)
+        
+        # h = d.Histo1D(tuple(self.cfg['plot_setting']['SDVSecVtx_mass']), 'SDVSecVtx_mass', 'sdvsecvtx_weight')
+        # h = ROOT.TH1D(f'{plt}_name', 'title', 100,0,10)
       hs.append(h)
+    print('DEBUG:    End of for plt in plots_1d:')
 
     for plt in plots_nm1:
       nm1_setting = (self.cfg['plot_setting'][plt[0]]).copy()
@@ -351,13 +463,14 @@ class Plotter:
       hs[i] = hs[i].Clone()
       hs[i].SetName(hs[i].GetName())
 
+    print('DEBUG:    Exit getplots')
     return hs
 
-  def writeplots(self,rootdir,d,weight,plots_1d,plots_2d,varlabel):
-    hs = self.getplots(d,weight,plots_1d,plots_2d,varlabel)
-    rootdir.cd()
-    for h in hs:
-      h.Write()
+  # def writeplots(self,rootdir,d,weight,plots_1d,plots_2d,varlabel):
+  #   hs = self.getplots(d,weight,plots_1d,plots_2d,varlabel)
+  #   rootdir.cd()
+  #   for h in hs:
+  #     h.Write()
 
   def makeHistFiles(self):
       if not os.path.exists(self.outputDir):
@@ -371,7 +484,7 @@ class Plotter:
         if self.cfg['regions'][sr] is not None:
           d_sr = d_sr.Filter(self.cfg['regions'][sr])
         newd_evt = fout.mkdir("{}_evt".format(sr))
-        hs = self.getplots(d_sr,weight="evt_weight",plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
+        hs = self.getplots(d_sr,weight="evt_weight",objweight=None,plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
         newd_evt.cd()
         for h in hs:
           h.Write()
@@ -380,7 +493,13 @@ class Plotter:
           for obj in self.cfg['objects']:
             for sels in self.cfg['objects'][obj]['selections']:
               newd = fout.mkdir("{}_{}_{}".format(sr,obj,sels))
-              hs = self.getplots(d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],plots_nm1=self.cfg['objects'][obj].get('nm1'),varlabel=sels)
+              print('DEBUG:    In makeHistFiles()')
+              try:
+                objweight = self.cfg['corrections']['objects'].keys()
+                print(f"DEBUG:    objweight={objweight}")
+              except (KeyError, AttributeError):
+                objweight = None
+              hs = self.getplots(d=d_sr,weight="evt_weight",objweight=objweight,plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],plots_nm1=self.cfg['objects'][obj].get('nm1'),varlabel=sels)
               newd.cd()
               for h in hs:
                 h.Write()

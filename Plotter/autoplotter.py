@@ -36,10 +36,12 @@ parser.add_argument('--filelist', type=str,default='',
                         help='path of the txt file that include the list of files to run') 
 parser.add_argument('--postfix', type=str,default='',
                         help='postfix of the output file') 
-parser.add_argument('--year', type=str,
+parser.add_argument('--year', type=str, required=True,
                         help='Which year does the data correspond to') 
 parser.add_argument('--data', action='store_true', default=False,
-                        help='Whether the input is data') 
+                        help='Whether the input is data')
+parser.add_argument('--ct', type=float, default=0,
+                        help='ct value to scale.') 
 parser.add_argument('--submit', action='store_true', default=False,
                         help='Whether to scale the plot')
 parser.add_argument('--njobs', type=int, default=1,
@@ -50,14 +52,37 @@ args = parser.parse_args()
 
 
 if __name__=="__main__":
-
   all_samples = []
   for samp in args.sample:
-    s_samp = getattr(s,samp)
-    if isinstance(s_samp, list): 
-      all_samples += s_samp
-    else:
-      all_samples.append(s_samp)
+    try:
+      s_samp = getattr(s,samp)
+      if isinstance(s_samp, list): 
+        all_samples += s_samp
+      else:
+        all_samples.append(s_samp)
+    except AttributeError:
+      sample_parsed = samp.split('_')
+      # Raise error unless the naming conventions are followed.
+      if (sample_parsed[0] != 'stop') and (sample_parsed[0] != 'C1N2'): raise ValueError('We only support stop or C1N2 at the moment.')
+      if sample_parsed[1][0] != 'M': raise ValueError('Follow our signal naming conventions.')
+
+      input_model  = sample_parsed[0]
+      input_m_LLP = sample_parsed[1][1:]
+      input_m_LSP = sample_parsed[2]
+
+      # matching samples in our database
+      matched_samples = []
+      for _, sample in s.__dict__.items():
+        try:
+          match_model  = (str(input_model)  == str(sample.model))
+          match_m_LLP  = (str(input_m_LLP)  == str(sample.mass))
+          match_m_LSP  = (str(input_m_LSP)  == str(sample.massLSP))
+          if match_model and match_m_LLP and match_m_LSP:
+            matched_samples.append(sample)
+        except AttributeError:
+          pass # These are not the attributes we are looking for.
+      print(matched_samples)
+      all_samples += matched_samples
 
   print("Using config {}".format(args.config))
 
@@ -131,6 +156,8 @@ if __name__=="__main__":
     shutil.copy2('jobs.sh',os.path.join(inputdir,jbfn.format(ij)))
 
   else:
+    print("\n\nDEBUG: In else.")
+    print("all_samples", all_samples)
     lumi = args.lumi # units in pb-1
     #label = "MLNanoAODv2"
     #input_json = "MLNanoAOD.json"
@@ -138,7 +165,7 @@ if __name__=="__main__":
     s.loadData(all_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.datalabel)
     info_path = os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.metadata))
 
-    plotter = p.Plotter(datalabel=args.datalabel,outputDir=args.output,lumi=lumi,info_path=info_path,input_filelist=args.filelist,config=args.config,year=args.year,isData=args.data,postfix=args.postfix)
+    plotter = p.Plotter(datalabel=args.datalabel,outputDir=args.output,lumi=lumi,info_path=info_path,input_filelist=args.filelist,config=args.config,year=args.year,isData=args.data,ct=args.ct,postfix=args.postfix)
 
     for sample in all_samples:
       plotter.setSample(sample)
