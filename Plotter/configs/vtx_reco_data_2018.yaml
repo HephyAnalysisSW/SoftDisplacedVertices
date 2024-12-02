@@ -26,6 +26,8 @@ corrections:
       path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
       name: "Collisions18_UltraLegacy_goldenJSON"
       mode: "nominal"
+  met:
+    mode: "nominal"
   # objects:
   #   SDVSecVtx: 
 
