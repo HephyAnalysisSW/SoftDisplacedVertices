@@ -87,11 +87,10 @@ class Plotter:
         print('key: ', key)
         self.objectweightstr[key] = ''
         if 'SDVSecVtx' in self.cfg['corrections']['objects']:
-          print('defining sdvsecvtx_object_weight ...')
+          print('DEBUG:    Defining sdvsecvtx_object_weight'.ljust(50) + 'as SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy)')
           d = d.Define("sdvsecvtx_object_weight", 'SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy)')
-          print('finished defining sdvsecvtx_object_weight ...')
           self.objectweightstr[key] += ' * sdvsecvtx_object_weight'
-          print('self.objectweightstr[key]: ', self.objectweightstr[key])
+          # print(f'self.objectweightstr[{key}]: ', self.objectweightstr[key])
     except (KeyError, AttributeError):
       pass
     return d
@@ -259,6 +258,7 @@ class Plotter:
               cutstrs.append("({})".format(''.join(nm1s[j])))
             cutstr = "&&".join(cutstrs)
             cutstr = cutstr_objsel + "({})".format(cutstr)
+            print(f'CMD:    d.Define({nm1s[i][0]+sel+"_nm1"}, {nm1s[i][0]}[{cutstr}]')
             d = d.Define(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr))
             #print("define {}: {}".format(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr)))
 
@@ -269,6 +269,7 @@ class Plotter:
     return d_filter
 
   def AddWeights(self,d,weight):
+    print('In AddWeights()')
     if self.isData:
       d = self.applyCorrections(d)
       d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
@@ -278,36 +279,38 @@ class Plotter:
       d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
       try:
         for key in self.cfg['corrections']['objects'].keys():
-          print('key', key)
-          print('self.objectweightstr[key]', 'evt_weight' + self.objectweightstr[key])
-          print(f"Defining {key.lower()}_weight as {'evt_weight' + self.objectweightstr[key]}")
+          print(f"DEBUG:    Defining {key.lower()}_weight".ljust(50) + f"as {'evt_weight' + self.objectweightstr[key]}")
           d = d.Define(f'{key.lower()}_weight', 'evt_weight' + self.objectweightstr[key])
-          print('Defined!')
-
-
-        #############################################################################################################################
+          print('-'*80)
+          print('-'*80)
         for obj in self.cfg['corrections']['objects'].keys():
           selections = self.cfg['objects'][obj]['selections']
           for sel in selections:
             if selections[sel]:
+              print(f"DEBUG:    Defining {obj.lower()}_weight{sel}".ljust(50) + f"as {obj.lower()+'_weight'}[{sel}]")
               d = d.Define(obj.lower()+'_weight'+sel,"{0}[{1}]".format(obj.lower()+'_weight',selections[sel]))
             else:
+              print(f"DEBUG:    Defining {obj.lower()}_weight{sel}".ljust(50) + f"as {obj.lower()+'_weight'}")
               d = d.Define(obj.lower()+'_weight'+sel,"{0}".format(obj.lower()+'_weight'))
-            if ('nm1' in self.cfg['objects'][obj]) and (self.cfg['objects'][obj]['nm1']):
-              nm1s = self.cfg['objects'][obj]['nm1']
-              cutstr_objsel = ""
-              if selections[sel]:
-                cutstr_objsel = "({}) && ".format(selections[sel])
-              for i in range(len(nm1s)):
-                cutstrs = []
-                for j in range(len(nm1s)):
-                  if j==i:
-                    continue
-                  cutstrs.append("({})".format(''.join(nm1s[j])))
-                cutstr = "&&".join(cutstrs)
-                cutstr = cutstr_objsel + "({})".format(cutstr)
-                d = d.Define(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr))
-                #print("define {}: {}".format(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr)))
+        #############################################################################################################################
+        ## ---------- Enabling nm1 with object weights is currently not supported! ----------
+        ## ---------- Enabling nm1 with object weights is currently not supported! ----------
+        #     if ('nm1' in self.cfg['objects'][obj]) and (self.cfg['objects'][obj]['nm1']):
+        #       nm1s = self.cfg['objects'][obj]['nm1']
+        #       cutstr_objsel = ""
+        #       if selections[sel]:
+        #         cutstr_objsel = "({}) && ".format(selections[sel])
+        #       for i in range(len(nm1s)):
+        #         cutstrs = []
+        #         for j in range(len(nm1s)):
+        #           if j==i:
+        #             continue
+        #           cutstrs.append("({})".format(''.join(nm1s[j])))
+        #         cutstr = "&&".join(cutstrs)
+        #         cutstr = cutstr_objsel + "({})".format(cutstr)
+        #         print(f'CMD:    d.Define({nm1s[i][0]+sel+"_nm1"}, {nm1s[i][0]}[{cutstr}]')
+        #         d = d.Define(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr))
+        #         # print("define {}: {}".format(nm1s[i][0]+sel+'_nm1',"{0}[{1}]".format(nm1s[i][0],cutstr)))
         #############################################################################################################################
       except (KeyError, AttributeError):
         pass
@@ -387,13 +390,7 @@ class Plotter:
   #   return dhs
   
   def getplots(self,d,weight,objweight,plots_1d,plots_2d,plots_nm1,varlabel):
-    print('DEBUG:    Enter getplots')
-    d = d.Filter("nSDVSecVtx > 0")
-    # print('Snapshot phase...')
-    # d.Snapshot("Events", "/users/alikaan.gueven/AngPlotter/new_CMSSW/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/testK/outputFile.root", ["SDVSecVtx_TkMaxdxy", "sdvsecvtx_weight"])
-    # print('Done snapshot.')
-    # sys.exit()
-
+    print('DEBUG:    In getplots()')
     hs = []
     if plots_1d is None:
       plots_1d = []
@@ -402,38 +399,50 @@ class Plotter:
     if plots_nm1 is None:
       plots_nm1 = []
 
+    print('DEBUG:    Starting plots_1d...')
     for plt in plots_1d:
+      w = weight
       if not plt in self.cfg['plot_setting']:
         print("{} not registered in plot setting!".format(plt))
       if self.isData:
         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel)
       else:
         if objweight is not None:
-          for key in objweight:
-            if plt.startswith(key):
-              weight = f'{key.lower()}_weight' +varlabel
-              print('object: ', plt)
-              print('weight: ', weight)
-              print('-'*80)
+          for obj in objweight:
+            if plt.startswith(obj):
+              w = f'{obj.lower()}_weight'+varlabel
               break
-        print(f"DEBUG:    Running command d.Histo1D(tuple(self.cfg['plot_setting']['{plt}']),'{plt+varlabel}','{weight}')")
-        h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,weight)
+        print(f"DEBUG:      Running command d.Histo1D(tuple(self.cfg['plot_setting']['{plt}']),'{plt+varlabel}','{w}')")
+        h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,w)
         
         # h = d.Histo1D(tuple(self.cfg['plot_setting']['SDVSecVtx_mass']), 'SDVSecVtx_mass', 'sdvsecvtx_weight')
         # h = ROOT.TH1D(f'{plt}_name', 'title', 100,0,10)
       hs.append(h)
-    print('DEBUG:    End of for plt in plots_1d:')
 
+    print('DEBUG:    Starting plots_nm1...')
+    if (plots_nm1 != []) and objweight is not None:
+      raise ValueError("Currently object weights cannot be used with nm1 plots. Not supported.")
     for plt in plots_nm1:
+      w = weight
       nm1_setting = (self.cfg['plot_setting'][plt[0]]).copy()
       nm1_setting[0] += 'nm1'
       nm1_setting = tuple(nm1_setting)
       if self.isData:
         h = d.Histo1D(nm1_setting,plt[0]+varlabel+'_nm1')
       else:
-        h = d.Histo1D(nm1_setting,plt[0]+varlabel+'_nm1',weight)
+        ## ---------- Enabling nm1 with object weights are currently not supported! ----------
+        # if objweight is not None:
+        #   for obj in objweight:
+        #     if plt[0].startswith(obj):
+        #       w = f'{obj.lower()}_weight'+varlabel
+        #       break
+        print(f"DEBUG:      Running command d.Histo1D({nm1_setting},{plt[0]+varlabel+'_nm1'},{w})")
+        h = d.Histo1D(nm1_setting,plt[0]+varlabel+'_nm1',w)
       hs.append(h)
-  
+
+    print('DEBUG:    Starting plots_2d...')
+    if (plots_2d != []) and objweight is not None:
+      raise ValueError("Currently object weights cannot be used with 2d plots plots. Not supported.")
     for x,y in plots_2d:
         xax = tuple(self.cfg['plot_setting'][x])
         yax = tuple(self.cfg['plot_setting'][y])
@@ -473,6 +482,7 @@ class Plotter:
   #     h.Write()
 
   def makeHistFiles(self):
+      print('DEBUG:    In makeHistFiles()')
       if not os.path.exists(self.outputDir):
           os.makedirs(self.outputDir)
       fout = ROOT.TFile("{}/{}_hist{}.root".format(self.outputDir,self.s.name,self.postfix),"RECREATE")
@@ -493,7 +503,7 @@ class Plotter:
           for obj in self.cfg['objects']:
             for sels in self.cfg['objects'][obj]['selections']:
               newd = fout.mkdir("{}_{}_{}".format(sr,obj,sels))
-              print('DEBUG:    In makeHistFiles()')
+              print()
               try:
                 objweight = self.cfg['corrections']['objects'].keys()
                 print(f"DEBUG:    objweight={objweight}")

@@ -16,9 +16,19 @@ nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>
 
 corrections:
   PU:
-    path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-    name: "Collisions18_UltraLegacy_goldenJSON"
+    "2017":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
+      name: "Collisions17_UltraLegacy_goldenJSON"
+      mode: "nominal"
+    "2018":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+      name: "Collisions18_UltraLegacy_goldenJSON"
+      mode: "nominal"
+  met:
     mode: "nominal"
+  ## Uncomment to use object scaling. Defined in applyObjectCorrections() in Plotter/python/plotter.py
+  # objects:
+  #   SDVSecVtx: 
 
 weights:
 
@@ -267,6 +277,7 @@ objects:
     2d_plots:
     - [SDVTrack_eta,SDVTrack_numberOfValidHits]
 
+    ## Enabling object weights with nm1 is not supoorted. This will lead to crash.
     nm1:
     - ['SDVTrack_pfRelIso03_all','<5']
     - ['SDVTrack_dxySig','>4']

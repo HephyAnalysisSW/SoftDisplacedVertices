@@ -7,7 +7,7 @@ import os
 year = 2018
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "vtx_reco/mc_data/"
-unique_dir  = "20241127_objweight"
+unique_dir  = "20241204"
 work_dir = os.path.join(outDir_base, work_subdir)
 
 dirs  = {'sig':  os.path.join(os.path.join(work_dir, 'sig'),  str(unique_dir)),

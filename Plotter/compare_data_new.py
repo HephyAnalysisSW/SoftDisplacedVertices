@@ -287,11 +287,6 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
   if ratio:
     canv.cd(1)
   CMS.cmsCanvasResetAxes(ROOT.gPad, x_min, x_max, y_min_log, y_min_log*((y_max/y_min_log)**(1/0.65)))
-  print("y_min: ", y_min)
-  print("y_min_log: ", y_min_log)
-  print("y_min_log*((y_max/y_min_log)**(1/0.65)): ", y_min_log*((y_max/y_min_log)**(1/0.65)))
-  print("x_min: ", x_min)
-  print("x_max: ", x_max)
   ROOT.gPad.SetLogy()
   canv.Update()
   CMS.SaveCanvas(canv,"{}_log.pdf".format(args.output+'/'+name),False)
@@ -315,8 +310,8 @@ def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,sig
       }
   fs = {
       'data': [ROOT.TFile.Open(fn) for fn in datafn],
-      'bkg': [ROOT.TFile.Open(fn) for fn in bkgfns],
-      'sig': [ROOT.TFile.Open(fn) for fn in sigfns]
+      'bkg':  [ROOT.TFile.Open(fn) for fn in bkgfns],
+      'sig':  [ROOT.TFile.Open(fn) for fn in sigfns]
       }
   dirs = ''
   if (args.dirs is None) or (len(args.dirs)==0):
@@ -350,18 +345,7 @@ def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,sig
         if not ('TH1' in str(type(h))):
           break
         h.SetDirectory(0)
-        # if h.GetName() == 'SDVSecVtx_TkMaxdxy': h=h.Rebin(5, '', array('d', [0,1,2,4,6,10]))
         h = h_command(h)
-        # if args.commands is not None:
-        #   for c in args.commands:
-        #     exec(c)
-        #     print('h.GetName()', h.GetName())
-        #     if h.GetName() == 'SDVSecVtx_TkMaxdxy':
-        #       print('total bins: ', h.GetNbinsX())
-
-        # if h.GetName() == 'SDVSecVtx_TkMaxdxy': h=h.Rebin(5, '', array('d', [0,1,2,4,6,10]))
-        # if h.GetName() == 'SDVSecVtx_TkMaxdxy':
-        #   h=h.Rebin(5, '', array('d', [0,1,2,4,6,10]))
         hs[k].append(h)
         doit = True
     #datamccomparison(plt,hs,colors,legends,scale_to_data=False, ratio=True)
