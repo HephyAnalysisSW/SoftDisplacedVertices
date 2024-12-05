@@ -203,11 +203,11 @@ objects:
       # gen_0_4:     b0_sel_0_4  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200
       # loose1:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
       # medium1: b0_sel_medium && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      tight:       b0_sel_tight        && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      ultratight:  b0_sel_ultratight   && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      tight:       b0_sel_tight        && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      # ultratight:  b0_sel_ultratight   && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
 
-      tight2:       b0_sel_tight       && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 && SDVSecVtx_nTracks==2 # && MET_pt_corr > 200
-      ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 && SDVSecVtx_nTracks==2 # && MET_pt_corr > 200
+      tight2:       b0_sel_tight       && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      # ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
 
       
       # loose2:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
@@ -299,7 +299,7 @@ plot_setting:
   nbJet_tight:      [nbJet_tight,      ';nbJet_tight;Counts',      8, 0, 8]
   nbJet_ultratight: [nbJet_ultratight, ';nbJet_ultratight;Counts', 8, 0, 8]
 
-  SDVSecVtx_mass:       [SDVSecVtx_mass,     ';SDVSecVtx_mass (GeV);Counts', 100, 0, 8]
+  SDVSecVtx_mass:       [SDVSecVtx_mass,     ';SDVSecVtx_mass (GeV);Counts', 100, 1, 2]
   SDVSecVtx_Lxy:        [SDVSecVtx_Lxy,      ';SDVSecVtx_Lxy (cm);Counts', 40, 0, 40]
   SDVSecVtx_LxySig:     [SDVSecVtx_LxySig,   ';SDVSecVtx_LxySig;Counts', 40, 0, 400]
   SDVSecVtx_pAngle:     [SDVSecVtx_pAngle,   ';SDVSecVtx_pAngle (rad);Counts', 64, 0, 3.2]

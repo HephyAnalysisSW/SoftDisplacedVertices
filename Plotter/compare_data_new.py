@@ -310,8 +310,8 @@ def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,sig
       }
   fs = {
       'data': [ROOT.TFile.Open(fn) for fn in datafn],
-      'bkg': [ROOT.TFile.Open(fn) for fn in bkgfns],
-      'sig': [ROOT.TFile.Open(fn) for fn in sigfns]
+      'bkg':  [ROOT.TFile.Open(fn) for fn in bkgfns],
+      'sig':  [ROOT.TFile.Open(fn) for fn in sigfns]
       }
   dirs = ''
   if (args.dirs is None) or (len(args.dirs)==0):

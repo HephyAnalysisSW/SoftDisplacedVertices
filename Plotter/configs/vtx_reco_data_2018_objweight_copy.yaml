@@ -177,7 +177,7 @@ new_variables_mc:
 
 regions:
   # all:    
-  MET200: MET_pt_corr>200
+  # MET200: MET_pt_corr>200
   MET400: MET_pt_corr>400
   # presele: nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
   # SRs:      nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && nGoodVtx_SRs>0
@@ -204,10 +204,10 @@ objects:
       # loose1:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
       # medium1: b0_sel_medium && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
       tight:       b0_sel_tight        && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      ultratight:  b0_sel_ultratight   && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      # ultratight:  b0_sel_ultratight   && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
 
-      tight2:       b0_sel_tight       && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      # tight2:       b0_sel_tight       && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      # ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
 
       
       # loose2:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
@@ -278,6 +278,10 @@ objects:
       # - [SDVSecVtx_closestbJet_btagDeepFlavB_medium, SDVSecVtx_mass]
       # - [SDVSecVtx_closestbJet_btagDeepFlavB_tight,  SDVSecVtx_mass]
       # - [SDVSecVtx_closestbJet_btagDeepFlavB_gen,    SDVSecVtx_mass]
+    nm1:
+    # - ['SDVSecVtx_closestbJetdR_tight','< 0.1']
+    # - ['(SDVSecVtx_mass<0.4 || SDVSecVtx_mass>0.6)']
+    # - ['SDVSecVtx_ndof','>1']
   Jet:
     selections:
       # all:

@@ -84,7 +84,8 @@ if __name__=="__main__":
       print(matched_samples)
       all_samples += matched_samples
 
-  print("Using config {}".format(args.config))
+  print("\nIn autoplotter()")
+  print("DEBUG:    Using config {}".format(args.config))
 
   if args.submit:
     s.loadData(all_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.datalabel)
@@ -156,8 +157,6 @@ if __name__=="__main__":
     shutil.copy2('jobs.sh',os.path.join(inputdir,jbfn.format(ij)))
 
   else:
-    print("\n\nDEBUG: In else.")
-    print("all_samples", all_samples)
     lumi = args.lumi # units in pb-1
     #label = "MLNanoAODv2"
     #input_json = "MLNanoAOD.json"

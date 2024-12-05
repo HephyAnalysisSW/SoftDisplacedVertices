@@ -277,6 +277,7 @@ objects:
     2d_plots:
     - [SDVTrack_eta,SDVTrack_numberOfValidHits]
 
+    ## Enabling object weights with nm1 is not supoorted. This will lead to crash.
     nm1:
     - ['SDVTrack_pfRelIso03_all','<5']
     - ['SDVTrack_dxySig','>4']

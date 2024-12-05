@@ -6,8 +6,8 @@ import os
 
 
 samples_to_plot = {
-    'sig' : [sample.name for sample in ss.all_sig_2018],
-    'bkg' : [sample.name for sample in ss.all_bkg_2018],
+    # 'sig' : [sample.name for sample in ss.all_sig_2018],
+    # 'bkg' : [sample.name for sample in ss.all_bkg_2018],
     'data': [sample.name for sample in ss.met_2018]
 }
 
@@ -23,10 +23,10 @@ json_db = {'sig'  : 'MC_RunIISummer20UL18.json',
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018_objweight.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "vtx_reco/mc_data/"
-unique_dir  = "20241129_objweight"
+unique_dir  = "20241204"
 
 work_dir = os.path.join(outDir_base, work_subdir)
 

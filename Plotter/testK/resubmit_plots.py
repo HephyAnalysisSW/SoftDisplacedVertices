@@ -18,7 +18,7 @@ args = parser.parse_args()
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
     work_subdir = "vtx_reco/mc_data/"
-    unique_dir  = "20241129"
+    unique_dir  = "20241203_objweight"
     work_dir = os.path.join(outDir_base, work_subdir)
     
     file_paths = {'sig':  os.path.join(os.path.join(work_dir, 'sig'),  os.path.join(str(unique_dir), 'job_ids.json')),
