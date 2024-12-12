@@ -28,8 +28,15 @@ corrections:
       mode: "nominal"
   met:
     mode: "nominal"
+
+  # mapveto:
+  #   data_path: "/eos/vbc/group/cms/ang.li/material_map/material_map.root"
+  #   mc_path: "/eos/vbc/group/cms/ang.li/material_map/material_map_MC.root"
+
   objects:
-    SDVSecVtx: 
+    SDVSecVtx:
+      idx_for_event_weight: leading_SDVSecVtx_idx
+      mode: "nominal"
 
 
 new_variables:
@@ -151,6 +158,12 @@ new_variables:
   # SRs_vertexCuts:   SDVSecVtx_ndof>1  && SDVSecVtx_pAngle>0.2 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_nGoodTrack>=2
   # VR1s_vertexCuts:  SDVSecVtx_ndof>1  && SDVSecVtx_pAngle>0.2 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_nGoodTrack==1
   # VR2s_vertexCuts:  SDVSecVtx_ndof>1  && SDVSecVtx_pAngle>0.2 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_nGoodTrack==0
+
+  goodVertexCuts:  SDVSecVtx_ndof>1 # && (SDVSecVtx_mapveto==0)
+  goodVtx_ngoodtk: SDVSecVtx_ngoodtk[goodVertexCuts]
+  goodVtx_LxySig:  SDVSecVtx_LxySig[goodVertexCuts]
+
+  leading_SDVSecVtx_idx: Leading_Vtx_Idx(goodVtx_ngoodtk, goodVtx_LxySig)
 
   # nGoodVtx_SRs:   Sum(SRs_vertexCuts)
   # nGoodVtx_VR1s:  Sum(VR1s_vertexCuts)

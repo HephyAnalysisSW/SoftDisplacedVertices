@@ -61,6 +61,7 @@ if __name__=="__main__":
       else:
         all_samples.append(s_samp)
     except AttributeError:
+      if args.ct == 0: raise ValueError("Either the sample name is wrong, or you intended to combine multiple samples but forgot passing ct rescaling value.")
       sample_parsed = samp.split('_')
       # Raise error unless the naming conventions are followed.
       if (sample_parsed[0] != 'stop') and (sample_parsed[0] != 'C1N2'): raise ValueError('We only support stop or C1N2 at the moment.')

@@ -18,7 +18,7 @@ args = parser.parse_args()
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
     work_subdir = "vtx_reco/mc_data/"
-    unique_dir  = "20241203_objweight"
+    unique_dir  = "20241210"
     work_dir = os.path.join(outDir_base, work_subdir)
     
     file_paths = {'sig':  os.path.join(os.path.join(work_dir, 'sig'),  os.path.join(str(unique_dir), 'job_ids.json')),
@@ -52,9 +52,12 @@ if __name__=="__main__":
                         print(f'{sample} has not been submitted yet. Status: PENDING...')
                     elif (sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2] == 'RUNNING'):
                         print(f'{sample} has not been completed yet. Status: RUNNING...')
+                    elif (sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2][:9] == 'CANCELLED'):
+                        print(f"{sample}'s job has been CANCELLED. Resubmitting...")
                     
                     # If FAILED ==> resubmit
-                    elif (sacctOut_splitted[-1] != '0:0') and (sacctOut_splitted[-2] != 'COMPLETED'):
+                    elif ((sacctOut_splitted[-1] != '0:0') and (sacctOut_splitted[-2] != 'COMPLETED')) or \
+                         (                                 (sacctOut_splitted[-2][:9] == 'CANCELLED')):
                         print(f'{sample} status: {sacctOut_splitted[-2]}!!!')
                         command = d[sample]['command']
                         result  = run(command, shell=True, capture_output = True, text = True)    # Resubmit.

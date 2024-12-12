@@ -75,19 +75,21 @@ def predict(devt,region):
 if __name__=="__main__":
   sig_fns = [
       #"met2018_hist.root",
-      "background_2018_hist.root",
-      "stop_M600_575_ct0p2_2018_hist.root",
-      "stop_M600_580_ct2_2018_hist.root",
-      "stop_M600_585_ct20_2018_hist.root",
-      "stop_M600_588_ct200_2018_hist.root",
-      "stop_M1000_975_ct0p2_2018_hist.root",
-      "stop_M1000_980_ct2_2018_hist.root",
-      "stop_M1000_985_ct20_2018_hist.root",
-      "stop_M1000_988_ct200_2018_hist.root",
-      "stop_M1400_1375_ct0p2_2018_hist.root",
-      "stop_M1400_1380_ct2_2018_hist.root",
-      "stop_M1400_1385_ct20_2018_hist.root",
-      "stop_M1400_1388_ct200_2018_hist.root",
+      "qcd_2018_hist.root",
+      "wjets_2018_hist"
+      # "background_2018_hist.root",
+      # "stop_M600_575_ct0p2_2018_hist.root",
+      # "stop_M600_580_ct2_2018_hist.root",
+      # "stop_M600_585_ct20_2018_hist.root",
+      # "stop_M600_588_ct200_2018_hist.root",
+      # "stop_M1000_975_ct0p2_2018_hist.root",
+      # "stop_M1000_980_ct2_2018_hist.root",
+      # "stop_M1000_985_ct20_2018_hist.root",
+      # "stop_M1000_988_ct200_2018_hist.root",
+      # "stop_M1400_1375_ct0p2_2018_hist.root",
+      # "stop_M1400_1380_ct2_2018_hist.root",
+      # "stop_M1400_1385_ct20_2018_hist.root",
+      # "stop_M1400_1388_ct200_2018_hist.root",
       ]
 
   #sig_fns = []

@@ -99,12 +99,13 @@ T1 CheckIfSizesMatch(T1 Column1, T2 Column2)
   return Column1;
 }
 
-ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecVtx_pAngle, ROOT::RVecF SDVSecVtx_Lxy)
+ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecVtx_pAngle, ROOT::RVecF SDVSecVtx_Lxy, std::string year, std::string mode)
 {
     // std::cout << "DEBUG:    Enter SDVSecVtx_weight" << std::endl;
     ROOT::RVecF TkMaxdxy_bins = {0,1,2,4,6,10,20};
     ROOT::RVecF Lxy_bins      = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
     ROOT::RVecF pAngle_bins   = {0,0.1,0.2,0.4,0.8,1.5,3.14};
+    ROOT::RVecF rsfactor_TkMaxdxy;
 
     auto nSDVSecVtx    = SDVSecVtx_TkMaxdxy.size();
     auto nbin_TkMaxdxy = TkMaxdxy_bins.size();
@@ -114,10 +115,17 @@ ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecV
     if (SDVSecVtx_TkMaxdxy.size() != SDVSecVtx_Lxy.size() || SDVSecVtx_TkMaxdxy.size() != SDVSecVtx_pAngle.size()) {
       throw std::runtime_error("Input vectors have different sizes.");
     }
-
-    ROOT::RVecF rsfactor_TkMaxdxy  = {1.02960284, 1.02188192, 1.00453674, 0.80158607, 0.86721481, 0.87043331};
-    // ROOT::RVecF rsfactor_Lxy       = {1.09443769, 1.05438238, 1.05420248, 1.03651855, 1.03851552, 1.07299949, 1.00225866, 1.02358284, 0.97323451, 0.96338892, 0.99230149, 0.96848438, 0.92154488, 0.78861695, 0.976129, 0.93846937, 0.91288319, 0.7952071, 0.83590965, 0.91259971};
-    // ROOT::RVecF rsfactor_pAngle    = {0.89571551, 1.10683332, 1.11705027, 1.14039125, 1.09683087, 1.16158508};
+    if (year=="2018"){
+      if (mode=="nominal"){
+        // ROOT::RVecF rsfactor_TkMaxdxy_old  = {1.02960284, 1.02188192, 1.00453674, 0.80158607, 0.86721481, 0.87043331};
+        rsfactor_TkMaxdxy  = {1., 0.98883038, 0.96772917, 0.77624594, 0.83981816, 0.84085727};
+        // ROOT::RVecF rsfactor_Lxy       = {1.09443769, 1.05438238, 1.05420248, 1.03651855, 1.03851552, 1.07299949, 1.00225866, 1.02358284, 0.97323451, 0.96338892, 0.99230149, 0.96848438, 0.92154488, 0.78861695, 0.976129, 0.93846937, 0.91288319, 0.7952071, 0.83590965, 0.91259971};
+        // ROOT::RVecF rsfactor_pAngle    = {0.89571551, 1.10683332, 1.11705027, 1.14039125, 1.09683087, 1.16158508};
+      }
+    }
+    if (rsfactor_TkMaxdxy.size() == 0){
+      throw runtime_error("Object weight is requested, but the size is zero!");
+    }
     
     ROOT::RVecF rs_factor_combined(nSDVSecVtx, 1.0);
     // std::cout << "nSDVSecVtx: " << nSDVSecVtx << std::endl;
@@ -941,7 +949,7 @@ std::vector<ROOT::RVecF> SDV_TkMinMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::R
         auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
         ROOT::RVecF dxys;
         for (size_t i=0; i<tkIdx.size(); ++i){
-                dxys.push_back(abs(SDVTrack_dxy[i]));
+                dxys.push_back(abs(SDVTrack_dxy[tkIdx[i]]));
         }
         SDVSecVtx_mindxy[iSDV] = ROOT::VecOps::Min(dxys);
         SDVSecVtx_maxdxy[iSDV] = ROOT::VecOps::Max(dxys);

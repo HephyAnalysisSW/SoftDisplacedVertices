@@ -51,14 +51,14 @@ class Plotter:
             else:
               self.cfg['objects'][o]['variables'] = self.cfg['objects'][o]['variables_mc']
 
-    if ('mapveto' in self.cfg):
+    if ('mapveto' in self.cfg['corrections']):
       mappath = ''
       if self.isData:
-        assert 'data_path' in self.cfg['mapveto'], "data_path not available in config!"
-        mappath = self.cfg['mapveto']['data_path']
+        assert 'data_path' in self.cfg['corrections']['mapveto'], "data_path not available in config!"
+        mappath = self.cfg['corrections']['mapveto']['data_path']
       else:
-        assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
-        mappath = self.cfg['mapveto']['data_path']
+        assert 'mc_path' in self.cfg['corrections']['mapveto'], "mc_path not available in config!"
+        mappath = self.cfg['corrections']['mapveto']['data_path']
       self.f1 = ROOT.TFile.Open(mappath)
       ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
       self.f1.Close()
@@ -87,8 +87,9 @@ class Plotter:
         print('key: ', key)
         self.objectweightstr[key] = ''
         if 'SDVSecVtx' in self.cfg['corrections']['objects']:
-          print('DEBUG:    Defining sdvsecvtx_object_weight'.ljust(50) + 'as SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy)')
-          d = d.Define("sdvsecvtx_object_weight", 'SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy)')
+          sdv_objweight_mode = self.cfg['corrections']['objects']['SDVSecVtx']['mode']
+          print('DEBUG:    Defining sdvsecvtx_object_weight'.ljust(50) + f'as SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy, "{self.year}", "{sdv_objweight_mode}")')
+          d = d.Define("sdvsecvtx_object_weight", f'SDVSecVtx_weight(SDVSecVtx_TkMaxdxy, SDVSecVtx_pAngle, SDVSecVtx_Lxy, "{self.year}", "{sdv_objweight_mode}")')
           self.objectweightstr[key] += ' * sdvsecvtx_object_weight'
           # print(f'self.objectweightstr[{key}]: ', self.objectweightstr[key])
     except (KeyError, AttributeError):
@@ -126,16 +127,16 @@ class Plotter:
       if ('mcweights' in self.cfg) and (self.cfg['mcweights'] is not None):
         for w in self.cfg['mcweights']:
           self.weightstr += ' * {}'.format(w)
-      if self.ct != 0:
-        # ct scaling is requested.
+      if self.ct != 0: # ct scaling is requested.
         tau_old = self.s.ctau
         tau_new = self.ct
         if self.s.model == 'stop':
-          weight_ct = f'({tau_old}/{tau_new}) * ({tau_old}/{tau_new}) * exp(-LLP_ctau[0]/{tau_new}) / exp(-LLP_ctau[0]/{tau_old}) * exp(-LLP_ctau[1]/{tau_new}) / exp(-LLP_ctau[1]/{tau_old})'
+          weight_ct = f'({tau_old}/{tau_new}) * ({tau_old}/{tau_new}) * exp(-(LLP_ctau[0]*10)/{tau_new}) / exp(-(LLP_ctau[0]*10)/{tau_old}) * exp(-(LLP_ctau[1]*10)/{tau_new}) / exp(-(LLP_ctau[1]*10)/{tau_old})'
         elif self.s.model == 'C1N2':
           weight_ct = f'({tau_old}/{tau_new}) * exp(-(LLP_ctau[0]*10)/{tau_new}) / exp(-(LLP_ctau[0]*10)/{tau_old})'
         
-        d = d.Define("weight_ct", weight_ct)
+        d = d.Define("weight_ct_val", weight_ct)
+        d = d.Define("weight_ct", "(weight_ct_val < 1e6) ? weight_ct_val : 0")
         print('weight_ct: ', weight_ct)
         # print('weight_ct: ',   d.Take['double']("weight_ct").GetValue())
         print('Max weight_ct: ',  d.Max("weight_ct").GetValue())
@@ -212,7 +213,7 @@ class Plotter:
       d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
       d = d.Define("MET_pt_corr",'MET_corr.first')
       d = d.Define("MET_phi_corr",'MET_corr.second')
-      if ('mapveto' in self.cfg):
+      if ('mapveto' in self.cfg['corrections']):
         d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
       vars_to_define = ['new_variables']
       for v in vars_to_define:
@@ -276,14 +277,23 @@ class Plotter:
     else:
       d = self.applyCorrections(d)
       d = self.applyObjectCorrections(d)
+      print(f"DEBUG:    Defining evt_weight_base".ljust(50) + f"as Generator_weight * weight{self.weightstr}")
+      d = d.Define("evt_weight_base","Generator_weight*{0}{1}".format(weight,self.weightstr))
+      try:
+        for obj in self.cfg['corrections']['objects'].keys():
+          idx = self.cfg['corrections']['objects'][obj]['idx_for_event_weight']
+          print(f"DEBUG:    Defining leading_{obj.lower()}_weight".ljust(50) + f"as {idx} != -1 ? {obj.lower()}_object_weight[{idx}] : 1")
+          d = d.Define(f"leading_{obj.lower()}_weight", f"{idx} != -1 ? {obj.lower()}_object_weight[{idx}] : 1")
+          self.weightstr += f" * leading_{obj.lower()}_weight"
+      except (KeyError, AttributeError):
+        pass
+
+      print(f"DEBUG:    Defining evt_weight".ljust(50) + f"as Generator_weight * weight{self.weightstr}")
       d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
       try:
-        for key in self.cfg['corrections']['objects'].keys():
-          print(f"DEBUG:    Defining {key.lower()}_weight".ljust(50) + f"as {'evt_weight' + self.objectweightstr[key]}")
-          d = d.Define(f'{key.lower()}_weight', 'evt_weight' + self.objectweightstr[key])
-          print('-'*80)
-          print('-'*80)
         for obj in self.cfg['corrections']['objects'].keys():
+          print(f"DEBUG:    Defining {obj.lower()}_weight".ljust(50) + f"as {'evt_weight_base' + self.objectweightstr[obj]}")
+          d = d.Define(f'{obj.lower()}_weight', 'evt_weight_base' + self.objectweightstr[obj])
           selections = self.cfg['objects'][obj]['selections']
           for sel in selections:
             if selections[sel]:
@@ -414,7 +424,6 @@ class Plotter:
               break
         print(f"DEBUG:      Running command d.Histo1D(tuple(self.cfg['plot_setting']['{plt}']),'{plt+varlabel}','{w}')")
         h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,w)
-        
         # h = d.Histo1D(tuple(self.cfg['plot_setting']['SDVSecVtx_mass']), 'SDVSecVtx_mass', 'sdvsecvtx_weight')
         # h = ROOT.TH1D(f'{plt}_name', 'title', 100,0,10)
       hs.append(h)
@@ -494,7 +503,9 @@ class Plotter:
         if self.cfg['regions'][sr] is not None:
           d_sr = d_sr.Filter(self.cfg['regions'][sr])
         newd_evt = fout.mkdir("{}_evt".format(sr))
-        hs = self.getplots(d_sr,weight="evt_weight",objweight=None,plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
+
+        print(f'\nDEBUG:    Region = "{sr}"')
+        hs = self.getplots(d_sr,weight='evt_weight',objweight=None,plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
         newd_evt.cd()
         for h in hs:
           h.Write()
@@ -506,7 +517,6 @@ class Plotter:
               print()
               try:
                 objweight = self.cfg['corrections']['objects'].keys()
-                print(f"DEBUG:    objweight={objweight}")
               except (KeyError, AttributeError):
                 objweight = None
               hs = self.getplots(d=d_sr,weight="evt_weight",objweight=objweight,plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],plots_nm1=self.cfg['objects'][obj].get('nm1'),varlabel=sels)
@@ -514,7 +524,8 @@ class Plotter:
               for h in hs:
                 h.Write()
               #self.writeplots(newd,d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],varlabel=sels)
-
+      # cols = ["evt_weight", "leading_sdvsecvtx_weight", "sdvsecvtx_object_weight", "SDVSecVtx_TkMaxdxy", "leading_SDVSecVtx_idx"]
+      # d.Snapshot("Events", "/scratch-cbe/users/alikaan.gueven/AN_plots/vtx_reco/mc_data/sig/20241209_tmp/outputFile.root", cols);
       fout.Close()
   
   
