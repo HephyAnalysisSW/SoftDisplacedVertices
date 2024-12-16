@@ -279,10 +279,21 @@ all_bkg_2018 = [
   *top_2018
 ]
 
+all_bkg_2017 = [
+  *znunu_2017,
+  *wlnu_2017,
+  *qcd_2017,
+  *top_2017
+]
+
 
 all_sig_2018 = [
   *stop_2018,
   *c1n2_2018
+]
+
+all_sig_2017 = [
+  *stop_2017,
 ]
 
 for samples in all_samples:

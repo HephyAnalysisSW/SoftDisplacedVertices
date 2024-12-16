@@ -9,6 +9,11 @@
 #include <algorithm> 
 #include "correction.h"
 
+/* #include <iostream>
+#include <vector>
+#include <cmath>
+#include <numeric>
+ */
 float dPhi(float phi1, float phi2) {
   float x = phi1-phi2;
   float o2pi = 1. / (2. * M_PI);
@@ -117,14 +122,24 @@ ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecV
     }
     if (year=="2018"){
       if (mode=="nominal"){
-        // ROOT::RVecF rsfactor_TkMaxdxy_old  = {1.02960284, 1.02188192, 1.00453674, 0.80158607, 0.86721481, 0.87043331};
         rsfactor_TkMaxdxy  = {1., 0.98883038, 0.96772917, 0.77624594, 0.83981816, 0.84085727};
         // ROOT::RVecF rsfactor_Lxy       = {1.09443769, 1.05438238, 1.05420248, 1.03651855, 1.03851552, 1.07299949, 1.00225866, 1.02358284, 0.97323451, 0.96338892, 0.99230149, 0.96848438, 0.92154488, 0.78861695, 0.976129, 0.93846937, 0.91288319, 0.7952071, 0.83590965, 0.91259971};
         // ROOT::RVecF rsfactor_pAngle    = {0.89571551, 1.10683332, 1.11705027, 1.14039125, 1.09683087, 1.16158508};
       }
+      // else if(mode=="down"){
+      //   rsfactor_TkMaxdxy  = {};
+      // }
+      // else if(mode=="up"){
+      //   rsfactor_TkMaxdxy  = {};
+      // }
+    }
+    else if (year=="2017"){
+      if (mode=="nominal"){
+        rsfactor_TkMaxdxy  = {1., 0.99689352, 0.96465448, 0.91358948, 0.85472115, 0.80232196};
+      }
     }
     if (rsfactor_TkMaxdxy.size() == 0){
-      throw runtime_error("Object weight is requested, but the size is zero!");
+      throw runtime_error("Object weight is requested, but the size is zero! Check the 'year' and the 'mode'.");
     }
     
     ROOT::RVecF rs_factor_combined(nSDVSecVtx, 1.0);
@@ -138,7 +153,14 @@ ROOT::RVecF SDVSecVtx_weight(ROOT::RVecF SDVSecVtx_TkMaxdxy, ROOT::RVecF SDVSecV
             // std::cout << "rsfactor_TkMaxdxy["<< i-1 << "]" << rsfactor_TkMaxdxy[i-1] << std::endl;
             break;
         }
+        else if(SDVSecVtx_TkMaxdxy[k] >= TkMaxdxy_bins[nbin_TkMaxdxy-1]){
+          // If tkmaxdxy > last bin of TkMaxdxy_bins assign the weight for the last bin.
+          rs_factor_combined[k] *= rsfactor_TkMaxdxy[i-1];
+          break;
+        }
       }
+
+      // OPTIONAL: Additional reweighting based on different objects.
       // for (auto i=1; i<nbin_Lxy; ++i){
       //   if (SDVSecVtx_Lxy[k] < Lxy_bins[i]){
       //       rs_factor_combined[k] *= rsfactor_Lxy[i-1];
@@ -972,3 +994,92 @@ std::vector<ROOT::RVecF> SDV_TkMinMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::R
     }
     return SDV_bjetmindR;
 } */
+
+
+/* -------- An alternative way to calculate uncertainties on ratio.
+std::vector<double> BayesianUniformPriorPoissonRatioCI(double X_obs, double Y_obs, double confidenceLevel = 0.68, int N = 1000) {
+    // Define range for lambda_X and lambda_Y
+    double lo_X = std::max(0.0, X_obs - 5 * std::sqrt(X_obs));
+    double hi_X = X_obs + 5 * std::sqrt(X_obs);
+    double lo_Y = std::max(0.0, Y_obs - 5 * std::sqrt(Y_obs));
+    double hi_Y = Y_obs + 5 * std::sqrt(Y_obs);
+
+    // Grid size
+    const int n_points = N;
+    double lambda_X_grid[n_points];
+    double lambda_Y_grid[n_points];
+
+    // Fill lambda grids
+    for (int i = 0; i < n_points; ++i) {
+        lambda_X_grid[i] = lo_X + i * (hi_X - lo_X) / n_points;
+        lambda_Y_grid[i] = lo_Y + i * (hi_Y - lo_Y) / n_points;
+    }
+
+    // Precompute likelihoods and ratios
+    std::vector<double> R_values; // ratios
+    std::vector<double> likelihoods;
+    double total_likelihood = 0.0;
+
+    for (int i = 0; i < n_points; ++i) {
+        for (int j = 0; j < n_points; ++j) {
+            double lambda_X = lambda_X_grid[i];
+            double lambda_Y = lambda_Y_grid[j];
+
+            // Compute Poisson likelihoods for X_obs and Y_obs
+            double likelihood_X = TMath::Poisson(X_obs, lambda_X);
+            double likelihood_Y = TMath::Poisson(Y_obs, lambda_Y);
+            double likelihood = likelihood_X * likelihood_Y;
+
+            if (lambda_Y > 0 && likelihood > 0) {
+                R_values.push_back(lambda_X / lambda_Y);
+                likelihoods.push_back(likelihood);
+                total_likelihood += likelihood;
+            }
+        }
+    }
+
+    // Normalize likelihoods
+    for (double &likelihood : likelihoods) {
+        likelihood /= total_likelihood;
+    }
+
+    // Sort R values by likelihood in descending order
+    std::vector<size_t> indices(R_values.size());
+    std::iota(indices.begin(), indices.end(), 0); // Fills the range [first, last) with sequentially increasing values, starting with value and repetitively evaluating ++value
+    std::sort(indices.begin(), indices.end(), [&](size_t a, size_t b) {
+        return likelihoods[a] > likelihoods[b];
+    });
+
+    // Compute cumulative probabilities
+    std::vector<double> cumulative_probs(likelihoods.size(), 0.0);
+    cumulative_probs[0] = likelihoods[indices[0]];
+    for (size_t k = 1; k < indices.size(); ++k) {
+        cumulative_probs[k] = cumulative_probs[k - 1] + likelihoods[indices[k]];
+    }
+
+    // Identify R values within the confidence region
+    double cutoff = confidenceLevel;
+    std::vector<double> R_in_confidence;
+    for (size_t k = 0; k < indices.size(); ++k) {
+        if (cumulative_probs[k] <= cutoff) {
+            R_in_confidence.push_back(R_values[indices[k]]);
+        } else {
+            break;
+        }
+    }
+
+    // Extract confidence bounds and best estimate
+    double lower_bound = *std::min_element(R_in_confidence.begin(), R_in_confidence.end());
+    double upper_bound = *std::max_element(R_in_confidence.begin(), R_in_confidence.end());
+    double best_estimate = R_values[indices[0]];  // R corresponding to max likelihood
+    double observed = static_cast<double>(X_obs) / Y_obs;
+
+    
+    // Print results
+    std::cout << "Best estimate for ratio: R = " << best_estimate << std::endl;
+    std::cout << "Observed value for ratio: R = " << observed << std::endl;
+    std::cout << confidenceLevel * 100 << "% confidence interval: [" << lower_bound << ", " << upper_bound << "]" << std::endl;
+    std::vector<double> results = {lower_bound, best_estimate, upper_bound};
+    return results;
+}
+ */

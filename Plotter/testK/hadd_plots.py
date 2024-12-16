@@ -4,10 +4,10 @@ import re
 import json
 import os
 
-year = 2018
+year = 2017
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "vtx_reco/mc_data/"
-unique_dir  = "20241210"
+unique_dir  = "20241214_jetcorevselse"
 work_dir = os.path.join(outDir_base, work_subdir)
 
 dirs  = {'sig':  os.path.join(os.path.join(work_dir, 'sig'),  str(unique_dir)),
