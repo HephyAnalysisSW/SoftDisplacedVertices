@@ -7,8 +7,8 @@ import os
 
 samples_to_plot = {
     # 'sig' : [sample.name for sample in ss.all_sig_2018],
-    # 'bkg' : [sample.name for sample in ss.all_bkg_2018],
-    'data': [sample.name for sample in ss.met_2018]
+    'bkg' : [sample.name for sample in ss.all_bkg_2018],
+    # 'data': [sample.name for sample in ss.met_2018]
 }
 
 tier = {'sig'  : 'CustomNanoAOD',
@@ -23,10 +23,12 @@ json_db = {'sig'  : 'MC_RunIISummer20UL18.json',
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018.yaml"
+# config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/plotconfig_VRdPhirevert_changeVR.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-work_subdir = "vtx_reco/mc_data/"
-unique_dir  = "20241204"
+work_subdir = "tmp_checks"
+unique_dir  = "check2"
+# unique_dir  = "20241204"
 
 work_dir = os.path.join(outDir_base, work_subdir)
 
@@ -46,7 +48,7 @@ for s_type in samples_to_plot.keys():
 
     for sample in samples_to_plot[s_type]:
         if s_type != 'data':
-            command = f'submit_to_cpu.sh "python3 {autoplotter_path}  --sample {sample} --output {outDir} --config {config} --lumi 59830 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
+            command = f'submit_to_cpu.sh "python3 {autoplotter_path}  --sample {sample} --output {outDir} --config {config} --lumi 59683 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
         else:
             command = f'submit_to_cpu.sh "python3 {autoplotter_path}  --sample {sample} --output {outDir} --config {config} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
 

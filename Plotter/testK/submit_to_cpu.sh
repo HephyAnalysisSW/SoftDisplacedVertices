@@ -11,7 +11,7 @@
 #SBATCH --nodes=1-1 
 #SBATCH --partition=c 
 #SBATCH --qos=short
-#SBATCH --time=03:00:00 
+#SBATCH --time=08:00:00 
 echo ----------------------------------------------- 
 echo "COMMAND: $1"
 $1

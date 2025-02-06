@@ -58,7 +58,7 @@ class Plotter:
         mappath = self.cfg['mapveto']['data_path']
       else:
         assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
-        mappath = self.cfg['mapveto']['data_path']
+        mappath = self.cfg['mapveto']['mc_path']
       self.f1 = ROOT.TFile.Open(mappath)
       ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
       self.f1.Close()
@@ -131,7 +131,7 @@ class Plotter:
         tau_old = self.s.ctau
         tau_new = self.ct
         if self.s.model == 'stop':
-          weight_ct = f'({tau_old}/{tau_new}) * ({tau_old}/{tau_new}) * exp(-LLP_ctau[0]/{tau_new}) / exp(-LLP_ctau[0]/{tau_old}) * exp(-LLP_ctau[1]/{tau_new}) / exp(-LLP_ctau[1]/{tau_old})'
+          weight_ct = f'({tau_old}/{tau_new}) * ({tau_old}/{tau_new}) * exp(-LLP_ctau[0]*10/{tau_new}) / exp(-LLP_ctau[0]*10/{tau_old}) * exp(-LLP_ctau[1]*10/{tau_new}) / exp(-LLP_ctau[1]*10/{tau_old})'
         elif self.s.model == 'C1N2':
           weight_ct = f'({tau_old}/{tau_new}) * exp(-(LLP_ctau[0]*10)/{tau_new}) / exp(-(LLP_ctau[0]*10)/{tau_old})'
         
