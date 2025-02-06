@@ -1,7 +1,7 @@
-vtx_sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
+vtx_sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0)
+vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0)
+vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0)
+vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0)
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
 bjetmedium: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.2783)
@@ -12,14 +12,32 @@ muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
 tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
-presel: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+presel: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && DM==2
 nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
 
 corrections:
   PU:
-    path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-    name: "Collisions18_UltraLegacy_goldenJSON"
+    "2017":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
+      name: "Collisions17_UltraLegacy_goldenJSON"
+      mode: "nominal"
+    "2018":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+      name: "Collisions18_UltraLegacy_goldenJSON"
+      mode: "nominal"
+  met:
     mode: "nominal"
+  vtx:
+    mode: "nominal"
+
+mapveto:
+  data_path: "/eos/vbc/group/cms/ang.li/material_map/material_map.root"
+  mc_path: "/eos/vbc/group/cms/ang.li/material_map/material_map_MC.root"
+
+weights:
+
+mcweights:
+  - L1PreFiringWeight_Dn
 
 new_variables:
   Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
@@ -102,12 +120,13 @@ new_variables:
   SDVSecVtx_LxySig_max_val1: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_val1]
   SDVSecVtx_LxySig_max_val2: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_val2]
   SDVSecVtx_LxySig_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel]
+  SDVSecVtx_TkMaxdxy: "SDV_TkMaxdxy(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_dxy)"
   SDVSecVtx_LxySig_loose: ['SDVSecVtx_LxySig[{0}]',vtx_sel_loose]
-  nSDVSecVtx_loose: ['Sum({0})', vtx_sel_loose]
   SDVSecVtx_nGoodTrack_loose: ['SDVSecVtx_nGoodTrack[{0}]',vtx_sel_loose]
   LeadingVtx_idx: 'Leading_Vtx_Idx(SDVSecVtx_nGoodTrack_loose,SDVSecVtx_LxySig_loose)'
   LeadingVtx_LxySig: 'SDVSecVtx_LxySig_loose[LeadingVtx_idx]'
   LeadingVtx_nGoodTrack: 'SDVSecVtx_nGoodTrack_loose[LeadingVtx_idx]'
+  LeadingVtx_TkMaxdxy: 'SDVSecVtx_TkMaxdxy[LeadingVtx_idx]'
 
   #SDVSecVtx_LxySig_MLsel_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_ML]
 new_variables_mc:
@@ -118,12 +137,10 @@ new_variables_mc:
   SDVSecVtx_closestbJetdRgen: "SDVSecVtx_mindRdphidetabJet_gen[0]"
   SDVSecVtx_closestbJetdphi_gen: "SDVSecVtx_mindRdphidetabJet_gen[1]"
   SDVSecVtx_closestbJetdeta_gen: "SDVSecVtx_mindRdphidetabJet_gen[2]"
+  DM: 'Sum(LLP_decaymode)'
 
 regions:
   All: 
-  Vtx: nSDVSecVtx_loose>0
-  Vtx_prompt: nSDVSecVtx_loose>0 && LeadingVtx_LxySig<20
-  Vtx_displaced: nSDVSecVtx_loose>0 && LeadingVtx_LxySig>20
   SRs: nSDVSecVtx_sel>0
   SR: nSDVSecVtx_sel>0 && MET_pt_corr>700 && SDVSecVtx_LxySig_max>20.0
   SR_CRlowMET: nSDVSecVtx_sel>0 && MET_pt_corr<700 && SDVSecVtx_LxySig_max>20.0
@@ -175,117 +192,16 @@ event_variables:
 - SDVSecVtx_LxySig_max
 - SDVSecVtx_LxySig_max_val1
 - SDVSecVtx_LxySig_max_val2
-- LeadingVtx_LxySig
-- LeadingVtx_nGoodTrack
+- LeadingVtx_TkMaxdxy
+- evt_weight
 event_variables_mc:
 - puweight
-- nbJet_gen
 event_2d_plots:
   - [MET_pt_corr,SDVSecVtx_LxySig_max]
   - [MET_pt_corr,SDVSecVtx_LxySig_max_val1]
   - [MET_pt_corr,SDVSecVtx_LxySig_max_val2]
-  - [MET_pt_corr,LeadingVtx_LxySig]
-  - [MET_pt_corr,LeadingVtx_nGoodTrack]
-  - [PV_npvsGood,leadingjet_pt]
-  - [PV_npvsGood,nSDVTrack]
-  - [PV_npvsGood,nTrack_dxysel]
-objects:
-  SDVSecVtx:
-    selections:
-      all:
-      sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-      sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-      sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-      sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-    variables:
-    - SDVSecVtx_x
-    - SDVSecVtx_y
-    - SDVSecVtx_L_phi
-    - SDVSecVtx_L_eta
-    - SDVSecVtx_nTracks
-    - SDVSecVtx_pAngle
-    - SDVSecVtx_nGoodTrack
-    - SDVSecVtx_dlen
-    - SDVSecVtx_dlenSig
-    - SDVSecVtx_dlen_err
-    - SDVSecVtx_Lxy
-    - SDVSecVtx_LxySig
-    - SDVSecVtx_Lxy_err
-    - SDVSecVtx_chi2
-    - SDVSecVtx_normalizedChi2
-    - SDVSecVtx_ndof
-    - SDVSecVtx_mass
-    - SDVSecVtx_dphiMET
-    - SDVSecVtx_dphijet0
-    - SDVSecVtx_TkMaxdphi
-    - SDVSecVtx_TkMindphi
-    - SDVSecVtx_TkMaxdeta
-    - SDVSecVtx_TkMindeta
-    - SDVSecVtx_TkMaxdR
-    - SDVSecVtx_TkMindR
-    - SDVSecVtx_closestJetdR
-    - SDVSecVtx_closestJetdphi
-    - SDVSecVtx_closestJetdeta
-    - SDVSecVtx_closestbJetdRloose
-    - SDVSecVtx_closestbJetdphi_loose
-    - SDVSecVtx_closestbJetdeta_loose
-    - SDVSecVtx_closestbJetdRmedium
-    - SDVSecVtx_closestbJetdphi_medium
-    - SDVSecVtx_closestbJetdeta_medium
-    - SDVSecVtx_closestbJetdRtight
-    - SDVSecVtx_closestbJetdphi_tight
-    - SDVSecVtx_closestbJetdeta_tight
-    variables_mc:
-    - SDVSecVtx_closestbJetdRgen
-    - SDVSecVtx_closestbJetdphi_gen
-    - SDVSecVtx_closestbJetdeta_gen
-    2d_plots:
-    - [SDVSecVtx_Lxy,SDVSecVtx_pAngle]
-    - [SDVSecVtx_Lxy,SDVSecVtx_mass]
-    - [SDVSecVtx_x,SDVSecVtx_y]
-    - [SDVSecVtx_LxySig, SDVSecVtx_nGoodTrack]
-  #SDVTrack:
-  #  selections:
-  #    all: 
-  #    #loweta: abs(SDVTrack_eta)<1.0
-  #    #higheta: abs(SDVTrack_eta)>1.5
-  #    #phisel: ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 )
-  #    GoodTrack: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && ( SDVTrack_dxydzratio>0.25 ) && (SDVTrack_pfRelIso03_all<5) && ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 )
-  #    allInSV: SDVTrack_isInSV==1
-  #    GoodTrackdxydzInSV: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && SDVTrack_dxydzratio>0.25 && (SDVTrack_pfRelIso03_all<5) && ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 ) && SDVTrack_isInSV==1
-  #  variables:
-  #  - SDVTrack_dxy
-  #  - SDVTrack_dxyError
-  #  - SDVTrack_dxySig
-  #  - SDVTrack_dz
-  #  - SDVTrack_dzError
-  #  - SDVTrack_dzSig
-  #  - SDVTrack_normalizedChi2
-  #  - SDVTrack_numberOfValidHits
-  #  - SDVTrack_isHighPurity
-  #  - SDVTrack_pt
-  #  - SDVTrack_phi
-  #  - SDVTrack_eta
-  #  - SDVTrack_ptError
-  #  - SDVTrack_ptqual
-  #  - SDVTrack_dxydzratio
-  #  - SDVTrack_dphi_MET
-  #  - SDVTrack_dphi_jet0
-  #  - SDVTrack_dR_jet0
-  #  - SDVTrack_pfRelIso03_all
-  #  - SDVTrack_pfRelIso03_chg
-  #  2d_plots:
-  #  - [SDVTrack_eta,SDVTrack_numberOfValidHits]
 
-  #  nm1:
-  #  - ['SDVTrack_pfRelIso03_all','<5']
-  #  - ['SDVTrack_dxySig','>4']
-  #  - ['SDVTrack_normalizedChi2','<5']
-  #  - ['SDVTrack_numberOfValidHits','>13']
-  #  - ['SDVTrack_ptqual','<0.015']
-  #  - ['SDVTrack_dxydzratio','>0.25']
-  #  - ['SDVTrack_dphi_MET','<1.5']
-  #  - ['SDVTrack_dphi_jet0','>1']
+objects:
 
 
 plot_setting:
@@ -409,9 +325,9 @@ plot_setting:
   PV_npvs: [PV_npvs,';npv;A.U.',100,0,100]
   PV_npvsGood: [PV_npvsGood,';npvgood;A.U.',100,0,100]
   puweight: [puweight,';puweight;A.U.',100,0,2]
+  evt_weight: [evt_weight,';evt_weight;A.U.',100,-2,2]
   Pileup_nTrueInt: [Pileup_nTrueInt,';nTrueInt;A.U.',100,0,100]
   leadingjet_nConstituents: [leadingjet_nConstituents,';nCons jet0;A.U.',100,0,100]
   allJet_nConstituents: [allJet_nConstituents,';nCons all jets (selected);A.U.',100,0,500]
-  LeadingVtx_LxySig: [LeadingVtx_LxySig, ';leading vertex L_{xy}/#sigmaL_{xy};A.U.', 500, 0, 100]
-  LeadingVtx_nGoodTrack: [LeadingVtx_nGoodTrack, ';leading vertex nGoodTrack;A.U.', 20, 0, 20]
+  LeadingVtx_TkMaxdxy: [LeadingVtx_TkMaxdxy,';Leading vertex max(track dxy);A.U.',100,0,20]
 

@@ -1,0 +1,64 @@
+
+# Signal sample: stop_M1000_985_ct20_2018_hist.root
+# Expected limit datacard for MC
+imax 12  number of channels
+jmax 1  number of backgrounds
+kmax 24  number of nuisance parameters (sources of systematic uncertainty)
+------------
+# Analysis channel and observed number of events
+bin A2_2018	B2_2018	C2_2018	D2_2018	A1_2018	B1_2018	C1_2018	D1_2018	A0_2018	B0_2018	C0_2018	D0_2018 
+observation 0.00	0.00	0.00	0.00	0.00	305.00	0.00	688.00	71.00	1527.00	384.00	7489.00
+------------
+# now we list the expected number of events for signal and all backgrounds in that bin
+# the second 'process' line must have a positive number for backgrounds, and 0 for signal
+# then we list the independent sources of uncertainties, and give their effect (syst. error)
+# on each process and bin
+bin              	A2_2018	A2_2018	B2_2018	B2_2018	C2_2018	C2_2018	D2_2018	D2_2018	A1_2018	A1_2018	B1_2018	B1_2018	C1_2018	C1_2018	D1_2018	D1_2018	A0_2018	A0_2018	B0_2018	B0_2018	C0_2018	C0_2018	D0_2018	D0_2018
+process          	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background	signal	background 
+process          	0	1	0	1	0	1	0	1	0	1	0	1	0	1	0	1	0	1	0	1	0	1	0	1
+rate             	2.5607	1.0	5.2942	1.0	0.16283	1.0	0.34922	1.0	0.84985	1.0	2.6577	1.0	0.1179	1.0	0.52096	1.0	0.54634	1.0	1.6469	1.0	0.46047	1.0	1.3104	1.0
+----STATISTICAL UNCERTAINTIES-----
+signal_stat_A2_2018	gmN	765	0.0033474	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_B2_2018	gmN	1590	-	-	0.0033297	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_C2_2018	gmN	49	-	-	-	-	0.003323	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_D2_2018	gmN	104	-	-	-	-	-	-	0.0033578	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_A1_2018	gmN	255	-	-	-	-	-	-	-	-	0.0033328	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_B1_2018	gmN	798	-	-	-	-	-	-	-	-	-	-	0.0033305	-	-	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_C1_2018	gmN	35	-	-	-	-	-	-	-	-	-	-	-	-	0.0033685	-	-	-	-	-	-	-	-	-	-	-
+signal_stat_D1_2018	gmN	155	-	-	-	-	-	-	-	-	-	-	-	-	-	-	0.003361	-	-	-	-	-	-	-	-	-
+signal_stat_A0_2018	gmN	163	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	0.0033518	-	-	-	-	-	-	-
+signal_stat_B0_2018	gmN	491	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	0.0033541	-	-	-	-	-
+signal_stat_C0_2018	gmN	137	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	0.0033611	-	-	-
+signal_stat_D0_2018	gmN	388	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	-	0.0033774	-
+
+
+-----SYSTEMATIC UNCERTAINTIES----- 
+
+signal_syst_trigger	lnN	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-	1.027	-
+signal_syst_vtxreco	lnN	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-
+signal_syst_jes	lnN	1.028	-	1.028	-	1.039	-	1.039	-	1.028	-	1.028	-	1.039	-	1.039	-	1.028	-	1.028	-	1.039	-	1.039	-
+signal_syst_jer	lnN	1.009	-	1.009	-	1.019	-	1.019	-	1.009	-	1.009	-	1.019	-	1.019	-	1.009	-	1.009	-	1.019	-	1.019	-
+signal_syst_uncEn	lnN	1.029	-	1.029	-	1.021	-	1.021	-	1.029	-	1.029	-	1.021	-	1.021	-	1.029	-	1.029	-	1.021	-	1.021	-
+signal_syst_tauveto	lnN	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-	1.005	-
+signal_syst_pu	lnN	1.016	-	1.016	-	1.042	-	1.042	-	1.016	-	1.016	-	1.042	-	1.042	-	1.016	-	1.016	-	1.042	-	1.042	-
+signal_syst_l1	lnN	1	-	1	-	1	-	1	-	1	-	1	-	1	-	1	-	1	-	1	-	1	-	1	-
+signal_syst_intlumi	lnN	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-	1.025	-
+signal_syst_qcdscale	lnN	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-	1.09	-
+signal_syst_pdf	lnN	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-	1.02	-
+signal_syst_map	lnN	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-	1.0256	-
+
+-----ABCD IMPLEMENTATION----- 
+
+a2_2018    rateParam   A2_2018   background    (@0*(@1/@2)*(@1/@2))  a0_2018,b1_2018,b0_2018
+b2_2018    rateParam   B2_2018   background    (@0*(@1/@0)*(@1/@0))  b0_2018,b1_2018
+c2_2018    rateParam   C2_2018   background    (@0*(@1/@2)*(@1/@2))  c0_2018,d1_2018,d0_2018
+d2_2018    rateParam   D2_2018   background    (@0*(@1/@0)*(@1/@0))  d0_2018,d1_2018
+a1_2018    rateParam   A1_2018   background    (@0*(@1/@2))  a0_2018,b1_2018,b0_2018
+b1_2018    rateParam   B1_2018   background    305.0
+c1_2018    rateParam   C1_2018   background    (@0*(@1/@2))  c0_2018,d1_2018,d0_2018
+d1_2018    rateParam   D1_2018   background    688.0
+a0_2018    rateParam   A0_2018   background    71.0
+b0_2018    rateParam   B0_2018   background    1527.0
+c0_2018    rateParam   C0_2018   background    384.0
+d0_2018    rateParam   D0_2018   background    7489.0
+

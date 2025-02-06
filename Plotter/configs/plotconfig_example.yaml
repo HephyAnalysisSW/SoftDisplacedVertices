@@ -60,7 +60,7 @@ objects:
   SDVSecVtx:
     selections:
       all:
-      goodvtx: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+        #goodvtx: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
     variables:
     - SDVSecVtx_nTracks
     - SDVSecVtx_pAngle
@@ -74,6 +74,8 @@ objects:
     - SDVSecVtx_normalizedChi2
     - SDVSecVtx_ndof
     - SDVSecVtx_L_eta_abs
+    - SDVSecVtx_x
+    - SDVSecVtx_y
     2d_plots:
     - [SDVSecVtx_Lxy,SDVSecVtx_pAngle]
     - [SDVSecVtx_x,SDVSecVtx_y]
@@ -153,4 +155,5 @@ plot_setting:
   SDVSecVtx_pAngle: [SDVSecVtx_pAngle, ';vertex pAngle;A.U.', 64, 0, 3.2]
   nSDVSecVtx_CCsel: [nSDVSecVtx_CCsel, ';Number of vertices (CC);A.U.', 20, 0, 20]
   nSDVSecVtx_MLsel: [nSDVSecVtx_MLsel, ';Number of vertices (ML);A.U.', 20, 0, 20]
+  nSDVSecVtx_sel: [nSDVSecVtx_sel, ';Number of vertices;A.U.', 20, 0, 20]
 

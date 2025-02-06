@@ -1,0 +1,292 @@
+### GLOBAL DEFINITIONS
+# This part defines some global variables, which you can use later
+# Note that yaml does not support defining variables 
+# so it is handled as python strings and applied by
+# `str.format()` method
+# usage: variable_name: content
+# The user can define any `variable_name` and `content`, 
+# but make sure the `variable_name` is not used below
+vertex_selections: ( SDVSecVtx_LxySig >= 20. ) && ( SDVSecVtx_pAngle > 0.2 )
+jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
+jet_selHEM: (Jet_jetId==6)
+muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
+ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
+tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
+
+### PRE-SELECTIONS
+# This part defines the event preselection
+# This selection is applied before any plotting
+# usage: presel: content
+# The user can define `content` but cannot change the `presel`
+presel: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
+
+corrections:
+  PU:
+    "2017":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
+      name: "Collisions17_UltraLegacy_goldenJSON"
+      mode: "nominal"
+    "2018":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+      name: "Collisions18_UltraLegacy_goldenJSON"
+      mode: "nominal"
+  met:
+    mode: "nominal"
+
+weights:
+
+mcweights:
+  - L1PreFiringWeight_Nom
+
+### NEW VARIABLE DEFINITION
+# This part defines new variables
+# It calls the `Define` method of an RDataFrame
+# usage1: new_variable_name: definition
+# usage2: new_variable_name: [definition(format string),global defined variables]
+# if a global defined variable is used
+new_variables:
+  Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
+  Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
+  Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
+  Jet_chHEF_sel: ['Jet_chHEF[{0}]',jet_sel]
+  Jet_neHEF_sel: ['Jet_neHEF[{0}]',jet_sel]
+  Jet_nConstituents_sel: ['Jet_nConstituents[{0}]',jet_sel]
+  Jet_eta_selHEM: ['Jet_eta[{0}]',jet_selHEM]
+  Jet_phi_selHEM: ['Jet_phi[{0}]',jet_selHEM]
+  nJet_sel: ['Sum({0})',jet_sel]
+  leadingjet_pt: Jet_pt_sel[0]
+  leadingjet_phi: Jet_phi_sel[0]
+  leadingjet_eta: Jet_eta_sel[0]
+  leadingjet_chHEF: Jet_chHEF_sel[0]
+  leadingjet_neHEF: Jet_neHEF_sel[0]
+  leadingjet_nConstituents: Jet_nConstituents_sel[0]
+  allJet_nConstituents: 'Sum(Jet_nConstituents_sel)'
+  diffleadingjet_pt: 'Max(Jet_pt_sel)-leadingjet_pt'
+  dphi_MET_jet0: acos(cos(leadingjet_phi-MET_phi_corr))
+  nMuon_sel: ['Sum({0})', muon_sel]
+  nEle_sel: ['Sum({0})', ele_sel]
+  nPhoton_sel: ['Sum({0})', photon_sel]
+  nTau_sel: ['Sum({0})', tau_sel]
+  SDVTrack_dxySig: abs(SDVTrack_dxy)/SDVTrack_dxyError
+  nSDVSecVtx_sel: ['Sum({0})', vertex_selections]
+  SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (abs(SDVTrack_dz)<4.) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 )
+  SDVSecVtx_Lxy_err: "SDVSecVtx_Lxy/SDVSecVtx_LxySig"
+  SDVSecVtx_dphi_L_MET: "acos(cos(SDVSecVtx_L_phi-MET_phi))"
+  SDVSecVtx_dphi_L_jet0: "acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))"
+  SDVSecVtx_dlen_err: "SDVSecVtx_dlen/SDVSecVtx_dlenSig"
+  SDVSecVtx_L_eta_abs: "abs(SDVSecVtx_L_eta)"
+  SDVSecVtx_tkneutral: SDVSecVtx_tkneutral(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_charge,nSDVSecVtx)
+  SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
+  SDVSecVtx_r: sqrt(SDVSecVtx_x*SDVSecVtx_x+SDVSecVtx_y*SDVSecVtx_y)
+    #SDVSecVtx_x_sel: SDVSecVtx_x[SDVSecVtx_mmoverlap == false]
+    #SDVSecVtx_y_sel: SDVSecVtx_y[SDVSecVtx_mmoverlap == false]
+    #SDVSecVtx_r_sel: sqrt(SDVSecVtx_x_sel*SDVSecVtx_x_sel+SDVSecVtx_y_sel*SDVSecVtx_y_sel)
+  SDVSecVtx_mass_0_100: SDVSecVtx_mass
+  SDVSecVtx_mass_jpsi: SDVSecVtx_mass
+  SDVSecVtx_mass_K0: SDVSecVtx_mass
+  SDVSecVtx_ndof_minus3_2: SDVSecVtx_ndof
+  SDVSecVtx_TkMaxdphi: "SDV_TkMaxdphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_phi)"
+  SDVSecVtx_TkMindphi: "SDV_TkMindphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_phi)"
+  SDVSecVtx_TkMaxdeta: "SDV_TkMaxdphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta)"
+  SDVSecVtx_TkMindeta: "SDV_TkMindphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta)"
+  SDVSecVtx_TkMaxdR: "SDV_TkMaxdR(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta, SDVTrack_phi)"
+  SDVSecVtx_TkMindR: "SDV_TkMindR(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta, SDVTrack_phi)"
+  SDVSecVtx_TkMaxdphi_continuous: SDVSecVtx_TkMaxdphi
+  SDVSecVtx_TkMaxdeta_continuous: SDVSecVtx_TkMaxdeta
+  SDVSecVtx_TkMaxdR_continuous: SDVSecVtx_TkMaxdR
+  SDVSecVtx_TkMaxdxy: "SDV_TkMaxdxy(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_dxy)"
+  SDVSecVtx_TkMindxy: "SDV_TkMindxy(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_dxy)"
+  SDVSecVtx_Tkddxy: SDVSecVtx_TkMaxdxy-SDVSecVtx_TkMindxy
+
+### EVENT SELECTION
+# This part defines search regions
+# It calls the `Filter` method of an RDataFrame
+# usage: name: selections
+regions:
+  All: 
+    #CCSR400: nSDVSecVtx_sel>0 && MET_pt>400
+
+### EVENT VARIABLES
+# event_variables:
+#   This part defines event variables that will be made into histograms
+#   All variables should be defined or exists already in the NanoAOD
+# event_2d_plots:
+#   This part defines 2D histograms that will be made
+#   usage: [x,y]
+event_variables:
+  #- nSDVSecVtx_sel
+  - MET_pt
+  - MET_pt_corr
+  #- met_weight
+  #- LHE_HT
+event_2d_plots:
+  #- [MET_pt,nSDVSecVtx_sel]
+  #- [MET_pt,met_weight]
+
+### OBJECTS
+# This part lists all objects that will be plotted
+# The structure is:
+# Object_name: the user can define the object name
+#   selection: similar with event level selections, any object level selection can be used here but make sure that the variables used in selection and variables below have the same dimension
+#   variables: variables to make 1D histograms
+#   2d_plots: variables to make 2D histograms
+#   nm1: N-1 plots. For this part one could give it several variables with the cut values, the script will do the n-1 plots for all given variables
+objects:
+  SDVSecVtx:
+    selections:
+      K0: SDVSecVtx_mass>0.48 && SDVSecVtx_mass<0.52 && SDVSecVtx_nTracks==2 && SDVSecVtx_tkneutral==1
+      genLLP: (SDVSecVtx_matchedLLPnDau_bydau>1) && (SDVSecVtx_ndof>1)
+        #all:
+        #genLLP: (SDVSecVtx_matchedLLPnDau_bydau>1)
+        #genLLP_2tks: (SDVSecVtx_matchedLLPnDau_bydau>1) && (SDVSecVtx_nTracks==2)
+        #goodvtx: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+        #goodvtx_2tks: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nTracks==2)
+        #genLLP_goodvtx: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_matchedLLPnDau_bydau>1)
+        #genLLP_goodvtx_2tks: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_matchedLLPnDau_bydau>1) && (SDVSecVtx_nTracks==2)
+    variables:
+      #    - SDVSecVtx_nTracks
+      - SDVSecVtx_pAngle
+      #    - SDVSecVtx_dlen
+      #    - SDVSecVtx_dlenSig
+      #    - SDVSecVtx_dlen_err
+      - SDVSecVtx_Lxy
+      - SDVSecVtx_LxySig
+      - SDVSecVtx_Lxy_err
+      #    - SDVSecVtx_chi2
+      #    - SDVSecVtx_normalizedChi2
+      #    - SDVSecVtx_ndof
+      - SDVSecVtx_ndof_minus3_2
+      #    - SDVSecVtx_L_eta_abs
+      - SDVSecVtx_x
+      - SDVSecVtx_y
+      #    - SDVSecVtx_r
+      #    - SDVSecVtx_r_sel
+      #    - SDVSecVtx_mass
+      #    - SDVSecVtx_mass_0_100
+      #    - SDVSecVtx_mass_jpsi
+      - SDVSecVtx_mass_K0
+      - SDVSecVtx_nGoodTrack
+      - SDVSecVtx_TkMaxdphi 
+      - SDVSecVtx_TkMaxdphi_continuous 
+      - SDVSecVtx_TkMindphi
+      - SDVSecVtx_TkMaxdeta
+      - SDVSecVtx_TkMaxdeta_continuous
+      - SDVSecVtx_TkMindeta
+      - SDVSecVtx_TkMaxdR
+      - SDVSecVtx_TkMaxdR_continuous
+      - SDVSecVtx_TkMindR
+      - SDVSecVtx_TkMaxdxy
+      - SDVSecVtx_TkMindxy
+      - SDVSecVtx_Tkddxy
+      - SDVSecVtx_dphi_L_MET
+      - SDVSecVtx_dphi_L_jet0
+      - SDVSecVtx_pt
+      - SDVSecVtx_L_eta
+      - SDVSecVtx_L_phi
+    2d_plots:
+      - [SDVSecVtx_Lxy,SDVSecVtx_pAngle]
+      - [SDVSecVtx_Lxy,SDVSecVtx_TkMaxdxy]
+      - [SDVSecVtx_x,SDVSecVtx_y]
+      - [SDVSecVtx_pt,SDVSecVtx_Lxy]
+      - [SDVSecVtx_pt,SDVSecVtx_pAngle]
+      - [SDVSecVtx_L_eta,SDVSecVtx_L_phi]
+      - [SDVSecVtx_TkMaxdxy,SDVSecVtx_TkMindxy]
+    nm1:
+      #    - [SDVSecVtx_dphi_L_MET,'<1.5']
+      #    - [SDVSecVtx_dphi_L_jet0,'>1']
+      #    - [SDVSecVtx_LxySig,'>=20']
+      #    - [SDVSecVtx_pAngle,'>0.2']
+      #    - [SDVSecVtx_ndof,'>1']
+
+### PLOT SETTING
+# This section defines the name, titles, binning of histograms
+# usage: variable_name: [name,title,number of bins,range mininum,range maximum]
+plot_setting:
+  LHE_HT: [LHE_HT, ';LHE HT (GeV);A.U.', 500, 0, 5000]
+  MET_pt: [MET_pt, ';MET (GeV);A.U.', 100, 0, 1000]
+  MET_pt_corr: [MET_pt_corr, ';MET (xy-corrected) (GeV);A.U.', 100, 0, 1000]
+  #met_weight: [met_weight, ';Rescale Factor;A.U.', 100, 0, 20]
+  met_weight: [met_weight, ';MET Rescale Factor;A.U.', 100, 0.994, 0.999]
+  SDVTrack_dxy_InSV: [SDVTrack_dxy_InSV, ";track dxy (cm);A.U.",400,-20,20]
+  SDVTrack_dxyError_InSV: [SDVTrack_dxyError_InSV,";track #sigma dxy (cm);A.U.",100,0,1]
+  SDVTrack_dxySig_InSV: [SDVTrack_dxySig_InSV,";track |dxy/#sigma dxy|;A.U.",500,0,100]
+  SDVTrack_dz_InSV: [SDVTrack_dz_InSV,";track dz (cm);A.U.",400,-20,20]
+  SDVTrack_dzError_InSV: [SDVTrack_dzError_InSV,";track #sigma dz (cm);A.U.",100,0,1] 
+  SDVTrack_dzSig_InSV: [SDVTrack_dzSig_InSV,";track |dz/#sigma dz|;A.U.",500,0,100]
+  SDVTrack_normalizedChi2_InSV: [SDVTrack_normalizedChi2_InSV,";track norm Chi2;A.U.",100,0,5]
+  SDVTrack_numberOfValidHits_InSV: [SDVTrack_numberOfValidHits_InSV,";track # valid hits;A.U.",50,0,50]
+  SDVTrack_pt_InSV: [SDVTrack_pt_InSV,";track pt (GeV);A.U.",100,0,50]
+  SDVTrack_ptError_InSV: [SDVTrack_ptError_InSV,";track #sigma pt (GeV);A.U.",100,0,0.5]
+  SDVTrack_ptqual_InSV: [SDVTrack_ptqual_InSV,";track #sigma pt/pt;A.U.",100,0,0.02]
+  SDVTrack_dxydzratio_InSV: [SDVTrack_dxydzratio_InSV,";track |dxy/dz|;A.U.",100,0,1]
+  SDVTrack_dphi_MET_InSV: [SDVTrack_dphi_MET_InSV,";#Delta #phi (track,MET);A.U.",64,0,3.2]
+  SDVTrack_dphi_jet0_InSV: [SDVTrack_dphi_jet0_InSV,";#Delta #phi (track,jet0);A.U.",64,0,3.2]
+  #SDVTrack_dxySig_InSV_nm1: [SDVTrack_dxySig_InSV,";N-1 track |dxy/#sigma dxy|;A.U.",500,0,100]
+  #SDVTrack_normalizedChi2_InSV_nm1: [SDVTrack_normalizedChi2_InSV,";N-1 track norm Chi2;A.U.",100,0,5]
+  #SDVTrack_numberOfValidHits_InSV_nm1: [SDVTrack_numberOfValidHits_InSV,";N-1 track # valid hits;A.U.",50,0,50]
+  #SDVTrack_ptqual_InSV_nm1: [SDVTrack_ptqual_InSV,";N-1 track #sigma pt/pt;A.U.",100,0,0.02]
+  #SDVTrack_dxydzratio_InSV_nm1: [SDVTrack_dxydzratio_InSV_nm1,";N-1 track |dxy/dz|;A.U.",100,0,1]
+  SDVRefitTrack_dxy: [SDVRefitTrack_dxy, ";track dxy (cm);A.U.",400,-20,20]
+  SDVRefitTrack_dxyError: [SDVRefitTrack_dxyError,";track #sigma dxy (cm);A.U.",100,0,1]
+  SDVRefitTrack_dxySig: [SDVRefitTrack_dxySig,";track |dxy/#sigma dxy|;A.U.",500,0,100]
+  SDVRefitTrack_dz: [SDVRefitTrack_dz,";track dz (cm);A.U.",400,-20,20]
+  SDVRefitTrack_dzError: [SDVRefitTrack_dzError,";track #sigma dz (cm);A.U.",100,0,1] 
+  SDVRefitTrack_dzSig: [SDVRefitTrack_dzSig,";track |dz/#sigma dz|;A.U.",500,0,100]
+  SDVRefitTrack_normalizedChi2_new: [SDVRefitTrack_normalizedChi2_new,";track norm Chi2;A.U.",100,0,5]
+  SDVRefitTrack_numberOfValidHits_new: [SDVRefitTrack_numberOfValidHits_new,";track # valid hits;A.U.",50,0,50]
+  SDVRefitTrack_pt: [SDVRefitTrack_pt,";track pt (GeV);A.U.",100,0,50]
+  SDVRefitTrack_ptError: [SDVRefitTrack_ptError,";track #sigma pt (GeV);A.U.",100,0,0.5]
+  SDVRefitTrack_ptqual: [SDVRefitTrack_ptqual,";track #sigma pt/pt;A.U.",100,0,0.02]
+  SDVRefitTrack_dxydzratio: [SDVRefitTrack_dxydzratio,";track |dxy/dz|;A.U.",100,0,1]
+  SDVRefitTrack_dphi_MET: [SDVRefitTrack_dphi_MET,";#Delta #phi (track,MET);A.U.",64,0,3.2]
+  SDVRefitTrack_dphi_jet0: [SDVRefitTrack_dphi_jet0,";#Delta #phi (track,jet0);A.U.",64,0,3.2]
+  SDVSecVtx_pt: [SDVSecVtx_pt, ';vertex pt (GeV);A.U.',100, 0, 10]
+  SDVSecVtx_L_eta: [SDVSecVtx_L_eta, ';#eta of the vector from PV to SV;A.U.',200, -5, 5]
+  SDVSecVtx_L_phi: [SDVSecVtx_L_phi, ';#phi of the vector from PV to SV;A.U.',128, -3.2, 3.2]
+  SDVSecVtx_x: [SDVSecVtx_x, ';vertex x (cm);A.U.',400, -20, 20]
+  SDVSecVtx_y: [SDVSecVtx_y, ';vertex y (cm);A.U.',400, -20, 20]
+  SDVSecVtx_r: [SDVSecVtx_r, ';vertex r (cm);A.U.',200, 0, 20]
+    #SDVSecVtx_r_sel: [SDVSecVtx_r_sel, ';vertex r selected (cm);A.U.',200, 0, 20]
+  SDVSecVtx_L_eta_abs: [SDVSecVtx_L_eta_abs, ';vertex |#eta|;A.U.', 200, 0, 10]
+  SDVSecVtx_Lxy: [SDVSecVtx_Lxy, ';vertex L_{xy} (cm);A.U.', 200, 0, 20]
+  SDVSecVtx_LxySig: [SDVSecVtx_LxySig, ';vertex L_{xy}/#sigmaL_{xy};A.U.', 400, 0, 400]
+  SDVSecVtx_LxySig_CCsel_max: [SDVSecVtx_LxySig_CCsel_max, ';max vertex (CC) L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+  SDVSecVtx_LxySig_MLsel_max: [SDVSecVtx_LxySig_MLsel_max, ';max vertex (ML) L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+  SDVSecVtx_Lxy_err: [SDVSecVtx_Lxy_err, ';vertex #sigmaL_{xy} (cm);A.U.', 100, 0, 0.5]
+  SDVSecVtx_ParTScore: [SDVSecVtx_ParTScore, ';ParTScore;A.U.', 50, 0, 1]
+  SDVSecVtx_TkMaxdR: [SDVSecVtx_TkMaxdR, ';vertex track max(dR);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMaxdeta: [SDVSecVtx_TkMaxdeta, ';vertex track max(d#eta);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMaxdphi: [SDVSecVtx_TkMaxdphi, ';vertex track max(d#phi);A.U.', 64, 0, 3.2]
+  SDVSecVtx_TkMaxdR_continuous: [SDVSecVtx_TkMaxdR_continuous, ';vertex track max(dR);A.U.', 30, 0, 1.5]
+  SDVSecVtx_TkMaxdeta_continuous: [SDVSecVtx_TkMaxdeta_continuous, ';vertex track max(d#eta);A.U.', 16, 0, 0.8]
+  SDVSecVtx_TkMaxdphi_continuous: [SDVSecVtx_TkMaxdphi_continuous, ';vertex track max(d#phi);A.U.', 32, 0, 1.6]
+  SDVSecVtx_TkMindR: [SDVSecVtx_TkMindR, ';vertex track min(dR);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMindeta: [SDVSecVtx_TkMindeta, ';vertex track min(d#eta);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMindphi: [SDVSecVtx_TkMindphi, ';vertex track min(d#phi);A.U.', 64, 0, 3.2]
+  SDVSecVtx_TkMaxdxy: [SDVSecVtx_TkMaxdxy, ';vertex track max(dxy);A.U.',200,0,20]
+  SDVSecVtx_TkMindxy: [SDVSecVtx_TkMindxy, ';vertex track min(dxy);A.U.',200,0,20]
+  SDVSecVtx_Tkddxy: [SDVSecVtx_Tkddxy, ';vertex track max(dxy)-min(dxy);A.U.',200,0,20]
+  SDVSecVtx_chi2: [SDVSecVtx_chi2, ';vertex chi2;A.U.', 50, 0, 10]
+  SDVSecVtx_dlen: [SDVSecVtx_dlen, ';vertex dlen (cm);A.U.', 100, 0, 10]
+  SDVSecVtx_dlenSig: [SDVSecVtx_dlenSig, ';vertex dlen/#sigmadlen;A.U.', 500, 0, 100]
+  SDVSecVtx_dlen_err: [SDVSecVtx_dlen_err, ';vertex #sigmadlen (cm);A.U.', 100, 0, 0.5]
+  SDVSecVtx_dphi_L_MET: [SDVSecVtx_dphi_L_MET, ';#Delta#phi(Lxy,MET)', 64, 0, 3.2]
+  SDVSecVtx_dphi_L_jet0: [SDVSecVtx_dphi_L_jet0, ';#Delta#phi(Lxy,jet0)', 64, 0, 3.2]
+  SDVSecVtx_matchedLLPIdx_bydau: [SDVSecVtx_matchedLLPIdx_bydau, ';vertex matched LLP idx;A.U.', 5, -1, 4]
+  SDVSecVtx_matchedLLPnDau_bydau: [SDVSecVtx_matchedLLPnDau_bydau, ';vertex number of tracks matched with LLP;A.U.', 10, 0, 10]
+  SDVSecVtx_nGoodTrack: [SDVSecVtx_nGoodTrack, ';vertex ngoodTrack;A.U.', 20, 0, 20]
+  SDVSecVtx_nTracks: [SDVSecVtx_nTracks, ';vertex nTracks;A.U.', 20, 0, 20]
+  SDVSecVtx_ndof: [SDVSecVtx_ndof, ';vertex ndof;A.U.', 20, 0, 20]
+  SDVSecVtx_ndof_minus3_2: [SDVSecVtx_ndof_minus3_2, ';vertex ndof;A.U.', 50, -3, 2]
+  SDVSecVtx_normalizedChi2: [SDVSecVtx_normalizedChi2, ';vertex norm chi2;A.U.', 50, 0, 10]
+  SDVSecVtx_pAngle: [SDVSecVtx_pAngle, ';vertex pAngle;A.U.', 64, 0, 3.2]
+  SDVSecVtx_mass: [SDVSecVtx_mass, ';Invariant mass (GeV);A.U.', 500, 0, 1000]
+  SDVSecVtx_mass_0_100: [SDVSecVtx_mass_0_100, ';Invariant mass (GeV);A.U.', 200, 0, 100]
+  SDVSecVtx_mass_jpsi: [SDVSecVtx_mass_jpsi, ';Invariant mass (GeV);A.U.', 60, 3.07, 3.13]
+  SDVSecVtx_mass_K0: [SDVSecVtx_mass_K0, ';Invariant mass (GeV);A.U.', 40, 0.48, 0.52]
+  nSDVSecVtx_CCsel: [nSDVSecVtx_CCsel, ';Number of vertices (CC);A.U.', 20, 0, 20]
+  nSDVSecVtx_MLsel: [nSDVSecVtx_MLsel, ';Number of vertices (ML);A.U.', 20, 0, 20]
+  nSDVSecVtx_sel: [nSDVSecVtx_sel, ';Number of vertices;A.U.', 20, 0, 20]
+

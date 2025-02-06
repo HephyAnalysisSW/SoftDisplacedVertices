@@ -12,6 +12,7 @@
 
 import os,math
 import ROOT
+from array import array
 import cmsstyle as CMS
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.EnableImplicitMT()
@@ -122,7 +123,7 @@ parser.add_argument('--ratio', action='store_true', default=False,
 
 args = parser.parse_args()
 
-signal_colors = [ROOT.kGreen,ROOT.kRed,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+signal_colors = [ROOT.kGreen,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
 bkg_colors = [ROOT.kBlue-9, ROOT.kBlue-5, ROOT.kCyan-9]
 
 def AddHists(hs,ws):
@@ -224,7 +225,7 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     CMS.SetExtraText("Preliminary")
   else:
     CMS.SetExtraText("Simulation Preliminary")
-  CMS.SetLumi("")
+  CMS.SetLumi("100.3")
   square=CMS.kSquare
   iPos=0
   
@@ -232,8 +233,23 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
   if ratio:
     # Create canvas
     canv = CMS.cmsDiCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, 0, 2.5, x_label, y_label, "Data/MC", square=square, extraSpace=0.1, iPos=iPos,)
+    cup = canv.GetListOfPrimitives()[0]
+    cdn = canv.GetListOfPrimitives()[1]
+    cup.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+    cup.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+    cup.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
+    cdn.GetListOfPrimitives()[1].SetTitleSize(0.09, "XYZ")
+    cdn.GetListOfPrimitives()[1].SetLabelSize(0.09, "XYZ")
+    cdn.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
+    #for i in canv.GetListOfPrimitives():
+    #  i.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+    #  i.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+    #  i.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
   else:
     canv = CMS.cmsCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, x_label, y_label, square = CMS.kSquare, extraSpace=0.01, iPos=0)
+    canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+    canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+    canv.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
 
   leg = CMS.cmsLeg(0.2, 0.69, 0.99, 0.89, textSize=0.04,columns=2)
   if data is not None:
@@ -258,16 +274,17 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     )
     ratio = data.Clone("ratio")
     ratio.Divide(bkg_mc)
-    for i in range(1,ratio.GetNbinsX()+1):
-        if(ratio.GetBinContent(i)):
-            ratio.SetBinError(i, math.sqrt(data.GetBinContent(i))/bkg_mc.GetBinContent(i))
-        else:
-            ratio.SetBinError(i, 10^(-99))
-    yerr_root = ROOT.TGraphAsymmErrors()
-    yerr_root.Divide(data, bkg_mc, 'pois') 
-    for i in range(0,yerr_root.GetN()+1):
-        yerr_root.SetPointY(i,1)
-    CMS.cmsDraw(yerr_root, "e2same0", lwidth = 100, msize = 0, fcolor = ROOT.kBlack, fstyle = 3004)  
+    #for i in range(1,ratio.GetNbinsX()+1):
+    #    ratio.SetBinError(i,0)
+    #    #if(ratio.GetBinContent(i)):
+    #    #    ratio.SetBinError(i, math.sqrt(data.GetBinContent(i))/bkg_mc.GetBinContent(i))
+    #    #else:
+    #    #    ratio.SetBinError(i, 10^(-99))
+    #yerr_root = ROOT.TGraphAsymmErrors()
+    #yerr_root.Divide(data, bkg_mc, 'pois') 
+    #for i in range(0,yerr_root.GetN()+1):
+    #    yerr_root.SetPointY(i,1)
+    #CMS.cmsDraw(yerr_root, "e2same0", lwidth = 100, msize = 0, fcolor = ROOT.kBlack, fstyle = 3004)  
     CMS.cmsDraw(ratio, "E1X0", mcolor=ROOT.kBlack)
     ref_line = ROOT.TLine(x_min, 1, x_max, 1)
     CMS.cmsDrawLine(ref_line, lcolor=ROOT.kBlack, lstyle=ROOT.kDotted)

@@ -14,6 +14,8 @@ import pickle as pkl
 parser = argparse.ArgumentParser()
 parser.add_argument('--year', help="which year it is printing")
 parser.add_argument('--scale', type=float, default=1, help="which year it is printing")
+parser.add_argument('--output', help="output dir")
+parser.add_argument('--HEM', action="store_true", help="output dir")
 args = parser.parse_args()
 
 def getABCDSyst(year):
@@ -34,6 +36,13 @@ def getABCDSyst(year):
   }
 
   return s[str(year)]
+
+def getmapvetosyst(ctau_str):
+  ctau = float(ctau_str.replace('p','.'))
+  flog = ROOT.TF1("flog","TMath::Log(0.65*x-0.07)",0,max(ctau*2,1000))
+  syst_func = flog.Eval(ctau)*0.01
+  syst = max(0,syst_func)
+  return syst
 
 def getPDFUncert(mg, dm, ct, year):
   '''
@@ -156,15 +165,42 @@ def getSystUncert(dm, year):
   #source_dm_dependent = ["vtxreco", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn"]
   source_dm_dependent = []
   #source_dm_independent = ["trigger","vtxreco","jetmet","tkreco","pu", "l1", "intlumi"]
-  source_dm_independent = ["trigger","vtxreco","jetmet","tauveto","pu", "l1", "intlumi","muveto","eleveto","phoveto","qcdscale","pdf","jer"]
+  source_dm_independent = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
   #source_dm_independent = ["trackreco", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
   s = {}
   for source in source_dm_dependent:
     s[source] = df[str(year)][source+'_'+str(dm)]
   for source in source_dm_independent:
-    s[source] = df[str(year)][source]
+    if source+"A" in df[str(year)] and source+"C" in df[str(year)]:
+      s[source+"A"] = df[str(year)][source+"A"]
+      s[source+"C"] = df[str(year)][source+"C"]
+    else:
+      s[source] = df[str(year)][source]
 
   return s
+
+def getNumSigEvents(fn, regions, SF, HEMpath=None, HEMfrac=None):
+  if (HEMpath is None) or (HEMfrac is None):
+    return getNumEvents(fn, regions, SF, useData=False)
+  noHEM = getNumEvents(fn, regions, SF, useData=False)
+  HEM = getNumEvents(HEMpath, regions, SF, useData=False)
+  res = noHEM
+  for i in range(len(regions)):
+    res['weighted'][i] = noHEM['weighted'][i]*(1-HEMfrac) + HEM['weighted'][i]*HEMfrac
+    res['raw'][i] = int(noHEM['raw'][i]*(1-HEMfrac) + HEM['raw'][i]*HEMfrac)
+  return res
+
+def predictEvents(d):
+  f_displaced = d['weighted'][5]/d['weighted'][9]
+  f_prompt = d['weighted'][7]/d['weighted'][11]
+  d['weighted'][0] = d['weighted'][8]*f_displaced*f_displaced/(1-f_displaced)
+  d['weighted'][1] = d['weighted'][9]*f_displaced*f_displaced/(1-f_displaced)
+  d['weighted'][4] = d['weighted'][8]*f_displaced
+  d['weighted'][2] = d['weighted'][10]*f_prompt*f_prompt/(1-f_prompt)
+  d['weighted'][3] = d['weighted'][11]*f_prompt*f_prompt/(1-f_prompt)
+  d['weighted'][6] = d['weighted'][10]*f_prompt
+  return d
+
 
 
 def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
@@ -199,6 +235,9 @@ def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
       d['raw'].append(int(nevt_raw))
       d['weighted'].append(nevt*SF)
       d['stat_uncert'].append(nevt_uncert.value*SF)
+  if useData:
+    d = predictEvents(d)
+
   return d
 
 def getNumEventsCtau(fnbase, ctau, SF):
@@ -319,6 +358,8 @@ _SYSTUNCERTSIG_
 _ABCD_
 '''
 
+if not os.path.exists(args.output):
+  os.makedirs(args.output)
 useData = True
 channels = []
 dirs = []
@@ -334,8 +375,15 @@ for _ in channels:
 processnamerate = ('\t'+'\t'.join(processes))*len(channels)
 processidxrate = ('\t'+'\t'.join(processidx))*len(channels)
 
-filepathMC = '/eos/vbc/group/cms/ang.li/MCHistos_VRCRdatacard_1/'
-filepathData = '/eos/vbc/group/cms/ang.li/DataHistos_VRCRdatacard_1/'
+model = "stop"
+#model = "C1N2"
+filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
+filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
+#filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_1118/'
+#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_vtxweight_local/'
+filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
+#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_HEM_datacard_mapveto_local/'
+filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_HEM/'
 #mLLP = [600]
 #ctaus = ['20']
 #dms = [15]
@@ -383,18 +431,18 @@ syst_uncert = ''
 #g__YEAR_    rateParam   G_YEAR_   background    _GYIELD_
 #h__YEAR_    rateParam   H_YEAR_   background    _HYIELD_
 abcd = '''
-a2__YEAR_    rateParam   A2__YEAR_   background    (@0*(@1/@2)*(@1/@2))  a0__YEAR_,b1__YEAR_,b0__YEAR_
-b2__YEAR_    rateParam   B2__YEAR_   background    (@0*(@1/@0)*(@1/@0))  b0__YEAR_,b1__YEAR_
-c2__YEAR_    rateParam   C2__YEAR_   background    (@0*(@1/@2)*(@1/@2))  c0__YEAR_,d1__YEAR_,d0__YEAR_
-d2__YEAR_    rateParam   D2__YEAR_   background    (@0*(@1/@0)*(@1/@0))  d0__YEAR_,d1__YEAR_
-a1__YEAR_    rateParam   A1__YEAR_   background    (@0*(@1/@2))  a0__YEAR_,b1__YEAR_,b0__YEAR_
 b1__YEAR_    rateParam   B1__YEAR_   background    _B1YIELD_
-c1__YEAR_    rateParam   C1__YEAR_   background    (@0*(@1/@2))  c0__YEAR_,d1__YEAR_,d0__YEAR_
 d1__YEAR_    rateParam   D1__YEAR_   background    _D1YIELD_
 a0__YEAR_    rateParam   A0__YEAR_   background    _A0YIELD_
 b0__YEAR_    rateParam   B0__YEAR_   background    _B0YIELD_
 c0__YEAR_    rateParam   C0__YEAR_   background    _C0YIELD_
 d0__YEAR_    rateParam   D0__YEAR_   background    _D0YIELD_
+a2__YEAR_    rateParam   A2__YEAR_   background    (@0*(@1/@2)*(@1/@2)/(1-(@1/@2)))  a0__YEAR_,b1__YEAR_,b0__YEAR_
+b2__YEAR_    rateParam   B2__YEAR_   background    (@0*(@1/@0)*(@1/@0)/(1-(@1/@0)))  b0__YEAR_,b1__YEAR_
+c2__YEAR_    rateParam   C2__YEAR_   background    (@0*(@1/@2)*(@1/@2)/(1-(@1/@2)))  c0__YEAR_,d1__YEAR_,d0__YEAR_
+d2__YEAR_    rateParam   D2__YEAR_   background    (@0*(@1/@0)*(@1/@0)/(1-(@1/@0)))  d0__YEAR_,d1__YEAR_
+a1__YEAR_    rateParam   A1__YEAR_   background    (@0*(@1/@2))  a0__YEAR_,b1__YEAR_,b0__YEAR_
+c1__YEAR_    rateParam   C1__YEAR_   background    (@0*(@1/@2))  c0__YEAR_,d1__YEAR_,d0__YEAR_
 '''.replace('_YEAR_',args.year)
 yield_label = ['_B1YIELD_','_D1YIELD_','_A0YIELD_','_B0YIELD_','_C0YIELD_','_D0YIELD_']
 yield_label_idx = [5,7,8,9,10,11]
@@ -403,17 +451,20 @@ for i in range(len(yield_label)):
 
 for m in mLLP:
   for ctau,dm in zip(ctaus, dms):
-      #signal = "stop_M{}_{}_ct{}_{}_hist.root".format(m,m-dm,ctau,args.year)
-      signal = "C1N2_M{}_{}_ct{}_{}_hist.root".format(m,m-dm,ctau,args.year)
+      signal = "{}_M{}_{}_ct{}_{}_hist.root".format(model,m,m-dm,ctau,args.year)
 
       syst = getSystUncert(dm,args.year)
       sf = 1
       #sf = 1-syst['vtxreco']
       #sf = sf*args.scale
-      if os.path.exists(filepathMC+signal): 
-        d_sig = getNumEvents(filepathMC+signal,dirs,SF=sf,useData=False)
+      if os.path.exists(filepathSig+signal): 
+        #d_sig = getNumEvents(filepathSig+signal,dirs,SF=sf,useData=False)
+        if args.HEM:
+          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=filepathSigHEM+signal,HEMfrac=0.6477)
+        else:
+          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=None,HEMfrac=None)
       else:
-        print("File {} does not exist. Skipping...".format(filepathMC+signal))
+        print("File {} does not exist. Skipping...".format(filepathSig+signal))
         continue
       #else:
       #  d_sig = getNumEventsCtau("mfv_splitSUSY_tau00%07ium_M{}_{}_{}_METtrigger".format(mg,mg-dm,args.year), ctau,SF=sf)
@@ -421,7 +472,7 @@ for m in mLLP:
       rate = ''
       sig_stat_uncert = ''
       sig_syst_uncert = ''
-      syst_sources = ["trigger","vtxreco","jetmet","tauveto","pu", "l1", "intlumi","muveto","eleveto","phoveto","qcdscale","pdf","jer"]
+      syst_sources = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
       #syst_sources = ["vtxtkreco_Corr", "ML", "fake_MET", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
       for i in range(len(channels)):
         rate += '\t{:.5g}'.format(d_sig['weighted'][i])
@@ -435,13 +486,27 @@ for m in mLLP:
                           +'\t-'*((len(channels)-i-1)*len(processes))+'\n'
         n_uncerts_sig += 1
       for isource in syst_sources: 
-        if isource=="vtxtkreco_Corr":
-          syst_value = syst["vtxreco"]+syst["trackreco"]
+        if isource in syst:
+          if isource=="vtxtkreco_Corr":
+            syst_value = syst["vtxreco"]+syst["trackreco"]
+          else:
+            syst_value = syst[isource]
+          sig_syst_uncert += 'signal_syst_{}\tlnN'.format(isource) \
+                            +('\t{:.5g}'.format(1+syst_value)+'\t-'*(len(processes)-1))*len(channels) +'\n'
+          n_uncerts_sig += 1
         else:
-          syst_value = syst[isource]
-        sig_syst_uncert += 'signal_syst_{}\tlnN'.format(isource) \
-                          +('\t{:.5g}'.format(1+syst_value)+'\t-'*(len(processes)-1))*len(channels) +'\n'
-        n_uncerts_sig += 1
+          assert (isource+"A" in syst) and (isource+"C" in syst)
+          syst_valueA = syst[isource+"A"]
+          syst_valueC = syst[isource+"C"]
+          sig_syst_uncert += 'signal_syst_{}\tlnN'.format(isource) \
+                            +(('\t{:.5g}'.format(1+syst_valueA)+'\t-'*(len(processes)-1))*2+('\t{:.5g}'.format(1+syst_valueC)+'\t-'*(len(processes)-1))*2)*int(len(channels)/4) +'\n'
+          n_uncerts_sig += 1
+
+      # mapveto
+      sig_syst_uncert += 'signal_syst_map\tlnN' \
+                        +('\t{:.5g}'.format(1+getmapvetosyst(ctau))+'\t-'*(len(processes)-1))*len(channels) +'\n'
+      n_uncerts_sig += 1
+
       #sig_syst_uncert += 'signal_syst_PDF\tlnN' \
       #                  +('\t{:.5g}'.format(1+getPDFUncert(mg,dm,ctau,int(args.year)))+'\t-'*(len(processes)-1))*len(channels) +'\n'
       #n_uncerts_sig += 1
@@ -464,7 +529,7 @@ for m in mLLP:
       #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_data['raw'])))
       #else:
       #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
-      f_datacard = open(signal.replace("_hist.root",'')+'_datacard.txt','w')
+      f_datacard = open(os.path.join(args.output,signal.replace("_hist.root",'')+'_datacard.txt'),'w')
       f_datacard.write(template_new)
       f_datacard.close()
 

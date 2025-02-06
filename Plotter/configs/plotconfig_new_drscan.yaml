@@ -1,0 +1,528 @@
+vtx_sel_norm: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+vtx_sel_refit: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodRefitTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+#vtx_sel_ML: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 ) && (SDVSecVtx_ParTScore>0.98) && ( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 )
+
+presel: MET_pt>400&&HLT_PFMET120_PFMHT120_IDTight && Jet_pt[0]>100 && !nMuon && !nPhoton
+  && !nTau && !nElectron && Flag_METFilters && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8
+new_variables:
+  Jet_pt_sel: Jet_pt[Jet_pt>__JETPT__]
+  Jet_phi_sel: Jet_phi[Jet_pt>__JETPT__]
+  Jet_eta_sel: Jet_eta[Jet_pt>__JETPT__]
+  SDVTrack_qoverp: SDVTrack_charge/SDVTrack_pt
+  SDVTrack_dxySig: abs(SDVTrack_dxy)/SDVTrack_dxyError
+  SDVTrack_dzSig: abs(SDVTrack_dz)/SDVTrack_dzError
+  SDVTrack_ptqual: SDVTrack_ptError/SDVTrack_pt
+  SDVTrack_dxydzratio: abs(SDVTrack_dxy/SDVTrack_dz)
+  SDVTrack_dphi_jet0: acos(cos(SDVTrack_phi-Jet_phi[0]))
+  SDVTrack_deta_jet0: abs(SDVTrack_eta-Jet_eta[0])
+  SDVTrack_dR_jet0: sqrt(SDVTrack_dphi_jet0*SDVTrack_dphi_jet0 + SDVTrack_deta_jet0*SDVTrack_deta_jet0)
+  SDVTrack_dphi_MET: acos(cos(SDVTrack_phi-MET_phi))
+  SDVTrack_pfAbsIso03_all: SDVTrack_pfRelIso03_all * SDVTrack_pt
+  SDVTrack_pfAbsIso03_chg: SDVTrack_pfRelIso03_chg * SDVTrack_pt
+  SDVTrack_pfAbsIso03_all_mod: Track_modifiedIsolation(SDVTrack_pfAbsIso03_all, SDVIdxLUT_TrackIdx, SDVTrack_pt, SDVTrack_eta, SDVTrack_phi, SDVTrack_dz)
+  SDVTrack_pfAbsIso03_chg_mod: Track_modifiedIsolation(SDVTrack_pfAbsIso03_chg, SDVIdxLUT_TrackIdx, SDVTrack_pt, SDVTrack_eta, SDVTrack_phi, SDVTrack_dz)
+  SDVTrack_pfRelIso03_all_mod: SDVTrack_pfAbsIso03_all_mod / SDVTrack_pt
+  SDVTrack_pfRelIso03_chg_mod: SDVTrack_pfAbsIso03_chg_mod / SDVTrack_pt 
+  SDVTrack_weight: Track_WeightInSV(SDVIdxLUT_TrackIdx, SDVIdxLUT_TrackWeight, nSDVTrack)
+  SDVTrack_isInSV: Track_isInSV(SDVIdxLUT_TrackIdx,nSDVTrack)
+  SDVTrack_minJetdphi: Track_minJetdphi(SDVTrack_phi, Jet_phi_sel,nSDVTrack)
+  SDVTrack_minJetdeta: Track_minJetdeta(SDVTrack_eta, Jet_eta_sel,nSDVTrack)
+  SDVTrack_minJetdR: Track_minJetdR(SDVTrack_phi, SDVTrack_eta,Jet_phi_sel,Jet_eta_sel,nSDVTrack)
+  SDVTrack_minJetdR_pt: Track_minJetdR_pt(SDVTrack_phi, SDVTrack_eta,Jet_phi_sel,Jet_eta_sel,Jet_pt_sel,nSDVTrack)
+  SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && (SDVTrack_minJetdR>__JETDR__)
+  #SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (abs(SDVTrack_dz)<4.) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 )
+  SDVRefitTrack_qoverp: SDVRefitTrack_charge/SDVRefitTrack_pt
+  SDVRefitTrack_LLPIdx: 'ROOT::VecOps::Take(SDVTrack_LLPIdx,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_GenPartIdx: 'ROOT::VecOps::Take(SDVTrack_GenPartIdx,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dxySig: abs(SDVRefitTrack_dxy)/SDVRefitTrack_dxyError
+  SDVRefitTrack_dzSig: abs(SDVRefitTrack_dz)/SDVRefitTrack_dzError
+  SDVRefitTrack_ptqual: SDVRefitTrack_ptError/SDVRefitTrack_pt
+  SDVRefitTrack_dxydzratio: abs(SDVRefitTrack_dxy/SDVRefitTrack_dz)
+  SDVRefitTrack_dphi_MET: acos(cos(SDVRefitTrack_phi-MET_phi))
+  SDVRefitTrack_dphi_jet0: acos(cos(SDVRefitTrack_phi-Jet_phi[0]))
+  SDVRefitTrack_normalizedChi2_new: 'ROOT::VecOps::Take(SDVTrack_normalizedChi2,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_numberOfValidHits_new: 'ROOT::VecOps::Take(SDVTrack_numberOfValidHits,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dr03TkSumPt: 'ROOT::VecOps::Take(SDVTrack_dr03TkSumPt,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_pfAbsIso03_all: 'ROOT::VecOps::Take(SDVTrack_pfAbsIso03_all,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_pfAbsIso03_chg: 'ROOT::VecOps::Take(SDVTrack_pfAbsIso03_chg,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_pfRelIso03_all: 'ROOT::VecOps::Take(SDVTrack_pfRelIso03_all,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_pfRelIso03_chg: 'ROOT::VecOps::Take(SDVTrack_pfRelIso03_chg,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_algo_new: 'ROOT::VecOps::Take(SDVTrack_algo,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_isGoodTrack: (SDVRefitTrack_dxySig>4) && (SDVRefitTrack_normalizedChi2_new < 5) && (SDVRefitTrack_numberOfValidHits_new > 13) && (SDVRefitTrack_ptqual < 0.015) && (SDVRefitTrack_dxydzratio > 0.25) && (SDVRefitTrack_dphi_jet0 > 1) && (SDVRefitTrack_dphi_MET < 1.5)
+  SDVRefitTrack_qoverp_ori: 'ROOT::VecOps::Take(SDVTrack_qoverp,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_pt_ori: 'ROOT::VecOps::Take(SDVTrack_pt,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_eta_ori: 'ROOT::VecOps::Take(SDVTrack_eta,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_phi_ori: 'ROOT::VecOps::Take(SDVTrack_phi,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dxy_ori: 'ROOT::VecOps::Take(SDVTrack_dxy,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dxyError_ori: 'ROOT::VecOps::Take(SDVTrack_dxyError,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dxySig_ori: abs(SDVRefitTrack_dxy_ori)/SDVRefitTrack_dxyError_ori
+  SDVRefitTrack_dz_ori: 'ROOT::VecOps::Take(SDVTrack_dz,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dzError_ori: 'ROOT::VecOps::Take(SDVTrack_dzError,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_dzSig_ori: abs(SDVRefitTrack_dz_ori)/SDVRefitTrack_dzError_ori
+  SDVRefitTrack_ptError_ori: 'ROOT::VecOps::Take(SDVTrack_ptError,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_ptqual_ori: SDVRefitTrack_ptError_ori/SDVRefitTrack_pt_ori
+  SDVRefitTrack_dxydzratio_ori: abs(SDVRefitTrack_dxy_ori/SDVRefitTrack_dz_ori)
+  SDVRefitTrack_qoverp_diff: SDVRefitTrack_qoverp_ori-SDVRefitTrack_qoverp
+  SDVRefitTrack_pt_diff: (SDVRefitTrack_pt_ori-SDVRefitTrack_pt)
+  SDVRefitTrack_eta_diff: (SDVRefitTrack_eta_ori-SDVRefitTrack_eta)
+  SDVRefitTrack_phi_diff: acos(cos(SDVRefitTrack_phi_ori-SDVRefitTrack_phi))
+  SDVRefitTrack_dxy_diff: (SDVRefitTrack_dxy_ori-SDVRefitTrack_dxy)
+  SDVRefitTrack_dxyError_diff: (SDVRefitTrack_dxyError_ori-SDVRefitTrack_dxyError)
+  SDVRefitTrack_dxySig_diff: (SDVRefitTrack_dxySig_ori-SDVRefitTrack_dxySig)
+  SDVRefitTrack_dz_diff: (SDVRefitTrack_dz_ori-SDVRefitTrack_dz)
+  SDVRefitTrack_dzError_diff: (SDVRefitTrack_dzError_ori-SDVRefitTrack_dzError)
+  SDVRefitTrack_dzSig_diff: (SDVRefitTrack_dzSig_ori-SDVRefitTrack_dzSig)
+  SDVRefitTrack_ptError_diff: (SDVRefitTrack_ptError_ori-SDVRefitTrack_ptError)
+  SDVRefitTrack_ptqual_diff: (SDVRefitTrack_ptqual_ori-SDVRefitTrack_ptqual)
+  SDVRefitTrack_dxydzratio_diff: (SDVRefitTrack_dxydzratio_ori-SDVRefitTrack_dxydzratio)
+  SDVRefitTrack_qoverp_reldiff: (SDVRefitTrack_qoverp_ori-SDVRefitTrack_qoverp)/SDVRefitTrack_qoverp_ori
+  SDVRefitTrack_pt_reldiff: (SDVRefitTrack_pt_ori-SDVRefitTrack_pt)/SDVRefitTrack_pt_ori
+  SDVRefitTrack_eta_reldiff: (SDVRefitTrack_eta_ori-SDVRefitTrack_eta)/SDVRefitTrack_eta_ori
+  SDVRefitTrack_phi_reldiff: acos(cos(SDVRefitTrack_phi_ori-SDVRefitTrack_phi))/SDVRefitTrack_phi_ori
+  SDVRefitTrack_dxy_reldiff: (SDVRefitTrack_dxy_ori-SDVRefitTrack_dxy)/SDVRefitTrack_dxy_ori
+  SDVRefitTrack_dxyError_reldiff: (SDVRefitTrack_dxyError_ori-SDVRefitTrack_dxyError)/SDVRefitTrack_dxyError_ori
+  SDVRefitTrack_dxySig_reldiff: (SDVRefitTrack_dxySig_ori-SDVRefitTrack_dxySig)/SDVRefitTrack_dxySig_ori
+  SDVRefitTrack_dz_reldiff: (SDVRefitTrack_dz_ori-SDVRefitTrack_dz)/SDVRefitTrack_dz_ori
+  SDVRefitTrack_dzError_reldiff: (SDVRefitTrack_dzError_ori-SDVRefitTrack_dzError)/SDVRefitTrack_dzError_ori
+  SDVRefitTrack_dzSig_reldiff: (SDVRefitTrack_dzSig_ori-SDVRefitTrack_dzSig)/SDVRefitTrack_dzSig_ori
+  SDVRefitTrack_ptError_reldiff: (SDVRefitTrack_ptError_ori-SDVRefitTrack_ptError)/SDVRefitTrack_ptError_ori
+  SDVRefitTrack_ptqual_reldiff: (SDVRefitTrack_ptqual_ori-SDVRefitTrack_ptqual)/SDVRefitTrack_ptqual_ori
+  SDVRefitTrack_dxydzratio_reldiff: (SDVRefitTrack_dxydzratio_ori-SDVRefitTrack_dxydzratio)/SDVRefitTrack_dxydzratio_ori
+
+  SDVRefitTrack_GenPartIdx: 'ROOT::VecOps::Take(SDVTrack_GenPartIdx,SDVRefitTrack_tkIdx)'
+  SDVRefitTrack_GenPart_pt: 'ROOT::VecOps::Take(SDVGenPart_pt,SDVRefitTrack_GenPartIdx)'
+  SDVRefitTrack_GenPart_eta: 'ROOT::VecOps::Take(SDVGenPart_eta,SDVRefitTrack_GenPartIdx)'
+  SDVRefitTrack_GenPart_phi: 'ROOT::VecOps::Take(SDVGenPart_phi,SDVRefitTrack_GenPartIdx)'
+  SDVRefitTrack_GenPart_dxy: 'ROOT::VecOps::Take(SDVGenPart_dxy,SDVRefitTrack_GenPartIdx)'
+  SDVRefitTrack_GenPart_dz: 'ROOT::VecOps::Take(SDVGenPart_dz,SDVRefitTrack_GenPartIdx)'
+  SDVRefitTrack_GenPart_dxydzratio: abs(SDVRefitTrack_GenPart_dxy/SDVRefitTrack_GenPart_dz)
+  SDVRefitTrack_GenPart_charge: 'ROOT::VecOps::Take(SDVGenPart_charge,SDVRefitTrack_GenPartIdx)' 
+  SDVRefitTrack_GenPart_qoverp: SDVRefitTrack_GenPart_charge/SDVRefitTrack_GenPart_pt
+  SDVRefitTrack_pt_res: SDVRefitTrack_pt - SDVRefitTrack_GenPart_pt
+  SDVRefitTrack_pt_orires: SDVRefitTrack_pt_ori - SDVRefitTrack_GenPart_pt
+  SDVRefitTrack_eta_res: SDVRefitTrack_eta - SDVRefitTrack_GenPart_eta
+  SDVRefitTrack_eta_orires: SDVRefitTrack_eta_ori - SDVRefitTrack_GenPart_eta
+  SDVRefitTrack_phi_res: acos(cos(SDVRefitTrack_phi - SDVRefitTrack_GenPart_phi))
+  SDVRefitTrack_phi_orires: acos(cos(SDVRefitTrack_phi_ori - SDVRefitTrack_GenPart_phi))
+  SDVRefitTrack_dxy_res: abs(SDVRefitTrack_dxy) - abs(SDVRefitTrack_GenPart_dxy)
+  SDVRefitTrack_dxy_orires: abs(SDVRefitTrack_dxy_ori) - abs(SDVRefitTrack_GenPart_dxy)
+  SDVRefitTrack_dz_res: SDVRefitTrack_dz - SDVRefitTrack_GenPart_dz
+  SDVRefitTrack_dz_orires: SDVRefitTrack_dz_ori - SDVRefitTrack_GenPart_dz
+  SDVRefitTrack_dxydzratio_res: SDVRefitTrack_dxydzratio - SDVRefitTrack_GenPart_dxydzratio
+  SDVRefitTrack_dxydzratio_orires: SDVRefitTrack_dxydzratio_ori - SDVRefitTrack_GenPart_dxydzratio
+  SDVRefitTrack_qoverp_res: SDVRefitTrack_qoverp - SDVRefitTrack_GenPart_qoverp
+  SDVRefitTrack_qoverp_orires: SDVRefitTrack_qoverp_ori - SDVRefitTrack_GenPart_qoverp
+  SDVRefitTrack_pt_relres: (SDVRefitTrack_pt - SDVRefitTrack_GenPart_pt)/SDVRefitTrack_GenPart_pt
+  SDVRefitTrack_pt_orirelres: (SDVRefitTrack_pt_ori - SDVRefitTrack_GenPart_pt)/SDVRefitTrack_GenPart_pt
+  SDVRefitTrack_eta_relres: (SDVRefitTrack_eta - SDVRefitTrack_GenPart_eta)/SDVRefitTrack_GenPart_eta
+  SDVRefitTrack_eta_orirelres: (SDVRefitTrack_eta_ori - SDVRefitTrack_GenPart_eta)/SDVRefitTrack_GenPart_eta
+  SDVRefitTrack_phi_relres: acos(cos(SDVRefitTrack_phi - SDVRefitTrack_GenPart_phi))/SDVRefitTrack_GenPart_phi
+  SDVRefitTrack_phi_orirelres: acos(cos(SDVRefitTrack_phi_ori - SDVRefitTrack_GenPart_phi))/SDVRefitTrack_GenPart_phi
+  SDVRefitTrack_dxy_relres: (abs(SDVRefitTrack_dxy) - abs(SDVRefitTrack_GenPart_dxy))/SDVRefitTrack_GenPart_dxy
+  SDVRefitTrack_dxy_orirelres: (abs(SDVRefitTrack_dxy_ori) - abs(SDVRefitTrack_GenPart_dxy))/SDVRefitTrack_GenPart_dxy
+  SDVRefitTrack_dz_relres: (SDVRefitTrack_dz - SDVRefitTrack_GenPart_dz)/SDVRefitTrack_GenPart_dz
+  SDVRefitTrack_dz_orirelres: (SDVRefitTrack_dz_ori - SDVRefitTrack_GenPart_dz)/SDVRefitTrack_GenPart_dz
+  SDVRefitTrack_dxydzratio_relres: (SDVRefitTrack_dxydzratio - SDVRefitTrack_GenPart_dxydzratio)/SDVRefitTrack_GenPart_dxydzratio
+  SDVRefitTrack_dxydzratio_orirelres: (SDVRefitTrack_dxydzratio_ori - SDVRefitTrack_GenPart_dxydzratio)/SDVRefitTrack_GenPart_dxydzratio
+  SDVRefitTrack_qoverp_relres: (SDVRefitTrack_qoverp - SDVRefitTrack_GenPart_qoverp)/SDVRefitTrack_GenPart_qoverp
+  SDVRefitTrack_qoverp_orirelres: (SDVRefitTrack_qoverp_ori - SDVRefitTrack_GenPart_qoverp)/SDVRefitTrack_GenPart_qoverp
+  SDVRefitTrack_minJetdphi: Track_minJetdphi(SDVRefitTrack_phi, Jet_phi_sel,nSDVRefitTrack)
+  SDVRefitTrack_minJetdeta: Track_minJetdeta(SDVRefitTrack_eta, Jet_eta_sel,nSDVRefitTrack)
+  SDVRefitTrack_minJetdR: Track_minJetdR(SDVRefitTrack_phi, SDVRefitTrack_eta,Jet_phi_sel,Jet_eta_sel,nSDVRefitTrack)
+  SDVRefitTrack_minJetdR_pt: Track_minJetdR_pt(SDVRefitTrack_phi, SDVRefitTrack_eta,Jet_phi_sel,Jet_eta_sel,Jet_pt_sel,nSDVRefitTrack)
+
+  #SDVSecVtx_dphisel: "( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 ) && ( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 )"
+  #SDVSecVtx_sel: "( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)"
+  #SDVTrack_Idx: "removeDuplicate(GetTracksinSDVs(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVSecVtx_sel))"
+  #SDVTrack_Idx: 'removeDuplicate(SDVIdxLUT_TrackIdx)'
+  #SDVTrack_LLPIdx: 'ROOT::VecOps::Take(SDVTrack_LLPIdx,SDVTrack_Idx)'
+  #SDVTrack_dxy: 'ROOT::VecOps::Take(SDVTrack_dxy,SDVTrack_Idx)'
+  #SDVTrack_dxyError: 'ROOT::VecOps::Take(SDVTrack_dxyError,SDVTrack_Idx)'
+  #SDVTrack_dz: 'ROOT::VecOps::Take(SDVTrack_dz,SDVTrack_Idx)'
+  #SDVTrack_dzError: 'ROOT::VecOps::Take(SDVTrack_dzError,SDVTrack_Idx)'
+  #SDVTrack_ptError: 'ROOT::VecOps::Take(SDVTrack_ptError,SDVTrack_Idx)'
+  #SDVTrack_pt: 'ROOT::VecOps::Take(SDVTrack_pt,SDVTrack_Idx)'
+  #SDVTrack_normalizedChi2: 'ROOT::VecOps::Take(SDVTrack_normalizedChi2,SDVTrack_Idx)'
+  #SDVTrack_numberOfValidHits: 'ROOT::VecOps::Take(SDVTrack_numberOfValidHits,SDVTrack_Idx)'
+  #SDVTrack_phi: 'ROOT::VecOps::Take(SDVTrack_phi,SDVTrack_Idx)'
+  #SDVTrack_dxySig: 'ROOT::VecOps::Take(SDVTrack_dxySig,SDVTrack_Idx)'
+  #SDVTrack_dzSig: 'ROOT::VecOps::Take(SDVTrack_dzSig,SDVTrack_Idx)'
+  #SDVTrack_ptqual: 'ROOT::VecOps::Take(SDVTrack_ptqual,SDVTrack_Idx)'
+  #SDVTrack_dxydzratio: 'ROOT::VecOps::Take(SDVTrack_dxydzratio,SDVTrack_Idx)'
+  #SDVTrack_dphi_MET: acos(cos(SDVTrack_phi-MET_phi))
+  #SDVTrack_dphi_jet0: acos(cos(SDVTrack_phi-Jet_phi[0]))
+  #SDVTrack_deta_jet0: 'ROOT::VecOps::Take(SDVTrack_deta_jet0,SDVTrack_Idx)'
+  #SDVTrack_dR_jet0: 'ROOT::VecOps::Take(SDVTrack_dR_jet0,SDVTrack_Idx)'
+  #SDVTrack_dr03TkSumPt: 'ROOT::VecOps::Take(SDVTrack_dr03TkSumPt,SDVTrack_Idx)'
+  #SDVTrack_pfAbsIso03_all: 'ROOT::VecOps::Take(SDVTrack_pfAbsIso03_all,SDVTrack_Idx)'
+  #SDVTrack_pfAbsIso03_chg: 'ROOT::VecOps::Take(SDVTrack_pfAbsIso03_chg,SDVTrack_Idx)'
+  #SDVTrack_pfRelIso03_all: 'ROOT::VecOps::Take(SDVTrack_pfRelIso03_all,SDVTrack_Idx)'
+  #SDVTrack_pfRelIso03_chg: 'ROOT::VecOps::Take(SDVTrack_pfRelIso03_chg,SDVTrack_Idx)'
+  SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
+  SDVSecVtx_nGoodRefitTrack: SDVSecVtx_nGoodRefitTrack(SDVRefitTrack_svIdx,SDVRefitTrack_isGoodTrack,nSDVSecVtx)
+  SDVSecVtx_dphiMET: 'acos(cos(SDVSecVtx_L_phi-MET_phi))'
+  SDVSecVtx_dphijet0: 'acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))'
+  nSDVSecVtx_normsel: ['Sum({0})', vtx_sel_norm]
+  nSDVSecVtx_refitsel: ['Sum({0})', vtx_sel_refit]
+  #nSDVSecVtx_MLsel: ['Sum({0})', vtx_sel_ML]
+  #SDVSecVtx_LxySig_CCsel_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_CC]
+  #SDVSecVtx_LxySig_MLsel_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_ML]
+  #SDVSecVtx_dphi_L_MET: acos(cos(SDVSecVtx_L_phi-MET_phi))
+regions:
+  All: 
+  #normsel: nSDVSecVtx_normsel>0 && MET_pt>600
+  #refitsel: nSDVSecVtx_refitsel>0 && MET_pt>600
+  #MLSR400: nSDVSecVtx_MLsel>0 && MET_pt>400
+  #MLSR600: nSDVSecVtx_MLsel>0 && MET_pt>600
+event_variables:
+- nSDVSecVtx_normsel
+- nSDVSecVtx_refitsel
+  #- SDVSecVtx_LxySig_CCsel_max
+  #- SDVSecVtx_LxySig_MLsel_max
+- MET_pt
+- LHE_HT
+event_2d_plots:
+  #- [MET_pt,SDVSecVtx_LxySig_MLsel_max]
+objects:
+  SDVTrack:
+    selections:
+      #all: 
+      #genmatch: SDVTrack_LLPIdx>=0
+      #nogenmatch: SDVTrack_LLPIdx<0 
+      #GoodTrack: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 )
+      #GoodTrackdxydz: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && SDVTrack_dxydzratio>0.25 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 )
+      #GoodTrack_genmatch: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && SDVTrack_LLPIdx>=0
+      #GoodTrackdxydz_genmatch: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && SDVTrack_dxydzratio>0.25 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && SDVTrack_LLPIdx>=0
+      allInSV: SDVTrack_isInSV==1
+      genmatchInSV: SDVTrack_LLPIdx>=0 && SDVTrack_isInSV==1
+      nogenmatchInSV: SDVTrack_LLPIdx<0 && SDVTrack_isInSV==1
+      GoodTrackdxydzInSV: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && SDVTrack_dxydzratio>0.25 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && SDVTrack_isInSV==1
+      GoodTrackdxydz_genmatchInSV: SDVTrack_dxySig>4 && SDVTrack_normalizedChi2<5 && SDVTrack_numberOfValidHits>13 && SDVTrack_ptqual < 0.015 && SDVTrack_dxydzratio>0.25 && ( acos(cos(SDVTrack_phi-Jet_phi[0]))>1 ) && ( acos(cos(SDVTrack_phi-MET_phi))<1.5 ) && SDVTrack_LLPIdx>=0 && SDVTrack_isInSV==1
+    variables:
+    - SDVTrack_dxy
+    - SDVTrack_dxyError
+    - SDVTrack_dxySig
+    - SDVTrack_dz
+    - SDVTrack_dzError
+    - SDVTrack_dzSig
+    - SDVTrack_normalizedChi2
+    - SDVTrack_numberOfValidHits
+    - SDVTrack_pt
+    - SDVTrack_ptError
+    - SDVTrack_ptqual
+    - SDVTrack_dxydzratio
+    - SDVTrack_dphi_MET
+    - SDVTrack_dphi_jet0
+    - SDVTrack_dR_jet0
+    - SDVTrack_dr03TkSumPt
+    - SDVTrack_pfAbsIso03_all
+    - SDVTrack_pfAbsIso03_chg
+    - SDVTrack_pfRelIso03_all
+    - SDVTrack_pfRelIso03_chg
+    - SDVTrack_pfAbsIso03_all_mod
+    - SDVTrack_pfAbsIso03_chg_mod
+    - SDVTrack_pfRelIso03_all_mod
+    - SDVTrack_pfRelIso03_chg_mod
+    - SDVTrack_weight
+    - SDVTrack_minJetdphi
+    - SDVTrack_minJetdeta
+    - SDVTrack_minJetdR
+    - SDVTrack_minJetdR_pt
+    2d_plots:
+    - [SDVTrack_dphi_jet0,SDVTrack_pfAbsIso03_all]
+    - [SDVTrack_dphi_jet0,SDVTrack_pfAbsIso03_chg]
+    - [SDVTrack_dphi_jet0,SDVTrack_pfRelIso03_all]
+    - [SDVTrack_dphi_jet0,SDVTrack_pfRelIso03_chg]
+    - [SDVTrack_dR_jet0,SDVTrack_pfAbsIso03_all]
+    - [SDVTrack_dR_jet0,SDVTrack_pfAbsIso03_chg]
+    - [SDVTrack_dR_jet0,SDVTrack_pfRelIso03_all]
+    - [SDVTrack_dR_jet0,SDVTrack_pfRelIso03_chg]
+    - [SDVTrack_minJetdR, SDVTrack_pfRelIso03_all]
+    - [SDVTrack_minJetdR, SDVTrack_minJetdR_pt]
+
+    nm1:
+    - ['SDVTrack_minJetdR','>0.5']
+    - ['SDVTrack_pfRelIso03_all','<5']
+  #  - ['SDVTrack_dxySig','>4']
+  #  - ['SDVTrack_normalizedChi2','<5']
+  #  - ['SDVTrack_numberOfValidHits','>13']
+  #  - ['SDVTrack_dxydzratio','>0.1']
+  #  - ['SDVTrack_ptqual','<0.015']
+  SDVRefitTrack:
+    selections:
+      all:
+      genmatch: SDVRefitTrack_LLPIdx>=0
+      gentkmatch: SDVRefitTrack_GenPartIdx>=0
+      nogenmatch: SDVRefitTrack_LLPIdx<0
+    variables:
+    - SDVRefitTrack_dxy
+    - SDVRefitTrack_dxyError
+    - SDVRefitTrack_dxySig
+    - SDVRefitTrack_dz
+    - SDVRefitTrack_dzError
+    - SDVRefitTrack_dzSig
+    - SDVRefitTrack_normalizedChi2_new
+    - SDVRefitTrack_numberOfValidHits_new
+    - SDVRefitTrack_pt
+    - SDVRefitTrack_ptError
+    - SDVRefitTrack_ptqual
+    - SDVRefitTrack_dxydzratio
+    - SDVRefitTrack_dphi_MET
+    - SDVRefitTrack_dphi_jet0
+    - SDVRefitTrack_dr03TkSumPt
+    - SDVRefitTrack_pfRelIso03_all
+    - SDVRefitTrack_pfRelIso03_chg
+    - SDVRefitTrack_qoverp_diff
+    - SDVRefitTrack_pt_diff
+    - SDVRefitTrack_eta_diff
+    - SDVRefitTrack_phi_diff
+    - SDVRefitTrack_dxy_diff
+    - SDVRefitTrack_dxyError_diff
+    - SDVRefitTrack_dxySig_diff
+    - SDVRefitTrack_dz_diff
+    - SDVRefitTrack_dzError_diff
+    - SDVRefitTrack_dzSig_diff
+    - SDVRefitTrack_ptError_diff
+    - SDVRefitTrack_ptqual_diff
+    - SDVRefitTrack_dxydzratio_diff
+    - SDVRefitTrack_qoverp_reldiff
+    - SDVRefitTrack_pt_reldiff
+    - SDVRefitTrack_eta_reldiff
+    - SDVRefitTrack_phi_reldiff
+    - SDVRefitTrack_dxy_reldiff
+    - SDVRefitTrack_dxyError_reldiff
+    - SDVRefitTrack_dxySig_reldiff
+    - SDVRefitTrack_dz_reldiff
+    - SDVRefitTrack_dzError_reldiff
+    - SDVRefitTrack_dzSig_reldiff
+    - SDVRefitTrack_ptError_reldiff
+    - SDVRefitTrack_ptqual_reldiff
+    - SDVRefitTrack_dxydzratio_reldiff
+    - SDVRefitTrack_pt_res
+    - SDVRefitTrack_pt_orires
+    - SDVRefitTrack_eta_res
+    - SDVRefitTrack_eta_orires
+    - SDVRefitTrack_phi_res
+    - SDVRefitTrack_phi_orires
+    - SDVRefitTrack_dxy_res
+    - SDVRefitTrack_dxy_orires
+    - SDVRefitTrack_dz_res
+    - SDVRefitTrack_dz_orires
+    - SDVRefitTrack_dxydzratio_res
+    - SDVRefitTrack_dxydzratio_orires
+    - SDVRefitTrack_qoverp_res
+    - SDVRefitTrack_qoverp_orires
+    - SDVRefitTrack_pt_relres
+    - SDVRefitTrack_pt_orirelres
+    - SDVRefitTrack_eta_relres
+    - SDVRefitTrack_eta_orirelres
+    - SDVRefitTrack_phi_relres
+    - SDVRefitTrack_phi_orirelres
+    - SDVRefitTrack_dxy_relres
+    - SDVRefitTrack_dxy_orirelres
+    - SDVRefitTrack_dz_relres
+    - SDVRefitTrack_dz_orirelres
+    - SDVRefitTrack_dxydzratio_relres
+    - SDVRefitTrack_dxydzratio_orirelres
+    - SDVRefitTrack_qoverp_relres
+    - SDVRefitTrack_qoverp_orirelres
+    - SDVRefitTrack_GenPart_dxy
+    - SDVRefitTrack_dxy_ori
+    - SDVRefitTrack_minJetdphi
+    - SDVRefitTrack_minJetdeta
+    - SDVRefitTrack_minJetdR
+    - SDVRefitTrack_minJetdR_pt
+    2d_plots:
+    - [SDVRefitTrack_dxy, SDVRefitTrack_GenPart_dxy]
+    - [SDVRefitTrack_dxy_ori, SDVRefitTrack_GenPart_dxy]
+
+  #SDVSecVtx:
+  #  selections:
+  #    all:
+  #    genmatch: SDVSecVtx_matchedLLPnDau_bydau>1
+  #    #genmatchtag: SDVSecVtx_matchedLLPnDau_bydau>1 && SDVSecVtx_ParTScore>0.98
+  #    #tag: SDVSecVtx_ParTScore>0.98
+  #    #untag: SDVSecVtx_ParTScore<0.98
+  #    sel_norm: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+  #    sel_refit: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodRefitTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+  #    #sel_ML: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 ) && (SDVSecVtx_ParTScore>0.98) && ( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 )
+  #  variables:
+  #  - SDVSecVtx_x
+  #  - SDVSecVtx_y
+  #  - SDVSecVtx_nTracks
+  #  - SDVSecVtx_pAngle
+  #  - SDVSecVtx_nGoodTrack
+  #  - SDVSecVtx_nGoodRefitTrack
+  #  - SDVSecVtx_dlen
+  #  - SDVSecVtx_dlenSig
+  #  - SDVSecVtx_dlen_err
+  #  - SDVSecVtx_Lxy
+  #  - SDVSecVtx_LxySig
+  #  - SDVSecVtx_Lxy_err
+  #  - SDVSecVtx_chi2
+  #  - SDVSecVtx_normalizedChi2
+  #  - SDVSecVtx_ndof
+  #  - SDVSecVtx_L_eta_abs
+  #  - SDVSecVtx_matchedLLPIdx_bydau
+  #  - SDVSecVtx_matchedLLPnDau_bydau
+  #  - SDVSecVtx_TkMaxdphi
+  #  - SDVSecVtx_TkMindphi
+  #  - SDVSecVtx_TkMaxdeta
+  #  - SDVSecVtx_TkMindeta
+  #  - SDVSecVtx_TkMaxdR
+  #  - SDVSecVtx_TkMindR
+  #  - SDVSecVtx_dphi_L_MET
+  #  - SDVSecVtx_dphi_L_jet0
+  #  2d_plots:
+  #  - [SDVSecVtx_Lxy,SDVSecVtx_pAngle]
+  #  - [SDVSecVtx_x,SDVSecVtx_y]
+  #  nm1:
+  #  - [SDVSecVtx_dphi_L_MET,'<1.5']
+  #  - [SDVSecVtx_dphi_L_jet0,'>1']
+  #  - [SDVSecVtx_LxySig,'>=20']
+  #  - [SDVSecVtx_pAngle,'>0.2']
+  #  - [SDVSecVtx_nGoodTrack,'>=2']
+  #  - [SDVSecVtx_ndof,'>1']
+
+plot_setting:
+  LHE_HT: [LHE_HT, ';LHE HT (GeV);A.U.', 500, 0, 5000]
+  MET_pt: [MET_pt, ';MET (GeV);A.U.', 100, 0, 1000]
+  SDVTrack_dxy: [SDVTrack_dxy, ";track dxy (cm);A.U.",400,-20,20]
+  SDVTrack_dxyError: [SDVTrack_dxyError,";track #sigma dxy (cm);A.U.",100,0,1]
+  SDVTrack_dxySig: [SDVTrack_dxySig,";track |dxy/#sigma dxy|;A.U.",500,0,100]
+  SDVTrack_dz: [SDVTrack_dz,";track dz (cm);A.U.",400,-20,20]
+  SDVTrack_dzError: [SDVTrack_dzError,";track #sigma dz (cm);A.U.",100,0,1] 
+  SDVTrack_dzSig: [SDVTrack_dzSig,";track |dz/#sigma dz|;A.U.",500,0,100]
+  SDVTrack_normalizedChi2: [SDVTrack_normalizedChi2,";track norm Chi2;A.U.",100,0,5]
+  SDVTrack_numberOfValidHits: [SDVTrack_numberOfValidHits,";track # valid hits;A.U.",50,0,50]
+  SDVTrack_pt: [SDVTrack_pt,";track pt (GeV);A.U.",100,0,50]
+  SDVTrack_ptError: [SDVTrack_ptError,";track #sigma pt (GeV);A.U.",100,0,0.5]
+  SDVTrack_ptqual: [SDVTrack_ptqual,";track #sigma pt/pt;A.U.",100,0,0.02]
+  SDVTrack_dxydzratio: [SDVTrack_dxydzratio,";track |dxy/dz|;A.U.",100,0,1]
+  SDVTrack_dphi_MET: [SDVTrack_dphi_MET,";#Delta #phi (track,MET);A.U.",64,0,3.2]
+  SDVTrack_dphi_jet0: [SDVTrack_dphi_jet0,";#Delta #phi (track,jet0);A.U.",64,0,3.2]
+  SDVTrack_dR_jet0: [SDVTrack_dR_jet0,";#Delta R (track,jet0);A.U.",100,0,5]
+  SDVTrack_dr03TkSumPt: [SDVTrack_dr03TkSumPt,";track dR03TkSumPt;A.U.",200,0,100]
+  SDVTrack_pfAbsIso03_all: [SDVTrack_pfAbsIso03_all, ";track absolute iso all;A.U.",200,0,100]
+  SDVTrack_pfAbsIso03_chg: [SDVTrack_pfAbsIso03_chg, ";track absolute iso chg;A.U.",200,0,100]
+  SDVTrack_pfRelIso03_all: [SDVTrack_pfRelIso03_all, ";track relative iso all;A.U.",200,0,100]
+  SDVTrack_pfRelIso03_chg: [SDVTrack_pfRelIso03_chg, ";track relative iso chg;A.U.",200,0,100]
+  SDVTrack_pfAbsIso03_all_mod: [SDVTrack_pfAbsIso03_all_mod, ";track absolute iso all;A.U.",200,0,100]
+  SDVTrack_pfAbsIso03_chg_mod: [SDVTrack_pfAbsIso03_chg_mod, ";track absolute iso chg;A.U.",200,0,100]
+  SDVTrack_pfRelIso03_all_mod: [SDVTrack_pfRelIso03_all_mod, ";track relative iso all;A.U.",200,0,100]
+  SDVTrack_pfRelIso03_chg_mod: [SDVTrack_pfRelIso03_chg_mod, ";track relative iso chg;A.U.",200,0,100]
+  SDVTrack_weight: [SDVTrack_weight, ";track weight;A.U.",100,0,1]
+  SDVTrack_minJetdphi: [SDVTrack_minJetdphi,";min(#Delta#phi(track, jet));A.U.",64,0,3.2]
+  SDVTrack_minJetdeta: [SDVTrack_minJetdeta,";min(#Delta#eta(track, jet));A.U.",100,0,5]
+  SDVTrack_minJetdR: [SDVTrack_minJetdR,";min(#DeltaR(track, jet));A.U.",100,0,5]
+  SDVTrack_minJetdR_pt: [SDVTrack_minJetdR_pt,";pt of jet with minimum dR with track;A.U.",100,0,100]
+  SDVRefitTrack_dxy: [SDVRefitTrack_dxy, ";track dxy (cm);A.U.",400,-20,20]
+  SDVRefitTrack_dxyError: [SDVRefitTrack_dxyError,";track #sigma dxy (cm);A.U.",100,0,1]
+  SDVRefitTrack_dxySig: [SDVRefitTrack_dxySig,";track |dxy/#sigma dxy|;A.U.",500,0,100]
+  SDVRefitTrack_dz: [SDVRefitTrack_dz,";track dz (cm);A.U.",400,-20,20]
+  SDVRefitTrack_dzError: [SDVRefitTrack_dzError,";track #sigma dz (cm);A.U.",100,0,1] 
+  SDVRefitTrack_dzSig: [SDVRefitTrack_dzSig,";track |dz/#sigma dz|;A.U.",500,0,100]
+  SDVRefitTrack_normalizedChi2_new: [SDVRefitTrack_normalizedChi2_new,";track norm Chi2;A.U.",100,0,5]
+  SDVRefitTrack_numberOfValidHits_new: [SDVRefitTrack_numberOfValidHits_new,";track # valid hits;A.U.",50,0,50]
+  SDVRefitTrack_pt: [SDVRefitTrack_pt,";track pt (GeV);A.U.",100,0,50]
+  SDVRefitTrack_ptError: [SDVRefitTrack_ptError,";track #sigma pt (GeV);A.U.",100,0,0.5]
+  SDVRefitTrack_ptqual: [SDVRefitTrack_ptqual,";track #sigma pt/pt;A.U.",100,0,0.2]
+  SDVRefitTrack_dxydzratio: [SDVRefitTrack_dxydzratio,";track |dxy/dz|;A.U.",100,0,1]
+  SDVRefitTrack_dphi_MET: [SDVRefitTrack_dphi_MET,";#Delta #phi (track,MET);A.U.",64,0,3.2]
+  SDVRefitTrack_dphi_jet0: [SDVRefitTrack_dphi_jet0,";#Delta #phi (track,jet0);A.U.",64,0,3.2]
+  SDVRefitTrack_dr03TkSumPt: [SDVRefitTrack_dr03TkSumPt,";track dR03TkSumPt;A.U.",200,0,100]
+  SDVRefitTrack_pfRelIso03_all: [SDVRefitTrack_pfRelIso03_all, ";track iso all;A.U.",200,0,100]
+  SDVRefitTrack_pfRelIso03_chg: [SDVRefitTrack_pfRelIso03_chg, ";track iso chg;A.U.",200,0,100]
+  SDVRefitTrack_qoverp_diff: [SDVRefitTrack_qoverp_diff,";diff (refit tk, original tk) in q/pt;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_pt_diff: [SDVRefitTrack_pt_diff,";diff (refit tk, original tk) in pt;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_eta_diff: [SDVRefitTrack_eta_diff,";diff (refit tk, original tk) in eta;A.U.",100,-0.02,0.02]
+  SDVRefitTrack_phi_diff: [SDVRefitTrack_phi_diff,";diff (refit tk, original tk) in phi;A.U.",100,-0.5,0.5]
+  SDVRefitTrack_dxy_diff: [SDVRefitTrack_dxy_diff,";diff (refit tk, original tk) in dxy;A.U.",100,-5,5]
+  SDVRefitTrack_dxyError_diff: [SDVRefitTrack_dxyError_diff,";diff (refit tk, original tk) in dxyError;A.U.",100,-0.5,0.5]
+  SDVRefitTrack_dxySig_diff: [SDVRefitTrack_dxySig_diff,";diff (refit tk, original tk) in dxySig;A.U.",100,-10,10]
+  SDVRefitTrack_dz_diff: [SDVRefitTrack_dz_diff,";diff (refit tk, original tk) in dz;A.U.",100,-1,1]
+  SDVRefitTrack_dzError_diff: [SDVRefitTrack_dzError_diff,";diff (refit tk, original tk) in dzError;A.U.",100,-1,1]
+  SDVRefitTrack_dzSig_diff: [SDVRefitTrack_dzSig_diff,";diff (refit tk, original tk) in dzSig;A.U.",100,-10,10]
+  SDVRefitTrack_ptError_diff: [SDVRefitTrack_ptError_diff,";diff (refit tk, original tk) in ptError;A.U.",100,-0.05,0.05]
+  SDVRefitTrack_ptqual_diff: [SDVRefitTrack_ptqual_diff,";diff (refit tk, original tk) in ptqual;A.U.",100,-0.05,0.05]
+  SDVRefitTrack_dxydzratio_diff: [SDVRefitTrack_dxydzratio_diff,";diff (refit tk, original tk) in dxydzratio;A.U.",100,-1,1]
+  SDVRefitTrack_qoverp_reldiff: [SDVRefitTrack_qoverp_reldiff,";diff (refit tk, original tk) in q/pt;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_pt_reldiff: [SDVRefitTrack_pt_reldiff,";diff (refit tk, original tk) in pt;A.U.",100,-0.02,0.02]
+  SDVRefitTrack_eta_reldiff: [SDVRefitTrack_eta_reldiff,";diff (refit tk, original tk) in eta;A.U.",100,-0.02,0.02]
+  SDVRefitTrack_phi_reldiff: [SDVRefitTrack_phi_reldiff,";diff (refit tk, original tk) in phi;A.U.",100,-0.5,0.5]
+  SDVRefitTrack_dxy_reldiff: [SDVRefitTrack_dxy_reldiff,";diff (refit tk, original tk) in dxy;A.U.",100,-5,5]
+  SDVRefitTrack_dxyError_reldiff: [SDVRefitTrack_dxyError_reldiff,";diff (refit tk, original tk) in dxyError;A.U.",100,-2,2]
+  SDVRefitTrack_dxySig_reldiff: [SDVRefitTrack_dxySig_reldiff,";diff (refit tk, original tk) in dxySig;A.U.",100,-1,1]
+  SDVRefitTrack_dz_reldiff: [SDVRefitTrack_dz_reldiff,";diff (refit tk, original tk) in dz;A.U.",100,-1,1]
+  SDVRefitTrack_dzError_reldiff: [SDVRefitTrack_dzError_reldiff,";diff (refit tk, original tk) in dzError;A.U.",100,-1.5,1.5]
+  SDVRefitTrack_dzSig_reldiff: [SDVRefitTrack_dzSig_reldiff,";diff (refit tk, original tk) in dzSig;A.U.",100,-1,1]
+  SDVRefitTrack_ptError_reldiff: [SDVRefitTrack_ptError_reldiff,";diff (refit tk, original tk) in ptError;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_ptqual_reldiff: [SDVRefitTrack_ptqual_reldiff,";diff (refit tk, original tk) in ptqual;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_dxydzratio_reldiff: [SDVRefitTrack_dxydzratio_reldiff,";diff (refit tk, original tk) in dxydzratio;A.U.",100,-1,1]
+  SDVRefitTrack_pt_res: [SDVRefitTrack_pt_res,";pt resolution (refit);A.U.",100,-0.5,0.5]
+  SDVRefitTrack_pt_orires: [SDVRefitTrack_pt_orires,";pt resolution;A.U.",100,-0.5,0.5]
+  SDVRefitTrack_eta_res: [SDVRefitTrack_eta_res,";eta resolution (refit);A.U.",100,-0.02,0.02]
+  SDVRefitTrack_eta_orires: [SDVRefitTrack_eta_orires,";eta resolution;A.U.",100,-0.02,0.02]
+  SDVRefitTrack_phi_res: [SDVRefitTrack_phi_res,";phi resolution (refit);A.U.",100,0,0.5]
+  SDVRefitTrack_phi_orires: [SDVRefitTrack_phi_orires,";phi resolution;A.U.",100,0,0.5]
+  SDVRefitTrack_dxy_res: [SDVRefitTrack_dxy_res,";dxy resolution (refit);A.U.",100,-1,0.5]
+  SDVRefitTrack_dxy_orires: [SDVRefitTrack_dxy_orires,";dxy resolution;A.U.",100,-1,0.5]
+  SDVRefitTrack_dz_res: [SDVRefitTrack_dz_res,";dz resolution (refit);A.U.",100,-0.3,0.3]
+  SDVRefitTrack_dz_orires: [SDVRefitTrack_dz_orires,";dz resolution;A.U.",100,-0.3,0.3]
+  SDVRefitTrack_dxydzratio_res: [SDVRefitTrack_dxydzratio_res,";dxydzratio resolution (refit);A.U.",100,-0.3,0.3]
+  SDVRefitTrack_dxydzratio_orires: [SDVRefitTrack_dxydzratio_orires,";dxydzratio resolution;A.U.",100,-0.3,0.3]
+  SDVRefitTrack_qoverp_res: [SDVRefitTrack_qoverp_res,";qoverp resolution (refit);A.U.",100,-0.03,0.03]
+  SDVRefitTrack_qoverp_orires: [SDVRefitTrack_qoverp_orires,";qoverp resolution;A.U.",100,-0.03,0.03]
+  SDVRefitTrack_pt_relres: [SDVRefitTrack_pt_relres,";pt relative resolution (refit);A.U.",100,-0.1,0.1]
+  SDVRefitTrack_pt_orirelres: [SDVRefitTrack_pt_orirelres,";pt relative resolution;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_eta_relres: [SDVRefitTrack_eta_relres,";eta relative resolution (refit);A.U.",100,-0.3,0.3]
+  SDVRefitTrack_eta_orirelres: [SDVRefitTrack_eta_orirelres,";eta relative resolution;A.U.",100,-0.3,0.3]
+  SDVRefitTrack_phi_relres: [SDVRefitTrack_phi_relres,";phi relative resolution (refit);A.U.",100,0,0.3]
+  SDVRefitTrack_phi_orirelres: [SDVRefitTrack_phi_orirelres,";phi relative resolution;A.U.",100,0,0.3]
+  SDVRefitTrack_dxy_relres: [SDVRefitTrack_dxy_relres,";dxy relative resolution (refit);A.U.",100,-5,5]
+  SDVRefitTrack_dxy_orirelres: [SDVRefitTrack_dxy_orirelres,";dxy relative resolution;A.U.",100,-5,5]
+  SDVRefitTrack_dz_relres: [SDVRefitTrack_dz_relres,";dz relative resolution (refit);A.U.",100,-1,1]
+  SDVRefitTrack_dz_orirelres: [SDVRefitTrack_dz_orirelres,";dz relative resolution;A.U.",100,-1,1]
+  SDVRefitTrack_dxydzratio_relres: [SDVRefitTrack_dxydzratio_relres,";dxydzratio relative resolution (refit);A.U.",100,-1,1]
+  SDVRefitTrack_dxydzratio_orirelres: [SDVRefitTrack_dxydzratio_orirelres,";dxydzratio relative resolution;A.U.",100,-1,1]
+  SDVRefitTrack_qoverp_relres: [SDVRefitTrack_qoverp_relres,";qoverp relative resolution (refit);A.U.",100,-0.1,0.1]
+  SDVRefitTrack_qoverp_orirelres: [SDVRefitTrack_qoverp_orirelres,";qoverp relative resolution;A.U.",100,-0.1,0.1]
+  SDVRefitTrack_GenPart_dxy: [SDVRefitTrack_GenPart_dxy,";gen track dxy (cm);A.U.",400,-20,20]
+  SDVRefitTrack_dxy_ori: [SDVRefitTrack_dxy_ori,";track dxy (cm);A.U.",400,-20,20]
+  SDVRefitTrack_minJetdphi: [SDVRefitTrack_minJetdphi,";min(#Delta#phi(track, jet));A.U.",64,0,3.2]
+  SDVRefitTrack_minJetdeta: [SDVRefitTrack_minJetdeta,";min(#Delta#eta(track, jet));A.U.",100,0,5]
+  SDVRefitTrack_minJetdR: [SDVRefitTrack_minJetdR,";min(#DeltaR(track, jet));A.U.",100,0,5]
+  SDVRefitTrack_minJetdR_pt: [SDVRefitTrack_minJetdR_pt,";pt of jet with minimum dR with track;A.U.",100,0,100]
+  SDVSecVtx_x: [SDVSecVtx_x, ';vertex x (cm);A.U.',400, -20, 20]
+  SDVSecVtx_y: [SDVSecVtx_y, ';vertex y (cm);A.U.',400, -20, 20]
+  SDVSecVtx_L_eta_abs: [SDVSecVtx_L_eta_abs, ';vertex |#eta|;A.U.', 200, 0, 10]
+  SDVSecVtx_Lxy: [SDVSecVtx_Lxy, ';vertex L_{xy} (cm);A.U.', 100, 0, 10]
+  SDVSecVtx_LxySig: [SDVSecVtx_LxySig, ';vertex L_{xy}/#sigmaL_{xy};A.U.', 500, 0, 100]
+  SDVSecVtx_LxySig_CCsel_max: [SDVSecVtx_LxySig_CCsel_max, ';max vertex (CC) L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+  SDVSecVtx_LxySig_MLsel_max: [SDVSecVtx_LxySig_MLsel_max, ';max vertex (ML) L_{xy}/#sigma_{L_{xy}};A.U.', 100, 0, 100]
+  SDVSecVtx_Lxy_err: [SDVSecVtx_Lxy_err, ';vertex #sigmaL_{xy} (cm);A.U.', 100, 0, 0.5]
+  SDVSecVtx_ParTScore: [SDVSecVtx_ParTScore, ';ParTScore;A.U.', 50, 0, 1]
+  SDVSecVtx_TkMaxdR: [SDVSecVtx_TkMaxdR, ';vertex track max(dR);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMaxdeta: [SDVSecVtx_TkMaxdeta, ';vertex track max(d#eta);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMaxdphi: [SDVSecVtx_TkMaxdphi, ';vertex track max(d#phi);A.U.', 64, 0, 3.2]
+  SDVSecVtx_TkMindR: [SDVSecVtx_TkMindR, ';vertex track min(dR);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMindeta: [SDVSecVtx_TkMindeta, ';vertex track min(d#eta);A.U.', 100, 0, 5]
+  SDVSecVtx_TkMindphi: [SDVSecVtx_TkMindphi, ';vertex track min(d#phi);A.U.', 64, 0, 3.2]
+  SDVSecVtx_chi2: [SDVSecVtx_chi2, ';vertex chi2;A.U.', 50, 0, 10]
+  SDVSecVtx_dlen: [SDVSecVtx_dlen, ';vertex dlen (cm);A.U.', 100, 0, 10]
+  SDVSecVtx_dlenSig: [SDVSecVtx_dlenSig, ';vertex dlen/#sigmadlen;A.U.', 500, 0, 100]
+  SDVSecVtx_dlen_err: [SDVSecVtx_dlen_err, ';vertex #sigmadlen (cm);A.U.', 100, 0, 0.5]
+  SDVSecVtx_dphi_L_MET: [SDVSecVtx_dphi_L_MET, ';#Delta#phi(Lxy,MET)', 64, 0, 3.2]
+  SDVSecVtx_dphi_L_jet0: [SDVSecVtx_dphi_L_jet0, ';#Delta#phi(Lxy,jet0)', 64, 0, 3.2]
+  SDVSecVtx_matchedLLPIdx_bydau: [SDVSecVtx_matchedLLPIdx_bydau, ';vertex matched LLP idx;A.U.', 5, -1, 4]
+  SDVSecVtx_matchedLLPnDau_bydau: [SDVSecVtx_matchedLLPnDau_bydau, ';vertex number of tracks matched with LLP;A.U.', 10, 0, 10]
+  SDVSecVtx_nGoodTrack: [SDVSecVtx_nGoodTrack, ';vertex ngoodTrack;A.U.', 20, 0, 20]
+  SDVSecVtx_nGoodRefitTrack: [SDVSecVtx_nGoodRefitTrack, ';vertex ngoodRefitTrack;A.U.', 20, 0, 20]
+  SDVSecVtx_nTracks: [SDVSecVtx_nTracks, ';vertex nTracks;A.U.', 20, 0, 20]
+  SDVSecVtx_ndof: [SDVSecVtx_ndof, ';vertex ndof;A.U.', 20, 0, 20]
+  SDVSecVtx_normalizedChi2: [SDVSecVtx_normalizedChi2, ';vertex norm chi2;A.U.', 50, 0, 10]
+  SDVSecVtx_pAngle: [SDVSecVtx_pAngle, ';vertex pAngle;A.U.', 64, 0, 3.2]
+  nSDVSecVtx_normsel: [nSDVSecVtx_normsel, ';Number of vertices (norm cut);A.U.', 20, 0, 20]
+  nSDVSecVtx_refitsel: [nSDVSecVtx_refitsel, ';Number of vertices (refit cut);A.U.', 20, 0, 20]
+  Pileup_nPU: [Pileup_nPU,';nPU;A.U.',100,0,100]
+

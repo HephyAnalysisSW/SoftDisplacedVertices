@@ -92,7 +92,7 @@ class limits:
                 mo = r.search(line)
                 if mo:
                     x = float(mo.group(1))
-                    x = x*self.sample.xsec*1000 #convert to fb
+                    x = x*self.sample.xsec*1000 #convert to fb, and take care of the signal sample xsec (event yield calculated using sample.xsec)
                     setattr(self, a, x)
 
     def __init__(self):
@@ -147,7 +147,7 @@ def make_1dplot():
     r = limits()
     for m in [600,1000,1400]:
       sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ct))
-      fn = 'limit_{}_datacard.txt'.format(sample.name)
+      fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
       result_path = os.path.join(path,fn)
       if os.path.exists(result_path):
         r.parse(sample,result_path)
@@ -163,10 +163,13 @@ def make_1dplot():
     CMS.SetExtraText("Preliminary")
     iPos = 0
     canv_name = 'limitplot_root'
-    CMS.SetLumi("")
+    CMS.SetLumi("100.3")
     CMS.SetEnergy("13")
     CMS.ResetAdditionalInfo()
-    canv = CMS.cmsCanvas(canv_name,550,1450,0.1,1e+05,"LLP mass (GeV)","#sigma #times BR^{2} (fb)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos)
+    canv = CMS.cmsCanvas(canv_name,550,1450,0.1,1e+05,"LLP mass (GeV)","#sigma#bf{#it{#Beta}}^{2} (fb)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos)
+    canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+    canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+    canv.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
     expect95.GetXaxis().SetLabelSize(0.25)
     CMS.cmsDraw(expect95, "3", fcolor = ROOT.TColor.GetColor("#F5BB54"))
     CMS.cmsDraw(expect68, "Same3", fcolor = ROOT.TColor.GetColor("#607641"))
@@ -296,7 +299,7 @@ def make_2dplot():
   for dm,ct in zip([25,20,15,12],['0p2','2','20','200']):
     for m in [600,1000,1400]:
       sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ct))
-      fn = 'limit_{}_datacard.txt'.format(sample.name)
+      fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018","Run2"))
       result_path = os.path.join(path,fn)
       if os.path.exists(result_path):
         r.parse(sample,result_path)
@@ -325,12 +328,15 @@ def draw_2dlimit():
   CMS.SetExtraText("Preliminary")
   iPos = 0
   canv_name = 'limitplot_root'
-  CMS.SetLumi("")
+  CMS.SetLumi("100.3")
   CMS.SetEnergy("13")
   CMS.ResetAdditionalInfo()
   canv = CMS.cmsCanvas(canv_name,575,1425,11.5,25.5,"LLP mass (GeV)","#Delta m (GeV)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
   canv.SetTopMargin(0.160)
   canv.SetBottomMargin(0.12)
+  canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+  canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+  canv.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
   limit['expect50'].GetZaxis().SetTitle("95% CL upper limit on #sigma#bf{#it{#Beta}}^{2} (fb)")
   limit['expect50'].GetZaxis().SetLabelSize(0.03)
   limit['expect50'].GetZaxis().SetLabelOffset(0.00005)
@@ -373,9 +379,11 @@ def draw_2dlimit():
   CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}.pdf'.format(model)),close=False)
   CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}.png'.format(model)))
 
-model = 'C1N2'
-#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_limit_stop_0909/'
-path='/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_C1N2_0909/'
-output = '/groups/hephy/cms/ang.li/SDV/{}limit_2'.format(model)
+model = 'stop'
+#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20241218/'
+#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250205_Buncert/'
+path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250205_3tk_Asimov/'
+#path='/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_C1N2_0909/'
+output = '/groups/hephy/cms/ang.li/SDV/{}limit_run2_20250205_3tk_Asimov/'.format(model)
 make_1dplot()
 draw_2dlimit()

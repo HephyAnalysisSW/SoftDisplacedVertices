@@ -1,5 +1,6 @@
 vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
-vtx_sel_val: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack<=1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
+vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
+vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1)
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
 bjetmedium: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.2783)
@@ -89,13 +90,15 @@ new_variables:
   SDVSecVtx_closestbJetdphi_tight: "SDVSecVtx_mindRdphidetabJet_tight[1]"
   SDVSecVtx_closestbJetdeta_tight: "SDVSecVtx_mindRdphidetabJet_tight[2]"
   nSDVSecVtx_sel: ['Sum({0})', vtx_sel]
-  nSDVSecVtx_sel_val: ['Sum({0})', vtx_sel_val]
+  nSDVSecVtx_sel_val1: ['Sum({0})', vtx_sel_val1]
+  nSDVSecVtx_sel_val2: ['Sum({0})', vtx_sel_val2]
   nMuon_sel: ['Sum({0})', muon_sel]
   nEle_sel: ['Sum({0})', ele_sel]
   nPhoton_sel: ['Sum({0})', photon_sel]
   nTau_sel: ['Sum({0})', tau_sel]
   nTrack_dxysel: 'Sum(SDVTrack_dxySig>2)'
-  SDVSecVtx_LxySig_max_val: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_val]
+  SDVSecVtx_LxySig_max_val1: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_val1]
+  SDVSecVtx_LxySig_max_val2: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_val2]
   SDVSecVtx_LxySig_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel]
 
   #SDVSecVtx_LxySig_MLsel_max: ['Max(SDVSecVtx_LxySig[{0}])',vtx_sel_ML]
@@ -113,7 +116,8 @@ regions:
   VR_CRlowLxylowMET: nSDVSecVtx_sel_val>0 && nSDVSecVtx_sel==0 && MET_pt_corr<700 && SDVSecVtx_LxySig_max_val<20.0
 event_variables:
 - nSDVSecVtx_sel
-- nSDVSecVtx_sel_val
+- nSDVSecVtx_sel_val1
+- nSDVSecVtx_sel_val2
 - nSDVSecVtx
 - nSDVTrack
 - nTrack_dxysel
@@ -371,7 +375,7 @@ plot_setting:
   SDVSecVtx_ndof: [SDVSecVtx_ndof, ';vertex ndof;A.U.', 20, 0, 20]
   SDVSecVtx_normalizedChi2: [SDVSecVtx_normalizedChi2, ';vertex norm chi2;A.U.', 50, 0, 10]
   SDVSecVtx_pAngle: [SDVSecVtx_pAngle, ';vertex pAngle;A.U.', 64, 0, 3.2]
-  SDVSecVtx_mass: [SDVSecVtx_mass, ';vertex inv. mass;A.U.',100,0,50]
+  SDVSecVtx_mass: [SDVSecVtx_mass, ';vertex inv. mass;A.U.',1000,0,10]
   nSDVSecVtx_sel: [nSDVSecVtx_sel, ';Number of vertices;A.U.', 20, 0, 20]
   nSDVSecVtx_sel_val: [nSDVSecVtx_sel_val, ';Number of vertices;A.U.', 20, 0, 20]
   nSDVSecVtx: [nSDVSecVtx, ';Number of vertices;A.U.', 20, 0, 20]

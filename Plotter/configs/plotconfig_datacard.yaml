@@ -16,9 +16,19 @@ nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>
 
 corrections:
   PU:
-    path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-    name: "Collisions18_UltraLegacy_goldenJSON"
-    mode: "nominal"
+    "2017":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
+      name: "Collisions17_UltraLegacy_goldenJSON"
+      mode: "nominal"
+    "2018":
+      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+      name: "Collisions18_UltraLegacy_goldenJSON"
+      mode: "nominal"
+
+weights:
+
+mcweights:
+  #  - L1PreFiringWeight_Nom
 
 new_variables:
   Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
@@ -165,6 +175,7 @@ event_variables:
 - SDVSecVtx_LxySig_max
 - SDVSecVtx_LxySig_max_val1
 - SDVSecVtx_LxySig_max_val2
+- evt_weight
 event_variables_mc:
 - puweight
 event_2d_plots:
@@ -296,6 +307,7 @@ plot_setting:
   PV_npvs: [PV_npvs,';npv;A.U.',100,0,100]
   PV_npvsGood: [PV_npvsGood,';npvgood;A.U.',100,0,100]
   puweight: [puweight,';puweight;A.U.',100,0,2]
+  evt_weight: [evt_weight,';evt_weight;A.U.',100,-2,2]
   Pileup_nTrueInt: [Pileup_nTrueInt,';nTrueInt;A.U.',100,0,100]
   leadingjet_nConstituents: [leadingjet_nConstituents,';nCons jet0;A.U.',100,0,100]
   allJet_nConstituents: [allJet_nConstituents,';nCons all jets (selected);A.U.',100,0,500]

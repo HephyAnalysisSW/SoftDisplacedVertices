@@ -43,6 +43,55 @@ T removeDuplicate(T v) {
     return v;
 }
 
+Float_t SDVSecVtx_evtweight(Float_t LeadingVtx_TkMaxdxy, std::string year, std::string mode)
+{
+    ROOT::RVecF TkMaxdxy_bins = {0,1,2,3,4,5,6,7,9,11,14,20};
+    //ROOT::RVecF TkMaxdxy_bins = {0,1,2,4,6,10,20};
+    ROOT::RVecF rsfactor_TkMaxdxy;
+
+    if (year=="2017"){
+      if (mode=="nominal"){
+        //rsfactor_TkMaxdxy  = {1., 0.99689352, 0.96465448, 0.91358948, 0.85472115, 0.80232196};
+        rsfactor_TkMaxdxy  = {0.81895884, 0.91001644, 0.95899597, 0.97989786, 0.89702031, 1.00312943, 0.92550734, 0.89001504, 0.9360201 , 0.89851336, 0.90940729};
+      }
+      else if (mode=="up"){
+        rsfactor_TkMaxdxy = {1.00894579, 1.01506314, 0.99391774, 0.97094598, 0.9148092400000001, 0.92158699};
+      }
+      else if (mode=="down"){
+        rsfactor_TkMaxdxy = {0.99113345, 0.97904848, 0.93624993, 0.8596032699999999, 0.7985424000000001, 0.69826752};
+      }
+    }
+    if (year=="2018"){
+      if (mode=="nominal"){
+        rsfactor_TkMaxdxy  = {0.91307031, 0.90444016, 0.95747962, 0.96137951, 0.94927026, 0.9840257 , 0.91494571, 0.9286432 , 0.91313339, 0.8617565 , 0.91007989};
+      }
+      else if (mode=="up"){
+        rsfactor_TkMaxdxy = {1.0074218, 1.00359949, 0.99200941, 0.81745492, 0.89075437, 0.93292433};
+      }
+      else if (mode=="down"){
+        rsfactor_TkMaxdxy = {0.9926328, 0.97427797, 0.9440400400000001, 0.73709082, 0.7917659499999999, 0.75762804};
+      }
+    }
+    if (rsfactor_TkMaxdxy.size() == 0){
+      throw runtime_error("Object weight is requested, but the size is zero!");
+    }
+    
+    Float_t val_rs = 1;
+
+    auto nbin = TkMaxdxy_bins.size();
+    if (LeadingVtx_TkMaxdxy>= TkMaxdxy_bins[nbin-1]){
+        val_rs = rsfactor_TkMaxdxy[nbin-1];
+        return val_rs;
+    }
+    for (size_t i=0; i<TkMaxdxy_bins.size(); ++i){
+        if (LeadingVtx_TkMaxdxy < TkMaxdxy_bins[i]){
+            val_rs = rsfactor_TkMaxdxy[i-1];
+            return val_rs;
+        }
+    }
+    return val_rs;
+}
+
 Float_t METweight(Float_t MET_pt, std::string year, std::string mode)
 {
     ROOT::RVecI MET_bins = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190 ,200, 220, 240, 270, 300, 350, 400, 450, 500, 600, 700, 800};
@@ -82,6 +131,49 @@ Float_t METweight(Float_t MET_pt, std::string year, std::string mode)
         }
     }
     return val_rs;
+}
+
+// This function finds whether the sum of charges of tracks in SDV are neutral or not
+ROOT::VecOps::RVec<int> SDVSecVtx_tkneutral(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_charge, int nSDV)
+{
+  ROOT::VecOps::RVec<int> tkneutral;
+  for (int i=0; i<nSDV; ++i){
+    auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==i];
+    auto SDVTrack_charge_filtered = ROOT::VecOps::Take(SDVTrack_charge,tkIdx);
+    if (ROOT::VecOps::Sum(SDVTrack_charge_filtered)==0) tkneutral.push_back(1);
+    else tkneutral.push_back(0);
+  }
+  return tkneutral;
+}
+
+// This function finds the maximal dxy of the tracks within the vertex
+ROOT::RVecF SDV_TkMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDV, ROOT::RVecF SDVTrack_dxy)
+{
+    ROOT::RVecF SDVSecVtx_maxdxy(nSDV,-1);
+    for (size_t iSDV=0; iSDV<nSDV; ++iSDV){
+        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
+        ROOT::RVecF dxys;
+        for (size_t i=0; i<tkIdx.size(); ++i){
+            dxys.push_back(abs(SDVTrack_dxy[tkIdx[i]]));
+        }
+        SDVSecVtx_maxdxy[iSDV] = ROOT::VecOps::Max(dxys);
+    }
+    return SDVSecVtx_maxdxy;
+}
+
+// This function finds the minimal dxy of the tracks within the vertex
+ROOT::RVecF SDV_TkMindxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDV, ROOT::RVecF SDVTrack_dxy)
+{
+    ROOT::RVecF SDVSecVtx_mindxy(nSDV,-1);
+    for (size_t iSDV=0; iSDV<nSDV; ++iSDV){
+  auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];    
+  ROOT::RVecF dxys;
+  for (size_t i=0; i<tkIdx.size(); ++i){
+      dxys.push_back(abs(SDVTrack_dxy[tkIdx[i]]));
+  }
+        SDVSecVtx_mindxy[iSDV] = ROOT::VecOps::Min(dxys);
+    }
+    return SDVSecVtx_mindxy;
 }
 
 float EGamma_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF eta, std::string mode, std::string wp, std::string year, std::string kind) {
