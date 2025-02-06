@@ -17,11 +17,11 @@ args = parser.parse_args()
 
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-    work_subdir = "vtx_reco/mc_data/"
-    unique_dir  = "20241203_objweight"
+    work_subdir = "tmp_checks"
+    unique_dir  = "check2"
     work_dir = os.path.join(outDir_base, work_subdir)
     
-    file_paths = {'sig':  os.path.join(os.path.join(work_dir, 'sig'),  os.path.join(str(unique_dir), 'job_ids.json')),
+    file_paths = {# 'sig':  os.path.join(os.path.join(work_dir, 'sig'),  os.path.join(str(unique_dir), 'job_ids.json')),
                   'bkg':  os.path.join(os.path.join(work_dir, 'bkg'),  os.path.join(str(unique_dir), 'job_ids.json')),
                   'data': os.path.join(os.path.join(work_dir, 'data'), os.path.join(str(unique_dir), 'job_ids.json'))}
     
@@ -47,14 +47,16 @@ if __name__=="__main__":
                 sacctOut_splitted = sacctOut_line.split('|')        # Get each column into a list.
                 
                 if sacctOut_splitted[0] == d[sample]['jobid']:
+                    is_pending  = ((sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2] == 'PENDING'))
+                    is_running  = ((sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2] == 'RUNNING'))
+                    not_completed   = (sacctOut_splitted[-2] != 'COMPLETED')
                     # If PENDING ==> notify
-                    if (sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2] == 'PENDING'):
+                    if is_pending:
                         print(f'{sample} has not been submitted yet. Status: PENDING...')
-                    elif (sacctOut_splitted[-1] == '0:0') and (sacctOut_splitted[-2] == 'RUNNING'):
+                    elif is_running:
                         print(f'{sample} has not been completed yet. Status: RUNNING...')
                     
-                    # If FAILED ==> resubmit
-                    elif (sacctOut_splitted[-1] != '0:0') and (sacctOut_splitted[-2] != 'COMPLETED'):
+                    elif not_completed:
                         print(f'{sample} status: {sacctOut_splitted[-2]}!!!')
                         command = d[sample]['command']
                         result  = run(command, shell=True, capture_output = True, text = True)    # Resubmit.

@@ -30,7 +30,7 @@ def dict_product(dicts):
 
 def getbErr(b,uncert,l,syst):
   # Poisson statistical uncertainty
-  # Pearson’s chi2 intervals
+  # Pearson's chi2 intervals
   b_low = math.sqrt(b*l+l*l/4)-l/2
   b_high = math.sqrt(b*l+l*l/4)+l/2
   b_stat = max(abs(b_high),(b_low))/b
