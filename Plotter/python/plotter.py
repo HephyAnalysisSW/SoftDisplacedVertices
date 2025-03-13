@@ -56,7 +56,7 @@ class Plotter:
         mappath = self.cfg['mapveto']['data_path']
       else:
         assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
-        mappath = self.cfg['mapveto']['data_path']
+        mappath = self.cfg['mapveto']['mc_path']
       self.f1 = ROOT.TFile.Open(mappath)
       ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
       self.f1.Close()
@@ -68,14 +68,15 @@ class Plotter:
         ROOT.gInterpreter.Declare('auto puf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['path']))
         ROOT.gInterpreter.Declare('auto pu = puf->at("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['name']))
       if 'electron' in self.cfg['corrections'] and self.cfg['corrections']['electron'] is not None:
-        ROOT.gInterpreter.Declare('auto elec = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['electron']['path']))
-        ROOT.gInterpreter.Declare('auto elesf = elec->at("{}");'.format(self.cfg['corrections']['electron']['name']))
+        assert str(self.year) in self.cfg['corrections']['electron'], "Year {} not defined in electron correction!".format(self.year)
+        ROOT.gInterpreter.Declare('auto elec = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['path']))
+        ROOT.gInterpreter.Declare('auto elesf = elec->at("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['name']))
       if 'photon' in self.cfg['corrections'] and self.cfg['corrections']['photon'] is not None:
-        ROOT.gInterpreter.Declare('auto phoc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['photon']['path']))
-        ROOT.gInterpreter.Declare('auto phosf = phoc->at("{}");'.format(self.cfg['corrections']['photon']['name']))
+        ROOT.gInterpreter.Declare('auto phoc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['path']))
+        ROOT.gInterpreter.Declare('auto phosf = phoc->at("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['name']))
       if 'muon' in self.cfg['corrections'] and self.cfg['corrections']['muon'] is not None:
-        ROOT.gInterpreter.Declare('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon']['path']))
-        ROOT.gInterpreter.Declare('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon']['name']))
+        ROOT.gInterpreter.Declare('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['path']))
+        ROOT.gInterpreter.Declare('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['name']))
 
 
   def applyCorrections(self,d):
@@ -102,6 +103,9 @@ class Plotter:
         if 'met' in self.cfg['corrections'] and  self.cfg['corrections']['met'] is not None:
           d = d.Define("metweight",'METweight(MET_pt_corr, "{}", "{}")'.format(str(self.year),self.cfg['corrections']['met']['mode']))
           self.weightstr += ' * metweight'
+        if 'vtx' in self.cfg['corrections'] and  self.cfg['corrections']['vtx'] is not None:
+          d = d.Define("vtxweight",'SDVSecVtx_evtweight(LeadingVtx_Lxy, "{}", "{}")'.format(str(self.year),self.cfg['corrections']['vtx']['mode']))
+          self.weightstr += ' * vtxweight'
       if ('weights' in self.cfg) and (self.cfg['weights'] is not None):
         for w in self.cfg['weights']:
           self.weightstr += ' * {}'.format(w)
@@ -181,6 +185,7 @@ class Plotter:
             d = d.Define(newvar,var_define)
       # HEM veto for 2018 data
       if self.year=="2018" and self.isData:
+      #if self.year=="2018":
         d = d.Define("nJetHEM", self.cfg['nJetHEM'])
       else:
         d = d.Define("nJetHEM", "0")
