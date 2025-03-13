@@ -28,11 +28,15 @@ def getABCDSyst(year):
   #}
 
   #This is for fake MET veto at 0.6
+  #s = {
+  #  '20161': 0.033,
+  #  '20162': 0.615,
+  #  '2017': 0.192,
+  #  '2018': 0.11,
+  #}
   s = {
-    '20161': 0.033,
-    '20162': 0.615,
-    '2017': 0.192,
-    '2018': 0.11,
+    '2017': 0.514,
+    '2018': 0.514,
   }
 
   return s[str(year)]
@@ -233,8 +237,8 @@ def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
       d['raw'].append(int(nevt_raw))
       d['weighted'].append(nevt*SF)
       d['stat_uncert'].append(nevt_uncert.value*SF)
-  if useData:
-    d = predictEvents(d)
+  #if useData:
+  #  d = predictEvents(d)
 
   return d
 
@@ -389,7 +393,8 @@ mLLP = [600,1000,1400]
 ctaus = ['0p2','2','20','200']
 dms = [25,20,15,12]
 
-blinding_regions = ['SR_g2tk_evt','SR_g2tk_CRlowMET_evt','SR_g2tk_CRlowLxy_evt','SR_g2tk_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
+#blinding_regions = ['SR_g2tk_evt','SR_g2tk_CRlowMET_evt','SR_g2tk_CRlowLxy_evt','SR_g2tk_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
+blinding_regions = []
 
 bkg = 'background_{}_hist.root'.format(args.year)
 data = 'met{}_hist.root'.format(args.year)
@@ -412,6 +417,14 @@ bkg_stat_uncert = ''
 #n_uncerts_bkg += 1
 
 syst_uncert = ''
+
+#ABCD uncertainty
+bkg_uncert = getABCDSyst(args.year)
+if bkg_uncert is not None:
+  syst_uncert += 'bkg_syst\tlnN' \
+                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
+                +'\t-\t-\t-\t-\t-\t-\t-\t-'*2+'\n' 
+  n_uncerts_bkg += 1
 
 #ABCD uncertainty
 #not using it now because it is not necessary

@@ -35,8 +35,8 @@ def getABCDSyst(year):
   #  '2018': 0.11,
   #}
   s = {
-    '2017': 0.514,
-    '2018': 0.514,
+    #'2017': 0.514,
+    #'2018': 0.514,
   }
 
   return s[str(year)]
@@ -47,6 +47,39 @@ def getmapvetosyst(ctau_str):
   syst_func = flog.Eval(ctau)*0.01
   syst = max(0,syst_func)
   return syst
+
+def getTFs(year):
+  tfs = {
+      '2017':{
+        '_F1_': 0.2740,
+        '_F1ERR_': 0.0020,
+        '_F2_': 0.1249,
+        '_F2ERR_': 0.0025,
+        '_F3_': 0.1013,
+        '_F3ERR_': 0.0063,
+        '_FLXY_1_': 0.3076,
+        '_FLXY1ERR_': 0.0020,
+        '_FLXY_2_': 0.410,
+        '_FLXY2ERR_': 0.005,
+        '_FLXY_3_': 0.475,
+        '_FLXY3ERR_': 0.016,
+        },
+      '2018':{
+        '_F1_': 0.2451,
+        '_F1ERR_': 0.0015,
+        '_F2_': 0.1232,
+        '_F2ERR_': 0.0021,
+        '_F3_': 0.0998,
+        '_F3ERR_': 0.0053,
+        '_FLXY_1_': 0.3002,
+        '_FLXY1ERR_': 0.0017,
+        '_FLXY_2_': 0.402,
+        '_FLXY2ERR_': 0.004,
+        '_FLXY_3_': 0.446,
+        '_FLXY3ERR_': 0.013,
+        }
+      }
+  return tfs[year]
 
 def getPDFUncert(mg, dm, ct, year):
   '''
@@ -195,14 +228,18 @@ def getNumSigEvents(fn, regions, SF, HEMpath=None, HEMfrac=None):
   return res
 
 def predictEvents(d):
-  f_displaced = d['weighted'][5]/d['weighted'][9]
-  f_prompt = d['weighted'][7]/d['weighted'][11]
-  d['weighted'][0] = d['weighted'][8]*f_displaced*f_displaced/(1-f_displaced)
-  d['weighted'][1] = d['weighted'][9]*f_displaced*f_displaced/(1-f_displaced)
-  d['weighted'][4] = d['weighted'][8]*f_displaced
-  d['weighted'][2] = d['weighted'][10]*f_prompt*f_prompt/(1-f_prompt)
-  d['weighted'][3] = d['weighted'][11]*f_prompt*f_prompt/(1-f_prompt)
-  d['weighted'][6] = d['weighted'][10]*f_prompt
+  f_displaced = d['weighted'][9]/d['weighted'][13]
+  f_prompt = d['weighted'][11]/d['weighted'][15]
+  d['weighted'][0] = d['weighted'][12]*f_displaced*f_displaced*f_displaced/(1-f_displaced)
+  d['weighted'][1] = d['weighted'][13]*f_displaced*f_displaced*f_displaced/(1-f_displaced)
+  d['weighted'][4] = d['weighted'][12]*f_displaced*f_displaced
+  d['weighted'][5] = d['weighted'][13]*f_displaced*f_displaced
+  d['weighted'][8] = d['weighted'][12]*f_displaced
+  d['weighted'][2] = d['weighted'][14]*f_prompt*f_prompt*f_prompt/(1-f_prompt)
+  d['weighted'][3] = d['weighted'][15]*f_prompt*f_prompt*f_prompt/(1-f_prompt)
+  d['weighted'][6] = d['weighted'][14]*f_prompt*f_prompt
+  d['weighted'][7] = d['weighted'][15]*f_prompt*f_prompt
+  d['weighted'][10] = d['weighted'][14]*f_prompt
   return d
 
 def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
@@ -237,8 +274,8 @@ def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
       d['raw'].append(int(nevt_raw))
       d['weighted'].append(nevt*SF)
       d['stat_uncert'].append(nevt_uncert.value*SF)
-  if useData:
-    d = predictEvents(d)
+  #if useData:
+  #  d = predictEvents(d)
 
   return d
 
@@ -365,7 +402,7 @@ if not os.path.exists(args.output):
 useData = True
 channels = []
 dirs = []
-for ngoodtrk,rn in zip([2,1,0],['SR','VR1','VR2']):
+for ngoodtrk,rn in zip([3,2,1,0],['SR_g2tk','SR_2tk','VR1','VR2']):
   for r,dn in zip(['A','B','C','D'],['_evt','_CRlowMET_evt','_CRlowLxy_evt','_CRlowLxylowMET_evt']):
     channels.append('{}{}_{}'.format(r,ngoodtrk,args.year))
     dirs.append('{}{}'.format(rn,dn))
@@ -379,21 +416,24 @@ processidxrate = ('\t'+'\t'.join(processidx))*len(channels)
 
 model = "stop"
 #model = "C1N2"
-filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
-filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
+filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
+filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
 #filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_1118/'
 #filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_vtxweight_local/'
-filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions/'
+#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
+filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG/'
 #filepathSig = '/eos/vbc/group/cms/ang.li/Histos_HEM_datacard_mapveto_local/'
-filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_HEM/'
+#filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_HEM_noPU/'
+filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG_HEM/'
 #mLLP = [600]
-#ctaus = ['20']
-#dms = [15]
+#ctaus = ['200']
+#dms = [12]
 mLLP = [600,1000,1400]
 ctaus = ['0p2','2','20','200']
 dms = [25,20,15,12]
 
-blinding_regions = ['SR_evt','SR_CRlowMET_evt','SR_CRlowLxy_evt','SR_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
+#blinding_regions = ['SR_g2tk_evt','SR_g2tk_CRlowMET_evt','SR_g2tk_CRlowLxy_evt','SR_g2tk_CRlowLxylowMET_evt','SR_2tk_evt','SR_2tk_CRlowMET_evt','SR_2tk_CRlowLxy_evt','SR_2tk_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
+blinding_regions = []
 
 bkg = 'background_{}_hist.root'.format(args.year)
 data = 'met{}_hist.root'.format(args.year)
@@ -418,12 +458,13 @@ bkg_stat_uncert = ''
 syst_uncert = ''
 
 #ABCD uncertainty
-bkg_uncert = getABCDSyst(args.year)
-if bkg_uncert is not None:
-  syst_uncert += 'bkg_syst\tlnN' \
-                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
-                +'\t-\t-\t-\t-\t-\t-\t-\t-'*2+'\n' 
-  n_uncerts_bkg += 1
+#bkg_uncert = getABCDSyst(args.year)
+#if bkg_uncert is not None:
+#  syst_uncert += 'bkg_syst\tlnN' \
+#                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
+#                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
+#                +'\t-\t-\t-\t-\t-\t-\t-\t-'*2+'\n' 
+#  n_uncerts_bkg += 1
 
 #ABCD uncertainty
 #not using it now because it is not necessary
@@ -441,23 +482,39 @@ if bkg_uncert is not None:
 #g__YEAR_    rateParam   G_YEAR_   background    _GYIELD_
 #h__YEAR_    rateParam   H_YEAR_   background    _HYIELD_
 abcd = '''
+f_1__YEAR_          param       _F1_  _F1ERR_
+f_2__YEAR_          param       _F2_  _F2ERR_
+f_3__YEAR_          param       _F3_  _F3ERR_
+flxy_1__YEAR_       param       _FLXY_1_  _FLXY1ERR_
+flxy_2__YEAR_       param       _FLXY_2_  _FLXY2ERR_
+flxy_3__YEAR_       param       _FLXY_3_  _FLXY3ERR_
+
 b1__YEAR_    rateParam   B1__YEAR_   background    _B1YIELD_
 d1__YEAR_    rateParam   D1__YEAR_   background    _D1YIELD_
 a0__YEAR_    rateParam   A0__YEAR_   background    _A0YIELD_
 b0__YEAR_    rateParam   B0__YEAR_   background    _B0YIELD_
 c0__YEAR_    rateParam   C0__YEAR_   background    _C0YIELD_
 d0__YEAR_    rateParam   D0__YEAR_   background    _D0YIELD_
-a2__YEAR_    rateParam   A2__YEAR_   background    (@0*(@1/@2)*(@1/@2)/(1-(@1/@2)))  a0__YEAR_,b1__YEAR_,b0__YEAR_
-b2__YEAR_    rateParam   B2__YEAR_   background    (@0*(@1/@0)*(@1/@0)/(1-(@1/@0)))  b0__YEAR_,b1__YEAR_
-c2__YEAR_    rateParam   C2__YEAR_   background    (@0*(@1/@2)*(@1/@2)/(1-(@1/@2)))  c0__YEAR_,d1__YEAR_,d0__YEAR_
-d2__YEAR_    rateParam   D2__YEAR_   background    (@0*(@1/@0)*(@1/@0)/(1-(@1/@0)))  d0__YEAR_,d1__YEAR_
-a1__YEAR_    rateParam   A1__YEAR_   background    (@0*(@1/@2))  a0__YEAR_,b1__YEAR_,b0__YEAR_
-c1__YEAR_    rateParam   C1__YEAR_   background    (@0*(@1/@2))  c0__YEAR_,d1__YEAR_,d0__YEAR_
+a1__YEAR_    rateParam   A1__YEAR_   background    ((@0+@1)/(@2+@3)*(@4+@5)*@6) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,flxy_1__YEAR_
+c1__YEAR_    rateParam   C1__YEAR_   background    ((@0+@1)/(@2+@3)*(@4+@5)*(1-@6)) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,flxy_1__YEAR_
+b2__YEAR_    rateParam   B2__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)*@4/@5*@6) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,f_2__YEAR_,f_1__YEAR_,flxy_2__YEAR_
+d2__YEAR_    rateParam   D2__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)*@4/@5*(1-@6)) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,f_2__YEAR_,f_1__YEAR_,flxy_2__YEAR_
+a2__YEAR_    rateParam   A2__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@4+@5)*@6/@7*@8) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,f_2__YEAR_,f_1__YEAR_,flxy_2__YEAR_
+c2__YEAR_    rateParam   C2__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@4+@5)*@6/@7*(1-@8)) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,f_2__YEAR_,f_1__YEAR_,flxy_2__YEAR_
+b3__YEAR_    rateParam   B3__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@0+@1)*@4/@5*@6/@5*@7) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,f_3__YEAR_,f_1__YEAR_,f_2__YEAR_,flxy_3__YEAR_
+d3__YEAR_    rateParam   D3__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@0+@1)*@4/@5*@6/@5*(1-@7)) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,f_3__YEAR_,f_1__YEAR_,f_2__YEAR_,flxy_3__YEAR_
+a3__YEAR_    rateParam   A3__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@4+@5)*@6/@7*@8/@7*@9) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,f_3__YEAR_,f_1__YEAR_,f_2__YEAR_,flxy_3__YEAR_
+c3__YEAR_    rateParam   C3__YEAR_   background    ((@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@0+@1)/(@2+@3)*(@4+@5)*@6/@7*@8/@7*(1-@9)) b1__YEAR_,d1__YEAR_,b0__YEAR_,d0__YEAR_,a0__YEAR_,c0__YEAR_,f_3__YEAR_,f_1__YEAR_,f_2__YEAR_,flxy_3__YEAR_
 '''.replace('_YEAR_',args.year)
 yield_label = ['_B1YIELD_','_D1YIELD_','_A0YIELD_','_B0YIELD_','_C0YIELD_','_D0YIELD_']
 yield_label_idx = [5,7,8,9,10,11]
 for i in range(len(yield_label)):
-  abcd = abcd.replace(yield_label[i],getYield(d_bkg['weighted'][yield_label_idx[i]]))
+  abcd = abcd.replace(yield_label[i],getYield(d_bkg['weighted'][yield_label_idx[i]+4]))
+
+f_label = ['_F1_','_F2_','_F3_','_F1ERR_','_F2ERR_','_F3ERR_','_FLXY_1_','_FLXY_2_','_FLXY_3_','_FLXY1ERR_','_FLXY2ERR_','_FLXY3ERR_']
+tfs = getTFs(args.year)
+for fl in f_label:
+  abcd = abcd.replace(fl,str(tfs[fl]))
 
 for m in mLLP:
   for ctau,dm in zip(ctaus, dms):
@@ -523,7 +580,7 @@ for m in mLLP:
 
       template_new = template.replace('_SIGNAL_',signal)
       template_new = template_new.replace('_NCHANNELS_',str(len(channels)))
-      template_new = template_new.replace('_NUNCERT_',str(n_uncerts_bkg+n_uncerts_sig))
+      template_new = template_new.replace('_NUNCERT_',str(n_uncerts_bkg+n_uncerts_sig+6))
       template_new = template_new.replace('_CHANNELNAME_',str('\t'.join(channels)))
       template_new = template_new.replace('_CHANNELNAMERATE_',channelnamerate)
       template_new = template_new.replace('_PROCESSNAMERATE_',processnamerate)

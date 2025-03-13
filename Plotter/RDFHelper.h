@@ -206,9 +206,9 @@ int Leading_Vtx_Idx(ROOT::RVecI Vertex_nGoodTracks, ROOT::RVecF Vertex_LxySig) {
   int max_nGoodTracks = ROOT::VecOps::Max(Vertex_nGoodTracks);
   //std::cout << "Max ngoodtrack " << max_nGoodTracks << std::endl;
   for (int i=0; i<Vertex_nGoodTracks.size(); ++i) {
-    if (max_nGoodTracks>=2){
+    if (max_nGoodTracks>=3){
       //std::cout << "max 2 loop " << i << " ngoodtrack " << Vertex_nGoodTracks[i] << " lxysig " << Vertex_LxySig[i] << std::endl;
-      if ((Vertex_nGoodTracks[i]>=2) && (Vertex_LxySig[i]>max_lxysig) ){
+      if ((Vertex_nGoodTracks[i]>=3) && (Vertex_LxySig[i]>max_lxysig) ){
         max_lxysig = Vertex_LxySig[i];
         leading_idx = i;
         //std::cout << "Best " << max_lxysig << " " << leading_idx << std::endl;
@@ -560,6 +560,20 @@ ROOT::VecOps::RVec<int> GetTracksinSDVs(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::R
 //This function returns the number of good tracks in SDV
 //It requires the input of SDVTrack_isGoodTrack, which is an array of 0 or 1 that indicates whether a track is good or not
 ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
+{
+    ROOT::VecOps::RVec<int> nGoodTracks;
+    for (int i=0; i<nSDV; ++i){
+        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==i];
+        auto SDVTrack_isGoodTrack_filtered = ROOT::VecOps::Take(SDVTrack_isGoodTrack,tkIdx);
+        auto SDVTrack_isGoodTrack_GoodTrack = SDVTrack_isGoodTrack_filtered[SDVTrack_isGoodTrack_filtered==1];
+        nGoodTracks.push_back(SDVTrack_isGoodTrack_GoodTrack.size());
+    }
+    return nGoodTracks;
+}
+
+//This function returns the number of good tracks in SDV
+//It requires the input of SDVTrack_isGoodTrack, which is an array of 0 or 1 that indicates whether a track is good or not
+ROOT::VecOps::RVec<int> SDVSecVtx_nselTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
 {
     ROOT::VecOps::RVec<int> nGoodTracks;
     for (int i=0; i<nSDV; ++i){

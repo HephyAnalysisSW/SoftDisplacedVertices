@@ -382,9 +382,9 @@ def draw_2dlimit():
 
 model = 'stop'
 #path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20241218/'
-#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250205_Buncert/'
-path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250205_23tk_Asimov/'
+path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250206_3tk_Buncert_Asimov/'
+#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20250205_23tk_Asimov/'
 #path='/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_C1N2_0909/'
-output = '/groups/hephy/cms/ang.li/SDV/{}limit_run2_20250205_23tk_Asimov/'.format(model)
+output = '/groups/hephy/cms/ang.li/SDV/{}limit_run2_20250206_3tk_Buncert_Asimov/'.format(model)
 make_1dplot()
 draw_2dlimit()
