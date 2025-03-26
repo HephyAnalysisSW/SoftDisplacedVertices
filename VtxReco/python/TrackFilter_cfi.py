@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 TrackFilter = cms.EDFilter("TrackFilter",
                         beamspot = cms.InputTag('offlineBeamSpot'),
+                        primaryVertices = cms.InputTag('offlineSlimmedPrimaryVertices'),
                         packedPFCandidates = cms.InputTag("packedPFCandidates"),
                         lostTracks = cms.InputTag("lostTracks"),
                         generalTracks = cms.InputTag("generalTracks"),
@@ -16,5 +17,5 @@ TrackFilter = cms.EDFilter("TrackFilter",
                         max_track_normchi2 = cms.double(5),
                         max_track_dz = cms.double(999), # 4
                         max_track_sigmapt_ratio = cms.double(0.015),
-                        histos = cms.bool(True),
+                        histos = cms.bool(False),
                         )

@@ -67,12 +67,11 @@ LLPTableProducer::LLPTableProducer(const edm::ParameterSet& params)
 LLPTableProducer::~LLPTableProducer() {}
 
 void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
-
   edm::Handle<reco::GenParticleCollection> genParticles;
   iEvent.getByToken(genToken_, genParticles);
-
   edm::Handle<reco::VertexCollection> primary_vertices;
   iEvent.getByToken(pvToken_, primary_vertices);
+
   const reco::Vertex* primary_vertex = 0;
   if (primary_vertices->size())
     primary_vertex = &primary_vertices->at(0);
@@ -82,6 +81,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
 
   edm::Handle<reco::VertexCollection> secondary_vertices;
   iEvent.getByToken(svToken_, secondary_vertices);
+
 
   std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, debug);
   std::vector<float> llp_pt, llp_eta, llp_phi, llp_mass, llp_ctau, llp_decay_x, llp_decay_y, llp_decay_z;
@@ -109,11 +109,15 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
     llp_pdgId.push_back(llp.pdgId());
     llp_status.push_back(llp.status());
     llp_statusFlags.push_back( llp.statusFlags().isLastCopyBeforeFSR()             * 16384 +llp.statusFlags().isLastCopy()                           * 8192  +llp.statusFlags().isFirstCopy()                          * 4096  +llp.statusFlags().fromHardProcessBeforeFSR()             * 2048  +llp.statusFlags().isDirectHardProcessTauDecayProduct()   * 1024  +llp.statusFlags().isHardProcessTauDecayProduct()         * 512   +llp.statusFlags().fromHardProcess()                      * 256   +llp.statusFlags().isHardProcess()                        * 128   +llp.statusFlags().isDirectHadronDecayProduct()           * 64    +llp.statusFlags().isDirectPromptTauDecayProduct()        * 32    +llp.statusFlags().isDirectTauDecayProduct()              * 16    +llp.statusFlags().isPromptTauDecayProduct()              * 8     +llp.statusFlags().isTauDecayProduct()                    * 4     +llp.statusFlags().isDecayedLeptonHadron()                * 2     +llp.statusFlags().isPrompt()                             * 1);
-
     // Now determine the LLP decay point
     if (llp.numberOfDaughters()==0){
       throw cms::Exception("LLPTableProducer") << "LLP has no Daughters!";
     }
+
+    if (!llp.daughter(0)) {
+      throw cms::Exception("LLPTableProducer") << "LLP daughter pointer is null!";
+    }
+
     if (debug)
     {
       for (size_t idau=0; idau<llp.numberOfDaughters(); ++idau){
@@ -181,9 +185,14 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   // Match LLP and reco vertices by daughter
   //
   std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
+  if (secondary_vertices->size() != vtxllpmatch.size()){
+    throw cms::Exception("LLPTableProducer") << "secondary_vertices and vtxllpmatch size do not match!";
+  }
+
   for (size_t ivtx=0; ivtx<secondary_vertices->size(); ++ivtx) {
     if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){
       int llp_matched_idx = vtxllpmatch[ivtx].first;
+      if (llp_matched_idx<0) continue;
       int match_ntk = vtxllpmatch[ivtx].second;
       SDV_match_bydau[ivtx] = llp_matched_idx;
       SDV_match_bydau_ntk[ivtx] = match_ntk;
@@ -242,7 +251,6 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   llpTable->addColumn<int16_t>("matchedSDVIdx_bydist", llp_match_bydist, "SDV index matched with LLP by daughters", 10);
   llpTable->addColumn<float>("matchedSDVDist_bydist", llp_match_bydist_dist, "The distance between distance-matched SDV and LLP", 10);
 
-
   auto genPartTable = std::make_unique<nanoaod::FlatTable>(genParticles->size(), "SDVGenPart", false, true);
   genPartTable->addColumn<int16_t>("LLPIdx",genpart_llpidx, "LLP index", 10);
   genPartTable->addColumn<int16_t>("isGentk",genpart_isgentk, "whether the gen particle is possibly measured as a reco track", 10);
@@ -282,9 +290,22 @@ void LLPTableProducer::endStream() {}
 void LLPTableProducer::fillDescriptions(edm::ConfigurationDescriptions& descriptions) {
   //The following says we do not know what parameters are allowed so do no validation
   // Please change this to state exactly what you do use, even if it is no parameters
+  // edm::ParameterSetDescription desc;
+  // desc.setUnknown();
+  // descriptions.addDefault(desc);
   edm::ParameterSetDescription desc;
-  desc.setUnknown();
-  descriptions.addDefault(desc);
+
+  desc.add<edm::InputTag>("src")->setComment("");
+  desc.add<edm::InputTag>("pvToken")->setComment("");
+  desc.add<edm::InputTag>("tkToken")->setComment("");
+  desc.add<edm::InputTag>("svToken")->setComment("");
+  desc.add<std::string>("LLPName")->setComment("");
+  desc.add<std::string>("LLPDoc")->setComment("");
+  desc.add<std::vector<int>>("LLPid_")->setComment("");
+  desc.add<int>("LSPid_")->setComment("");
+  desc.add<bool>("debug")->setComment("");
+
+  descriptions.addWithDefaultLabel(desc);
 }
 
 DEFINE_FWK_MODULE(LLPTableProducer);
