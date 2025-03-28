@@ -16,3 +16,26 @@ For different MC files it might be worth checking:
   
   
 Check out the subdirectories of this repository to find more about the production.
+
+## Instructions to Install
+```
+cmsrel CMSSW_10_6_30
+cd CMSSW_10_6_30/src
+cmsenv
+git clone git@github.com:HephyAnalysisSW/SoftDisplacedVertices.git
+git checkout new_CMSSW_2025March
+scram b -j4
+```
+
+&nbsp;
+
+## JME Uncertainty Calculations
+To add the JME shifted variables to nanoAOD, do the following:
+```
+cd CMSSW_10_6_30/src
+git clone git@github.com:alikaanguven/jetmet-uncertainties.git PhysicsTools/NanoAODTools
+cd PhysicsTools/NanoAODTools
+cmsenv
+scram b
+```
+Then, follow the **README** of `jetmet-uncertainties` repository.
