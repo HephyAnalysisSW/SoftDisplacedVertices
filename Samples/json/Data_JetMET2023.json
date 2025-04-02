@@ -1,0 +1,58 @@
+{
+    "AOD": {
+        "datasets" : {
+            "jetmet0_2023b" : "/JetMET0/Run2023B-19Dec2023-v1/AOD",
+            "jetmet0_2023c" : "/JetMET0/Run2023C-19Dec2023-v1/AOD",
+            "jetmet0_2023d" : "/JetMET0/Run2023D-19Dec2023-v1/AOD",
+            "jetmet1_2023b" : "/JetMET1/Run2023B-19Dec2023-v1/AOD",
+            "jetmet1_2023c" : "/JetMET1/Run2023C-19Dec2023-v1/AOD",
+            "jetmet1_2023d" : "/JetMET1/Run2023D-19Dec2023-v1/AOD"
+        }
+    },
+
+    "CustomMiniAOD": {
+        "datasets" : {
+            "jetmet0_2023b" : "/JetMET0/aguven-Run2023B0_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "jetmet0_2023c" : ["/JetMET0/aguven-Run2023C0_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+                               "/JetMET0/aguven-Run2023C0_mini_v1-db68a568d98f6284caffd959f8045351/USER"],
+            "jetmet0_2023d" : "/JetMET0/aguven-Run2023D0_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "jetmet1_2023b" : ["/JetMET1/aguven-Run2023B1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+                               "/JetMET1/aguven-Run2023B1_mini_v1-db68a568d98f6284caffd959f8045351/USER"],
+            "jetmet1_2023c" : ["/JetMET1/aguven-Run2023C1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+                               "/JetMET1/aguven-Run2023C1_mini_v1-db68a568d98f6284caffd959f8045351/USER"],
+            "jetmet1_2023d" : ["/JetMET1/aguven-Run2023D1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+                               "/JetMET1/aguven-Run2023D1_mini_v1-db68a568d98f6284caffd959f8045351/USER"]
+        },
+        "dir": {
+            "jetmet0_2023b" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023B0_mini_v1",
+            "jetmet0_2023c" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1",
+            "jetmet0_2023d" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023D0_mini_v1",
+            "jetmet1_2023b" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_mini_v1",
+            "jetmet1_2023c" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1",
+            "jetmet1_2023d" : "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_mini_v1"
+        },
+        "logical_dir": {
+            "jetmet0_2023b" : "/store/user/aguven/JetMET0/Run2023B0_mini_v1",
+            "jetmet0_2023c" : "/store/user/aguven/JetMET0/Run2023C0_mini_v1",
+            "jetmet0_2023d" : "/store/user/aguven/JetMET0/Run2023D0_mini_v1",
+            "jetmet1_2023b" : "/store/user/aguven/JetMET1/Run2023B1_mini_v1",
+            "jetmet1_2023c" : "/store/user/aguven/JetMET1/Run2023C1_mini_v1",
+            "jetmet1_2023d" : "/store/user/aguven/JetMET1/Run2023D1_mini_v1"
+        }
+    },
+
+    "CustomNanoAOD": {
+        "dataset": {
+            "jetmet0_2023b" : ""
+        },
+
+        "dir": {
+            "jetmet0_2023b" : ""
+                },
+
+        "logical_dir": {
+            "jetmet0_2023b" : ""
+                }
+        
+    }
+}

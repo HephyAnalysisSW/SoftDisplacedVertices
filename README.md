@@ -16,3 +16,13 @@ For different MC files it might be worth checking:
   
   
 Check out the subdirectories of this repository to find more about the production.
+
+## Instructions to Install
+```
+cmsrel CMSSW_13_0_16
+cd CMSSW_13_0_16/src
+cmsenv
+git clone git@github.com:HephyAnalysisSW/SoftDisplacedVertices.git
+git checkout CMSSW_13_0_16
+scram b -j4
+```
