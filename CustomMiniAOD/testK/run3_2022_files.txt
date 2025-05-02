@@ -1,0 +1,3 @@
+/store/data/Run2022C/MET/AOD/27Jun2023-v2/25310000/82a8af2d-dc85-4df0-a872-7ea9fb154ef8.root
+/store/mc/Run3Summer22DRPremix/Zto2Nu-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/AODSIM/124X_mcRun3_2022_realistic_v12-v2/50000/92246d80-151f-43fa-85b3-3bc63ff8b937.root
+/store/mc/Run3Summer22EEDRPremix/Zto2Nu-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/AODSIM/124X_mcRun3_2022_realistic_postEE_v1-v2/50001/cd95145e-ec17-4536-89c5-678258bfc6cd.root

@@ -1,0 +1,5 @@
+/store/data/Run2023B/JetMET1/AOD/19Dec2023-v1/80000/f5a7e8e1-80bb-4ea5-8a54-4a25193bd180.root
+/store/data/Run2023C/JetMET0/AOD/19Dec2023-v1/50000/638f453c-bf94-4b7a-a32c-1f5ef81d088b.root
+/store/data/Run2023C/JetMET0/AOD/19Dec2023-v1/50000/45db7804-70ce-4d92-9e78-6f25b015a648.root
+/store/data/Run2023C/JetMET0/AOD/19Dec2023-v1/50000/efa0ffb4-fbcc-4ec0-8e28-2e98a1d0a1a3.root
+/store/data/Run2023D/JetMET1/AOD/19Dec2023-v1/2560000/c58f223d-4c0a-4612-84b4-42218c1f51a0.root

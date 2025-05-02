@@ -1,0 +1,191 @@
+{
+    "/QCD-4Jets_HT-40to70_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_141202",
+        "finished": 44,
+        "total": 44,
+        "status": "SUBMITTED",
+        "scheduler": "COMPLETED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_131634%3Aaguven_crab_20250307_141202",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_131634%3Aaguven_crab_20250307_141202&from=1741349794000&to=now"
+    },
+    "/QCD-4Jets_HT-70to100_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_150111",
+        "finished": 119,
+        "total": 119,
+        "status": "SUBMITTED",
+        "scheduler": "COMPLETED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_140336%3Aaguven_crab_20250307_150111",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_140336%3Aaguven_crab_20250307_150111&from=1741352616000&to=now"
+    },
+    "/QCD-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_151511",
+        "finished": 104,
+        "total": 261,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_142358%3Aaguven_crab_20250307_151511",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_142358%3Aaguven_crab_20250307_151511&from=1741353838000&to=now"
+    },
+    "/QCD-4Jets_HT-200to400_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_142354",
+        "finished": 119,
+        "total": 121,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_132826%3Aaguven_crab_20250307_142354",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_132826%3Aaguven_crab_20250307_142354&from=1741350506000&to=now"
+    },
+    "/QCD-4Jets_HT-400to600_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_140932",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITREFUSED",
+        "scheduler": null,
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_131200%3Aaguven_crab_20250307_140932",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_131200%3Aaguven_crab_20250307_140932&from=1741349520000&to=now"
+    },
+    "/QCD-4Jets_HT-600to800_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_144456",
+        "finished": 17,
+        "total": 86,
+        "status": "SUBMITTED",
+        "scheduler": "SUBMITTED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_134929%3Aaguven_crab_20250307_144456",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_134929%3Aaguven_crab_20250307_144456&from=1741351769000&to=now"
+    },
+    "/QCD-4Jets_HT-800to1000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_152400",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_142625%3Aaguven_crab_20250307_152400",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_142625%3Aaguven_crab_20250307_152400&from=1741353986000&to=now"
+    },
+    "/QCD-4Jets_HT-1000to1200_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_144022",
+        "finished": 682,
+        "total": 682,
+        "status": "SUBMITTED",
+        "scheduler": "COMPLETED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_134454%3Aaguven_crab_20250307_144022",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_134454%3Aaguven_crab_20250307_144022&from=1741351494000&to=now"
+    },
+    "/QCD-4Jets_HT-1200to1500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_145158",
+        "finished": 293,
+        "total": 296,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_135630%3Aaguven_crab_20250307_145158",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_135630%3Aaguven_crab_20250307_145158&from=1741352190000&to=now"
+    },
+    "/QCD-4Jets_HT-1500to2000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_144931",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_135156%3Aaguven_crab_20250307_144931",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_135156%3Aaguven_crab_20250307_144931&from=1741351916000&to=now"
+    },
+    "/QCD-4Jets_HT-2000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM": {
+        "command_id": "crab_20250307_151037",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_141509%3Aaguven_crab_20250307_151037",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_141509%3Aaguven_crab_20250307_151037&from=1741353309000&to=now"
+    },
+    "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_141654",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_132126%3Aaguven_crab_20250307_141654",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_132126%3Aaguven_crab_20250307_141654&from=1741350086000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v2/AODSIM": {
+        "command_id": "crab_20250307_150338",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_140809%3Aaguven_crab_20250307_150338",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_140809%3Aaguven_crab_20250307_150338&from=1741352889000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-200to400_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v2/AODSIM": {
+        "command_id": "crab_20250307_143302",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITREFUSED",
+        "scheduler": null,
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_133320%3Aaguven_crab_20250307_143302",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_133320%3Aaguven_crab_20250307_143302&from=1741350800000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-400to800_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v2/AODSIM": {
+        "command_id": "crab_20250307_142828",
+        "finished": 19,
+        "total": 22,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_133300%3Aaguven_crab_20250307_142828",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_133300%3Aaguven_crab_20250307_142828&from=1741350780000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-800to1500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v2/AODSIM": {
+        "command_id": "crab_20250307_141636",
+        "finished": 15,
+        "total": 15,
+        "status": "SUBMITTED",
+        "scheduler": "COMPLETED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_131652%3Aaguven_crab_20250307_141636",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_131652%3Aaguven_crab_20250307_141636&from=1741349812000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-1500to2500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v2/AODSIM": {
+        "command_id": "crab_20250307_145632",
+        "finished": 11,
+        "total": 15,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_140108%3Aaguven_crab_20250307_145632",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_140108%3Aaguven_crab_20250307_145632&from=1741352468000&to=now"
+    },
+    "/Zto2Nu-4Jets_HT-2500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_143756",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_134020%3Aaguven_crab_20250307_143756",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_134020%3Aaguven_crab_20250307_143756&from=1741351220000&to=now"
+    },
+    "/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_142129",
+        "finished": 131,
+        "total": 245,
+        "status": "SUBMITTED",
+        "scheduler": "SUBMITTED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_132353%3Aaguven_crab_20250307_142129",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_132353%3Aaguven_crab_20250307_142129&from=1741350233000&to=now"
+    },
+    "/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_143322",
+        "finished": null,
+        "total": null,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_133754%3Aaguven_crab_20250307_143322",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_133754%3Aaguven_crab_20250307_143322&from=1741351074000&to=now"
+    },
+    "/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v3/AODSIM": {
+        "command_id": "crab_20250307_150811",
+        "finished": 192,
+        "total": 650,
+        "status": "SUBMITTED",
+        "scheduler": "FAILED",
+        "help_url": "https://cmsweb.cern.ch/crabserver/ui/task/250307_141035%3Aaguven_crab_20250307_150811",
+        "dashboard_url": "https://monit-grafana.cern.ch/d/cmsTMDetail/cms-task-monitoring-task-view?orgId=11&var-user=aguven&var-task=250307_141035%3Aaguven_crab_20250307_150811&from=1741353035000&to=now"
+    }
+}

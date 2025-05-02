@@ -285,6 +285,9 @@ all_sig_2018 = [
   *c1n2_2018
 ]
 
+# 2023
+wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
+
 for samples in all_samples:
   for s in samples:
     exec("{} = s".format(s.name))
