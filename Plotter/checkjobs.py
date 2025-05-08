@@ -18,7 +18,8 @@ if __name__=="__main__":
       continue
     njobs = len(glob.glob(os.path.join(args.dir,d,'input','*.txt')))
     nfiles = len(glob.glob(os.path.join(args.dir,d,'*.root')))
-    if not nfiles==njobs:
+    npkl = len(glob.glob(os.path.join(args.dir,d,'*.pkl')))
+    if (not nfiles==njobs) or (not npkl==njobs):
       print("\033[1;31m Not all jobs succeeded for {}. \033[0m".format(d))
       if args.rm:
         print("Removing {}".format(os.path.join(args.dir,d)))

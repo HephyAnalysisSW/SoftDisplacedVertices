@@ -125,7 +125,7 @@ def get_metadata_dir(directory, outFileName):
             yaml_dict.pop(root)
 
 
-    with open(outFileName, 'w') as outfile:
+    with open(os.path.join(args.outDir,outFileName), 'w') as outfile:
         yaml.safe_dump(yaml_dict, outfile, default_flow_style=False)
         
 
@@ -140,7 +140,8 @@ if __name__ == '__main__':
     if not os.path.exists(args.outDir):
       os.makedirs(args.outDir)
     #input_samples = s.c1n2_2018
-    input_samples = s.stop_2017
+    #input_samples = [s.stop_2018[0],s.stop_2018[2]]
+    input_samples = s.stop_2017 + s.c1n2_2017
     #input_samples = [s.C1N2_M1000_988_ct200_2018]
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
     get_metadata(input_samples,args.sample_version)

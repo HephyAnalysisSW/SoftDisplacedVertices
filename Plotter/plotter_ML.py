@@ -1,4 +1,5 @@
 import os
+import yaml
 import ROOT
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
@@ -7,17 +8,47 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
 
-def getRDF(s):
+def getSumWeight(s):
+  info_path = os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Plotter/CustomMiniAOD_v3_{}.yaml'.format(s.name))
+  with open(info_path,'r') as f_sample_info:
+    sample_info = yaml.safe_load(f_sample_info)
+  for i in sample_info:
+    if not s.name in i:
+      continue
+    return sample_info[i]['totalsumWeights']
+  assert(False,"no record found for sum weights!")
+  return -1
+
+
+
+def getRDF(s,dvars=dict(),evt_sel=''):
+  '''
+  This functino gets RDataFrame for a given sample
+  - Add desired variables
+  - Filter events
+  - Produce normalisation weights based on xsec
+  
+  Parameters:
+    s: sample to retrieve
+    dvars: a dictionary {variable postfix: (variables to add, selection)}
+    evt_sel: event selection
+  '''
   fns = s.getFileList(label,"")
   d = ROOT.RDataFrame("Events",fns)
   d = AddVars(d)
-  d = AddVarsWithSelection(d,variables,"SDVSecVtx_ParTScore>0.98","tag")
-  d = AddVarsWithSelection(d,variables,"SDVSecVtx_ParTScore<0.98","untag")
-  evt_sel = "MET_pt>200&&HLT_PFMET120_PFMHT120_IDTight && Jet_pt[0]>100 && !nMuon && !nPhoton && !nTau && !nElectron && Flag_METFilters && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8"
+  for k in dvars:
+    d = AddVarsWithSelection(d,dvars[k][0],dvars[k][1],k)
+  #d = AddVarsWithSelection(d,variables,"SDVSecVtx_ParTScore>0.98","tag")
+  #d = AddVarsWithSelection(d,variables,"SDVSecVtx_ParTScore<0.98","untag")
+  #d = AddVarsWithSelection(d,variables,"SDVSecVtx_matchedLLPnDau_bydau>1","genmatch")
+  #d = AddVarsWithSelection(d,variables,"SDVSecVtx_matchedLLPnDau_bydau>1 && SDVSecVtx_ParTScore>0.98","genmatchtag")
+  #evt_sel = "MET_pt>200&&HLT_PFMET120_PFMHT120_IDTight && Jet_pt[0]>100 && !nMuon && !nPhoton && !nTau && !nElectron && Flag_METFilters && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8"
   d = FilterEvents(d,evt_sel)
-  dw = ROOT.RDataFrame("Runs",fns)
-  nevt = dw.Sum("genEventSumw")
-  xsec_weights = lumi*s.xsec/(nevt.GetValue()/s.filter_eff) # FIXME: this does not work for samples with GenFilters
+  nevt = getSumWeight(s)
+  xsec_weights = lumi*s.xsec/(nevt)
+  #dw = ROOT.RDataFrame("Runs",fns)
+  #nevt = dw.Sum("genEventSumw")
+  #xsec_weights = lumi*s.xsec/(nevt.GetValue()/s.filter_eff) # FIXME: this does not work for samples with GenFilters
   d = AddWeights(d,xsec_weights)
   return d,xsec_weights
 
@@ -216,16 +247,18 @@ plots_2d = {
     #'SDVSecVtx_Lxy':['SDVSecVtx_L_eta_abs','SDVSecVtx_dlen']
     }
 
+evt_sel = "MET_pt>200&&HLT_PFMET120_PFMHT120_IDTight && Jet_pt[0]>100 && !nMuon && !nPhoton && !nTau && !nElectron && Flag_METFilters && Jet_chHEF[0]>0.1 && Jet_neHEF[0]<0.8"
+
 variables = ["SDVSecVtx_nTracks","SDVSecVtx_pAngle","SDVSecVtx_nGoodTrack","SDVSecVtx_dlen","SDVSecVtx_dlenSig","SDVSecVtx_dlen_err","SDVSecVtx_Lxy","SDVSecVtx_LxySig","SDVSecVtx_Lxy_err","SDVSecVtx_chi2","SDVSecVtx_normalizedChi2","SDVSecVtx_ndof","SDVSecVtx_L_eta_abs","SDVSecVtx_matchedLLPIdx_bydau","SDVSecVtx_matchedLLPnDau_bydau","SDVSecVtx_TkMaxdphi","SDVSecVtx_TkMindphi","SDVSecVtx_TkMaxdeta","SDVSecVtx_TkMindeta","SDVSecVtx_TkMaxdR","SDVSecVtx_TkMindR","SDVSecVtx_dphi_L_MET","SDVSecVtx_dphi_L_jet0"]
 
-plots = {
-    'SDVSecVtx_nGoodTrack':('SDVSecVtx_nGoodTrack',";vertex ngoodTrack;A.U.",20,0,20),
-    'MET_pt':('MET_pt',";MET (GeV);A.U.",100,0,1000),
-    }
-
-variables = ["SDVSecVtx_nGoodTrack"]
+#plots = {
+#    'SDVSecVtx_nGoodTrack':('SDVSecVtx_nGoodTrack',";vertex ngoodTrack;A.U.",20,0,20),
+#    'MET_pt':('MET_pt',";MET (GeV);A.U.",100,0,1000),
+#    }
+#
+#variables = ["SDVSecVtx_nGoodTrack"]
 for v in variables:
-  for pf in ['tag',"untag"]:
+  for pf in ['tag',"untag","genmatch","genmatchtag"]:
     pset = list(plots[v])
     pset[0] = v+pf
     pset = tuple(pset)
@@ -236,15 +269,15 @@ ws = {}
 
 lumi = 59683. # units in pb-1
 
-label = "MLNanoAODv0"
+label = "MLNanoAODv2"
 input_json = "MLNanoAOD.json"
 ss = s.stop_2018
-#makeHistFiles(ss,input_json,label)
-makeHistFiles_METSlice(ss,input_json,label)
+makeHistFiles(ss,input_json,label)
+#makeHistFiles_METSlice(ss,input_json,label)
 
-scale = 1.23
-lumi = lumi*scale
-ss = s.wlnu_2018 + s.znunu_2018
+#scale = 1.23
+#lumi = lumi*scale
+#ss = s.wlnu_2018 + s.znunu_2018
 #makeHistFiles(ss,input_json,label)
-makeHistFiles_METSlice(ss,input_json,label)
+##makeHistFiles_METSlice(ss,input_json,label)
 

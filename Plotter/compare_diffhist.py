@@ -11,9 +11,10 @@
 
 
 import os
+import fnmatch
 import ROOT
 import SoftDisplacedVertices.Samples.Samples as s
-ROOT.EnableImplicitMT()
+ROOT.EnableImplicitMT(4)
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
@@ -105,15 +106,9 @@ parser.add_argument('--scale', action='store_true', default=False,
                     help='Whether to scale the plot')
 parser.add_argument('--commands', type=str, nargs='+',
                     help="Additional commands, such as rebinning or set range etc.")
-parser.add_argument('--ratio', action='store_true', default=False,
-                    help="Whether to plot the ratio")
-parser.add_argument('--datamc', action='store_true', default=False,
-                    help="Whether it is a data/MC comparision")
-
 args = parser.parse_args()
 
-#colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
-colors_global = [ROOT.kRed,ROOT.kGreen,ROOT.kYellow+1,ROOT.kBlack,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
 
 def AddHists(hs,ws):
   assert len(hs)==len(ws)
@@ -140,49 +135,7 @@ def h_command(h):
     exec(c)
     return
 
-def datamccomparison(name,data,mc,scale=False, ratio=True):
-  c = ROOT.TCanvas("c"+name,"c"+name,600,600)
-  l = ROOT.TLegend(0.6,0.7,0.9,0.9)
-  move_overflows_into_visible_bins(data)
-  move_overflows_into_visible_bins(mc)
-  if scale and data.Integral()!=0 and mc.Integral()!=0:
-    data.Scale(1./data.Integral())
-    mc.Scale(1./mc.Integral())
-  mc.SetLineColor(ROOT.kBlue)
-  mc.SetFillColor(ROOT.kBlue-9)
-  mc.SetFillStyle(1001)
-  data.SetLineColor(ROOT.kBlack)
-  data.SetMarkerStyle(20)
-  data.SetMarkerSize(1.0)
-  l.SetBorderSize(0)
-  l.AddEntry(data, "data", "lep")
-  l.AddEntry(mc, "background MC")
-
-  if ratio and (('TH1' in str(type(data))) and ('TH1' in str(type(mc)))):
-    rp = ROOT.TRatioPlot(data,mc)
-    rp.SetH1DrawOpt("e")
-    rp.SetH2DrawOpt("histE2")
-    rp.GetLowYaxis().SetNdivisions(505)
-    rp.Draw()
-    rp.GetLowerRefYaxis().SetTitle("Data/MC")
-    rp.GetLowerRefGraph().SetMarkerStyle(20)
-    rp.GetLowerRefGraph().SetLineColor(1)
-    rp.GetLowerRefGraph().SetMarkerColor(1)
-    rp.GetUpperPad().cd()
-    data.Draw("PE SAME")
-    rp.GetUpperPad().SetLogy()
-  else:
-    mc.Draw("histE1")
-    data.Draw("PE SAME")
-    c.SetLogy()
-
-  l.Draw()
-  c.Update()
-  #c.GetUpperPad().BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
-  c.SaveAs("{}.pdf".format(args.output+'/'+name))
-  c.SaveAs("{}.png".format(args.output+'/'+name))
-
-def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
+def comparehists(name,hs,legend,colors=None,scale=False):
   if colors is None:
     colors = colors_global[:len(hs)]
   c = ROOT.TCanvas("c"+name,"c"+name,600,600)
@@ -197,39 +150,26 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
     if scale and hs[i].Integral()!=0:
       hs[i].Scale(1./hs[i].Integral())
     y_max = max(y_max,hs[i].GetMaximum())
-    #y_min = min(y_min,hs[i].GetBinContent(hs[i].GetMinimumBin()))
-    y_min = min(y_min,hs[i].GetMinimum(1e-08))
-    #y_min = max(1e03,y_min)
+    y_min = min(y_min,hs[i].GetMinimum())
 
-  if ratio and len(hs)==2 and (('TH1' in str(type(hs[0]))) and ('TH1' in str(type(hs[1])))):
-    rp = ROOT.TRatioPlot(hs[0],hs[1])
-    rp.GetLowYaxis().SetNdivisions(505)
-    rp.Draw()
-
-  else:
-    for i in range(len(hs)):
-      if i==0:
-        hs[i].SetMaximum(10*y_max)
-        hs[i].SetMinimum(0.5*y_min)
-        hs[i].DrawClone()
-      else:
-        hs[i].DrawClone("same")
-      l.AddEntry(hs[i],legend[i])
+  for i in range(len(hs)):
+    if i==0:
+      hs[i].SetMaximum(10*y_max)
+      #hs[i].SetMinimum(0.5*y_min)
+      hs[i].DrawClone()
+    else:
+      hs[i].DrawClone("same")
+    l.AddEntry(hs[i],legend[i])
 
   #l.Draw()
   c.Update()
-  if ratio:
-    c.GetUpperPad().SetLogy()
-    c.GetUpperPad().BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
-  else:
-    c.SetLogy()
-    c.BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
-
+  c.SetLogy()
+  c.BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
   c.Update()
   c.SaveAs("{}.pdf".format(args.output+'/'+name))
   c.SaveAs("{}.png".format(args.output+'/'+name))
 
-def compareDiffFiles(fns,legend,colors,scale,ratio,datamc):
+def compareDiffFiles(fns,legend,colors,scale):
   fs = [ROOT.TFile.Open(fn) for fn in fns]
   dirs = []
   if (args.dirs is None) or (len(args.dirs)==0):
@@ -263,15 +203,40 @@ def compareDiffFiles(fns,legend,colors,scale,ratio,datamc):
       h_command(h)
       h_compare.append(h)
   
-    if datamc:
-      datamccomparison(plt,h_compare[0],h_compare[1],scale, ratio)
-    else:
-      comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
+    comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale)
   
   for f in fs:
     f.Close()
 
-def compareSameFile(fn,legend,colors,scale,ratio):
+def compareDiffHists(fn,legend,colors,scale):
+  f = ROOT.TFile.Open(fn)
+
+  fdir = f.Get(args.dirs[0])
+  if not fdir:
+    print("{} not available in {}!".format(args.dirs[0],f.GetName()))
+  #plots = [p.GetName() for p in fdir.GetListOfKeys()]
+  namebase = 'SDVTrack_%s%s'
+  var = ['pfAbsIso03_chg','pfAbsIso03_all','pfRelIso03_chg','pfRelIso03_all']
+
+  for d in args.dirs:
+    for v in var:
+      h_compare = []
+      legend = ['Original Isolation','Modified Isolation']
+      for post in ['','_mod']:
+        plt = namebase % (v,post)
+        h = f.Get(d+'/'+plt)
+        if not h:
+          print('{} is not available in {}!'.format(d+'/'+plt,f.GetName()))
+          continue
+        h.SetDirectory(0)
+        h_command(h)
+        h_compare.append(h)
+    
+      comparehists(namebase % (v,'comp'),h_compare,legend=legend,colors=colors,scale=scale)
+  
+  f.Close()
+
+def compareSameFile(fn,legend,colors,scale):
   f = ROOT.TFile.Open(fn)
 
   fdir = f.Get(args.dirs[0])
@@ -294,16 +259,17 @@ def compareSameFile(fn,legend,colors,scale,ratio):
       h_command(h)
       h_compare.append(h)
   
-    comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
+    comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale)
   
   f.Close()
 
 if __name__ == "__main__":
   if not os.path.exists(args.output):
     os.makedirs(args.output)
-  if len(args.input)==1:
-    assert(len(args.dirs)>1)
-    compareSameFile(args.input[0],args.nice,None,args.scale,ratio=args.ratio)
-  else:
-    compareDiffFiles(args.input,args.nice,None,args.scale,ratio=args.ratio,datamc=args.datamc)
+  compareDiffHists(args.input[0],args.nice,None,args.scale)
+  #if len(args.input)==1:
+  #  assert(len(args.dirs)>1)
+  #  compareSameFile(args.input[0],args.nice,None,args.scale)
+  #else:
+  #  compareDiffFiles(args.input,args.nice,None,args.scale)
 

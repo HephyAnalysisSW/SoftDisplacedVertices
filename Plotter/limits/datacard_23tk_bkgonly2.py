@@ -414,25 +414,8 @@ for _ in channels:
 processnamerate = ('\t'+'\t'.join(processes))*len(channels)
 processidxrate = ('\t'+'\t'.join(processidx))*len(channels)
 
-model = "stop"
-#model = "C1N2"
-filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
 filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
-#filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_1118/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_vtxweight_local/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
-filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_HEM_datacard_mapveto_local/'
-#filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_HEM_noPU/'
-filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG_HEM/'
-#mLLP = [600]
-#ctaus = ['200']
-#dms = [12]
-mLLP = [600,1000,1400]
-ctaus = ['0p2','2','20','200']
-dms = [25,20,15,12]
 
-#blinding_regions = ['SR_g2tk_evt','SR_g2tk_CRlowMET_evt','SR_g2tk_CRlowLxy_evt','SR_g2tk_CRlowLxylowMET_evt','SR_2tk_evt','SR_2tk_CRlowMET_evt','SR_2tk_CRlowLxy_evt','SR_2tk_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
 blinding_regions = []
 
 bkg = 'background_{}_hist.root'.format(args.year)
@@ -443,44 +426,8 @@ else:
   d_bkg = getNumEvents(filepathMC+bkg,dirs,SF=1,useData=False)
 n_uncerts_bkg = 0
 bkg_stat_uncert = ''
-#for i in range(len(channels)):
-#  uncert_i = 1.0
-#  if not d_bkg['weighted'][i]==0:
-#    uncert_i += d_bkg['stat_uncert'][i]/d_bkg['weighted'][i]
-#  bkg_stat_uncert += 'background_stat_{0}\tlnN'.format(channels[i]) \
-#                    +'\t-'*(i*len(processes)) \
-#                    +'\t-\t{:.3g}'.format(uncert_i) \
-#                    +'\t-'*((len(channels)-i-1)*len(processes))+'\n'
-#  n_uncerts_bkg += 1
-#bkg_stat_uncert += 'syst_uncert\tlnN' + '\t2.0'*(len(channels)*len(processes))
-#n_uncerts_bkg += 1
-
 syst_uncert = ''
 
-#ABCD uncertainty
-#bkg_uncert = getABCDSyst(args.year)
-#if bkg_uncert is not None:
-#  syst_uncert += 'bkg_syst\tlnN' \
-#                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
-#                +'\t-\t-\t-\t{:.5g}\t-\t-\t-\t-'.format(bkg_uncert+1) \
-#                +'\t-\t-\t-\t-\t-\t-\t-\t-'*2+'\n' 
-#  n_uncerts_bkg += 1
-
-#ABCD uncertainty
-#not using it now because it is not necessary
-#syst_uncert += 'ABCD_syst\tlnN' \
-#              +'\t-\t{:.5g}'.format(getABCDSyst(args.year)+1) \
-#              +'\t-'*((len(channels)-1)*len(processes))+'\n'
-#n_uncerts_bkg += 1
-
-#a__YEAR_    rateParam   A_YEAR_   background    ((@0*@1)/@2)  b__YEAR_,e__YEAR_,f__YEAR_
-#b__YEAR_    rateParam   B_YEAR_   background    _BYIELD_
-#c__YEAR_    rateParam   C_YEAR_   background    _CYIELD_
-#d__YEAR_    rateParam   D_YEAR_   background    _DYIELD_
-#e__YEAR_    rateParam   E_YEAR_   background    _EYIELD_
-#f__YEAR_    rateParam   F_YEAR_   background    _FYIELD_
-#g__YEAR_    rateParam   G_YEAR_   background    _GYIELD_
-#h__YEAR_    rateParam   H_YEAR_   background    _HYIELD_
 abcd = '''
 CMS_EXO24033_f_1__YEAR_          param       _F1_  _F1ERR_
 CMS_EXO24033_f_2__YEAR_          param       _F2_  _F2ERR_
@@ -516,91 +463,32 @@ tfs = getTFs(args.year)
 for fl in f_label:
   abcd = abcd.replace(fl,str(tfs[fl]))
 
-for m in mLLP:
-  for ctau,dm in zip(ctaus, dms):
-      signal = "{}_M{}_{}_ct{}_{}_hist.root".format(model,m,m-dm,ctau,args.year)
-
-      syst = getSystUncert(dm,args.year)
-      sf = 1
-      #sf = 1-syst['vtxreco']
-      #sf = sf*args.scale
-      if os.path.exists(filepathSig+signal): 
-        #d_sig = getNumEvents(filepathSig+signal,dirs,SF=sf,useData=False)
-        if args.HEM:
-          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=filepathSigHEM+signal,HEMfrac=0.6477)
-        else:
-          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=None,HEMfrac=None)
-      else:
-        print("File {} does not exist. Skipping...".format(filepathSig+signal))
-        continue
-      #else:
-      #  d_sig = getNumEventsCtau("mfv_splitSUSY_tau00%07ium_M{}_{}_{}_METtrigger".format(mg,mg-dm,args.year), ctau,SF=sf)
-      n_uncerts_sig = 0
-      rate = ''
-      sig_stat_uncert = ''
-      sig_syst_uncert = ''
-      syst_sources = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
-      syst_sources_nice = ["CMS_EXO24033_METtrigger","CMS_EXO24033_vtxreco","CMS_scale_j","CMS_res_j","CMS_EXO24033_scale_met_unclustered_energy","CMS_eff_t","CMS_pileup","CMS_l1_ecal_prefiring","lumi_13TeV_1718","QCDscale_BSMsignal","CMS_EXO24033_PDF"]
-      #syst_sources = ["vtxtkreco_Corr", "ML", "fake_MET", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
-      for i in range(len(channels)):
-        rate += '\t{:.5g}'.format(d_sig['weighted'][i])
-        rate += '\t'+'1.0'
-        uncert_i = 0.0
-        if not d_sig['raw'][i]==0:
-          uncert_i = (d_sig['weighted'][i]/d_sig['raw'][i])
-        sig_stat_uncert += 'stat_signal_{}\tgmN\t{:d}'.format(channels[i], d_sig['raw'][i]) \
-                          +'\t-'*(i*len(processes)) \
-                          +'\t{:.5g}'.format(uncert_i)+'\t-'*(len(processes)-1) \
-                          +'\t-'*((len(channels)-i-1)*len(processes))+'\n'
-        n_uncerts_sig += 1
-      for iisource in range(len(syst_sources)): 
-        isource = syst_sources[iisource]
-        isource_nice = syst_sources_nice[iisource]
-        if isource in syst:
-          if isource=="vtxtkreco_Corr":
-            syst_value = syst["vtxreco"]+syst["trackreco"]
-          else:
-            syst_value = syst[isource]
-          sig_syst_uncert += '{}\tlnN'.format(isource_nice) \
-                            +('\t{:.5g}'.format(1+syst_value)+'\t-'*(len(processes)-1))*len(channels) +'\n'
-          n_uncerts_sig += 1
-        else:
-          assert (isource+"A" in syst) and (isource+"C" in syst)
-          syst_valueA = syst[isource+"A"]
-          syst_valueC = syst[isource+"C"]
-          sig_syst_uncert += '{}\tlnN'.format(isource_nice) \
-                            +(('\t{:.5g}'.format(1+syst_valueA)+'\t-'*(len(processes)-1))*2+('\t{:.5g}'.format(1+syst_valueC)+'\t-'*(len(processes)-1))*2)*int(len(channels)/4) +'\n'
-          n_uncerts_sig += 1
-
-      # mapveto
-      sig_syst_uncert += 'CMS_EXO24033_material_map\tlnN' \
-                        +('\t{:.5g}'.format(1+getmapvetosyst(ctau))+'\t-'*(len(processes)-1))*len(channels) +'\n'
-      n_uncerts_sig += 1
-
-      #sig_syst_uncert += 'signal_syst_PDF\tlnN' \
-      #                  +('\t{:.5g}'.format(1+getPDFUncert(mg,dm,ctau,int(args.year)))+'\t-'*(len(processes)-1))*len(channels) +'\n'
-      #n_uncerts_sig += 1
-
-      template_new = template.replace('_SIGNAL_',signal)
-      template_new = template_new.replace('_NCHANNELS_',str(len(channels)))
-      template_new = template_new.replace('_NUNCERT_',str(n_uncerts_bkg+n_uncerts_sig+6))
-      template_new = template_new.replace('_CHANNELNAME_',str('\t'.join(channels)))
-      template_new = template_new.replace('_CHANNELNAMERATE_',channelnamerate)
-      template_new = template_new.replace('_PROCESSNAMERATE_',processnamerate)
-      template_new = template_new.replace('_PROCESSIDXRATE_',processidxrate)
-      template_new = template_new.replace('_PROCESSRATE_',rate)
-      template_new = template_new.replace('_STATUNCERTSIG_',sig_stat_uncert)
-      template_new = template_new.replace('_STATUNCERTBKG_',bkg_stat_uncert)
-      template_new = template_new.replace('_SYSTUNCERT_',syst_uncert)
-      template_new = template_new.replace('_SYSTUNCERTSIG_',sig_syst_uncert)
-      template_new = template_new.replace('_ABCD_',abcd)
-      template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
-      #if useData:
-      #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_data['raw'])))
-      #else:
-      #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
-      f_datacard = open(os.path.join(args.output,signal.replace("_hist.root",'')+'_datacard.txt'),'w')
-      f_datacard.write(template_new)
-      f_datacard.close()
+rate = ''
+sig_stat_uncert = ''
+sig_syst_uncert = ''
+syst_sources = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
+syst_sources_nice = ["CMS_EXO24033_METtrigger","CMS_EXO24033_vtxreco","CMS_scale_j","CMS_res_j","CMS_EXO24033_scale_met_unclustered_energy","CMS_eff_t","CMS_pileup","CMS_l1_ecal_prefiring","lumi_13TeV_1718","QCDscale_BSMsignal","CMS_EXO24033_PDF"]
+#syst_sources = ["vtxtkreco_Corr", "ML", "fake_MET", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
+for i in range(len(channels)):
+  rate += '\t0.0'
+  rate += '\t'+'1.0'
+template_new = template.replace('_NCHANNELS_',str(len(channels)))
+template_new = template_new.replace('_NUNCERT_',str(n_uncerts_bkg+6))
+template_new = template_new.replace('_CHANNELNAME_',str('\t'.join(channels)))
+template_new = template_new.replace('_CHANNELNAMERATE_',channelnamerate)
+template_new = template_new.replace('_PROCESSNAMERATE_',processnamerate)
+template_new = template_new.replace('_PROCESSIDXRATE_',processidxrate)
+template_new = template_new.replace('_PROCESSRATE_',rate)
+template_new = template_new.replace('_STATUNCERTBKG_',bkg_stat_uncert)
+template_new = template_new.replace('_SYSTUNCERT_',syst_uncert)
+template_new = template_new.replace('_ABCD_',abcd)
+template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
+#if useData:
+#  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_data['raw'])))
+#else:
+#  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
+f_datacard = open(os.path.join(args.output,'bkgonly_datacard_{}.txt'.format(args.year)),'w')
+f_datacard.write(template_new)
+f_datacard.close()
 
 

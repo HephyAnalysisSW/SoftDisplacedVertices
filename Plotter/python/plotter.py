@@ -1,5 +1,7 @@
 import os
 import yaml
+import numpy as np
+import pickle
 import ROOT
 import correctionlib
 correctionlib.register_pyroot_binding()
@@ -142,7 +144,7 @@ class Plotter:
               line = line.rstrip('\n').rstrip()
               if line.endswith('.root'):
                   self.filelist.append(line)
-    elif self.s is not None:
+    elif (self.s is not None) and (self.input_filelist is None):
       self.filelist = self.s.getFileList(self.datalabel,"")
     if len(self.filelist)==0:
       print("No files provided as input!")
@@ -364,6 +366,16 @@ class Plotter:
     for h in hs:
       h.Write()
 
+  def getpklData(self,d):
+    output = {}
+    if 'savepkl' in self.cfg:
+      for ii in self.cfg['savepkl']:
+        temparr = d.Take[d.GetColumnType(ii)](ii)
+        output[ii] = np.array(temparr.GetValue())
+
+    return output
+
+
   def makeHistFiles(self):
       if not os.path.exists(self.outputDir):
           os.makedirs(self.outputDir)
@@ -371,10 +383,16 @@ class Plotter:
       self.getFileList()
       d,w = self.getRDF()
 
+      d_pkl = {}
+
       for sr in self.cfg['regions']:
         d_sr = d
         if self.cfg['regions'][sr] is not None:
           d_sr = d_sr.Filter(self.cfg['regions'][sr])
+
+        # Prepare data to pickle file
+        d_pkl[sr] = self.getpklData(d_sr)
+
         newd_evt = fout.mkdir("{}_evt".format(sr))
         hs = self.getplots(d_sr,weight="evt_weight",plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
         newd_evt.cd()
@@ -392,6 +410,8 @@ class Plotter:
               #self.writeplots(newd,d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],varlabel=sels)
 
       fout.Close()
+      with open("{}/{}_hist{}.pkl".format(self.outputDir,self.s.name,self.postfix), "wb") as f:
+        pickle.dump(d_pkl,f)
   
   
 def AddHists(hs,ws):

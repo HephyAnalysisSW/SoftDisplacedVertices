@@ -97,10 +97,7 @@ def getEvts_total(fn,SRnames,HEM):
   for r in SRnames:
     nevt = evt['nevt_sigs'][r].n
     nevtHEM = evtHEM['nevt_sigs'][r].n
-    if nevt==0:
-      f = 1
-    else:
-      f = (nevt*(1-fHEM)+nevtHEM*fHEM)/nevt
+    f = (nevt*(1-fHEM)+nevtHEM*fHEM)/nevt
     nevt_final = evt['nevt_sigs'][r]*f
     nevt_sigs[r] = nevt_final
     nevt_uncert_sigs[r] = nevt_final.s
@@ -112,32 +109,19 @@ def getEvts_total(fn,SRnames,HEM):
   
 
 def predict(devt,region):
-  searchstr = '_'
   if 'lowLxy' in region:
     f = devts.get('VR1_CRlowLxylowMET_evt')/devts.get('VR2_CRlowLxylowMET_evt')
   else:
     f = devts.get('VR1_CRlowMET_evt')/devts.get('VR2_CRlowMET_evt')
-  if 'SR_g2tk' in region:
-    f = f*f*f/(1-f)
-    searchstr = 'SR_g2tk'
-    CRstr = region.replace(searchstr,'VR2')
-  elif 'SR_2tk' in region:
-    f = f*f
-    searchstr = 'SR_2tk'
-    CRstr = region.replace(searchstr,'VR2')
-  elif 'SR' in region:
+  if 'SR' in region:
     f = f*f/(1-f)
-    searchstr = 'SR'
-    CRstr = region.replace(searchstr,'VR2')
-  else:
-    CRstr = 'VR2'+region[region.find('_'):]
 
-  return devt.get(CRstr)*f
+  return devt.get('VR2'+region[region.find('_'):])*f
 
 if __name__=="__main__":
   sig_fns = [
-      #"met2017_hist.root",
-      #"met2018_hist.root",
+      "met2017_hist.root",
+      "met2018_hist.root",
       #"background_2017_hist.root",
       #"background_2018_hist.root",
       #"stop_M600_575_ct0p2_2018_hist.root",
@@ -152,18 +136,18 @@ if __name__=="__main__":
       #"stop_M1400_1380_ct2_2018_hist.root",
       #"stop_M1400_1385_ct20_2018_hist.root",
       #"stop_M1400_1388_ct200_2018_hist.root",
-      "stop_M600_575_ct0p2_2017_hist.root",
-      "stop_M600_580_ct2_2017_hist.root",
-      "stop_M600_585_ct20_2017_hist.root",
-      "stop_M600_588_ct200_2017_hist.root",
-      "stop_M1000_975_ct0p2_2017_hist.root",
-      "stop_M1000_980_ct2_2017_hist.root",
-      "stop_M1000_985_ct20_2017_hist.root",
-      "stop_M1000_988_ct200_2017_hist.root",
-      "stop_M1400_1375_ct0p2_2017_hist.root",
-      "stop_M1400_1380_ct2_2017_hist.root",
-      "stop_M1400_1385_ct20_2017_hist.root",
-      "stop_M1400_1388_ct200_2017_hist.root",
+      #"stop_M600_575_ct0p2_2017_hist.root",
+      #"stop_M600_580_ct2_2017_hist.root",
+      #"stop_M600_585_ct20_2017_hist.root",
+      #"stop_M600_588_ct200_2017_hist.root",
+      #"stop_M1000_975_ct0p2_2017_hist.root",
+      #"stop_M1000_980_ct2_2017_hist.root",
+      #"stop_M1000_985_ct20_2017_hist.root",
+      #"stop_M1000_988_ct200_2017_hist.root",
+      #"stop_M1400_1375_ct0p2_2017_hist.root",
+      #"stop_M1400_1380_ct2_2017_hist.root",
+      #"stop_M1400_1385_ct20_2017_hist.root",
+      #"stop_M1400_1388_ct200_2017_hist.root",
       ]
 
   #sig_fns = []
@@ -179,29 +163,23 @@ if __name__=="__main__":
     devts = getEvts_total(sig_fns[i],args.SR,HEM)['nevt_sigs']
     #print(sig_fns[i])
     #print("="*20)
-    print("\\multirow{{3}}{{*}}{{{}}} & Tight plane & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(sig_fns[i].replace('_2017_hist.root','').replace('_2018_hist.root','').replace('_','\\_'),devts.get('SR_g2tk_evt'),devts.get('SR_g2tk_CRlowMET_evt'),devts.get('SR_g2tk_CRlowLxy_evt'),devts.get('SR_g2tk_CRlowLxylowMET_evt')))
-    print("&Medium plane     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_2tk_evt'),devts.get('SR_2tk_CRlowMET_evt'),devts.get('SR_2tk_CRlowLxy_evt'),devts.get('SR_2tk_CRlowLxylowMET_evt')))
-    #print("&Tight signal plane     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_evt'),devts.get('SR_CRlowMET_evt'),devts.get('SR_CRlowLxy_evt'),devts.get('SR_CRlowLxylowMET_evt')))
-    print("&Loose signal plane     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR1_evt'),devts.get('VR1_CRlowMET_evt'),devts.get('VR1_CRlowLxy_evt'),devts.get('VR1_CRlowLxylowMET_evt')))
-    print("&Control plane        & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR2_evt'),devts.get('VR2_CRlowMET_evt'),devts.get('VR2_CRlowLxy_evt'),devts.get('VR2_CRlowLxylowMET_evt')))
-    print("\\hline")
+    #print("\\multirow{{3}}{{*}}{{{}}} & Tight signal plane & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(sig_fns[i].replace('_2017_hist.root','').replace('_2018_hist.root','').replace('_','\\_'),devts.get('SR_evt'),devts.get('SR_CRlowMET_evt'),devts.get('SR_CRlowLxy_evt'),devts.get('SR_CRlowLxylowMET_evt')))
+    #print("&Loose signal plane     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR1_evt'),devts.get('VR1_CRlowMET_evt'),devts.get('VR1_CRlowLxy_evt'),devts.get('VR1_CRlowLxylowMET_evt')))
+    #print("&Control plane        & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR2_evt'),devts.get('VR2_CRlowMET_evt'),devts.get('VR2_CRlowLxy_evt'),devts.get('VR2_CRlowLxylowMET_evt')))
+    #print("\\hline")
     #print("Transfer factor 1 $\\rightarrow$ 2           & ${:.03fL}$ &  ${:.03fL}$ & ${:.03fL}$ & ${:.03fL}$ \\\\".format(devts.get('SR_evt')/devts.get('VR1_evt'),devts.get('SR_CRlowMET_evt')/devts.get('VR1_CRlowMET_evt'),devts.get('SR_CRlowLxy_evt')/devts.get('VR1_CRlowLxy_evt'),devts.get('SR_CRlowLxylowMET_evt')/devts.get('VR1_CRlowLxylowMET_evt')))
     #print("Transfer factor 0 $\\rightarrow$ 1           & ${:.03fL}$ &  ${:.03fL}$ & ${:.03fL}$ & ${:.03fL}$ \\\\".format(devts.get('VR1_evt')/devts.get('VR2_evt'),devts.get('VR1_CRlowMET_evt')/devts.get('VR2_CRlowMET_evt'),devts.get('VR1_CRlowLxy_evt')/devts.get('VR2_CRlowLxy_evt'),devts.get('VR1_CRlowLxylowMET_evt')/devts.get('VR2_CRlowLxylowMET_evt')))
 
-    #print("="*20)
-    #f_prompt = devts.get('VR1_CRlowLxylowMET_evt')/devts.get('VR2_CRlowLxylowMET_evt')
-    #f_displaced = devts.get('VR1_CRlowMET_evt')/devts.get('VR2_CRlowMET_evt')
-    #print("Predictions:")
-    ##print("Tight signal plane ($\\ngoodtrack \\geq 2$) & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_evt'),devts.get('SR_CRlowMET_evt'),devts.get('SR_CRlowLxy_evt'),devts.get('SR_CRlowLxylowMET_evt')))
-    #print("$\\geq3$-good-track plane ($\\ngoodtrack \\geq 3$) & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_g2tk_evt'),devts.get('SR_g2tk_CRlowMET_evt'),devts.get('SR_g2tk_CRlowLxy_evt'),devts.get('SR_g2tk_CRlowLxylowMET_evt')))
-    #print("Prediction & ${:.02fL}$ &  ${:.02fL}\\pm{:.02f}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(predict(devts,'SR_g2tk_evt'),predict(devts,'SR_g2tk_CRlowMET_evt'),0.514*predict(devts,'SR_g2tk_CRlowMET_evt').n,predict(devts,'SR_g2tk_CRlowLxy_evt'),predict(devts,'SR_g2tk_CRlowLxylowMET_evt')))
-    #print("2-good-track plane ($\\ngoodtrack = 2$) & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_2tk_evt'),devts.get('SR_2tk_CRlowMET_evt'),devts.get('SR_2tk_CRlowLxy_evt'),devts.get('SR_2tk_CRlowLxylowMET_evt')))
-    #print("Prediction & ${:.02fL}$ &  ${:.02fL}\\pm{:.02f}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(predict(devts,'SR_2tk_evt'),predict(devts,'SR_2tk_CRlowMET_evt'),0.514*predict(devts,'SR_2tk_CRlowMET_evt').n,predict(devts,'SR_2tk_CRlowLxy_evt'),predict(devts,'SR_2tk_CRlowLxylowMET_evt')))
-    ##print("Tight signal plane ($\\ngoodtrack \\geq 2$) & -- &  -- & -- & -- \\\\")
-    ##print("Prediction & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(predict(devts,'SR_evt'),predict(devts,'SR_CRlowMET_evt'),predict(devts,'SR_CRlowLxy_evt'),predict(devts,'SR_CRlowLxylowMET_evt')))
-    ##print("Loose signal plane ($\\ngoodtrack = 1$)     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR1_evt'),devts.get('VR1_CRlowMET_evt'),devts.get('VR1_CRlowLxy_evt'),devts.get('VR1_CRlowLxylowMET_evt')))
+    print("="*20)
+    f_prompt = devts.get('VR1_CRlowLxylowMET_evt')/devts.get('VR2_CRlowLxylowMET_evt')
+    f_displaced = devts.get('VR1_CRlowMET_evt')/devts.get('VR2_CRlowMET_evt')
+    print("Predictions:")
+    #print("Tight signal plane ($\\ngoodtrack \\geq 2$) & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('SR_evt'),devts.get('SR_CRlowMET_evt'),devts.get('SR_CRlowLxy_evt'),devts.get('SR_CRlowLxylowMET_evt')))
+    print("Tight signal plane ($\\ngoodtrack \\geq 2$) & -- &  -- & -- & -- \\\\")
+    print("Prediction & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(predict(devts,'SR_evt'),predict(devts,'SR_CRlowMET_evt'),predict(devts,'SR_CRlowLxy_evt'),predict(devts,'SR_CRlowLxylowMET_evt')))
     #print("Loose signal plane ($\\ngoodtrack = 1$)     & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR1_evt'),devts.get('VR1_CRlowMET_evt'),devts.get('VR1_CRlowLxy_evt'),devts.get('VR1_CRlowLxylowMET_evt')))
-    #print("Prediction     & ${:.02fL}$ &  -- & ${:.02fL}$ & -- \\\\".format(predict(devts,'VR1_evt'),predict(devts,'VR1_CRlowLxy_evt')))
-    #print("Control plane  ($\\ngoodtrack = 0$)         & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR2_evt'),devts.get('VR2_CRlowMET_evt'),devts.get('VR2_CRlowLxy_evt'),devts.get('VR2_CRlowLxylowMET_evt')))
-    #print("Prediction         & -- &  -- & -- & -- \\\\")
+    print("Loose signal plane ($\\ngoodtrack = 1$)     & -- &  ${:.02fL}$ & -- & ${:.02fL}$ \\\\".format(devts.get('VR1_CRlowMET_evt'),devts.get('VR1_CRlowLxylowMET_evt')))
+    print("Prediction     & ${:.02fL}$ &  -- & ${:.02fL}$ & -- \\\\".format(predict(devts,'VR1_evt'),predict(devts,'VR1_CRlowLxy_evt')))
+    print("Control plane  ($\\ngoodtrack = 0$)         & ${:.02fL}$ &  ${:.02fL}$ & ${:.02fL}$ & ${:.02fL}$ \\\\".format(devts.get('VR2_evt'),devts.get('VR2_CRlowMET_evt'),devts.get('VR2_CRlowLxy_evt'),devts.get('VR2_CRlowLxylowMET_evt')))
+    print("Prediction         & -- &  -- & -- & -- \\\\")
 

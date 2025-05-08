@@ -12,8 +12,9 @@
 
 import os
 import ROOT
+import cmsstyle as CMS
 import SoftDisplacedVertices.Samples.Samples as s
-ROOT.EnableImplicitMT()
+ROOT.EnableImplicitMT(4)
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
@@ -109,11 +110,12 @@ parser.add_argument('--ratio', action='store_true', default=False,
                     help="Whether to plot the ratio")
 parser.add_argument('--datamc', action='store_true', default=False,
                     help="Whether it is a data/MC comparision")
+parser.add_argument('--cms', action='store_true', default=False,
+                    help="Whether to use CMS style")
 
 args = parser.parse_args()
 
-#colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
-colors_global = [ROOT.kRed,ROOT.kGreen,ROOT.kYellow+1,ROOT.kBlack,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
 
 def AddHists(hs,ws):
   assert len(hs)==len(ws)
@@ -182,6 +184,44 @@ def datamccomparison(name,data,mc,scale=False, ratio=True):
   c.SaveAs("{}.pdf".format(args.output+'/'+name))
   c.SaveAs("{}.png".format(args.output+'/'+name))
 
+def comparehists_cms(name,hs,legend,colors=None,scale=False, ratio=False):
+  if colors is None:
+    colors = colors_global[:len(hs)]
+  y_max = float('-inf')
+  y_min = float("inf")
+  y_min_log = float("inf")
+  x_max = float('-inf')
+  x_min = float("inf")
+  x_label = ''
+  y_label = ''
+  for i in range(len(hs)):
+    x_label = hs[i].GetXaxis().GetTitle()
+    y_label = hs[i].GetYaxis().GetTitle()
+    hs[i].SetName(legend[i])
+    hs[i].SetLineWidth(2)
+    hs[i].SetLineColor(colors[i])
+    move_overflows_into_visible_bins(hs[i])
+    if scale and hs[i].Integral()!=0:
+      hs[i].Scale(1./hs[i].Integral())
+    y_max = max(y_max,hs[i].GetMaximum())
+    y_min_log = min(y_min_log,hs[i].GetMinimum(1e-08))
+    y_min = min(y_min,hs[i].GetMinimum())
+    x_max = max(x_max,hs[i].GetXaxis().GetXmax())
+    x_min = min(x_min,hs[i].GetXaxis().GetXmin())
+
+  CMS.SetExtraText("Simulation Preliminary")
+  CMS.SetLumi("")
+  canv = CMS.cmsCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, x_label, y_label, square = CMS.kSquare, extraSpace=0.01, iPos=0)
+  leg = CMS.cmsLeg(0.2, 0.69, 0.99, 0.89, textSize=0.04,columns=2)
+  for i in range(len(hs)):
+      if not ('TH1' in str(type(hs[i]))):
+        continue
+      hs[i].DrawClone("same hist")
+      leg.AddEntry(hs[i],legend[i])
+  canv.Update()
+  canv.SaveAs("{}.pdf".format(args.output+'/'+name))
+  canv.SaveAs("{}.png".format(args.output+'/'+name))
+
 def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
   if colors is None:
     colors = colors_global[:len(hs)]
@@ -210,7 +250,7 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
     for i in range(len(hs)):
       if i==0:
         hs[i].SetMaximum(10*y_max)
-        hs[i].SetMinimum(0.5*y_min)
+        #hs[i].SetMinimum(0.5*y_min)
         hs[i].DrawClone()
       else:
         hs[i].DrawClone("same")
@@ -266,7 +306,7 @@ def compareDiffFiles(fns,legend,colors,scale,ratio,datamc):
     if datamc:
       datamccomparison(plt,h_compare[0],h_compare[1],scale, ratio)
     else:
-      comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
+      comparehists_cms(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
   
   for f in fs:
     f.Close()
@@ -294,7 +334,7 @@ def compareSameFile(fn,legend,colors,scale,ratio):
       h_command(h)
       h_compare.append(h)
   
-    comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
+    comparehists_cms(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
   
   f.Close()
 

@@ -54,12 +54,15 @@ def getEvts(fn,SRnames):
       binlow = hsig.GetXaxis().FindBin(args.metcut)
       xcut = hsig.GetXaxis().FindBin(700)
       #xcut = hsig.GetXaxis().FindBin(375)
-      ycut = hsig.GetYaxis().FindBin(20)
+      ycut = hsig.GetYaxis().FindBin(70)
+      #ycutup = hsig.GetYaxis().FindBin(80)
+      ycutup = 1000000
+      ycut = 1000000
       nevt_A_uncert = ctypes.c_double(0)
-      nevt_A = hsig.IntegralAndError(xcut,1000000,ycut,1000000,nevt_A_uncert)
+      nevt_A = hsig.IntegralAndError(xcut,1000000,ycut,ycutup,nevt_A_uncert)
       nevt_A_uncert = nevt_A_uncert.value
       nevt_B_uncert = ctypes.c_double(0)
-      nevt_B = hsig.IntegralAndError(binlow,xcut-1,ycut,1000000,nevt_B_uncert)
+      nevt_B = hsig.IntegralAndError(binlow,xcut-1,ycut,ycutup,nevt_B_uncert)
       nevt_B_uncert = nevt_B_uncert.value
       nevt_C_uncert = ctypes.c_double(0)
       nevt_C = hsig.IntegralAndError(xcut,1000000,0,ycut-1,nevt_C_uncert)
@@ -76,13 +79,19 @@ def getEvts(fn,SRnames):
 
 def predict(devt,plane,region):
   if region in 'CD':
-    f = devts.get('VR1')['D']/devts.get('VR2')['D']
+    if devts.get('VR2')['D'].n == 0:
+      f = 0
+    else:
+      f = devts.get('VR1')['D']/devts.get('VR2')['D']
   else:
-    f = devts.get('VR1')['B']/devts.get('VR2')['B']
+    if devts.get('VR2')['B'].n == 0:
+      f = 0
+    else:
+      f = devts.get('VR1')['B']/devts.get('VR2')['B']
   if 'SR' in plane:
     #f = f*f/(1-f)
-    f = f*f
-    #f = f*f*f/(1-f)
+    #f = f*f
+    f = f*f*f/(1-f)
 
   return devt.get('VR2')[region]*f
 

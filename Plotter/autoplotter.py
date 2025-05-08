@@ -108,17 +108,29 @@ if __name__=="__main__":
       for ij in range(len(chunks)):
         flname = "{}_fn{}.txt".format(samp.name,ij)
         uuid_ =  str(uuid.uuid4())
-        command = "mkdir /tmp/%s;" % (uuid_)
+        command = "set -e;mkdir /tmp/%s;" % (uuid_)
         command += "cd /tmp/%s;" %(uuid_)
-        command += "cp %s /tmp/%s/.;" %(inputdir+'/*',uuid_)
-        command += "cp %s /tmp/%s/.;" %(inputdir_sample+'/*',uuid_)
+        if 'eos' in inputdir:
+          command += "xrdcp -r root://eos.grid.vbc.ac.at/%s /tmp/%s/.;" %(inputdir,uuid_)
+          command += "cp /tmp/%s/input/* /tmp/%s/.;" %(uuid_,uuid_)
+          command += "xrdcp -r root://eos.grid.vbc.ac.at/%s /tmp/%s/input/.;" %(inputdir_sample,uuid_)
+          command += "cp /tmp/%s/input/input/* /tmp/%s/.;" %(uuid_,uuid_)
+        else:
+          command += "cp %s /tmp/%s/.;" %(inputdir+'/*',uuid_)
+          command += "cp %s /tmp/%s/.;" %(inputdir_sample+'/*',uuid_)
         #command += "cp %s /tmp/%s/.;" %(os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Plotter/autoplotter.py'),uuid_)
         #command += "python3 autoplotter.py --sample {} --output ./ --config {};".format(samp.name,args.config)
         if args.metadata=='':
           command += "python3 autoplotter.py --sample {} --output ./ --config ./{} --lumi {} --json {} --datalabel {} --filelist ./{} --year {} --postfix _{} {};".format(samp.name,os.path.basename(args.config),args.lumi,args.json,args.datalabel,flname,args.year,ij,data)
         else:
           command += "python3 autoplotter.py --sample {} --output ./ --config ./{} --lumi {} --json {} --metadata {} --datalabel {} {} {};".format(samp.name,os.path.basename(args.config),args.lumi,args.json,args.metadata,args.datalabel, args.year, data)
-        command += "cp ./*.root {}/.;".format(outputdir_sample)
+        if 'eos' in outputdir_sample:
+          fname = "{}_hist_{}".format(samp.name,ij)
+          command += "eoscp ./{0}.root {1}/{0}.root;".format(fname,outputdir_sample)
+          command += "eoscp ./{0}.pkl {1}/{0}.pkl;".format(fname,outputdir_sample)
+        else:
+          command += "cp ./*.root {}/.;".format(outputdir_sample)
+          command += "cp ./*.pkl {}/.;".format(outputdir_sample)
         command += "\n"
         jobf.write(command)
     jobf.close()

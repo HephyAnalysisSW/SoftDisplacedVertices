@@ -19,21 +19,6 @@ parser.add_argument('--HEM', action="store_true", help="output dir")
 args = parser.parse_args()
 
 def getABCDSyst(year):
-  # This is for fake MET veto at 0.5
-  #s = {
-  #  '20161': 0.031,
-  #  '20162': 0.605,
-  #  '2017': 0.189,
-  #  '2018': 0.108,
-  #}
-
-  #This is for fake MET veto at 0.6
-  #s = {
-  #  '20161': 0.033,
-  #  '20162': 0.615,
-  #  '2017': 0.192,
-  #  '2018': 0.11,
-  #}
   s = {
     #'2017': 0.514,
     #'2018': 0.514,
@@ -41,12 +26,44 @@ def getABCDSyst(year):
 
   return s[str(year)]
 
-def getmapvetosyst(ctau_str):
-  ctau = float(ctau_str.replace('p','.'))
-  flog = ROOT.TF1("flog","TMath::Log(0.65*x-0.07)",0,max(ctau*2,1000))
-  syst_func = flog.Eval(ctau)*0.01
-  syst = max(0,syst_func)
-  return syst
+def getmapvetosyst(model,ctau,year):
+  func = {
+      2017:{
+        'stop':{
+          'A': "2.59*TMath::Log(x)-0.9",
+          'B': "2.63*TMath::Log(x)-1.11",
+          'C': "0",
+          'D': "0",
+          },
+        'C1N2':{
+          'A': "1.87*TMath::Log(x)+0.76",
+          'B': "1.44*TMath::Log(x)+1.86",
+          'C': "0",
+          'D': "0",
+          },
+        },
+      2018:{
+        'stop':{
+          'A': "2.40*TMath::Log(x)-0.59",
+          'B': "2.37*TMath::Log(x)-0.56",
+          'C': "0",
+          'D': "0",
+          },
+        'C1N2':{
+          'A': "1.45*TMath::Log(x)+1.63",
+          'B': "1.78*TMath::Log(x)+1.06",
+          'C': "0",
+          'D': "0",
+          },
+        }
+      }
+  res = {}
+  for r in ['A','B','C','D']:
+    flog = ROOT.TF1("flog",func[year][model][r],0,max(ctau*2,1000))
+    syst_func = flog.Eval(ctau)*0.01
+    syst = max(0.01,syst_func)
+    res[r] = syst
+  return res
 
 def getTFs(year):
   tfs = {
@@ -81,128 +98,16 @@ def getTFs(year):
       }
   return tfs[year]
 
-def getPDFUncert(mg, dm, ct, year):
-  '''
-  This function returns the PDF uncertainty for a given gluino mass (mg), mass splitting (dm), ctau (ct), and year
-  '''
-  p0 = {}
-  p0[100] = {
-    20161: 3.018E-05,
-    20162: 3.027E-05,
-    2017: 2.391E-05,
-    2018: 2.596E-05,
-  }
-  p0[200] = {
-    20161: 1.422E-05,
-    20162: 1.927E-05,
-    2017: 1.324E-05,
-    2018: 1.55E-05,
-  }
-  
-  p1 = {}
-  p1[100] = {}
-  p1[200] = {}
-  p1[100][20161] = {
-    0.1: 0.06294,
-    0.3: 0.01014,
-    1: -0.01016,
-    3: -0.00856,
-    10: -0.00596,
-    30: 0.01244,
-    100: 0.00934,
-    300: 0.02424,
-    1000: 0.03284,
-  }
-  p1[200][20161] = {
-    0.1: 0.06816,
-    0.3: 0.01976,
-    1: -0.00444,
-    3: -0.01134,
-    10: -0.00804,
-    30: 0.00506,
-    100: 0.01646,
-    300: 0.02556,
-    1000: 0.03756,
-  }
-  p1[100][20162] = {
-    0.1: 0.04696,
-    0.3: 0.00456,
-    1: -0.00564,
-    3: -0.00264,
-    10: -0.00614,
-    30: -0.00114,
-    100: 0.00766,
-    300: 0.02016,
-    1000: 0.02716,
-  }
-  p1[200][20162] = {
-    0.1: 0.07456,
-    0.3: 0.00746,
-    1: -0.00634,
-    3: -0.02054,
-    10: -0.01874,
-    30: -0.00444,
-    100: 0.00656,
-    300: 0.01096,
-    1000: 0.02726,
-  }
-  p1[100][2017] = {
-    0.1: 0.05958,
-    0.3: 0.01558,
-    1: 0.00048,
-    3: -0.00142,
-    10: -0.00142,
-    30: 0.00538,
-    100: 0.01728,
-    300: 0.02728,
-    1000: 0.03278,
-  }
-  p1[200][2017] = {
-    0.1: 0.06022,
-    0.3: 0.01582,
-    1: -0.00678,
-    3: -0.01088,
-    10: -0.00908,
-    30: -0.00008,
-    100: 0.01232,
-    300: 0.02182,
-    1000: 0.02972,
-  }
-  p1[100][2018] = {
-    0.1: 0.05678,
-    0.3: 0.00918,
-    1: -0.00032,
-    3: 0.00578,
-    10: 0.00638, 
-    30: 0.00788,
-    100: 0.01928, 
-    300: 0.02878, 
-    1000: 0.03128,
-  }
-  p1[200][2018] = {
-    0.1: 0.0613,
-    0.3: 0.014,
-    1: -0.013,
-    3: -0.0127,
-    10: -0.0106,
-    30: -0.0022,
-    100: 0.0071, 
-    300: 0.0243, 
-    1000: 0.0311,
-  }
-
-  return p0[dm][year]*mg+p1[dm][year][float(ct)/1000]
-
-def getSystUncert(dm, year):
+def getSystUncert(dm, year, model):
   '''
   This function returns a dictionary that includes systematic cources
   '''
-  csv_path = 'sig_syst_csv.csv'
+  csv_path = f'sig_syst_csv_{model}.csv'
   df = pd.read_csv(csv_path, index_col=0)
   #source_dm_dependent = ["vtxreco", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn"]
   source_dm_dependent = []
   #source_dm_independent = ["trigger","vtxreco","jetmet","tkreco","pu", "l1", "intlumi"]
-  source_dm_independent = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
+  source_dm_independent = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","lumi1718","qcdscale","pdf"]
   #source_dm_independent = ["trackreco", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
   s = {}
   for source in source_dm_dependent:
@@ -216,11 +121,22 @@ def getSystUncert(dm, year):
 
   return s
 
-def getNumSigEvents(fn, regions, SF, HEMpath=None, HEMfrac=None):
+def getNumSigEvents(filepath, regions, model, mLLP, dm, ctau, BR, year, SF, HEMpath=None, HEMfrac=None):
   if (HEMpath is None) or (HEMfrac is None):
-    return getNumEvents(fn, regions, SF, useData=False)
-  noHEM = getNumEvents(fn, regions, SF, useData=False)
-  HEM = getNumEvents(HEMpath, regions, SF, useData=False)
+    return getNumEventsCtau(filepath, regions, model, mLLP, dm, ctau, BR, year, SF)
+  noHEM = getNumEventsCtau(filepath, regions, model, mLLP, dm, ctau, BR, year, SF)
+  HEM = getNumEventsCtau(HEMpath, regions, model, mLLP, dm, ctau, BR, year, SF)
+  res = noHEM
+  for i in range(len(regions)):
+    res['weighted'][i] = noHEM['weighted'][i]*(1-HEMfrac) + HEM['weighted'][i]*HEMfrac
+    res['raw'][i] = int(noHEM['raw'][i]*(1-HEMfrac) + HEM['raw'][i]*HEMfrac)
+  return res
+
+def getNumSigEvents_old(fn, regions, SF, HEMpath=None, HEMfrac=None):
+  if (HEMpath is None) or (HEMfrac is None):
+    return getNumEventsPKL(fn, regions, SF, useData=False)
+  noHEM = getNumEventsPKL(fn, regions, SF, useData=False)
+  HEM = getNumEventsPKL(HEMpath, regions, SF, useData=False)
   res = noHEM
   for i in range(len(regions)):
     res['weighted'][i] = noHEM['weighted'][i]*(1-HEMfrac) + HEM['weighted'][i]*HEMfrac
@@ -279,84 +195,162 @@ def getNumEvents(fn, regions, SF=1, useData=True, blind=True):
 
   return d
 
-def getNumEventsCtau(fnbase, ctau, SF):
-
-  def loadall(filename):
-    # ["MLScore", "vtx_ntk", "weight", "ctau0", "ctau1"]
-    l = []
-    with open(filename, "rb") as f:
-        while True:
-            try:
-                l.append(pkl.load(f))
-            except EOFError:
-                break
-    return l
-
-  def getctauweight(ct,origin,target):
-    eq_origin = (1/origin)*np.exp(-ct/origin)
-    eq_target = (1/target)*np.exp(-ct/target)
-    return eq_target/eq_origin
-
+def getNumEventsPKL(fn, regions, SF=1, useData=True, blind=True):
+  '''
+  This function return a dictionary including:
+    raw: raw number of events in the region
+    weighted: weighted number of events in the region
+    stat_uncert: statistical uncertainty of number of events in the region
+  '''
   d = {
     'raw': [],
     'weighted': [],
     'stat_uncert': [],
   }
+  # Get data from pkl file
+  with open(fn,"rb") as f:
+    data = pkl.load(f)
 
-  if os.path.exists(filepath+fnbase % (ctau)+'.pkl'):
-    f = loadall(filepath+fnbase % (ctau)+'.pkl')
-    idx_regions = [
-      ((f[1]>=5).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]>=5).flatten()) & ((f[0]<0.2).flatten()),
-      ((f[1]==4).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]==4).flatten()) & ((f[0]<0.2).flatten()),
-      ((f[1]==3).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]==3).flatten()) & ((f[0]<0.2).flatten()),
-    ]
-    for i in range(len(idx_regions)):
-      idx_select = idx_regions[i]
-      d['raw'].append(int(len(f[2][idx_select])))
-      d['weighted'].append(np.sum(f[2][idx_select])*SF)
+  for r in regions:
+    r = r.replace("_evt","")
+    nevt_raw = len(data[r]['evt_weight'])
+    nevt = np.sum(data[r]['evt_weight'])
+
+    if nevt<=0:
+      nevt = 0.000001
+    if useData and blind and (r in blinding_regions):
+      d['raw'].append(0)
+      d['weighted'].append(0)
       d['stat_uncert'].append(0.00)
+    else:
+      d['raw'].append(int(nevt_raw))
+      d['weighted'].append(nevt*SF)
+      d['stat_uncert'].append(0.00)
+
+  return d
+
+def getwidth(m,dm):
+    # this calculated the 4-body partial decay width 
+    # m is the LLP mass and dm is the mass splitting
+    return (9*28*(1.98*1e-14)*((dm)/30)**8*(400/m))
+
+def getctau(m,dm):
+    # this calculates the mean proper length of the LLP
+    # m is the LLP mass and dm is the mass splitting
+    return 1.973269788e-13/getwidth(m,dm)
+
+def getctauBR(m,dm,br):
+    # this calculates the mean proper length of the LLP
+    # m is the LLP mass and dm is the mass splitting
+    width_4body = getwidth(m,dm)
+    width_total = width_4body/br
+    return 1.973269788e-13/width_total
+
+def getctauweight(ct,origin,target):
+  clipct = np.clip(ct,a_min=0,a_max=origin)
+  #eq_origin = (1/origin)*np.exp(-clipct*10/origin)
+  #eq_target = (1/target)*np.exp(-clipct*10/target)
+  #ratio = eq_target/eq_origin
+  ratio = (origin/target)*np.exp(clipct*10*((1/origin)-(1/target)))
+  return ratio
+
+def getBRweight(decaymode,origin=0.5,target=0.5):
+  w4 = target/origin
+  w2 = (1-target)/(1-origin)
+  w = w4*(decaymode==1)+w2*(decaymode==2)
+  return w
+
+def ctaustr(ct):
+  if ct>1:
+    return str(ct).replace('.0','')
   else:
-    ctau_list = np.array([100,1000,10000,100000,1000000])
-    idx_pos = np.searchsorted(ctau_list, ctau, side='right')
-    found = False
-    while (idx_pos<len(ctau_list)):
-      if os.path.exists(filepath+fnbase % (ctau_list[idx_pos])+'.pkl'):
-        found = True
-        break
-      else:
-        idx_pos += 1
-    if not found:
-      idx_pos = len(ctau_list)-1
-      while (idx_pos>=0):
-        if os.path.exists(filepath+fnbase % (ctau_list[idx_pos])+'.pkl'):
-          found = True
-          break
-        else:
-          idx_pos -= 1
-    if not found:
-      print("No files available for reweighting!")
-    f = loadall(filepath+fnbase % (ctau_list[idx_pos])+'.pkl')
-    w = []
-    for i in range(len(f[3])):
-      w.append(getctauweight(f[3][i],ctau_list[idx_pos]/10000,ctau/10000)*getctauweight(f[4][i],ctau_list[idx_pos]/10000,ctau/10000)*f[2][i])
-    w = np.array(w)
-    idx_regions = [
-      ((f[1]>=5).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]>=5).flatten()) & ((f[0]<0.2).flatten()),
-      ((f[1]==4).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]==4).flatten()) & ((f[0]<0.2).flatten()),
-      ((f[1]==3).flatten()) & ((f[0]>0.2).flatten()),
-      ((f[1]==3).flatten()) & ((f[0]<0.2).flatten()),
-    ]
-    for i in range(len(idx_regions)):
-      idx_select = idx_regions[i]
-      d['raw'].append(int(len(w[idx_select])))
-      d['weighted'].append(np.sum(w[idx_select])*SF)
-      d['stat_uncert'].append(0.00)
+    return str(ct).replace('.','p')
 
+def getNumEventsCtau(filepath, regions, model, mLLP, dm, ctau, BR, year, SF):
+  d = {
+    'raw': [0]*len(regions),
+    'weighted': [0]*len(regions),
+    'stat_uncert': [0]*len(regions),
+  }
+
+  # Determine which files to use for reweighting
+  print("Reweighting for ctau {}".format(ctau))
+  file_list = []
+  ctau_file = []
+  ctau_C1N2 = [0.2,0.5,1,2,5,10,20,50,100,200]
+  dmtoctau = {
+      'stop':{
+        12: [20,200],
+        15: [2,20],
+        20: [0.2,2],
+        25: [0.2],
+        },
+      'C1N2':{
+        12: [0.2,2,20,200],
+        15: [0.2,2,20,200],
+        20: [0.2,2,20,200],
+        25: [0.2,2,20,200],
+        }
+      }
+  ctau_list = dmtoctau[model][dm]
+  ctau_use = []
+  #ctau_list = np.array([0.2,2,20,200])    # units in mm
+  idx_pos = np.searchsorted(ctau_list, ctau, side='right')
+  if idx_pos==0:
+    ctau_use.append(ctau_list[idx_pos])
+  elif idx_pos>=len(ctau_list):
+    ctau_use.append(ctau_list[idx_pos-1])
+  else:
+    #ctau_use.append(ctau_list[idx_pos-1])
+    ctau_use.append(ctau_list[idx_pos])
+  for ict in ctau_use:
+    fntmp = os.path.join(filepath,"{}_M{}_{}_ct{}_{}_hist.pkl".format(model,mLLP,mLLP-dm,ctaustr(ict),year))
+    if os.path.exists(fntmp):
+      file_list.append(fntmp)
+      ctau_file.append(ict)
+    else:
+      print("File not available: {}".format(fntmp))
+
+  nfiles = len(file_list)
+  if nfiles==0:
+    print("No files available for reweighting!")
+  else:
+    print("Reweighting using the following files:")
+    print(file_list)
+
+  # Get the number of events using the files
+  for ifn,ict in zip(file_list,ctau_file):
+    # Get data from pkl file
+    with open(ifn,"rb") as f:
+      data = pkl.load(f)
+
+    for ir,r in enumerate(regions):
+      r = r.replace("_evt","")
+      # Calculate ctau weights
+      #ct_weights = getctauweight(data[r]['LLP_ctau'],ict,ctau)
+      if model=='stop':
+        BRweights0 = getBRweight(data[r]['LLP_decaymode0'],target=BR)
+        BRweights1 = getBRweight(data[r]['LLP_decaymode1'],target=BR)
+        ct_weights0 = getctauweight(data[r]['LLP_ctau0'],ict,ctau)
+        ct_weights1 = getctauweight(data[r]['LLP_ctau1'],ict,ctau)
+        ct_weights = ct_weights0*ct_weights1*BRweights0*BRweights1
+      elif model=='C1N2':
+        ct_weights0 = getctauweight(data[r]['LLP_ctau0'],ict,ctau)
+        ct_weights = ct_weights0
+      else:
+        raise Exception("Model {} not supported!".format(model))
+      #ct_weights = np.prod(ct_weights,axis=1)
+
+      nevt_raw = np.sum(ct_weights!=0)
+      nevt = np.sum(data[r]['evt_weight']*ct_weights)
+
+      d['raw'][ir] += nevt_raw
+      d['weighted'][ir] += nevt
+
+  for ir in range(len(regions)):
+    d['weighted'][ir] /= nfiles
+    d['weighted'][ir] *= SF
+  
   return d
 
 
@@ -370,6 +364,7 @@ def getYield(nevt):
 
 template = '''
 # Signal sample: _SIGNAL_
+# Ctau: _CTAU_
 # Expected limit datacard for MC
 imax _NCHANNELS_  number of channels
 jmax 1  number of backgrounds
@@ -418,19 +413,21 @@ model = "stop"
 #model = "C1N2"
 filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
 filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
-#filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_1118/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_vtxweight_local/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
-filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG/'
-#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_HEM_datacard_mapveto_local/'
-#filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_HEM_noPU/'
-filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU_PrivateSIG_HEM/'
-#mLLP = [600]
-#ctaus = ['200']
-#dms = [12]
-mLLP = [600,1000,1400]
-ctaus = ['0p2','2','20','200']
-dms = [25,20,15,12]
+filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal/'
+filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal_HEM/'
+
+if model=='stop':
+  mLLP = [400,500,600,700,800,900,1000,1100,1200,1300,1400]
+  BRs = [0.1,0.5,1]
+  dms = [25,20,15,12]
+elif model=='C1N2':
+  mLLP = [200,300,400,500,600]
+  BRs = [1]
+  #ctaus = [0.2,2,20,200]
+  ctaus = [0.2,0.5,1,2,5,10,20,50,100,200]
+  dms = [25,20,15,12]
+
+BRorCtaus = BRs if model=='stop' else ctaus
 
 #blinding_regions = ['SR_g2tk_evt','SR_g2tk_CRlowMET_evt','SR_g2tk_CRlowLxy_evt','SR_g2tk_CRlowLxylowMET_evt','SR_2tk_evt','SR_2tk_CRlowMET_evt','SR_2tk_CRlowLxy_evt','SR_2tk_CRlowLxylowMET_evt','VR1_evt','VR1_CRlowLxy_evt']
 blinding_regions = []
@@ -473,14 +470,6 @@ syst_uncert = ''
 #              +'\t-'*((len(channels)-1)*len(processes))+'\n'
 #n_uncerts_bkg += 1
 
-#a__YEAR_    rateParam   A_YEAR_   background    ((@0*@1)/@2)  b__YEAR_,e__YEAR_,f__YEAR_
-#b__YEAR_    rateParam   B_YEAR_   background    _BYIELD_
-#c__YEAR_    rateParam   C_YEAR_   background    _CYIELD_
-#d__YEAR_    rateParam   D_YEAR_   background    _DYIELD_
-#e__YEAR_    rateParam   E_YEAR_   background    _EYIELD_
-#f__YEAR_    rateParam   F_YEAR_   background    _FYIELD_
-#g__YEAR_    rateParam   G_YEAR_   background    _GYIELD_
-#h__YEAR_    rateParam   H_YEAR_   background    _HYIELD_
 abcd = '''
 CMS_EXO24033_f_1__YEAR_          param       _F1_  _F1ERR_
 CMS_EXO24033_f_2__YEAR_          param       _F2_  _F2ERR_
@@ -517,30 +506,29 @@ for fl in f_label:
   abcd = abcd.replace(fl,str(tfs[fl]))
 
 for m in mLLP:
-  for ctau,dm in zip(ctaus, dms):
-      signal = "{}_M{}_{}_ct{}_{}_hist.root".format(model,m,m-dm,ctau,args.year)
-
-      syst = getSystUncert(dm,args.year)
-      sf = 1
-      #sf = 1-syst['vtxreco']
-      #sf = sf*args.scale
-      if os.path.exists(filepathSig+signal): 
-        #d_sig = getNumEvents(filepathSig+signal,dirs,SF=sf,useData=False)
-        if args.HEM:
-          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=filepathSigHEM+signal,HEMfrac=0.6477)
-        else:
-          d_sig = getNumSigEvents(filepathSig+signal,dirs,SF=sf,HEMpath=None,HEMfrac=None)
+  for dm in dms:
+    for ibc in BRorCtaus:
+      if model=='stop':
+        ctau = getctauBR(m,dm,ibc)
+        BR = ibc
       else:
-        print("File {} does not exist. Skipping...".format(filepathSig+signal))
-        continue
-      #else:
-      #  d_sig = getNumEventsCtau("mfv_splitSUSY_tau00%07ium_M{}_{}_{}_METtrigger".format(mg,mg-dm,args.year), ctau,SF=sf)
+        ctau = ibc
+        BR = 1
+      BRCtau_str = '{}{}'.format("BR" if model=='stop' else 'ct',ibc)
+      signal = '{}_M{}_{}_{}_{}'.format(model,m,m-dm,BRCtau_str,args.year).replace('.','p')
+      syst = getSystUncert(dm,args.year,model)
+      sf = 1
+      if args.HEM:
+        d_sig = getNumSigEvents(filepathSig, dirs, model, m, dm, ctau, BR, args.year, sf, HEMpath=filepathSigHEM, HEMfrac=0.6477)
+      else:
+        d_sig = getNumSigEvents(filepathSig, dirs, model, m, dm, ctau, BR, args.year, sf, HEMpath=None, HEMfrac=None)
+
       n_uncerts_sig = 0
       rate = ''
       sig_stat_uncert = ''
       sig_syst_uncert = ''
-      syst_sources = ["trigger","vtxreco","jes","jer","uncEn","tauveto","pu", "l1", "intlumi","qcdscale","pdf"]
-      syst_sources_nice = ["CMS_EXO24033_METtrigger","CMS_EXO24033_vtxreco","CMS_scale_j","CMS_res_j","CMS_EXO24033_scale_met_unclustered_energy","CMS_eff_t","CMS_pileup","CMS_l1_ecal_prefiring","lumi_13TeV_1718","QCDscale_BSMsignal","CMS_EXO24033_PDF"]
+      syst_sources = ["trigger","vtxreco","jes","jer","uncEn","pu", "l1", "intlumi","lumi1718","qcdscale","pdf"]
+      syst_sources_nice = ["CMS_EXO24033_METtrigger","CMS_EXO24033_vtxreco","CMS_scale_j","CMS_res_j","CMS_EXO24033_scale_met_unclustered_energy","CMS_pileup","CMS_l1_ecal_prefiring","lumi_"+str(args.year),"lumi_13TeV_1718","QCDscale_BSMsignal","CMS_EXO24033_PDF"]
       #syst_sources = ["vtxtkreco_Corr", "ML", "fake_MET", "MET_JetRes", "MET_JetEn", "MET_UnclusterEn", "trigger", "trigger_ele", "pu", "l1", "intlumi"]
       for i in range(len(channels)):
         rate += '\t{:.5g}'.format(d_sig['weighted'][i])
@@ -573,8 +561,9 @@ for m in mLLP:
           n_uncerts_sig += 1
 
       # mapveto
+      mapvetosyst = getmapvetosyst(model,ctau,int(args.year))
       sig_syst_uncert += 'CMS_EXO24033_material_map\tlnN' \
-                        +('\t{:.5g}'.format(1+getmapvetosyst(ctau))+'\t-'*(len(processes)-1))*len(channels) +'\n'
+          +('\t{:.5g}'.format(1+mapvetosyst['A'])+'\t-'*(len(processes)-1)+'\t{:.5g}'.format(1+mapvetosyst['B'])+'\t-'*(len(processes)-1)+'\t{:.5g}'.format(1+mapvetosyst['C'])+'\t-'*(len(processes)-1)+'\t{:.5g}'.format(1+mapvetosyst['D'])+'\t-'*(len(processes)-1))*int(len(channels)/4) +'\n'
       n_uncerts_sig += 1
 
       #sig_syst_uncert += 'signal_syst_PDF\tlnN' \
@@ -582,6 +571,7 @@ for m in mLLP:
       #n_uncerts_sig += 1
 
       template_new = template.replace('_SIGNAL_',signal)
+      template_new = template.replace('_CTAU_',str(ctau))
       template_new = template_new.replace('_NCHANNELS_',str(len(channels)))
       template_new = template_new.replace('_NUNCERT_',str(n_uncerts_bkg+n_uncerts_sig+6))
       template_new = template_new.replace('_CHANNELNAME_',str('\t'.join(channels)))
@@ -599,7 +589,7 @@ for m in mLLP:
       #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_data['raw'])))
       #else:
       #  template_new = template_new.replace('_OBSERVATION_','\t'.join(map(lambda x:"{:.2f}".format(x),d_bkg['weighted'])))
-      f_datacard = open(os.path.join(args.output,signal.replace("_hist.root",'')+'_datacard.txt'),'w')
+      f_datacard = open(os.path.join(args.output,signal.replace("_hist.pkl",'')+'_datacard.txt'),'w')
       f_datacard.write(template_new)
       f_datacard.close()
 

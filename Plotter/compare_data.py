@@ -13,7 +13,7 @@
 import os
 import ROOT
 import SoftDisplacedVertices.Samples.Samples as s
-ROOT.EnableImplicitMT()
+ROOT.EnableImplicitMT(4)
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
@@ -93,43 +93,48 @@ def move_overflows_into_visible_bins(h, opt='under over'):
         move_above_into_bin(h, h.GetBinLowEdge(h.GetXaxis().GetLast()))
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input', type=str, nargs='+',
-                    help='files to compare')
+parser.add_argument('--data', type=str, nargs='+',
+                    help='data file to compare')
+parser.add_argument('--bkg', type=str, nargs='+',
+                    help='background files to compare')
+parser.add_argument('--bkgnice', type=str, nargs='+',
+                    help='background legend names')
+parser.add_argument('--signal', type=str, nargs='+',
+                    help='signal files to compare')
+parser.add_argument('--signice', type=str, nargs='+',
+                    help='signal legend names')
 parser.add_argument('--output', type=str,
                     help='output dir')
 parser.add_argument('--dirs', type=str, nargs='+',
                     help='directories to compare')
-parser.add_argument('--nice', type=str, nargs='+',
-                    help='legend names')
 parser.add_argument('--scale', action='store_true', default=False,
                     help='Whether to scale the plot')
 parser.add_argument('--commands', type=str, nargs='+',
                     help="Additional commands, such as rebinning or set range etc.")
 parser.add_argument('--ratio', action='store_true', default=False,
                     help="Whether to plot the ratio")
-parser.add_argument('--datamc', action='store_true', default=False,
-                    help="Whether it is a data/MC comparision")
 
 args = parser.parse_args()
 
-#colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
-colors_global = [ROOT.kRed,ROOT.kGreen,ROOT.kYellow+1,ROOT.kBlack,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+signal_colors = [ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+bkg_colors = [ROOT.kBlue-9, ROOT.kBlue-5, ROOT.kCyan-9]
 
 def AddHists(hs,ws):
   assert len(hs)==len(ws)
+  hnew = hs[0].Clone()
   for i in range(len(hs)):
     hs[i].Scale(ws[i])
     if i>0:
-      hs[0].Add(hs[i])
-  return hs[0]
+      hnew.Add(hs[i])
+  return hnew
 
 def StackHists(hs,ws):
   assert len(hs)==len(ws)
   h = ROOT.THStack("h","")
   for i in range(len(hs)):
     hs[i].Scale(ws[i])
-    hs[i].SetLineColor(i+1)
-    hs[i].SetFillColor(i+1)
+    #hs[i].SetLineColor(i+1)
+    #hs[i].SetFillColor(i+1)
     h.Add(hs[i])
   return h
 
@@ -140,39 +145,70 @@ def h_command(h):
     exec(c)
     return
 
-def datamccomparison(name,data,mc,scale=False, ratio=True):
-  c = ROOT.TCanvas("c"+name,"c"+name,600,600)
-  l = ROOT.TLegend(0.6,0.7,0.9,0.9)
-  move_overflows_into_visible_bins(data)
-  move_overflows_into_visible_bins(mc)
-  if scale and data.Integral()!=0 and mc.Integral()!=0:
-    data.Scale(1./data.Integral())
-    mc.Scale(1./mc.Integral())
-  mc.SetLineColor(ROOT.kBlue)
-  mc.SetFillColor(ROOT.kBlue-9)
-  mc.SetFillStyle(1001)
-  data.SetLineColor(ROOT.kBlack)
-  data.SetMarkerStyle(20)
-  data.SetMarkerSize(1.0)
+def datamccomparison(name,hs,colors,legends,scale=False, ratio=True):
+  c = ROOT.TCanvas("c"+name,"c"+name,1000,800)
+  l = ROOT.TLegend(0.72,0.7,1.0,0.9)
+  for k in hs:
+    for i in range(len(hs[k])):
+      h = hs[k][i]
+      move_overflows_into_visible_bins(h)
+      if k=='data':
+        h.SetLineColor(ROOT.kBlack)
+        h.SetMarkerStyle(20)
+        h.SetMarkerSize(0.8)
+      elif k=='bkg':
+        h.SetLineColor(ROOT.kBlue)
+        h.SetFillColor(ROOT.kBlue-9)
+        #h.SetFillStyle(1001)
+        h.SetLineColor(colors[k][i])
+        h.SetFillColor(colors[k][i])
+      elif k=='sig':
+        h.SetLineColor(colors[k][i])
+        h.SetLineWidth(2)
+  w =  [1]*len(hs['data'])
+  data = AddHists(hs['data'],w)
+  w = [1]*len(hs['bkg'])
+  bkg_mc = AddHists(hs['bkg'],w)
+  bkg_mc.SetLineColor(0)
+  bkg_mc.SetFillColor(1)
+  bkg_mc.SetFillStyle(3254)
+  if scale and bkg_mc.Integral()!=0:
+    w = [data.Integral()/bkg_mc.Integral()]*len(hs['bkg'])
+    bkg_mc.Scale(data.Integral()/bkg_mc.Integral())
+  bkg_stack = StackHists(hs['bkg'],w)
   l.SetBorderSize(0)
   l.AddEntry(data, "data", "lep")
-  l.AddEntry(mc, "background MC")
+  for k in ['bkg','sig']:
+    for i in range(len(hs[k])):
+      l.AddEntry(hs[k][i],legends[k][i])
 
-  if ratio and (('TH1' in str(type(data))) and ('TH1' in str(type(mc)))):
-    rp = ROOT.TRatioPlot(data,mc)
+  if ratio and (('TH1' in str(type(data))) and ('TH1' in str(type(bkg_mc)))):
+    rp = ROOT.TRatioPlot(data,bkg_mc)
     rp.SetH1DrawOpt("e")
-    rp.SetH2DrawOpt("histE2")
+    rp.SetH2DrawOpt("E2")
     rp.GetLowYaxis().SetNdivisions(505)
+    rp.SetRightMargin(0.3)
+    rp.SetSeparationMargin(0.01)
     rp.Draw()
+    #rmax = rp.GetLowerRefGraph().GetMaximum()
+    #rp.GetLowerRefGraph().SetMinimum(0.85)
+    rp.GetLowerRefGraph().SetMaximum(2.5)
     rp.GetLowerRefYaxis().SetTitle("Data/MC")
     rp.GetLowerRefGraph().SetMarkerStyle(20)
     rp.GetLowerRefGraph().SetLineColor(1)
     rp.GetLowerRefGraph().SetMarkerColor(1)
     rp.GetUpperPad().cd()
+    bkg_stack.Draw("hist SAME")
+    bkg_mc.Draw("E2 SAME")
+    for i in range(len(hs['sig'])):
+      hs['sig'][i].Draw("SAME histE1")
     data.Draw("PE SAME")
     rp.GetUpperPad().SetLogy()
   else:
-    mc.Draw("histE1")
+    bkg_stack.Draw("hist")
+    bkg_mc.Draw("SAME E2")
+    for i in range(len(hs['sig'])):
+      hs['sig'][i].Draw("SAME histE1")
     data.Draw("PE SAME")
     c.SetLogy()
 
@@ -186,7 +222,7 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
   if colors is None:
     colors = colors_global[:len(hs)]
   c = ROOT.TCanvas("c"+name,"c"+name,600,600)
-  l = ROOT.TLegend(0.6,0.7,0.9,0.9)
+  l = ROOT.TLegend(0.7,0.7,1.0,1.0)
   y_max = 0
   y_min = 1
   for i in range(len(hs)):
@@ -204,13 +240,15 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
   if ratio and len(hs)==2 and (('TH1' in str(type(hs[0]))) and ('TH1' in str(type(hs[1])))):
     rp = ROOT.TRatioPlot(hs[0],hs[1])
     rp.GetLowYaxis().SetNdivisions(505)
+    rp.SetSeparationMargin(0.01)
+    #rp.SetRightMargin(0.4)
     rp.Draw()
 
   else:
     for i in range(len(hs)):
       if i==0:
         hs[i].SetMaximum(10*y_max)
-        hs[i].SetMinimum(0.5*y_min)
+        #hs[i].SetMinimum(0.5*y_min)
         hs[i].DrawClone()
       else:
         hs[i].DrawClone("same")
@@ -218,58 +256,59 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
 
   #l.Draw()
   c.Update()
-  if ratio:
-    c.GetUpperPad().SetLogy()
-    c.GetUpperPad().BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
-  else:
-    c.SetLogy()
-    c.BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
-
+  c.GetUpperPad().SetLogy()
+  c.GetUpperPad().BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
   c.Update()
   c.SaveAs("{}.pdf".format(args.output+'/'+name))
   c.SaveAs("{}.png".format(args.output+'/'+name))
 
-def compareDiffFiles(fns,legend,colors,scale,ratio,datamc):
-  fs = [ROOT.TFile.Open(fn) for fn in fns]
-  dirs = []
+def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,scale,ratio):
+  assert(len(bkgfns)==len(bkglegend))
+  assert(len(sigfns)==len(siglegend))
+  legends = {
+      'bkg':bkglegend,
+      'sig':siglegend,
+      }
+  colors = {
+      'bkg':bkgcolors,
+      'sig':sigcolors,
+      }
+  fs = {
+      'data': [ROOT.TFile.Open(fn) for fn in datafn],
+      'bkg': [ROOT.TFile.Open(fn) for fn in bkgfns],
+      'sig': [ROOT.TFile.Open(fn) for fn in sigfns]
+      }
+  dirs = ''
   if (args.dirs is None) or (len(args.dirs)==0):
-    dirs = ['']*len(fs)
-    plots = [p.GetName() for p in fs[0].GetListOfKeys()]
+    dirs = ''
+    plots = [p.GetName() for p in fs['data'][0].GetListOfKeys()]
   else:
-    dirs = args.dirs
-    if len(dirs)==1:
-      dirs = [args.dirs[0]]*len(fs)
-    fdir = fs[0].Get(args.dirs[0])
+    dirs = args.dirs[0]
+    fdir = fs['data'][0].Get(dirs)
     if not fdir:
-      print("{} not available in {}!".format(args.dirs[0],fs[0].GetName()))
+      print("{} not available in {}!".format(args.dirs[0],fs['data'][0].GetName()))
     plots = [p.GetName() for p in fdir.GetListOfKeys()]
   
-  assert(len(dirs)==len(fs))
+  if not dirs=='':
+    dirs += '/'
   for plt in plots:
-    h_compare = []
-    for f,d in zip(fs,dirs):
-      try:
-        if d=='':
-          h = f.Get(plt)
-        else:
-          h = f.Get(d+'/'+plt)
-      except:
-        print('{} is not available in {}!'.format(d+'/'+plt,f.GetName()))
-        continue
-      if not h:
-        print('{} is not available in {}!'.format(d+'/'+plt,f.GetName()))
-        continue
-      h.SetDirectory(0)
-      h_command(h)
-      h_compare.append(h)
+    hs = {}
+    for k in fs:
+      if not (k in hs):
+        hs[k] = []
+      for f in fs[k]:
+        h = f.Get(dirs+plt)
+        if not h:
+          print('{} is not available in {}!'.format(dirs+plt,f.GetName()))
+          continue
+        h.SetDirectory(0)
+        h_command(h)
+        hs[k].append(h)
+    datamccomparison(plt,hs,colors,legends,scale=False, ratio=True)
   
-    if datamc:
-      datamccomparison(plt,h_compare[0],h_compare[1],scale, ratio)
-    else:
-      comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
-  
-  for f in fs:
-    f.Close()
+  for k in fs:
+    for f in fs[k]:
+      f.Close()
 
 def compareSameFile(fn,legend,colors,scale,ratio):
   f = ROOT.TFile.Open(fn)
@@ -301,9 +340,6 @@ def compareSameFile(fn,legend,colors,scale,ratio):
 if __name__ == "__main__":
   if not os.path.exists(args.output):
     os.makedirs(args.output)
-  if len(args.input)==1:
-    assert(len(args.dirs)>1)
-    compareSameFile(args.input[0],args.nice,None,args.scale,ratio=args.ratio)
-  else:
-    compareDiffFiles(args.input,args.nice,None,args.scale,ratio=args.ratio,datamc=args.datamc)
+  makeplots(args.data,args.bkg,args.signal,args.bkgnice,args.signice,bkg_colors,signal_colors,args.scale,ratio=args.ratio)
+
 
