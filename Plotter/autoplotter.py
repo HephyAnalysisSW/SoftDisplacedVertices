@@ -63,7 +63,7 @@ if __name__=="__main__":
     except AttributeError:
       sample_parsed = samp.split('_')
       # Raise error unless the naming conventions are followed.
-      if (sample_parsed[0] != 'stop') and (sample_parsed[0] != 'C1N2'): raise ValueError('We only support stop or C1N2 at the moment.')
+      if (sample_parsed[0] != 'stop') and (sample_parsed[0] != 'C1N2'): raise ValueError('This sample is not in the Samples.py, and it is not either a stop or a C1N2.')
       if sample_parsed[1][0] != 'M': raise ValueError('Follow our signal naming conventions.')
 
       input_model  = sample_parsed[0]

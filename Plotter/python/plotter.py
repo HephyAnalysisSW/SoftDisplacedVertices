@@ -7,7 +7,8 @@ correctionlib.register_pyroot_binding()
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/METxyCorrection.h"'.format(os.environ['CMSSW_BASE']))
-#ROOT.EnableImplicitMT(4)
+ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/applyJetVetoMap.h"'.format(os.environ['CMSSW_BASE']))
+ROOT.EnableImplicitMT(8)
 # Maybe let ROOT decide the number of threads to use
 ROOT.EnableImplicitMT()
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -53,15 +54,24 @@ class Plotter:
 
     if ('mapveto' in self.cfg):
       mappath = ''
-      if self.isData:
-        assert 'data_path' in self.cfg['mapveto'], "data_path not available in config!"
-        mappath = self.cfg['mapveto']['data_path']
-      else:
-        assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
-        mappath = self.cfg['mapveto']['mc_path']
-      self.f1 = ROOT.TFile.Open(mappath)
-      ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
-      self.f1.Close()
+      if 'material' in self.cfg['mapveto']:
+        if self.isData:
+          assert 'data_path' in self.cfg['mapveto']['material'], "material data_path not available in config!"
+          mappath = self.cfg['mapveto']['material']['data_path']
+        else:
+          assert 'mc_path' in self.cfg['mapveto']['material'], "material mc_path not available in config!"
+          mappath = self.cfg['mapveto']['material']['mc_path']
+        self.f1 = ROOT.TFile.Open(mappath)
+        ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
+        self.f1.Close()
+      
+      mappath = ''
+      if 'jetveto' in self.cfg['mapveto']:
+        assert 'path' in self.cfg['mapveto']['jetveto'][self.year], "jetveto path not available in config!"
+        mappath = self.cfg['mapveto']['jetveto'][self.year]['path']
+        self.f1 = ROOT.TFile.Open(mappath)
+        ROOT.gInterpreter.ProcessLine("auto h_jv = jetvetomap; h_jv->SetDirectory(0);")
+        self.f1.Close()
 
   def setCorrections(self):
     if 'corrections' in self.cfg and self.cfg['corrections'] is not None:
@@ -209,11 +219,24 @@ class Plotter:
   
   def AddVars(self,d):
       # MET xy corrections
-      d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
-      d = d.Define("MET_pt_corr",'MET_corr.first')
-      d = d.Define("MET_phi_corr",'MET_corr.second')
+      if self.year in ["2017", "2018"]:
+        d = d.Define("MET_corr", 'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
+        d = d.Define("MET_pt_corr", 'MET_corr.first')
+        d = d.Define("MET_phi_corr",'MET_corr.second')
+      elif self.year in ["2022", "2023", "2023BPix", "2024"]:
+        d = d.Define("MET_pt_corr",  'PuppiMET_pt')
+        d = d.Define("MET_phi_corr", 'PuppiMET_phi')
+      else:
+        raise ValueError("Check year!.")
+      
       if ('mapveto' in self.cfg):
-        d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
+        if 'material' in self.cfg['mapveto']:
+          d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
+        if 'jetveto' in self.cfg['mapveto']:
+          if self.year in ["2022", "2023", "2023BPix", "2024"]:
+            d = d.Define("Jet_mapveto", 
+                        'applyJetVetoMap(Jet_pt, Jet_eta, Jet_phi, Jet_jetId, Jet_chEmEF, Jet_neEmEF, Jet_muonIdx1, Jet_muonIdx1, h_jv, "{}")'.format(self.year))
+
       vars_to_define = ['new_variables']
       for v in vars_to_define:
         if (not v in self.cfg) or (self.cfg[v] is None):
@@ -231,6 +254,7 @@ class Plotter:
         d = d.Define("nJetHEM", self.cfg['nJetHEM'])
       else:
         d = d.Define("nJetHEM", "0")
+
       return d
   
   def AddVarsWithSelection(self,d):
@@ -490,6 +514,7 @@ class Plotter:
       d,w = self.getRDF()
 
       for sr in self.cfg['regions']:
+        print(f'DEBUG:    Region: {sr}')
         d_sr = d
         if self.cfg['regions'][sr] is not None:
           d_sr = d_sr.Filter(self.cfg['regions'][sr])
@@ -502,6 +527,7 @@ class Plotter:
         if self.cfg['objects']:
           for obj in self.cfg['objects']:
             for sels in self.cfg['objects'][obj]['selections']:
+              print(f'DEBUG:    obj: {obj}, sel: {sels}')
               newd = fout.mkdir("{}_{}_{}".format(sr,obj,sels))
               print()
               try:

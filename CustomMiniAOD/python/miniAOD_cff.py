@@ -9,7 +9,11 @@ def miniAOD_customise_SoftDisplacedVertices(process):
 
     task = getPatAlgosToolsTask(process)
     process.load('SoftDisplacedVertices.VtxReco.TrackFilter_cfi')
-    process.TrackFilter.histos = cms.bool(False)
+
+    # TFileService
+    if process.TrackFilter.histos == cms.bool(True):
+        process.TFileService = cms.Service("TFileService", fileName = cms.string("tree.root") )
+
  
     task.add(process.TrackFilter)
 

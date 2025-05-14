@@ -1,6 +1,8 @@
 # Usage:
-# python3 getMCInfo.py --sample_version CustomMiniAOD_v3 --json CustomMiniAOD_v3 --outDir ./
+# python3 getMCInfo.py --sample_version CustomMiniAOD_v3 --json MC_Run3Summer23.json --outDir ./
 
+# root [3] Events->Scan("GenEventInfoProduct_generator__SIM.obj->weight()")
+# root [4] LuminosityBlocks->Scan("GenFilterInfo_genFilterEfficiencyProducer__SIM.obj->sumWeights()")
 
 from DataFormats.FWLite import Lumis, Handle
 import os
@@ -22,8 +24,8 @@ def get_metadata(ss, sample_version):
       sample_dir = sp.getFileDirs(sample_version)
 
       yaml_dict[sp.name] = {'totalsumWeights': None,
-                         'totalsumPassWeights': None,
-                         'files': []}
+                            'totalsumPassWeights': None,
+                            'files': []}
       print('sp.name: ', sp.name)
       print('sample_dir: ', sample_dir)
       filename_list = []
@@ -72,7 +74,7 @@ def get_metadata(ss, sample_version):
         yaml.safe_dump(yaml_dict, outfile, default_flow_style=False)
         
     with open(args.outDir+'/metadata_'+sample_version+'.json', 'w') as outfile:
-        json.dump(json_dict, outfile)
+        json.dump(json_dict, outfile, indent=2)
 
 def get_metadata_dir(directory, outFileName):
     """
@@ -139,8 +141,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if not os.path.exists(args.outDir):
       os.makedirs(args.outDir)
-    #input_samples = s.c1n2_2018
-    input_samples = s.stop_2017
-    #input_samples = [s.C1N2_M1000_988_ct200_2018]
+    # input_samples = s.all_bkg_bpix_2023
+    input_samples = s.all_bkg_2023
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
     get_metadata(input_samples,args.sample_version)

@@ -1,3 +1,5 @@
+#include <iomanip>
+
 #include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
@@ -69,7 +71,8 @@ public:
   void getIsolation(const PolarLorentzVector& p4, const pat::PackedCandidateCollection* pc, int pc_idx,
                     pat::PFIsolation &iso, pat::PFIsolation &miniiso) const;
 private:
-  const edm::EDGetTokenT<reco::BeamSpot>        beamspot_token;
+  const edm::EDGetTokenT<reco::BeamSpot>                    beamspot_token;
+  const edm::EDGetTokenT<std::vector<reco::Vertex>>         vtxToken_;  // primaryVertices
   const edm::EDGetTokenT<pat::PackedCandidateCollection>    pc_;        // packedPFCandidates
   const edm::EDGetTokenT<pat::PackedCandidateCollection>    lt_;        // lostTracks
   const edm::EDGetTokenT<reco::TrackCollection>             gt_;        // generalTracks
@@ -93,7 +96,7 @@ private:
 
 
   static const int N_TRACK_TYPES = 2;
-  static const int N_TRACK_VARS = 11;
+  static const int N_TRACK_VARS = 13;
   TH1D* h_n_track[N_TRACK_TYPES];
   TH1D* h_track_vars[N_TRACK_TYPES][N_TRACK_VARS];
   TH1D* h_track_pt[N_TRACK_TYPES];
@@ -108,6 +111,7 @@ private:
 
 TrackFilter::TrackFilter(const edm::ParameterSet& cfg)
   : beamspot_token(consumes<reco::BeamSpot>(cfg.getParameter<edm::InputTag>("beamspot"))),
+    vtxToken_(consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("primaryVertices"))),
     pc_(consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("packedPFCandidates"))),
     lt_(consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("lostTracks"))),
     gt_(consumes<reco::TrackCollection>(cfg.getParameter<edm::InputTag>("generalTracks"))),
@@ -136,14 +140,13 @@ TrackFilter::TrackFilter(const edm::ParameterSet& cfg)
   produces<reco::TrackCollection>("seed");
   produces<std::vector<SoftDV::PFIsolation>>("isolationDR03");
 
-
   if (histos){
     edm::Service<TFileService> fs;
     const char* track_desc[N_TRACK_TYPES] = {"all", "seed"};
-    const char* var_names[N_TRACK_VARS] = {"pt", "eta", "phi", "dxy", "dxyerr", "nsigmadxy", "nhits", "normchi2", "dz", "pterr", "pterr_ratio"};
-    const int var_nbins[N_TRACK_VARS] = {250, 50, 50, 500, 500, 100, 20, 20, 80, 50, 50};
-    const double var_lo[N_TRACK_VARS] = {  0, -2.5, -3.15, -0.2,   0,  0,  0,  0, -20,    0,   0};
-    const double var_hi[N_TRACK_VARS] = { 50,  2.5,  3.15,  0.2, 0.2, 10, 20, 10,  20, 0.15, 0.1};
+    const char* var_names[N_TRACK_VARS] = {"pt", "eta", "phi", "dxy", "dxyerr", "ddxy", "ddxyerr", "nsigmadxy", "nhits", "normchi2", "dz", "pterr", "pterr_ratio"};
+    const int var_nbins[N_TRACK_VARS] = {250,   50,    50,  500, 500,  500, 500, 100, 20, 20,  80,   50,  50};
+    const double var_lo[N_TRACK_VARS] = {  0, -2.5, -3.15, -0.2,   0, -0.2,   0,   0,  0,  0, -20,    0,   0};
+    const double var_hi[N_TRACK_VARS] = { 50,  2.5,  3.15,  0.2, 0.2,  0.2, 0.2,  10, 20, 10,  20, 0.15, 0.1};
     for (int i=0; i<N_TRACK_TYPES; ++i){
       h_n_track[i] = fs->make<TH1D>(TString::Format("h_n_%s_track", track_desc[i]),TString::Format(";number of %s tracks;A.U.", track_desc[i]),200,0,200);
       for (int ii=0; ii<N_TRACK_VARS; ++ii){
@@ -160,10 +163,14 @@ bool TrackFilter::filter(edm::Event& event, const edm::EventSetup& setup) {
   std::unique_ptr<reco::TrackCollection> seed_tracks_copy(new reco::TrackCollection);
   std::unique_ptr<std::vector<SoftDV::PFIsolation>> track_isolationDR03(new std::vector<SoftDV::PFIsolation>);
 
-
   // BeamSpot
   edm::Handle<reco::BeamSpot> beamspot;
   event.getByToken(beamspot_token, beamspot);
+
+  // Primary Vertex
+  edm::Handle<reco::VertexCollection> recoVertices;
+  event.getByToken(vtxToken_, recoVertices);
+  auto pvx = recoVertices->begin();
 
   // packedPFCandidate collection
   edm::Handle<pat::PackedCandidateCollection> pc_h;
@@ -244,37 +251,70 @@ bool TrackFilter::filter(edm::Event& event, const edm::EventSetup& setup) {
 
     all_tracks->push_back(tkref);
     const double pt = tkref->pt();
+    const double dxy = tkref->dxy(pvx->position());
     const double dxybs = tkref->dxy(*beamspot);
-    const double dxyerr = tkref->dxyError();
-    const double nsigmadxybs = dxybs / dxyerr;
+    const double dxyerr = tkref->dxyError(pvx->position(), pvx->covariance());
+    const double dxyerrbs = tkref->dxyError();
+    const double nsigmadxy = dxy / dxyerr;
     const double nhits = tkref->hitPattern().numberOfValidHits();
     const double normchi2 = tkref->normalizedChi2();
-    const double dz = tkref->dz((*beamspot).position());
+    const double dz = tkref->dz(pvx->position());
     const double sigmapt = tkref->ptError();
     const double sigmapt_ratio = sigmapt / pt;
+    // std::cout.precision(15);
+    // if ((pt > 0.9884) && (pt < 0.9886)){
+    //   std::cout << "--------------------------------------------------------------------------------" << std::endl;
+    //   std::cout << std::scientific << std::setw(30) << "PV"                          << std::setw(30) << "BS"                    << std::endl;
+    //   std::cout << std::scientific << std::setw(30) << tkref->dxy(pvx->position()) << std::setw(30) << tkref->dxy(*beamspot) << std::endl;
+    //   std::cout << std::scientific << std::setw(30) << tkref->dxyError(pvx->position(), pvx->covariance()) << std::setw(30) << tkref->dxyError() << std::endl;
+    //   std::cout << std::scientific << std::setw(30) << tkref->dz(pvx->position()) << std::setw(30) << tkref->dz((*beamspot).position()) << std::endl;
+    //   std::cout << std::scientific << "pt " << pt << " " << min_track_pt << std::endl;
+    //   std::cout << std::scientific << "fabs(dxy) " << fabs(dxy) << " " << min_track_dxy << std::endl;
+    //   std::cout << std::scientific << "fabs(nsigmadxy) " << fabs(nsigmadxy) << " " << min_track_nsigmadxy << std::endl;
+    //   std::cout << std::scientific << "nhits " << nhits << " " << min_track_nhits << std::endl;
+    //   std::cout << std::scientific << "normchi2 " << normchi2 << " " << max_track_normchi2 << std::endl;
+    //   std::cout << std::scientific << "fabs(dz) " << fabs(dz) << " " << max_track_dz << std::endl;
+    //   std::cout << std::scientific << "sigmapt_ratio " << sigmapt_ratio << " " << max_track_sigmapt_ratio << std::endl;
+    //   std::cout << "--------------------------------------------------------------------------------" << std::endl;
+      
+  // }
 
     bool use_track =
       pt > min_track_pt &&
-      fabs(dxybs) > min_track_dxy &&
-      fabs(nsigmadxybs) > min_track_nsigmadxy &&
+      fabs(dxy) > min_track_dxy &&
+      fabs(nsigmadxy) > min_track_nsigmadxy &&
       nhits >= min_track_nhits &&
       normchi2 < max_track_normchi2 && 
       fabs(dz) < max_track_dz &&
       sigmapt_ratio < max_track_sigmapt_ratio;
 
     if (histos) {
-      const double vars[N_TRACK_VARS] = {pt, tkref->eta(), tkref->phi(), dxybs, dxyerr, nsigmadxybs, nhits, normchi2, dz, sigmapt, sigmapt_ratio};
+      const double vars[N_TRACK_VARS] = {pt, tkref->eta(), tkref->phi(), dxy, dxyerr, dxy - dxybs, dxyerr-dxyerrbs, nsigmadxy, nhits, normchi2, dz, sigmapt, sigmapt_ratio};
       for (int ivar=0; ivar<N_TRACK_VARS; ++ivar){
         h_track_vars[0][ivar]->Fill(vars[ivar]);
       }
     }
 
     if (use_track) {
+      // std::cout<< "PASS" << std::endl;
+      // std::cout << "--------------------------------------------------------------------------------" << std::endl;
+      // std::cout << std::scientific << std::setw(30) << "PV"                          << std::setw(30) << "BS"                    << std::endl;
+      // std::cout << std::scientific << std::setw(30) << tkref->dxy(pvx->position()) << std::setw(30) << tkref->dxy(*beamspot) << std::endl;
+      // std::cout << std::scientific << std::setw(30) << tkref->dxyError(pvx->position(), pvx->covariance()) << std::setw(30) << tkref->dxyError() << std::endl;
+      // std::cout << std::scientific << std::setw(30) << tkref->dz(pvx->position()) << std::setw(30) << tkref->dz((*beamspot).position()) << std::endl;
+      // std::cout << std::scientific << "pt " << pt << " " << min_track_pt << std::endl;
+      // std::cout << std::scientific << "fabs(dxy) " << fabs(dxy) << " " << min_track_dxy << std::endl;
+      // std::cout << std::scientific << "fabs(nsigmadxy) " << fabs(nsigmadxy) << " " << min_track_nsigmadxy << std::endl;
+      // std::cout << std::scientific << "nhits " << nhits << " " << min_track_nhits << std::endl;
+      // std::cout << std::scientific << "normchi2 " << normchi2 << " " << max_track_normchi2 << std::endl;
+      // std::cout << std::scientific << "fabs(dz) " << fabs(dz) << " " << max_track_dz << std::endl;
+      // std::cout << std::scientific << "sigmapt_ratio " << sigmapt_ratio << " " << max_track_sigmapt_ratio << std::endl;
+      // std::cout << "--------------------------------------------------------------------------------" << std::endl;
       seed_tracks->push_back(tkref);
       seed_tracks_copy->push_back(*tkref);
       track_isolationDR03->push_back(SoftDV::PFIsolation(isolationDR03));
       if (histos) {
-        const double vars[N_TRACK_VARS] = {pt, tkref->eta(), tkref->phi(), dxybs, dxyerr, nsigmadxybs, nhits, normchi2, dz, sigmapt, sigmapt_ratio};
+        const double vars[N_TRACK_VARS] = {pt, tkref->eta(), tkref->phi(), dxy, dxyerr, nsigmadxy, nhits, normchi2, dz, sigmapt, sigmapt_ratio};
         for (int ivar=0; ivar<N_TRACK_VARS; ++ivar){
           h_track_vars[1][ivar]->Fill(vars[ivar]);
         }

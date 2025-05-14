@@ -85,7 +85,7 @@ def predict(devt,plane,region):
 
 if __name__=="__main__":
   sig_fns = [
-      "met2018_hist.root",
+      "met_2023_hist.root",
       #"background_2018_hist.root",
       #"stop_M600_575_ct0p2_2018_hist.root",
       #"stop_M600_580_ct2_2018_hist.root",

@@ -1,0 +1,116 @@
+{
+    "AOD": {
+        "dataset": {
+            "met2023b0":        "/JetMET0/Run2023B-19Dec2023-v1/AOD",
+            "met2023c0_p1":     "/JetMET0/Run2023C-19Dec2023-v1/AOD",
+            "met2023c0_p2":     "/JetMET0/Run2023C-19Dec2023-v1/AOD",
+            "met2023d0":        "/JetMET0/Run2023D-19Dec2023-v1/AOD",
+            "met2023b1_p1":     "/JetMET1/Run2023B-19Dec2023-v1/AOD",
+            "met2023b1_p2":     "/JetMET1/Run2023B-19Dec2023-v1/AOD",
+            "met2023c1_p1":     "/JetMET1/Run2023C-19Dec2023-v1/AOD",
+            "met2023c1_p2":     "/JetMET1/Run2023C-19Dec2023-v1/AOD",
+            "met2023d1_p1":     "/JetMET1/Run2023D-19Dec2023-v1/AOD",
+            "met2023d1_p2":     "/JetMET1/Run2023D-19Dec2023-v1/AOD"
+        }
+    },
+
+    "CustomMiniAOD": {
+        "dir": {
+            "met2023b0":        "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023B0_mini_v1",
+            "met2023c0_p1":     ["/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1/250314_113837",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1/250318_101244",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1/250318_112811",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1/250401_082304"],
+            "met2023c0_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_mini_v1/250306_134433",
+            "met2023d0":        "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023D0_mini_v1",
+            "met2023b1_p1":     ["/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_mini_v1/250330_091430",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_mini_v1/250318_101219"],
+            "met2023b1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_mini_v1/250306_133728",
+            "met2023c1_p1":     ["/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1/250314_113910",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1/250318_101308",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1/250318_112834",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1/250401_082320"],
+            "met2023c1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_mini_v1/250306_134456",
+            "met2023d1_p1":     ["/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_mini_v1/250318_112727",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_mini_v1/250318_101153",
+                                 "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_mini_v1/250401_082337"],
+            "met2023d1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_mini_v1/250306_132816"
+        },
+        
+        "logical_dir": {
+            "met2023b0":        "/store/user/aguven/JetMET0/Run2023B0_mini_v1",
+            "met2023c0_p1":     ["/store/user/aguven/JetMET0/Run2023C0_mini_v1/250314_113837",
+                                 "/store/user/aguven/JetMET0/Run2023C0_mini_v1/250318_101244",
+                                 "/store/user/aguven/JetMET0/Run2023C0_mini_v1/250318_112811",
+                                 "/store/user/aguven/JetMET0/Run2023C0_mini_v1/250401_082304"],
+            "met2023c0_p2":     "/store/user/aguven/JetMET0/Run2023C0_mini_v1/250306_134433",
+            "met2023d0":        "/store/user/aguven/JetMET0/Run2023D0_mini_v1",
+            "met2023b1_p1":     ["/store/user/aguven/JetMET1/Run2023B1_mini_v1/250330_091430",
+                                 "/store/user/aguven/JetMET1/Run2023B1_mini_v1/250318_101219"],
+            "met2023b1_p2":     "/store/user/aguven/JetMET1/Run2023B1_mini_v1/250306_133728",
+            "met2023c1_p1":     ["/store/user/aguven/JetMET1/Run2023C1_mini_v1/250314_113910",
+                                 "/store/user/aguven/JetMET1/Run2023C1_mini_v1/250318_101308",
+                                 "/store/user/aguven/JetMET1/Run2023C1_mini_v1/250318_112834",
+                                 "/store/user/aguven/JetMET1/Run2023C1_mini_v1/250401_082320"],
+            "met2023c1_p2":     "/store/user/aguven/JetMET1/Run2023C1_mini_v1/250306_134456",
+            "met2023d1_p1":     ["/store/user/aguven/JetMET1/Run2023D1_mini_v1/250318_112727",
+                                 "/store/user/aguven/JetMET1/Run2023D1_mini_v1/250318_101153",
+                                 "/store/user/aguven/JetMET1/Run2023D1_mini_v1/250401_082337"],
+            "met2023d1_p2":     "/store/user/aguven/JetMET1/Run2023D1_mini_v1/250306_132816"
+        },
+
+        "dataset": {
+            "met2023b0":        "/JetMET0/aguven-Run2023B0_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "met2023c0_p1":     "/JetMET0/aguven-Run2023C0_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+            "met2023c0_p2":     "/JetMET0/aguven-Run2023C0_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "met2023d0":        "/JetMET0/aguven-Run2023D0_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "met2023b1_p1":     "/JetMET1/aguven-Run2023B1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+            "met2023b1_p2":     "/JetMET1/aguven-Run2023B1_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "met2023c1_p1":     "/JetMET1/aguven-Run2023C1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+            "met2023c1_p2":     "/JetMET1/aguven-Run2023C1_mini_v1-db68a568d98f6284caffd959f8045351/USER",
+            "met2023d1_p1":     "/JetMET1/aguven-Run2023D1_mini_v1-27920a6238eafef6e245fe9c0109a0f6/USER",
+            "met2023d1_p2":     "/JetMET1/aguven-Run2023D1_mini_v1-db68a568d98f6284caffd959f8045351/USER"
+        }
+    },
+
+    "CustomNanoAOD": {
+        "logical_dir": {
+            "met2023b0":        "/store/user/aguven/JetMET0/Run2023B0_nano_v1",
+            "met2023c0_p1":     "/store/user/aguven/JetMET0/Run2023C0_part1_nano_v1",
+            "met2023c0_p2":     "/store/user/aguven/JetMET0/Run2023C0_part2_nano_v1",
+            "met2023d0":        "/store/user/aguven/JetMET0/Run2023D0_nano_v1",
+            "met2023b1_p1":     "/store/user/aguven/JetMET1/Run2023B1_part1_nano_v1",
+            "met2023b1_p2":     "/store/user/aguven/JetMET1/Run2023B1_part2_nano_v1",
+            "met2023c1_p1":     "/store/user/aguven/JetMET1/Run2023C1_part1_nano_v1",
+            "met2023c1_p2":     "/store/user/aguven/JetMET1/Run2023C1_part2_nano_v1",
+            "met2023d1_p1":     "/store/user/aguven/JetMET1/Run2023D1_part1_nano_v1",
+            "met2023d1_p2":     "/store/user/aguven/JetMET1/Run2023D1_part2_nano_v1"
+        },
+        "dir": {
+            "met2023b0":        "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023B0_nano_v1",
+            "met2023c0_p1":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_part1_nano_v1",
+            "met2023c0_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023C0_part2_nano_v1",
+            "met2023d0":        "/eos/vbc/experiments/cms/store/user/aguven/JetMET0/Run2023D0_nano_v1",
+            "met2023b1_p1":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_part1_nano_v1",
+            "met2023b1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023B1_part2_nano_v1",
+            "met2023c1_p1":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_part1_nano_v1",
+            "met2023c1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023C1_part2_nano_v1",
+            "met2023d1_p1":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_part1_nano_v1",
+            "met2023d1_p2":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET1/Run2023D1_part2_nano_v1"
+        },
+
+        "dataset": {
+            "met2023b0":        "/JetMET0/aguven-Run2023B0_nano_v1-00000000000000000000000000000000/USER",
+            "met2023c0_p1":     "/JetMET0/aguven-Run2023C0_part1_nano_v1-00000000000000000000000000000000/USER",
+            "met2023c0_p2":     "/JetMET0/aguven-Run2023C0_part2_nano_v1-00000000000000000000000000000000/USER",
+            "met2023d0":        "/JetMET0/aguven-Run2023D0_nano_v1-00000000000000000000000000000000/USER",
+            "met2023b1_p1":     "/JetMET1/aguven-Run2023B1_part1_nano_v1-00000000000000000000000000000000/USER",
+            "met2023b1_p2":     "/JetMET1/aguven-Run2023B1_part2_nano_v1-00000000000000000000000000000000/USER",
+            "met2023c1_p1":     "/JetMET1/aguven-Run2023C1_part1_nano_v1-00000000000000000000000000000000/USER",
+            "met2023c1_p2":     "/JetMET1/aguven-Run2023C1_part2_nano_v1-00000000000000000000000000000000/USER",
+            "met2023d1_p1":     "/JetMET1/aguven-Run2023D1_part1_nano_v1-00000000000000000000000000000000/USER",
+            "met2023d1_p2":     "/JetMET1/aguven-Run2023D1_part2_nano_v1-00000000000000000000000000000000/USER"
+        }
+    }
+    
+}

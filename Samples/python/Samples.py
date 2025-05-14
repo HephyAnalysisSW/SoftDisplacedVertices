@@ -251,6 +251,86 @@ c1n2_2018 = [
     # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
+
+wlnu_2023  = [Sample("wjetstolnu4jets_2023", xsec=55390)]
+znunu_2023 = [Sample("zto2nu4jetsht0100_2023", xsec=273.7),
+              Sample("zto2nu4jetsht0200_2023", xsec=75.96),
+              Sample("zto2nu4jetsht0400_2023", xsec=13.19),
+              Sample("zto2nu4jetsht0800_2023", xsec=1.364),
+              Sample("zto2nu4jetsht1500_2023", xsec=0.09865),
+              Sample("zto2nu4jetsht2500_2023", xsec=0.006699)
+              ]
+qcd_2023 =   [Sample("qcd4jetsht0040_2023", xsec=311400000),
+              Sample("qcd4jetsht0070_2023", xsec=58500000),
+              Sample("qcd4jetsht0100_2023", xsec=25400000),
+              Sample("qcd4jetsht0200_2023", xsec=1961000),
+              Sample("qcd4jetsht0400_2023", xsec=95620),
+              Sample("qcd4jetsht0600_2023", xsec=13540),
+              Sample("qcd4jetsht0800_2023", xsec=3033),
+              Sample("qcd4jetsht1000_2023", xsec=883.7),
+              Sample("qcd4jetsht1200_2023", xsec=383.5),
+              Sample("qcd4jetsht1500_2023", xsec=125.2),
+              Sample("qcd4jetsht2000_2023", xsec=26.49)
+              ]
+top_2023 =   [Sample("ttto4q_2023"   , xsec=422.06), # 762.1 XSDB value
+              Sample("ttto2l2nu_2023", xsec=404.58), # 762.1 XSDB value
+              Sample("tttolnu2q_2023", xsec=131.08)  # 762.1 XSDB value
+              ]
+top_2023_check = [Sample("tttolnu2q_2023", xsec=131.08)]
+test_2023      = [Sample("ttto4q_2023"   , xsec=422.06)]
+
+wlnu_bpix_2023  = [Sample("wjetstolnu4jets_bpix_2023",   xsec=55390)]
+znunu_bpix_2023 = [Sample("zto2nu4jetsht0100_bpix_2023", xsec=273.7),
+                   Sample("zto2nu4jetsht0200_bpix_2023", xsec=75.96),
+                   Sample("zto2nu4jetsht0400_bpix_2023", xsec=13.19),
+                   Sample("zto2nu4jetsht0800_bpix_2023", xsec=1.364),
+                   Sample("zto2nu4jetsht1500_bpix_2023", xsec=0.0986),
+                   Sample("zto2nu4jetsht2500_bpix_2023", xsec=0.006699)
+                  ]
+qcd_bpix_2023 =   [Sample("qcd4jetsht0040_bpix_2023", xsec=311400000),
+                   Sample("qcd4jetsht0070_bpix_2023", xsec=58500000),
+                   Sample("qcd4jetsht0100_bpix_2023", xsec=25400000),
+                   Sample("qcd4jetsht0200_bpix_2023", xsec=1961000),
+                   Sample("qcd4jetsht0400_bpix_2023", xsec=95620),
+                   Sample("qcd4jetsht0600_bpix_2023", xsec=13540),
+                   Sample("qcd4jetsht0800_bpix_2023", xsec=3033),
+                   Sample("qcd4jetsht1000_bpix_2023", xsec=883.7),
+                   Sample("qcd4jetsht1200_bpix_2023", xsec=383.5),
+                   Sample("qcd4jetsht1500_bpix_2023", xsec=125.2),
+                   Sample("qcd4jetsht2000_bpix_2023", xsec=26.49)
+                  ]
+top_bpix_2023 =   [Sample("ttto4q_bpix_2023"   , xsec=422.06), # 762.1 XSDB value
+                   Sample("ttto2l2nu_bpix_2023", xsec=404.58), # 762.1 XSDB value
+                   Sample("tttolnu2q_bpix_2023", xsec=131.08)  # 762.1 XSDB value
+                  ]
+
+
+met_2023 = [
+  Sample("met2023b0",       xsec=-1),
+  Sample("met2023c0_p1",    xsec=-1),
+  Sample("met2023c0_p2",    xsec=-1),
+  Sample("met2023b1_p1",    xsec=-1),
+  Sample("met2023b1_p2",    xsec=-1),
+  Sample("met2023c1_p1",    xsec=-1),
+  Sample("met2023c1_p2",    xsec=-1),
+    ]
+
+met_2023_postbpix = [
+  Sample("met2023d0",       xsec=-1),
+  Sample("met2023d1_p1",    xsec=-1),
+  Sample("met2023d1_p2",    xsec=-1),
+    ]
+
+lep_check_2023 = [
+    Sample("tttolnu2q_2023", xsec=131.08),
+    Sample("wjetstolnu4jets_2023",   xsec=55390)
+]
+
+sig_benchmark = [
+   Sample("stop_M600_580_ct2_2018", xsec=0.205)
+]
+
+
 all_samples = [
     met_2017,
     wlnu_2017,
@@ -264,7 +344,17 @@ all_samples = [
     qcd_2018,
     stop_2018,
     c1n2_2018,
-    top_2018
+    top_2018,
+    wlnu_2023,
+    znunu_2023,
+    qcd_2023,
+    top_2023,
+    wlnu_bpix_2023,
+    znunu_bpix_2023,
+    qcd_bpix_2023,
+    top_bpix_2023,
+    met_2023,
+    met_2023_postbpix
 ]
 
 all_signals = [
@@ -279,6 +369,36 @@ all_bkg_2018 = [
   *top_2018
 ]
 
+all_bkg_2023 = [
+  *wlnu_2023,
+  *znunu_2023,
+  *qcd_2023,
+  *top_2023
+]
+
+all_bkg_2023_bpix = [
+  *wlnu_bpix_2023,
+  *znunu_bpix_2023,
+  *qcd_bpix_2023,
+  *top_bpix_2023
+]
+
+bkg_check_2023 = [
+  znunu_2023[-1],
+  qcd_2023[-1]
+  ]
+
+bkg_check_2018 = [
+  znunu_2018[-1],
+  qcd_2018[-1]
+  ]
+
+all_bkg_bpix_2023 = [
+  *wlnu_bpix_2023,
+  *znunu_bpix_2023,
+  *qcd_bpix_2023,
+  *top_bpix_2023
+]
 
 all_sig_2018 = [
   *stop_2018,

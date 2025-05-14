@@ -1,3 +1,4 @@
+
 import CRABClient
 from CRABClient.UserUtilities import config 
 
@@ -8,16 +9,22 @@ config.General.workArea = 'crab_projects'
 config.General.transferOutputs = True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = '/users/alikaan.gueven/COPY/CMSSW_10_6_28/src/SoftDisplacedVertices/CustomMiniAOD/configuration/Data_UL18_CustomMiniAOD.py'
+config.JobType.psetName = '/users/alikaan.gueven/AOD_to_nanoAOD/CMSSW_13_0_16/src/SoftDisplacedVertices/CustomMiniAOD/configuration/MC_Run3Summer23BPix_CustomMiniAOD.py'
+config.JobType.maxMemoryMB = 8000
+config.JobType.numCores = 4
 
-
-dataset_name = '/MET/Run2018D-15Feb2022_UL2018-v1/AOD'
-
-config.JobType.maxMemoryMB = 3000
-config.Data.inputDataset = dataset_name
+config.Data.inputDataset = '/QCD-4Jets_HT-800to1000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer23BPixDRPremix-130X_mcRun3_2023_realistic_postBPix_v2-v4/AODSIM'
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'Automatic'
 config.Data.publication = True
-config.Data.outputDatasetTag = dataset_name
+config.Data.outputDatasetTag = 'Run3Summer23BPixCustomMiniAODv4-130X_mcRun3_2023_realistic_postBPix_v2-v1'
+# config.Data.partialDataset = True
+# config.Data.ignoreLocality = True
+
+# config.Site.blacklist=["T2_BR_SPRACE"]
+# config.Site.blacklist=["T2_BR_SPRACE", "T2_IT_Pisa"]
+# config.Site.whitelist=["T1_RU_JINR_Tape"]
+# config.Site.whitelist=["T1_RU*", "T1_US*"]
+# config.Site.ignoreGlobalBlacklist = True
 
 config.Site.storageSite = "T2_AT_Vienna"

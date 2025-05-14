@@ -8,6 +8,59 @@
 #include "TMath.h"
 #include <algorithm> 
 #include "correction.h"
+#include "TVector3.h"
+
+template<typename T>
+std::vector<T> PackXYZ(
+  const T & x,
+  const T & y,
+  const T & z)
+{
+  std::vector<T> coords(3);
+
+  coords[0] = x;  // x-coordinates
+  coords[1] = y;  // y-coordinates
+  coords[2] = z;  // z-coordinates
+
+  return coords;
+}
+
+std::vector<ROOT::RVecD> Calc_Lxy_vec(
+    const std::vector<float>      & PV,
+    const std::vector<ROOT::RVecF>& SV)
+{
+    // Basic checks
+    if (PV.size() != 3 || SV.size() != 3) {
+        throw std::runtime_error("Calc_Lxy_vec: input vectors must each have size 3 (x,y,z).");
+    }
+    const size_t n = SV[0].size();
+    if (SV[0].size() != n || SV[1].size() != n || SV[2].size() != n)
+    {
+        throw std::runtime_error("Calc_Lxy_vec: mismatch in the number of entries between PV and SV.");
+    }
+
+    // Prepare output: 2 RVecs (for phi, eta), each of length n
+    std::vector<ROOT::RVecD> result(2, ROOT::RVecD(n, -9.9));
+
+    for (size_t i = 0; i < n; ++i) {
+        // Construct TVector3 for PV and SV
+        TVector3 vPV(PV[0],    PV[1],    PV[2]);
+        TVector3 vSV(SV[0][i], SV[1][i], SV[2][i]);
+
+        // Difference
+        TVector3 diff = vSV - vPV;
+
+        // Use ROOT's built-in methods for phi, eta
+        float phi = diff.Phi();
+        float eta = diff.Eta();
+
+        result[0][i] = phi;
+        result[1][i] = eta;
+    }
+
+    return result;
+}
+
 
 float dPhi(float phi1, float phi2) {
   float x = phi1-phi2;

@@ -17,13 +17,16 @@ args = parser.parse_args()
 
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-    work_subdir = "tmp_checks"
-    unique_dir  = "check2"
+    work_subdir = "checks_2023"
+    unique_dir  = "check11_bpix"
+
     work_dir = os.path.join(outDir_base, work_subdir)
+    outBaseDir = os.path.join(work_dir,str(unique_dir))
     
-    file_paths = {# 'sig':  os.path.join(os.path.join(work_dir, 'sig'),  os.path.join(str(unique_dir), 'job_ids.json')),
-                  'bkg':  os.path.join(os.path.join(work_dir, 'bkg'),  os.path.join(str(unique_dir), 'job_ids.json')),
-                  'data': os.path.join(os.path.join(work_dir, 'data'), os.path.join(str(unique_dir), 'job_ids.json'))}
+    file_paths = {# 'sig':  os.path.join(outBaseDir,   'sig/job_ids.json'),
+                  'bkg':  os.path.join(outBaseDir,   'bkg/job_ids2023.json'),
+                  'data': os.path.join(outBaseDir,  'data/job_ids2023.json'),
+                }
     
     for key, file_path in file_paths.items():
         print('INFO:    Sample type:',  key)
@@ -71,4 +74,4 @@ if __name__=="__main__":
         print('-'*80)
         print()
         with open(file_path, 'w') as f:
-            json.dump(d, f)
+            json.dump(d, f, indent=2)
