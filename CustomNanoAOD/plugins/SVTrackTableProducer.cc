@@ -167,7 +167,7 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
         ndof.push_back(sv.ndof());
 
         if (!sv.hasRefittedTracks()) {
-          std::cout << "SV has no refitted tracks!" << std::endl;
+          //std::cout << "SV has no refitted tracks!" << std::endl;
         }
         else{
           auto rtks = sv.refittedTracks();

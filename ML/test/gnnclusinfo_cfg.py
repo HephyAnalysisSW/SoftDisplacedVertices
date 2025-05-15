@@ -27,9 +27,10 @@ process.load("SoftDisplacedVertices.VtxReco.GenMatchedTracks_cfi")
 process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
 process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
 process.load("SoftDisplacedVertices.ML.GNNGenInfo_cfi")
+process.load("SoftDisplacedVertices.ML.GNNClusInfo_cfi")
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(-1)
 )
 
 MessageLogger = cms.Service("MessageLogger")
@@ -65,7 +66,7 @@ process.configurationMetadata = cms.untracked.PSet(
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_upgrade2018_realistic_v16_L1v1', '')
 
-process.TFileService = cms.Service("TFileService", fileName = cms.string("GNNGenInfochi5.root") )
+process.TFileService = cms.Service("TFileService", fileName = cms.string("GNNTree.root") )
 
 ## Output definition
 #output_mod = cms.OutputModule("NanoAODOutputModule",
@@ -75,7 +76,7 @@ process.TFileService = cms.Service("TFileService", fileName = cms.string("GNNGen
 #        dataTier = cms.untracked.string('NANOAODSIM'),
 #        filterName = cms.untracked.string('')
 #    ),
-#    fileName = cms.untracked.string('file:NanoAOD.root'),
+#    fileName = cms.untracked.string('file:/users/ang.li/public/SoftDV/CMSSW_10_6_30/src/SoftDisplacedVertices/ML/test/NanoAOD.root'),
 #    outputCommands = process.NANOAODSIMEventContent.outputCommands
 #)
 #
@@ -86,7 +87,7 @@ import os
 USER = os.environ.get('USER')
 
 #process.p = cms.Path(process.GNNInference)
-process.p = cms.Path(process.GNNGenInfo)
+process.p = cms.Path(process.GNNClusInfo)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.p,

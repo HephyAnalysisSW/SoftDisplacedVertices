@@ -4,12 +4,16 @@
 #include <algorithm>
 #include <iostream>
 
+#include "TTree.h"
 #include "TMath.h"
 
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
 #include "FWCore/Framework/interface/stream/EDProducer.h"
+#include "FWCore/Framework/interface/one/EDProducer.h"
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "DataFormats/TrackReco/interface/Track.h"
 #include "DataFormats/TrackReco/interface/TrackFwd.h"
@@ -22,12 +26,48 @@
 #include "RecoVertex/VertexPrimitives/interface/TransientVertex.h"
 #include "RecoVertex/ConfigurableVertexReco/interface/ConfigurableVertexReconstructor.h"
 #include "RecoVertex/KalmanVertexFit/interface/KalmanVertexFitter.h"
-#include "RecoVertex/VertexTools/interface/VertexDistance3D.h"
-#include "RecoVertex/VertexTools/interface/SharedTracks.h"
-#include "RecoVertex/VertexPrimitives/interface/VertexState.h"
-#include "RecoVertex/VertexPrimitives/interface/ConvertToFromReco.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "SoftDisplacedVertices/SoftDVDataFormats/interface/GenInfo.h"
 
 #include "PhysicsTools/ONNXRuntime/interface/ONNXRuntime.h"
+
+struct eventInfo
+{
+  int ntk;
+  int ntk_clus;
+  int ntk_llp;
+  int ntk_clus_llp;
+  std::vector<int> clus_ntk;
+  std::vector<float> clus_mass;
+  std::vector<int> clus_llpidx;
+  std::vector<int> clus_ntk_match;
+  std::vector<int> clus_nGoodTrack;
+  std::vector<int> llp_ntk;
+  std::vector<int> llp_ntk_match;
+  std::vector<float> llp_closest_genv_dist;
+  std::vector<float> llp_closest_genv_dist_z;
+  std::vector<float> llp_closest_genv_dist_2d;
+  std::vector<float> llp_min_vtx_normchi2;
+  std::vector<int> llp_matched;
+  std::vector<int> llp_matched_vtx;
+  std::vector<int> vtx_matched;
+  std::vector<float> vtx_chi2;
+  std::vector<float> vtx_normchi2;
+  std::vector<float> vtx_genvdist;
+  std::vector<float> vtx_genvdist_z;
+  std::vector<float> vtx_genvdist_2d;
+  std::vector<float> tk_pt;
+  std::vector<float> tk_eta;
+  std::vector<float> tk_phi;
+  std::vector<float> tk_dxy;
+  std::vector<float> tk_dxyError;
+  std::vector<float> tk_dz;
+  std::vector<float> tk_dzError;
+  std::vector<float> tk_pfRelIso03_all;
+  std::vector<float> tk_ptError;
+  std::vector<float> tk_normchi2;
+  std::vector<float> tk_nvalidhits;
+};
 
 class Graph {
   public:
@@ -97,31 +137,24 @@ class Graph {
     }
 };
 
-struct Cluster {
-  int nTrack;
-  int nGoodTrack;
-  double mass;
-  std::vector<int> tks;
-};
 
 using namespace cms::Ort;
 typedef std::vector<std::unique_ptr<ONNXRuntime>> NNArray;
 
-class GNNInference : public edm::stream::EDProducer<edm::GlobalCache<NNArray>> {
+class GNNClusInfo: public edm::one::EDProducer<edm::one::SharedResources> {
   public:
-    explicit GNNInference(const edm::ParameterSet &, const NNArray *);
-    
-    static std::unique_ptr<NNArray> initializeGlobalCache(const edm::ParameterSet &);
-    static void globalEndJob(const NNArray *);
+    explicit GNNClusInfo(const edm::ParameterSet &);
 
   private:
     void beginJob();
     void produce(edm::Event&, const edm::EventSetup&) override;
-    void endJob();
+
+    void initEventStructure();
 
     float edge_dist(std::vector<float> v1, std::vector<float> v2);
     std::vector<float> track_input(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03);
     bool v_pass(const reco::Vertex& v, const reco::Vertex* pv);
+    std::unique_ptr<NNArray> initializeNNs(const edm::ParameterSet &);
     bool isGoodTrack(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03);
 
     std::vector<std::string> input_names_emb_;
@@ -134,11 +167,17 @@ class GNNInference : public edm::stream::EDProducer<edm::GlobalCache<NNArray>> {
     //
     double edge_dist_cut_;
     double edge_gnn_cut_;
+    const edm::EDGetTokenT<std::vector<reco::GenParticle>> genToken_;
 
     std::unique_ptr<VertexReconstructor> vtxReco;
+
+    TTree *eventTree;
+    eventInfo *evInfo;
+
+    std::unique_ptr<NNArray> NNs;
 };
 
-GNNInference::GNNInference(const edm::ParameterSet &iConfig, const NNArray *cache)
+GNNClusInfo::GNNClusInfo(const edm::ParameterSet &iConfig)
   : input_names_emb_(iConfig.getParameter<std::vector<std::string>>("input_names_emb")),
     input_names_gnn_(iConfig.getParameter<std::vector<std::string>>("input_names_gnn")),
     input_shapes_(),
@@ -147,25 +186,29 @@ GNNInference::GNNInference(const edm::ParameterSet &iConfig, const NNArray *cach
     isoDR03Token_(consumes<std::vector<SoftDV::PFIsolation>>(iConfig.getParameter<edm::InputTag>("isoDR03"))),
     edge_dist_cut_(iConfig.getParameter<double>("edge_dist_cut")),
     edge_gnn_cut_(iConfig.getParameter<double>("edge_gnn_cut")),
+    genToken_(consumes<std::vector<reco::GenParticle>>(iConfig.getParameter<edm::InputTag>("gen"))),
     //kv_reco(new KalmanVertexFitter(iConfig.getParameter<edm::ParameterSet>("kvr_params"), iConfig.getParameter<edm::ParameterSet>("kvr_params").getParameter<bool>("doSmoothing")))
     vtxReco(new ConfigurableVertexReconstructor(iConfig.getParameter<edm::ParameterSet>("vtx_params"))){
+    usesResource("TFileService");
+    evInfo = new eventInfo;
+    //NNs = initializeNNs(iConfig);
+    NNs = std::make_unique<NNArray>();
+    NNs->push_back(std::make_unique<ONNXRuntime>(iConfig.getParameter<edm::FileInPath>("EMB_model_path").fullPath()));
+    NNs->push_back(std::make_unique<ONNXRuntime>(iConfig.getParameter<edm::FileInPath>("GNN_model_path").fullPath()));
     produces<reco::VertexCollection>();
-    produces<reco::TrackCollection>();
     }
 
-std::unique_ptr<NNArray> GNNInference::initializeGlobalCache(const edm::ParameterSet &iConfig) {
+std::unique_ptr<NNArray> GNNClusInfo::initializeNNs(const edm::ParameterSet &iConfig) {
   std::unique_ptr<NNArray> NNs = std::make_unique<NNArray>();
   NNs->push_back(std::make_unique<ONNXRuntime>(iConfig.getParameter<edm::FileInPath>("EMB_model_path").fullPath()));
   NNs->push_back(std::make_unique<ONNXRuntime>(iConfig.getParameter<edm::FileInPath>("GNN_model_path").fullPath()));
   return NNs;
 }
 
-void GNNInference::globalEndJob(const NNArray *cache) {}
-
-void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
+void GNNClusInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
+  initEventStructure();
 
   std::unique_ptr<reco::VertexCollection> vertices(new reco::VertexCollection);
-  std::unique_ptr<reco::TrackCollection> good_tracks(new reco::TrackCollection);
 
   edm::Handle<reco::TrackCollection> tracks;
   iEvent.getByToken(tracks_token, tracks);
@@ -179,12 +222,13 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   edm::Handle<std::vector<SoftDV::PFIsolation>> tracks_isoDR03;
   iEvent.getByToken(isoDR03Token_, tracks_isoDR03);
   if (tracks->size() != tracks_isoDR03->size())
-    throw cms::Exception("GNNInference") << "Tracks mismatch with track IsoDR03!";
+    throw cms::Exception("GNNClusInfo") << "Tracks mismatch with track IsoDR03!";
 
   edm::ESHandle<TransientTrackBuilder> tt_builder;
   iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", tt_builder);
 
   int ntks = tracks->size();
+  evInfo->ntk = ntks;
 
   if (ntks==0) {
     iEvent.put(std::move(vertices));
@@ -204,7 +248,7 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
 
   std::vector<std::vector<int64_t>> tk_shape = {{ntks,n_features}};
 
-  std::vector<float> emb = globalCache()->at(0)->run(input_names_emb_, inputdata, tk_shape, {}, ntks)[0];
+  std::vector<float> emb = NNs->at(0)->run(input_names_emb_, inputdata, tk_shape, {}, ntks)[0];
 
   std::vector<int> sender_idx;
   std::vector<int> receiver_idx;
@@ -216,7 +260,7 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
       std::vector<float> emb_i(emb.begin()+i*16,emb.begin()+(i+1)*16);
       std::vector<float> emb_j(emb.begin()+j*16,emb.begin()+(j+1)*16);
       float d2 = edge_dist(emb_i,emb_j);
-      if (d2<999){ // FIXME: the cut value on d2 should be revisited
+      if (d2<0.02){ // FIXME: the cut value on d2 should be revisited
         sender_idx.push_back(i);
         receiver_idx.push_back(j);
         distance.push_back(d2);
@@ -235,7 +279,7 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   input_GNN.push_back(edge_idx);
   input_shape_GNN.push_back({1,2,n_edges});
 
-  std::vector<float> gnn = globalCache()->at(1)->run(input_names_gnn_, input_GNN, input_shape_GNN, {}, 1)[0];
+  std::vector<float> gnn = NNs->at(1)->run(input_names_gnn_, input_GNN, input_shape_GNN, {}, 1)[0];
 
   if (gnn.size() != distance.size()) 
     throw cms::Exception("GNNInterface") << "Embedding distance and GNN prediction doesn't match!";
@@ -260,172 +304,129 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   }
 
   std::vector<std::set<int> > clus = track_g.getCliques();
-  std::set<int> tk_idx;
+  std::set<int> clus_tk;
   for (auto& ic : clus) {
-    //std::vector<reco::TransientTrack> seed_tracks;
-    for (int itk : ic){
-      tk_idx.insert(itk);
-      //reco::TrackRef tk(tracks, itk);
-      //seed_tracks.push_back(tt_builder->build(tk));
-    }
-    //reco::Vertex v(TransientVertex(kv_reco->vertex(seed_tracks)));
-    //std::cout << "Number of tracks: " << seed_tracks.size() << std::endl;
-    //std::vector<TransientVertex> vs = vtxReco->vertices(seed_tracks);
-    //for (auto& v : vs) {
-    //  //std::cout << "  ntk " << v.originalTracks().size() << " " << v.normalisedChiSquared() << std::endl;
-    //  if (v.isValid() && v.originalTracks().size()>1){
-    //    vertices->push_back(v);
-    //  }
-    //}
-    //if (v.nTracks()>1)
-    //  vertices->push_back(v);
-  }
-
-  std::map<int, reco::TransientTrack> ttk_map;
-  for(int itk:tk_idx) {
-    reco::TrackRef tk(tracks, itk);
-    ttk_map[itk] = tt_builder->build(tk);
-    good_tracks->push_back(*tk);
-  }
-  //std::vector<TransientVertex> vs = vtxReco->vertices(seed_tracks);
-  //for (auto& v : vs) {
-  //  if (v.isValid() && v.originalTracks().size()>1){
-  //    vertices->push_back(v);
-  //  }
-  //}
-
-  std::vector<Cluster> clusters;
-  for (auto& ic : clus) {
-    Cluster icluster;
-    std::vector<int> vtks(ic.begin(),ic.end());
-    icluster.tks = vtks;
-    icluster.nTrack = vtks.size();
+    evInfo->ntk_clus += ic.size();
+    evInfo->clus_ntk.push_back(ic.size());
+    int nGoodTrack = 0;
     math::XYZTLorentzVectorD sum;
     ROOT::Math::LorentzVector<ROOT::Math::PxPyPzM4D<double> > vec;
-    int nGoodTrack = 0;
-    for (int itk : ic) {
+    //std::vector<reco::TransientTrack> seed_tracks;
+    for (int itk : ic){
+      clus_tk.insert(itk);
+      SoftDV::PFIsolation isoDR03 = (*tracks_isoDR03)[itk];
       reco::TrackRef tk(tracks, itk);
       vec.SetPx(tk->px());
       vec.SetPy(tk->py());
       vec.SetPy(tk->pz());
       vec.SetM(0.13957018);
       sum += vec;
-      SoftDV::PFIsolation isoDR03 = (*tracks_isoDR03)[itk];
-      if (isGoodTrack(tk,primary_vertex,isoDR03)) {
+      if (isGoodTrack(tk,primary_vertex,isoDR03))
         nGoodTrack += 1;
-      }
+      //reco::TrackRef tk(tracks, itk);
+      //seed_tracks.push_back(tt_builder->build(tk));
     }
-    //std::cout << "Number of Good track " << nGoodTrack << std::endl;
-    icluster.mass = sum.M();
-    icluster.nGoodTrack = nGoodTrack;
-    //if (icluster.mass<0.5)
-    //  continue;
-    //if (icluster.nGoodTrack<1)
-    //  continue;
-    //if (icluster.nTrack<3)
-    //  continue;
-    clusters.push_back(icluster);
+    evInfo->clus_mass.push_back(sum.M());
+    evInfo->clus_nGoodTrack.push_back(nGoodTrack);
+
+    //std::vector<TransientVertex> vs = vtxReco->vertices(seed_tracks);
+    //for (auto& v : vs) {
+    //  if (v.isValid()){
+    //    vertices->push_back(v);
+    //  }
+    //}
   }
 
-  // Below reconstructs vertices using Adaptive vertex reconstruction
-  /*
-  for (auto& ic : clusters) {
-    std::vector<int> vtks = ic.tks;
-    int nst = vtks.size();
-    std::vector<reco::TransientTrack> vtx_tks;
-    for (auto& ist : vtks) {
-      if (ttk_map.find(ist)==ttk_map.end())
-        throw cms::Exception("GNNInference") << "Track index " << ist << " not found in map!";
-      vtx_tks.push_back(ttk_map[ist]);
-    }
-    std::vector<TransientVertex> vs = vtxReco->vertices(vtx_tks);
-    for (auto& v : vs) {
-      if (v.isValid() && v.originalTracks().size()>1){
-        vertices->push_back(v);
-      }
-    }
-  }
-  */
+  std::map<int,reco::TransientTrack> ttk_map;
+  for (int itk:clus_tk) {
+    reco::TrackRef tk(tracks, itk);
+    ttk_map[itk] = tt_builder->build(tk);
 
-  // Below reconstructs vertices using Kalman vertex filter:
-  // Start from each pair of tracks to fit seed vertices
-  // Merge vertices when tracks are shared
-  for (auto& ic : clusters) {
-    std::vector<int> vtks = ic.tks;
+    SoftDV::PFIsolation isoDR03 = (*tracks_isoDR03)[itk];
+    float tk_pt = tk->pt();
+    float tk_eta = tk->eta();
+    float tk_phi = tk->phi();
+    float tk_dxy = tk->dxy(primary_vertex->position());
+    float tk_dxyError = tk->dxyError(primary_vertex->position(), primary_vertex->covariance());
+    float tk_dz = tk->dz(primary_vertex->position());
+    float tk_dzError = tk->dzError();
+    float tk_ptError = tk->ptError();
+    float tk_normchi2 = tk->normalizedChi2();
+    float tk_nvalidhits = tk->numberOfValidHits();
+    float tk_pfRelIso03_all = (isoDR03.chargedHadronIso() +
+                              std::max<double>(isoDR03.neutralHadronIso() +
+                                               isoDR03.photonIso() -
+                                               isoDR03.puChargedHadronIso()/2,0.0))
+                            / tk->pt();
+
+    evInfo->tk_pt.push_back(tk_pt);
+    evInfo->tk_eta.push_back(tk_eta);
+    evInfo->tk_phi.push_back(tk_phi);
+    evInfo->tk_dxy.push_back(tk_dxy);
+    evInfo->tk_dxyError.push_back(tk_dxyError);
+    evInfo->tk_dz.push_back(tk_dz);
+    evInfo->tk_dzError.push_back(tk_dzError);
+    evInfo->tk_pfRelIso03_all.push_back(tk_pfRelIso03_all);
+    evInfo->tk_ptError.push_back(tk_ptError);
+    evInfo->tk_normchi2.push_back(tk_normchi2);
+    evInfo->tk_nvalidhits.push_back(tk_nvalidhits);
+  }
+
+  for (auto& ic : clus) {
+    std::vector<int> vtks(ic.begin(),ic.end());
+    std::cout << "clus tks ";
+    math::XYZTLorentzVectorD sum;
+    ROOT::Math::LorentzVector<ROOT::Math::PxPyPzM4D<double> > vec;
+    //std::vector<reco::TransientTrack> seed_tracks;
+    for (int itk : vtks){
+      reco::TrackRef tk(tracks, itk);
+      vec.SetPx(tk->px());
+      vec.SetPy(tk->py());
+      vec.SetPy(tk->pz());
+      vec.SetM(0.13957018);
+      sum += vec;
+    }
+    if ( (sum.M()<0.5) || (vtks.size()<3) )
+      continue;
+    for(auto& itk: vtks) {
+      std::cout << itk << ", ";
+    }
+    std::cout << std::endl;
     int nst = vtks.size();
     for (int iist=0; iist<nst; ++iist){
       for (int jjst=iist+1; jjst<nst; ++jjst){
         int ist = vtks[iist];
         int jst = vtks[jjst];
+        std::cout << "Seed track " << ist << " " << jst << std::endl;
         if (ttk_map.find(ist)==ttk_map.end())
-          throw cms::Exception("GNNInference") << "Track index " << ist << " not found in map!";
+          throw cms::Exception("GNNClusInfo") << "Track index " << ist << " not found in map!";
         if (ttk_map.find(jst)==ttk_map.end())
-          throw cms::Exception("GNNInference") << "Track index " << jst << " not found in map!";
+          throw cms::Exception("") << "Track index " << jst << " not found in map!";
         std::vector<reco::TransientTrack> track_pairs({ttk_map[ist],ttk_map[jst]});
         std::vector<TransientVertex> vs = vtxReco->vertices(track_pairs);
+        std::cout << "Vertex reconstructed: " << vs.size() << std::endl;
         for (auto& v : vs) {
           const reco::Vertex nv(v);
           if (v_pass(nv,primary_vertex)){
-            vertices->push_back(nv);
+            std::cout << "  x " << v.position().x() << " y " << v.position().y() << " z " << v.position().z() << " chi2/ndof " << v.normalisedChiSquared() << std::endl;
+            evInfo->vtx_chi2.push_back(v.totalChiSquared());
+            evInfo->vtx_normchi2.push_back(v.normalisedChiSquared());
           }
         }
       }
     }
   }
 
-  // Now try a vertex merge
-  VertexDistance3D dist;
-  for (auto sv1 = vertices->begin(); sv1!=vertices->end(); ++sv1) {
-    VertexState s1(RecoVertex::convertPos(sv1->position()),RecoVertex::convertError(sv1->error()));
-    for (auto sv2 = vertices->begin(); sv2!=vertices->end();++sv2) {
-      VertexState s2(RecoVertex::convertPos(sv2->position()),RecoVertex::convertError(sv2->error()));
-      double fr = vertexTools::computeSharedTracks(*sv1, *sv2);
-      if (fr > 0.3 && dist.distance(s1,s2).significance() < 10 && sv1-sv2!=0 && fr >= vertexTools::computeSharedTracks(*sv2, *sv1)) {
-        std::set<int> tk_sets;
-        for (auto it = sv1->tracks_begin();it!=sv1->tracks_end();++it) {
-          reco::TrackRef tref = it->castTo<reco::TrackRef>();
-          tk_sets.insert(tref.key());
-        }
-        for (auto it = sv2->tracks_begin();it!=sv2->tracks_end();++it) {
-          reco::TrackRef tref = it->castTo<reco::TrackRef>();
-          tk_sets.insert(tref.key());
-        }
-        std::vector<reco::TransientTrack> new_tks;
-        for (auto& it : tk_sets){
-          if (ttk_map.find(it)==ttk_map.end())
-            throw cms::Exception("GNNInference") << "Track index " << it << " not found in map!";
-          new_tks.push_back(ttk_map[it]);
-        }
-        std::vector<TransientVertex> vs = vtxReco->vertices(new_tks);
-        if (vs.size()>1) {
-          throw cms::Exception("GNNInference") << "More than 1 vertex is fitted!";
-        }
-        if (vs.size()==1) {
-          reco::Vertex nv = reco::Vertex(vs[0]);
-          if (nv.isValid() && nv.normalizedChi2()<10) {
-            *sv1 = nv;
-            if (sv2>sv1) {
-              vertices->erase(sv2);
-              sv1 -= 1;
-            }
-            else {
-              vertices->erase(sv2);
-              sv1 -= 2;
-            }
-            break;
-          }
-        }
-      }
-    }
-  }
+  evInfo->ntk_clus = clus_tk.size();
+
+  eventTree->Fill();
 
   iEvent.put(std::move(vertices));
-  iEvent.put(std::move(good_tracks));
 }
 
-float GNNInference::edge_dist(std::vector<float> v1, std::vector<float> v2) {
+float GNNClusInfo::edge_dist(std::vector<float> v1, std::vector<float> v2) {
   if (v1.size() != v2.size()){
-    throw cms::Exception("GNNInference::edge_dist") << "Sizes of v1 and v2 do not match!";
+    throw cms::Exception("GNNClusInfo::edge_dist") << "Sizes of v1 and v2 do not match!";
   }
   float d2 = 0;
   for (size_t i=0; i<v1.size(); ++i){
@@ -434,7 +435,7 @@ float GNNInference::edge_dist(std::vector<float> v1, std::vector<float> v2) {
   return d2;
 }
 
-std::vector<float> GNNInference::track_input(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03) {
+std::vector<float> GNNClusInfo::track_input(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03) {
   float pt = tk->pt();
   float eta = tk->eta();
   float phi = tk->phi();
@@ -455,10 +456,10 @@ std::vector<float> GNNInference::track_input(reco::TrackRef tk, const reco::Vert
   return tk_vars;
 }
 
-bool GNNInference::v_pass(const reco::Vertex& v, const reco::Vertex* pv) {
+bool GNNClusInfo::v_pass(const reco::Vertex& v, const reco::Vertex* pv) {
   if (!v.isValid())
     return false;
-  if (v.normalizedChi2()>10)
+  if (v.normalizedChi2()>100)
     return false;
   double dx = (v.x() - pv->x());
   double dy = (v.y() - pv->y());
@@ -469,14 +470,14 @@ bool GNNInference::v_pass(const reco::Vertex& v, const reco::Vertex* pv) {
   return true;
 }
 
-bool GNNInference::isGoodTrack(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03) {
+bool GNNClusInfo::isGoodTrack(reco::TrackRef tk, const reco::Vertex* pv, SoftDV::PFIsolation isoDR03) {
   float pt = tk->pt();
-  //float eta = tk->eta();
-  //float phi = tk->phi();
+  float eta = tk->eta();
+  float phi = tk->phi();
   float dxy = tk->dxy(pv->position());
   float dxyError = tk->dxyError(pv->position(), pv->covariance());
   float dz = tk->dz(pv->position());
-  //float dzError = tk->dzError();
+  float dzError = tk->dzError();
   float ptError = tk->ptError();
   float normchi2 = tk->normalizedChi2();
   float nvalidhits = tk->numberOfValidHits();
@@ -491,4 +492,83 @@ bool GNNInference::isGoodTrack(reco::TrackRef tk, const reco::Vertex* pv, SoftDV
   return false;
 }
 
-DEFINE_FWK_MODULE(GNNInference);
+void GNNClusInfo::beginJob()
+{
+  edm::Service<TFileService> fs;
+  eventTree = fs->make<TTree>( "treeGNN", "treeGNN" );
+
+  eventTree->Branch("ntk",  &evInfo->ntk);
+  eventTree->Branch("ntk_clus",  &evInfo->ntk_clus);
+  eventTree->Branch("ntk_llp",  &evInfo->ntk_llp);
+  eventTree->Branch("ntk_clus_llp",  &evInfo->ntk_clus_llp);
+  eventTree->Branch("clus_ntk",  &evInfo->clus_ntk);
+  eventTree->Branch("clus_llpidx",  &evInfo->clus_llpidx);
+  eventTree->Branch("clus_ntk_match",  &evInfo->clus_ntk_match);
+  eventTree->Branch("clus_mass",  &evInfo->clus_mass);
+  eventTree->Branch("clus_nGoodTrack",  &evInfo->clus_nGoodTrack);
+  eventTree->Branch("llp_ntk",  &evInfo->llp_ntk);
+  eventTree->Branch("llp_ntk_match",  &evInfo->llp_ntk_match);
+  eventTree->Branch("llp_matched",  &evInfo->llp_matched);
+  eventTree->Branch("llp_matched_vtx",  &evInfo->llp_matched_vtx);
+  eventTree->Branch("llp_closest_genv_dist",  &evInfo->llp_closest_genv_dist);
+  eventTree->Branch("llp_closest_genv_dist_z",  &evInfo->llp_closest_genv_dist_z);
+  eventTree->Branch("llp_closest_genv_dist_2d",  &evInfo->llp_closest_genv_dist_2d);
+  eventTree->Branch("llp_min_vtx_normchi2",  &evInfo->llp_min_vtx_normchi2);
+  eventTree->Branch("vtx_chi2",  &evInfo->vtx_chi2);
+  eventTree->Branch("vtx_matched",  &evInfo->vtx_matched);
+  eventTree->Branch("vtx_normchi2",  &evInfo->vtx_normchi2);
+  eventTree->Branch("vtx_genvdist",  &evInfo->vtx_genvdist);
+  eventTree->Branch("vtx_genvdist_2d",  &evInfo->vtx_genvdist_2d);
+  eventTree->Branch("vtx_genvdist_z",  &evInfo->vtx_genvdist_z);
+  eventTree->Branch("tk_pt",  &evInfo->tk_pt);
+  eventTree->Branch("tk_eta",  &evInfo->tk_eta);
+  eventTree->Branch("tk_phi",  &evInfo->tk_phi);
+  eventTree->Branch("tk_dxy",  &evInfo->tk_dxy);
+  eventTree->Branch("tk_dxyError",  &evInfo->tk_dxyError);
+  eventTree->Branch("tk_dz",  &evInfo->tk_dz);
+  eventTree->Branch("tk_dzError",  &evInfo->tk_dzError);
+  eventTree->Branch("tk_pfRelIso03_all",  &evInfo->tk_pfRelIso03_all);
+  eventTree->Branch("tk_ptError",  &evInfo->tk_ptError);
+  eventTree->Branch("tk_normchi2",  &evInfo->tk_normchi2);
+  eventTree->Branch("tk_nvalidhits",  &evInfo->tk_nvalidhits);
+}
+
+void GNNClusInfo::initEventStructure()
+{
+  evInfo->ntk = 0;
+  evInfo->ntk_clus = 0;
+  evInfo->ntk_llp = 0;
+  evInfo->ntk_clus_llp = 0;
+  evInfo->clus_ntk.clear();
+  evInfo->clus_llpidx.clear();
+  evInfo->clus_ntk_match.clear();
+  evInfo->clus_mass.clear();
+  evInfo->clus_nGoodTrack.clear();
+  evInfo->llp_ntk.clear();
+  evInfo->llp_ntk_match.clear();
+  evInfo->llp_matched.clear();
+  evInfo->llp_matched_vtx.clear();
+  evInfo->vtx_chi2.clear();
+  evInfo->vtx_matched.clear();
+  evInfo->vtx_normchi2.clear();
+  evInfo->vtx_genvdist.clear();
+  evInfo->vtx_genvdist_2d.clear();
+  evInfo->vtx_genvdist_z.clear();
+  evInfo->llp_closest_genv_dist.clear();
+  evInfo->llp_closest_genv_dist_z.clear();
+  evInfo->llp_closest_genv_dist_2d.clear();
+  evInfo->llp_min_vtx_normchi2.clear();
+  evInfo->tk_pt.clear();
+  evInfo->tk_eta.clear();
+  evInfo->tk_phi.clear();
+  evInfo->tk_dxy.clear();
+  evInfo->tk_dxyError.clear();
+  evInfo->tk_dz.clear();
+  evInfo->tk_dzError.clear();
+  evInfo->tk_pfRelIso03_all.clear();
+  evInfo->tk_ptError.clear();
+  evInfo->tk_normchi2.clear();
+  evInfo->tk_nvalidhits.clear();
+}
+
+DEFINE_FWK_MODULE(GNNClusInfo);

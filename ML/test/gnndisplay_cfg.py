@@ -6,7 +6,7 @@ from SoftDisplacedVertices.VtxReco.VertexReco_cff import VertexRecoSeq
 process = cms.Process('MLTree')
 
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
-process.MessageLogger.cerr.FwkReport.reportEvery = 10000
+process.MessageLogger.cerr.FwkReport.reportEvery = 1
 
 # import of standard configurations
 process.load('FWCore.MessageService.MessageLogger_cfi')
@@ -26,7 +26,7 @@ process.load("SoftDisplacedVertices.VtxReco.GenProducer_cfi")
 process.load("SoftDisplacedVertices.VtxReco.GenMatchedTracks_cfi")
 process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
 process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
-process.load("SoftDisplacedVertices.ML.GNNGenInfo_cfi")
+process.load("SoftDisplacedVertices.ML.GNNDisplay_cfi")
 
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(100)
@@ -65,31 +65,31 @@ process.configurationMetadata = cms.untracked.PSet(
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_upgrade2018_realistic_v16_L1v1', '')
 
-process.TFileService = cms.Service("TFileService", fileName = cms.string("GNNGenInfochi5.root") )
+process.TFileService = cms.Service("TFileService", fileName = cms.string("GNNTree.root") )
 
-## Output definition
-#output_mod = cms.OutputModule("NanoAODOutputModule",
-#    compressionAlgorithm = cms.untracked.string('LZMA'),
-#    compressionLevel = cms.untracked.int32(9),
-#    dataset = cms.untracked.PSet(
-#        dataTier = cms.untracked.string('NANOAODSIM'),
-#        filterName = cms.untracked.string('')
-#    ),
-#    fileName = cms.untracked.string('file:NanoAOD.root'),
-#    outputCommands = process.NANOAODSIMEventContent.outputCommands
-#)
-#
-#process.NANOAODSIMoutput = output_mod
+# Output definition
+process.out = cms.OutputModule("PoolOutputModule",
+    fileName = cms.untracked.string('vtxreco.root'),
+    SelectEvents = cms.untracked.PSet(
+      SelectEvents = cms.vstring('p'),
+      ),
+    outputCommands = cms.untracked.vstring(
+      'keep *',
+      )
+)
 
 # Defining globally acessible service object that does not affect physics results.
 import os
 USER = os.environ.get('USER')
 
 #process.p = cms.Path(process.GNNInference)
-process.p = cms.Path(process.GNNGenInfo)
+process.p = cms.Path(process.GNNDisplay)
+
+process.outp = cms.EndPath(process.out)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.p,
+                                process.outp,
                                 )
 
 

@@ -3,6 +3,9 @@ import FWCore.ParameterSet.Config as cms
 import HLTrigger.HLTfilters.hltHighLevel_cfi as hlt
 from SoftDisplacedVertices.VtxReco.VertexReco_cff import VertexRecoSeq
 
+useIVF = False
+useGNN = True
+
 process = cms.Process('MLTree')
 
 process.load('FWCore.MessageLogger.MessageLogger_cfi')
@@ -25,10 +28,12 @@ process.load("SoftDisplacedVertices.VtxReco.VertexReco_cff")
 process.load("SoftDisplacedVertices.VtxReco.GenProducer_cfi")
 process.load("SoftDisplacedVertices.VtxReco.GenMatchedTracks_cfi")
 process.load("TrackingTools/TransientTrack/TransientTrackBuilder_cfi")
+process.load("SoftDisplacedVertices.ML.GNNVtxReco_cff")
+process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
 process.load("SoftDisplacedVertices.ML.MLTree_cfi")
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(-1)
 )
 
 MessageLogger = cms.Service("MessageLogger")
@@ -57,7 +62,42 @@ process.configurationMetadata = cms.untracked.PSet(
 from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, '106X_upgrade2018_realistic_v16_L1v1', '')
 
-VertexRecoSeq(process, 'vtxReco', useMINIAOD=False, useIVF=True)
+if useIVF:
+  process.vtxReco = cms.Sequence(
+      process.inclusiveVertexFinderSoftDV *
+      process.vertexMergerSoftDV *
+      process.trackVertexArbitratorSoftDV *
+      process.IVFSecondaryVerticesSoftDV
+  )
+  process.MLTree.vtx_token = cms.InputTag("IVFSecondaryVerticesSoftDV")
+elif useGNN:
+  ##process.GNNVtxSoftDV = process.GNNInference.clone()
+  ##process.GNNVtxSoftDV0 = process.GNNInference.clone()
+  ##process.GNNVtxSoftDV0 = process.GNNGenInfo.clone()
+  #process.GNNVtxSoftDV = process.vtxRecoGNN.clone()
+  #process.vtxReco = cms.Sequence(
+  #    #process.vtxRecoGNN *
+  #    #process.inclusiveVertexFinderGNN * 
+  #    #process.vertexMergerGNN *
+  #    #process.trackVertexArbitratorGNN *
+  #    process.GNNVtxSoftDV
+  #)
+  #process.GNNVtxSoftDV = process.mfvVerticesMINIAOD.clone(
+  #    seed_tracks_src = cms.InputTag('vtxRecoGNN'),
+  #    )
+  process.GNNVtxSoftDV = process.vtxRecoGNN.clone()
+  process.vtxReco = cms.Sequence(
+      #process.vtxRecoGNN *
+      process.GNNVtxSoftDV
+      )
+  process.MLTree.vtx_token = cms.InputTag("GNNVtxSoftDV")
+else:
+  process.MFVSecondaryVerticesSoftDV = process.mfvVerticesMINIAOD.clone()
+  process.vtxReco = cms.Sequence(
+      process.MFVSecondaryVerticesSoftDV
+  )
+  process.MLTree.vtx_token = cms.InputTag("MFVSecondaryVerticesSoftDV")
+#VertexRecoSeq(process, 'vtxReco', useMINIAOD=False, useIVF=True)
 
 ## Output definition
 #output_mod = cms.OutputModule("NanoAODOutputModule",

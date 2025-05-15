@@ -41,9 +41,11 @@ stop_2018 = [
     Sample("stop_M600_588_ct200_2018", xsec=1e-03),
     Sample("stop_M600_585_ct20_2018", xsec=1e-03),
     Sample("stop_M600_580_ct2_2018", xsec=1e-03),
+    Sample("stop_M600_575_ct0p2_2018", xsec=1e-03),
     Sample("stop_M1000_988_ct200_2018", xsec=1e-03),
     Sample("stop_M1000_985_ct20_2018", xsec=1e-03),
     Sample("stop_M1000_980_ct2_2018", xsec=1e-03),
+    Sample("stop_M1000_975_ct0p2_2018", xsec=1e-03),
     ]
 
 c1n2_2018 = [

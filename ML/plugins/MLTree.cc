@@ -26,6 +26,7 @@ struct MLInfo
   double vtx_y;
   double vtx_z;
   double vtx_ntracks;
+  double vtx_normchi2;
   double vtx_ndof;
   double vtx_lxy;
   double vtx_lxy_err;
@@ -167,7 +168,8 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
     mlInfo->vtx_y = vtx.y();
     mlInfo->vtx_z = vtx.z();
     mlInfo->vtx_ntracks = vtx.tracksSize();
-    mlInfo->vtx_ndof = vtx.normalizedChi2();
+    mlInfo->vtx_normchi2 = vtx.normalizedChi2();
+    mlInfo->vtx_ndof = vtx.ndof();
     mlInfo->vtx_lxy = d.value();
     mlInfo->vtx_lxy_err = d.error();
     mlInfo->vtx_dphi_jet1 = reco::deltaPhi(l_vector, leading_jet);
@@ -264,6 +266,7 @@ void MLTree::beginJob()
   mlTree->Branch("vtx_y",      &mlInfo->vtx_y);
   mlTree->Branch("vtx_z",      &mlInfo->vtx_z);
   mlTree->Branch("vtx_ntracks",&mlInfo->vtx_ntracks);
+  mlTree->Branch("vtx_normchi2",   &mlInfo->vtx_normchi2);
   mlTree->Branch("vtx_ndof",   &mlInfo->vtx_ndof);
   mlTree->Branch("vtx_lxy",    &mlInfo->vtx_lxy);
   mlTree->Branch("vtx_lxy_err",&mlInfo->vtx_lxy_err);
@@ -307,6 +310,7 @@ void MLTree::initEventStructure()
   mlInfo->vtx_z = -999;
   mlInfo->vtx_ntracks = -1;
   mlInfo->vtx_ndof = -1;
+  mlInfo->vtx_normchi2 = -1;
   mlInfo->vtx_lxy = -1;
   mlInfo->vtx_lxy_err = -1;
   mlInfo->vtx_dphi_jet1 = -999;
