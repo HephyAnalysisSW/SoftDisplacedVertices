@@ -13,44 +13,167 @@ reco::GenParticleRef SoftDV::get_gen(const reco::Candidate* c, const edm::Handle
   return reco::GenParticleRef();
 }
 
-
-std::vector<int> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, std::vector<int> LLP_id, int LSP_id, bool debug){
+SoftDV::DecayMode SoftDV::try_STOP(const reco::GenParticle& gen, bool debug) {
+  if (!gen.isLastCopy()) return SoftDV::Undefined;
+  if (abs(gen.pdgId())!=1000006) return SoftDV::Undefined;
+  if (debug){
+    std::cout << "try_STOP for particle " << gen.pdgId() << std::endl;
+    std::cout << "Decay products: ";
+    for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+      std::cout << gen.daughter(j)->pdgId() << ", ";
+    }
+    std::cout << std::endl;
+  }
+  bool found=false;
+  for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+    if (abs(gen.daughter(j)->pdgId())==1000022){
+      found = true;
+    }
+    if (abs(gen.daughter(j)->pdgId()) == 1000006){
+      if (debug){
+        std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
+      }
+      found = false;
+      break;
+    }
+  }
+  if (!found) return SoftDV::Undefined;
+  if (gen.numberOfDaughters()==3) {
+    if (debug)
+      std::cout << "Found 4 body decay!" << std::endl;
+    return SoftDV::STOP_4body;
+  }
+  if (gen.numberOfDaughters()==2){ 
+    if (debug)
+      std::cout << "Found 2 body decay!" << std::endl;
+    return SoftDV::STOP_2body;
+  }
   if (debug)
-    std::cout << "Start looking for LLP." << std::endl;
+    std::cout << "Something unexpected!!! N dau " << gen.numberOfDaughters() << std::endl;
+  return SoftDV::Undefined;
+}
 
-  bool found = false;
-  std::vector<int> llps;
-  for (size_t i=0; i<gen_particles->size(); ++i) {
-    const reco::GenParticle& gen = gen_particles->at(i);
-    if ( std::find(LLP_id.begin(), LLP_id.end(), abs(gen.pdgId())) != LLP_id.end() ) {
-      if (!gen.isLastCopy()) continue;
-      if (debug)
-        std::cout << "llp id: " << gen.pdgId() << " vertex " << gen.vertex().x() << " " << gen.vertex().y() << " " << gen.vertex().z() << std::endl;
-      for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
-        if (abs(gen.daughter(j)->pdgId())==LSP_id){
-          found = true;
-        }
-        if (std::find(LLP_id.begin(), LLP_id.end(), abs(gen.daughter(j)->pdgId())) != LLP_id.end()){
-          if (debug){
-            std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
+SoftDV::DecayMode SoftDV::try_N2(const reco::GenParticle& gen, bool debug) {
+  if (!gen.isLastCopy()) return SoftDV::Undefined;
+  if (abs(gen.pdgId())!=1000023) return SoftDV::Undefined;
+  if (debug){
+    std::cout << "try_N2 for particle " << gen.pdgId() << std::endl;
+    std::cout << "Decay products: ";
+    for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+      std::cout << gen.daughter(j)->pdgId() << ", ";
+    }
+    std::cout << std::endl;
+  }
+  bool found=false;
+  SoftDV::DecayMode dm = SoftDV::Undefined;
+  std::vector<int> ZorH = {23,25};
+  for (size_t j=0; j<gen.numberOfDaughters(); ++j) {
+    if (abs(gen.daughter(j)->pdgId())==1000022){
+      found = true;
+    }
+    else{
+      for (auto& f : ZorH) {
+        if (abs(gen.daughter(j)->pdgId())==f) {
+          std::vector<const reco::Candidate*> daus;
+          daus.push_back(gen.daughter(j));
+          //auto& dau = SoftDV::get_gen(gen.daughter(j), gen_particles);
+          bool foundItself=true;
+          while (foundItself) {
+            foundItself=false;
+            const reco::Candidate* dau = daus[0];
+            if (debug)
+              std::cout << "dau " << dau->pdgId() << " : ";
+            for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+              if (debug)
+                std::cout << dau->daughter(jj)->pdgId() << ", ";
+              if (abs(dau->daughter(jj)->pdgId())==f){
+                foundItself=true;
+                //dau = SoftDV::get_gen(dau->daughter(jj), gen_particles);
+                daus.pop_back();
+                daus.push_back(dau->daughter(jj));
+              }
+            }
+            if (debug)
+              std::cout << std::endl;
           }
-          found = false;
-          break;
+          const reco::Candidate* dau = daus[0];
+          if (debug){
+            std::cout << "Daughter Decay products: ";
+            for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+              std::cout << dau->daughter(jj)->pdgId() << ", ";
+            }
+            std::cout << std::endl;
+          }
+          for (size_t jj=0; jj<dau->numberOfDaughters(); ++jj) {
+            if (abs(dau->daughter(jj)->pdgId())==5){
+              if (f==23){
+                dm = SoftDV::N2_Zbb;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hbb;
+              }
+            }
+            else if (abs(dau->daughter(jj)->pdgId())<5){
+              if (f==23){
+                dm = SoftDV::N2_Zqq;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hqq;
+              }
+            }
+            else {
+              if (f==23){
+                dm = SoftDV::N2_Zll;
+              }
+              else if (f==25){
+                dm = SoftDV::N2_Hll;
+              }
+            }
+          }
         }
       }
     }
-    if (found){
-      if (debug)
-        std::cout << "LLP found." << std::endl;
-      llps.push_back(i);
+    if (abs(gen.daughter(j)->pdgId()) == 1000023){
+      if (debug){
+        std::cout << "!!! Found LLP daughter still the LLP, so discard the previous LLP." << std::endl;
+      }
       found = false;
+      break;
+    }
+  }
+  if (!found) return SoftDV::Undefined;
+  if (debug)
+    std::cout << "Found decay mode " << dm << std::endl;
+  return dm;
+}
+
+std::pair<std::vector<int>,std::vector<int>> SoftDV::FindLLP(const edm::Handle<reco::GenParticleCollection>& gen_particles, bool debug){
+  if (debug)
+    std::cout << "Start looking for LLP." << std::endl;
+
+  std::vector<int> llps;
+  std::vector<int> llps_decay_mode;
+  for (size_t i=0; i<gen_particles->size(); ++i) {
+    const reco::GenParticle& gen = gen_particles->at(i);
+    SoftDV::DecayMode stop_mode = try_STOP(gen,debug);
+    SoftDV::DecayMode c1n2_mode = try_N2(gen,debug);
+    if (stop_mode>SoftDV::Undefined || c1n2_mode>SoftDV::Undefined){
+      if (debug)
+        std::cout << "LLP with decay mode " << c1n2_mode+stop_mode << " found." << std::endl;
+      llps.push_back(i);
+      if (stop_mode>SoftDV::Undefined){
+        llps_decay_mode.push_back(stop_mode);
+      }
+      else{
+        llps_decay_mode.push_back(c1n2_mode);
+      }
     }
   }
 
   if (debug){
     std::cout << "Total LLPs: " << llps.size() << std::endl;
   }
-  return llps;
+  return std::pair<std::vector<int>,std::vector<int>>({llps,llps_decay_mode});
   
 }
 
@@ -190,10 +313,10 @@ bool SoftDV::pass_gentk(const reco::GenParticle& gtk, const SoftDV::Point& refpo
 // A map is returned: 
 //   Key: vertex index
 //   Value: a std::pair of (matched LLP index, number of matched tracks)
-std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::GenParticleCollection>& genPart, const edm::Handle<reco::VertexCollection>& vertices, const edm::Handle<reco::TrackCollection>& tracks, const SoftDV::Point& refpoint, std::vector<int> LLPid, int LSPid, bool debug) {
+std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::GenParticleCollection>& genPart, const edm::Handle<reco::VertexCollection>& vertices, const edm::Handle<reco::TrackCollection>& tracks, const SoftDV::Point& refpoint, bool debug) {
   std::map<int,std::pair<int,int>> res;
   // Get all LLPs
-  std::vector<int> llp_idx = SoftDV::FindLLP(genPart, LLPid, LSPid, debug);
+  std::vector<int> llp_idx = SoftDV::FindLLP(genPart, debug).first;
   std::map<int,std::vector<int>> tk_llp_map; // first element is track key; second element is a vector of indices of matched LLPs
   for (size_t illp=0; illp<llp_idx.size(); ++illp){
     std::vector<int> llp_daus = SoftDV::GetDaughters(llp_idx[illp], genPart, debug);
@@ -236,7 +359,7 @@ std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::Gen
       int tkkey = (*v_tk).key();
       if (debug)
         std::cout << tkkey << ", ";
-      const auto& otk = tracks->at(tkkey);
+      //const auto& otk = tracks->at(tkkey);
       // If a track is matched with LLP, increment the corresponding number in the vector
       if (tk_llp_map.find(tkkey)!=tk_llp_map.end()) {
         for (auto& imllp:tk_llp_map[tkkey]){

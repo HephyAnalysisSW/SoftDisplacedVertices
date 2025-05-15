@@ -130,7 +130,7 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
   edm::Handle<reco::TrackCollection> tracks;
   event.getByToken(tk_token, tracks);
 
-  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
+  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, vertices, tracks, primary_vertex->position(), debug);
 
   int jet_leading_idx = -1;
   double jet_pt_max = -1;

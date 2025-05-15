@@ -39,8 +39,6 @@ class LLPTableProducer : public edm::stream::EDProducer<> {
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> genToken_;
     const std::string LLPName_;
     const std::string LLPDoc_;
-    const std::vector<int> LLPid_;
-    const int LSPid_;
     const edm::EDGetTokenT<reco::VertexCollection> pvToken_;
     const edm::EDGetTokenT<reco::TrackCollection> tkToken_;
     const edm::EDGetTokenT<reco::VertexCollection> svToken_;
@@ -51,8 +49,6 @@ LLPTableProducer::LLPTableProducer(const edm::ParameterSet& params)
   : genToken_(consumes<std::vector<reco::GenParticle>>(params.getParameter<edm::InputTag>("src"))),
     LLPName_(params.getParameter<std::string>("LLPName")),
     LLPDoc_(params.getParameter<std::string>("LLPDoc")),
-    LLPid_(params.getParameter<std::vector<int>>("LLPid_")),
-    LSPid_(params.getParameter<int>("LSPid_")),
     pvToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("pvToken"))),
     tkToken_(consumes<reco::TrackCollection>(params.getParameter<edm::InputTag>("tkToken"))),
     svToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("svToken"))),
@@ -60,6 +56,7 @@ LLPTableProducer::LLPTableProducer(const edm::ParameterSet& params)
 {
   produces<nanoaod::FlatTable>("LLPs");
   produces<nanoaod::FlatTable>("GenPart");
+  produces<nanoaod::FlatTable>("GenSecVtx");
   produces<nanoaod::FlatTable>("SDVTrack");
   produces<nanoaod::FlatTable>("SDVSecVtx");
 }
@@ -83,11 +80,14 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   edm::Handle<reco::VertexCollection> secondary_vertices;
   iEvent.getByToken(svToken_, secondary_vertices);
 
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, debug);
+  std::pair<std::vector<int>,std::vector<int>> llp_idx_dm = SoftDV::FindLLP(genParticles, debug);
+  std::vector<int> llp_idx = llp_idx_dm.first;
+  std::vector<int> llp_decaymdoe = llp_idx_dm.second;
   std::vector<float> llp_pt, llp_eta, llp_phi, llp_mass, llp_ctau, llp_decay_x, llp_decay_y, llp_decay_z;
-  std::vector<int> llp_pdgId, llp_status, llp_statusFlags, llp_ngentk, llp_nrecotk;
+  std::vector<int> llp_pdgId, llp_status, llp_statusFlags, llp_ngentk, llp_nrecotk, llp_dm;
 
   std::vector<int> genpart_llpidx(genParticles->size(), -1);
+  std::vector<int> genpart_pdgId(genParticles->size(), 0);
   std::vector<int> genpart_isgentk(genParticles->size(), 0);
   std::vector<int> genpart_recomatch(genParticles->size(), -1);
   std::vector<int> genpart_charge(genParticles->size(), 0);
@@ -97,8 +97,18 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   std::vector<float> genpart_vertex_x(genParticles->size(), -1);
   std::vector<float> genpart_vertex_y(genParticles->size(), -1);
   std::vector<float> genpart_vertex_z(genParticles->size(), -1);
+  std::vector<float> gensecvtx_llpidx;
+  std::vector<float> gensecvtx_x;
+  std::vector<float> gensecvtx_y;
+  std::vector<float> gensecvtx_z;
   std::vector<int> tk_genpartidx(tracks->size(), -1);
   std::vector<int> tk_llpidx(tracks->size(), -1);
+  std::vector<int> tk_gensecvtxidx(tracks->size(), -1);
+
+  //for (size_t igen=0; igen<genParticles->size(); ++igen) {
+  //  const reco::GenParticle& iigen = genParticles->at(igen);
+  //  genpart_pdgId[igen] = iigen.pdgId();
+  //}
 
   for (size_t illp=0; illp<llp_idx.size(); ++illp){
     const reco::GenParticle& llp = genParticles->at(llp_idx[illp]);
@@ -107,6 +117,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
     llp_phi.push_back(llp.phi());
     llp_mass.push_back(llp.mass());
     llp_pdgId.push_back(llp.pdgId());
+    llp_dm.push_back(llp_decaymdoe[illp]);
     llp_status.push_back(llp.status());
     llp_statusFlags.push_back( llp.statusFlags().isLastCopyBeforeFSR()             * 16384 +llp.statusFlags().isLastCopy()                           * 8192  +llp.statusFlags().isFirstCopy()                          * 4096  +llp.statusFlags().fromHardProcessBeforeFSR()             * 2048  +llp.statusFlags().isDirectHardProcessTauDecayProduct()   * 1024  +llp.statusFlags().isHardProcessTauDecayProduct()         * 512   +llp.statusFlags().fromHardProcess()                      * 256   +llp.statusFlags().isHardProcess()                        * 128   +llp.statusFlags().isDirectHadronDecayProduct()           * 64    +llp.statusFlags().isDirectPromptTauDecayProduct()        * 32    +llp.statusFlags().isDirectTauDecayProduct()              * 16    +llp.statusFlags().isPromptTauDecayProduct()              * 8     +llp.statusFlags().isTauDecayProduct()                    * 4     +llp.statusFlags().isDecayedLeptonHadron()                * 2     +llp.statusFlags().isPrompt()                             * 1);
 
@@ -139,6 +150,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
     for (int igen:llp_daus){
       const reco::GenParticle& idau = genParticles->at(igen);
       genpart_llpidx[igen] = illp;
+      genpart_pdgId[igen] = idau.pdgId();
       genpart_dxy[igen] = gen_dxy(idau, primary_vertex->position());
       genpart_dz[igen] = gen_dz(idau, primary_vertex->position());
       genpart_charge[igen] = idau.charge();
@@ -161,10 +173,35 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
         genpart_recomatch_dr[igen] = matchres.second.second[0];
       }
     }
+    std::vector<SoftDV::Point> illp_vertices;
+    for (size_t itk=0; itk<tk_genpartidx.size(); ++itk) {
+      if ((tk_genpartidx[itk]==-1) || (tk_llpidx[itk]!=int(illp)) ) continue;
+      int tk_genidx = tk_genpartidx[itk];
+      SoftDV::Point tk_vtx = SoftDV::Point();
+      tk_vtx.SetXYZ(genpart_vertex_x[tk_genidx],genpart_vertex_y[tk_genidx],genpart_vertex_z[tk_genidx]);
+      bool vtx_isNew = true;
+      int tk_vtx_idx = -1;
+      for (size_t illpvtx=0; illpvtx<illp_vertices.size(); ++illpvtx) {
+        // if the vertices are close to each other (within 50um)
+        if ((illp_vertices[illpvtx]-tk_vtx).mag2()<0.000025) {
+          vtx_isNew = false;
+          tk_vtx_idx = illpvtx+gensecvtx_x.size();
+        }
+      }
+      if (vtx_isNew) {
+        illp_vertices.push_back(tk_vtx);
+        tk_vtx_idx = illp_vertices.size()-1+gensecvtx_x.size();
+      }
+      tk_gensecvtxidx[itk] = tk_vtx_idx;
+    }
+    for (auto& igensecvtx: illp_vertices) {
+      gensecvtx_llpidx.push_back(illp);
+      gensecvtx_x.push_back(igensecvtx.x());
+      gensecvtx_y.push_back(igensecvtx.y());
+      gensecvtx_z.push_back(igensecvtx.z());
+    }
     llp_ngentk.push_back(ngentk);
     llp_nrecotk.push_back(nmatchedtk);
-
-
   }
 
   // Match LLP with reco vertices
@@ -180,7 +217,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
 
   // Match LLP and reco vertices by daughter
   //
-  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
+  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), debug);
   for (size_t ivtx=0; ivtx<secondary_vertices->size(); ++ivtx) {
     if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){
       int llp_matched_idx = vtxllpmatch[ivtx].first;
@@ -233,6 +270,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   llpTable->addColumn<float>("decay_y", llp_decay_y, "y position of LLP decay in cm", nanoaod::FlatTable::FloatColumn, 10);
   llpTable->addColumn<float>("decay_z", llp_decay_z, "z position of LLP decay in cm", nanoaod::FlatTable::FloatColumn, 10);
   llpTable->addColumn<int>("pdgId", llp_pdgId, "pdgID of LLP", nanoaod::FlatTable::IntColumn);
+  llpTable->addColumn<int>("decaymode", llp_dm, "Decay mode of LLP: 0-undefined; 1-stop->bffChi0; 2-stop->cChi0; 3-N2->ZChi0->bbChi0; 4-N2->ZChi0->qqChi0; 5-N2->ZChi0->llChi0; 6-N2->HChi0->bbChi0; 7-N2->HChi0->qqChi0; 8-N2->HChi0->llChi0", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("status", llp_status, "status of LLP", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("statusFlags", llp_statusFlags, "gen status flags stored bitwise, bits are: 0 : isPrompt, 1 : isDecayedLeptonHadron, 2 : isTauDecayProduct, 3 : isPromptTauDecayProduct, 4 : isDirectTauDecayProduct, 5 : isDirectPromptTauDecayProduct, 6 : isDirectHadronDecayProduct, 7 : isHardProcess, 8 : fromHardProcess, 9 : isHardProcessTauDecayProduct, 10 : isDirectHardProcessTauDecayProduct, 11 : fromHardProcessBeforeFSR, 12 : isFirstCopy, 13 : isLastCopy, 14 : isLastCopyBeforeFSR, ", nanoaod::FlatTable::IntColumn);
   llpTable->addColumn<int>("ngentk", llp_ngentk, "Number of gen tracks", nanoaod::FlatTable::IntColumn);
@@ -246,6 +284,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
 
   auto genPartTable = std::make_unique<nanoaod::FlatTable>(genParticles->size(), "SDVGenPart", false, true);
   genPartTable->addColumn<int>("LLPIdx",genpart_llpidx, "LLP index", nanoaod::FlatTable::IntColumn);
+  genPartTable->addColumn<int>("pdgId",genpart_pdgId, "pdgId", nanoaod::FlatTable::IntColumn);
   genPartTable->addColumn<int>("isGentk",genpart_isgentk, "whether the gen particle is possibly measured as a reco track", nanoaod::FlatTable::IntColumn);
   genPartTable->addColumn<int>("recomatch",genpart_recomatch, "whether the gen particle is matched with a reco track", nanoaod::FlatTable::IntColumn);
   genPartTable->addColumn<int>("charge",genpart_charge, "charge", nanoaod::FlatTable::IntColumn);
@@ -256,9 +295,16 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   genPartTable->addColumn<float>("vertex_y",genpart_vertex_y, "y position of gen particle vertex", nanoaod::FlatTable::FloatColumn, 10);
   genPartTable->addColumn<float>("vertex_z",genpart_vertex_z, "z position of gen particle vertex", nanoaod::FlatTable::FloatColumn, 10);
 
+  auto genSecVtxTable = std::make_unique<nanoaod::FlatTable>(gensecvtx_x.size(), "GenSecVtx", false);
+  genSecVtxTable->addColumn<int>("LLPIdx",gensecvtx_llpidx, "LLP index", nanoaod::FlatTable::IntColumn);
+  genSecVtxTable->addColumn<float>("vertex_x",gensecvtx_x, "x position of gen secondary vertex", nanoaod::FlatTable::FloatColumn, 10);
+  genSecVtxTable->addColumn<float>("vertex_y",gensecvtx_y, "y position of gen secondary vertex", nanoaod::FlatTable::FloatColumn, 10);
+  genSecVtxTable->addColumn<float>("vertex_z",gensecvtx_z, "z position of gen secondary vertex", nanoaod::FlatTable::FloatColumn, 10);
+
   auto tkTable = std::make_unique<nanoaod::FlatTable>(tracks->size(), "SDVTrack", false, true);
   tkTable->addColumn<int>("GenPartIdx", tk_genpartidx, "GenParticle index", nanoaod::FlatTable::IntColumn);
   tkTable->addColumn<int>("LLPIdx", tk_llpidx, "LLP index", nanoaod::FlatTable::IntColumn);
+  tkTable->addColumn<int>("GenSecVtxIdx", tk_gensecvtxidx, "GenSecVtx index", nanoaod::FlatTable::IntColumn);
 
   auto vtxTable = std::make_unique<nanoaod::FlatTable>(secondary_vertices->size(), "SDVSecVtx", false, true);
   vtxTable->addColumn<int>("matchedLLPIdx_bydau", SDV_match_bydau, "LLP index matched with SDV by daughters", nanoaod::FlatTable::IntColumn);
@@ -268,6 +314,7 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
 
   iEvent.put(std::move(llpTable), "LLPs"); 
   iEvent.put(std::move(genPartTable), "GenPart");
+  iEvent.put(std::move(genSecVtxTable), "GenSecVtx");
   iEvent.put(std::move(tkTable), "SDVTrack");
   iEvent.put(std::move(vtxTable), "SDVSecVtx");
 
