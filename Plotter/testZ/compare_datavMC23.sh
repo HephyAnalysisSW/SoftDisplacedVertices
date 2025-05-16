@@ -1,6 +1,6 @@
 #!/bin/bash
 
-run_compareK(){
+run_compareZ(){
 
     OUTDIR=$HISTDIR/plots/datavMC/$1
     PDFDIR=$OUTDIR/pdf
@@ -25,7 +25,7 @@ run_compareK(){
     mv $OUTDIR/*.png            $PNGDIR
 }
 
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/checks_2023/check11_bpix_minimal
+HISTDIR=/scratch-cbe/users/zhenyu.wu/AN_plots/checks_2023/check11
 
 DATA=$HISTDIR/data/met_2023_hist.root
 QCD=$HISTDIR/bkg/qcd_2023_hist.root

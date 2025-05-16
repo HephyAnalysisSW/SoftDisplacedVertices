@@ -70,7 +70,7 @@ class Plotter:
         assert 'path' in self.cfg['mapveto']['jetveto'][self.year], "jetveto path not available in config!"
         mappath = self.cfg['mapveto']['jetveto'][self.year]['path']
         self.f1 = ROOT.TFile.Open(mappath)
-        ROOT.gInterpreter.ProcessLine("auto h_jv = jetvetomap; h_jv->SetDirectory(0);")
+        ROOT.gInterpreter.ProcessLine("TH2D* h_jv = (TH2D*) gDirectory->GetFile()->Get(\"jetvetomap_all\"); h_jv->SetDirectory(0);")
         self.f1.Close()
 
   def setCorrections(self):

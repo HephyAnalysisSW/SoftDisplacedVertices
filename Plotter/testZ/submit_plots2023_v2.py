@@ -34,8 +34,8 @@ def print_info():
 
 samples_to_plot = {
     # 'sig' : [sample.name for sample in ss.???],
-    'bkg' : [sample.name for sample in ss.all_bkg_2023_bpix],
-    'data': [sample.name for sample in ss.met_2023_postbpix]
+    'bkg' : [sample.name for sample in ss.all_bkg_2023],
+    'data': [sample.name for sample in ss.met_2023]
 }
 
 tier = {'sig'  : 'CustomNanoAOD',
@@ -48,12 +48,12 @@ json_db = {'sig'  : 'MC_Run3Summer23.json',
            'data' : 'Data_MET2023_20250415.json'
 }
 
-year = "2023BPix"
+year = "2023"
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
 config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2023_check_11.yaml"
-outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
+outDir_base = "/scratch-cbe/users/zhenyu.wu/AN_plots/"
 work_subdir = "checks_2023"
-unique_dir  = "check11_bpix_minimal"
+unique_dir  = "check11"
 files_per_job = 5
 
 
@@ -83,7 +83,7 @@ for s_type in samples_to_plot.keys():
                 f.write("\n".join(chunk) + "\n")
         # ------------------------------------------------------------
             if s_type != 'data':
-                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config} --lumi 9451 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
+                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config} --lumi 18411 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
             else:
                 command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
 

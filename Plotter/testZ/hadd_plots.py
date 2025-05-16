@@ -5,9 +5,9 @@ import json
 import os
 
 year = 2023
-outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
+outDir_base = "/scratch-cbe/users/zhenyu.wu/AN_plots/"
 work_subdir = "checks_2023"
-unique_dir  = "check11_bpix_minimal"
+unique_dir  = "check11"
 workbase_dir = os.path.join(outDir_base, work_subdir)
 work_dir = os.path.join(workbase_dir, unique_dir)
 
