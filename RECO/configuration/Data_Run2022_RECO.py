@@ -8,7 +8,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: RECO --conditions 130X_dataRun3_Prompt_HcalSiPM_v1 --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3,Configuration/DataProcessing/Utils.addMonitoring,PhysicsTools/NanoAOD/nano_cff.nanoL1TrigObjCustomize --datatier AOD,MINIAOD,NANOAOD --era Run3 --eventcontent AOD,MINIAOD,NANOEDMAOD --filein _placeholder_.root --fileout file:ReReco-Run2023B-JetMET1-19Dec2023-00001.root --nThreads 8 --no_exec --python_filename ReReco-Run2023B-JetMET1-19Dec2023-00001_0_cfg.py --scenario pp --step RAW2DIGI,L1Reco,RECO,PAT,NANO --data --processName PAT
+# with command line options: RECO --conditions 130X_dataRun3_HcalSiPM_v1 --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3,Configuration/DataProcessing/Utils.addMonitoring,PhysicsTools/NanoAOD/nano_cff.nanoL1TrigObjCustomize --datatier AOD,MINIAOD,NANOAOD --era Run3 --eventcontent AOD,MINIAOD,NANOEDMAOD --filein _placeholder_.root --fileout file:ReReco-Run2022C-JetMET-19Dec2023-00001.root --nThreads 8 --no_exec --python_filename ReReco-Run2022C-JetMET-19Dec2023-00001_0_cfg.py --scenario pp --step RAW2DIGI,L1Reco,RECO,PAT,NANO --data --processName PAT
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -91,7 +91,7 @@ process.AODoutput = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     eventAutoFlushCompressedSize = cms.untracked.int32(31457280),
-    fileName = cms.untracked.string('file:ReReco-Run2023B-JetMET1-19Dec2023-00001.root'),
+    fileName = cms.untracked.string('file:ReReco-Run2022C-JetMET-19Dec2023.root'),
     outputCommands = process.AODEventContent.outputCommands
 )
 
@@ -105,7 +105,7 @@ process.AODoutput = cms.OutputModule("PoolOutputModule",
 #     dropMetaData = cms.untracked.string('ALL'),
 #     eventAutoFlushCompressedSize = cms.untracked.int32(-900),
 #     fastCloning = cms.untracked.bool(False),
-#     fileName = cms.untracked.string('file:ReReco-Run2023B-JetMET1-19Dec2023-00001_inMINIAOD.root'),
+#     fileName = cms.untracked.string('file:ReReco-Run2022C-JetMET-19Dec2023-00001_inMINIAOD.root'),
 #     outputCommands = process.MINIAODEventContent.outputCommands,
 #     overrideBranchesSplitLevel = cms.untracked.VPSet(
 #         cms.untracked.PSet(
@@ -164,7 +164,7 @@ process.AODoutput = cms.OutputModule("PoolOutputModule",
 #     overrideInputFileSplitLevels = cms.untracked.bool(True),
 #     splitLevel = cms.untracked.int32(0)
 # )
-
+# 
 # process.NANOEDMAODoutput = cms.OutputModule("PoolOutputModule",
 #     compressionAlgorithm = cms.untracked.string('LZMA'),
 #     compressionLevel = cms.untracked.int32(9),
@@ -172,7 +172,7 @@ process.AODoutput = cms.OutputModule("PoolOutputModule",
 #         dataTier = cms.untracked.string('NANOAOD'),
 #         filterName = cms.untracked.string('')
 #     ),
-#     fileName = cms.untracked.string('file:ReReco-Run2023B-JetMET1-19Dec2023-00001_inNANOEDMAOD.root'),
+#     fileName = cms.untracked.string('file:ReReco-Run2022C-JetMET-19Dec2023-00001_inNANOEDMAOD.root'),
 #     outputCommands = process.NANOAODEventContent.outputCommands
 # )
 
@@ -180,7 +180,7 @@ process.AODoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_Prompt_HcalSiPM_v1', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_HcalSiPM_v1', '')
 
 # Path and EndPath definitions
 process.raw2digi_step = cms.Path(process.RawToDigi)

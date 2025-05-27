@@ -10,7 +10,7 @@ def run_crab_status(command_id):
     Returns a dictionary with keys: finished, total, status, help_url, and dashboard_url.
     If a particular field is not found, its value will be None.
     """
-    PROJ_DIR = "/afs/cern.ch/user/a/aguven/crab_submissions/CMSSW_13_0_16/src/SoftDisplacedVertices/CustomMiniAOD/testK/crab_projects"
+    PROJ_DIR = "/afs/cern.ch/user/a/aguven/crab_submissions/CMSSW_13_0_16/src/SoftDisplacedVertices/CustomNanoAOD/testK/crab_projects"
     command = ["crab", "status", "-d", f"{PROJ_DIR}/{command_id}"]
     
     try:
@@ -66,8 +66,48 @@ def run_crab_status(command_id):
 
 def main():
     datasets = [
-        (,),
-        (,),
+        ("wjetstolnu4jets_2022",       "crab_20250512_143622"),
+        ("zto2nu4jetstht0100_2022",    "crab_20250512_145057"),
+        ("zto2nu4jetstht0200_2022",    "crab_20250512_145109"),
+        ("zto2nu4jetstht0400_2022",    "crab_20250512_145121"),
+        ("zto2nu4jetstht0800_2022",    "crab_20250512_145132"),
+        ("zto2nu4jetstht1500_2022",    "crab_20250512_145147"),
+        ("zto2nu4jetstht2500_2022",    "crab_20250512_145157"),
+        ("qcd4jetstht0040_2022",       "crab_20250512_145207"),
+        ("qcd4jetstht0070_2022",       "crab_20250512_145217"),
+        ("qcd4jetstht0100_2022",       "crab_20250512_145227"),
+        ("qcd4jetstht0200_2022",       "crab_20250512_145237"),
+        ("qcd4jetstht0400_2022",       "crab_20250512_145247"),
+        ("qcd4jetstht0600_2022",       "crab_20250512_145257"),
+        ("qcd4jetstht0800_2022",       "crab_20250512_145306"),
+        ("qcd4jetstht1000_2022",       "crab_20250512_145316"),
+        ("qcd4jetstht1200_2022",       "crab_20250512_145326"),
+        ("qcd4jetstht1500_2022",       "crab_20250512_145335"),
+        ("qcd4jetstht2000_2022",       "crab_20250512_145345"),
+        ("ttto4q_2022",                "crab_20250512_145355"),
+        ("ttto2l2nu_2022",             "crab_20250512_145405"),
+        ("tttolnu2q_2022",             "crab_20250512_145415"),
+        ("wjetstolnu4jets_ee_2022",    "crab_20250512_144756"),
+        ("zto2nu4jetstht0100_ee_2022", "crab_20250512_150834"),
+        ("zto2nu4jetstht0200_ee_2022", "crab_20250512_150846"),
+        ("zto2nu4jetstht0400_ee_2022", "crab_20250512_150856"),
+        ("zto2nu4jetstht0800_ee_2022", "crab_20250512_150906"),
+        ("zto2nu4jetstht1500_ee_2022", "crab_20250512_150916"),
+        ("zto2nu4jetstht2500_ee_2022", "crab_20250512_150926"),
+        ("qcd4jetstht0040_ee_2022",    "crab_20250512_150935"),
+        ("qcd4jetstht0070_ee_2022",    "crab_20250512_150945"),
+        ("qcd4jetstht0100_ee_2022",    "crab_20250512_150956"),
+        ("qcd4jetstht0200_ee_2022",    "crab_20250512_151007"),
+        ("qcd4jetstht0400_ee_2022",    "crab_20250512_151017"),
+        ("qcd4jetstht0600_ee_2022",    "crab_20250512_151028"),
+        ("qcd4jetstht0800_ee_2022",    "crab_20250512_151038"),
+        ("qcd4jetstht1000_ee_2022",    "crab_20250512_151048"),
+        ("qcd4jetstht1200_ee_2022",    "crab_20250512_151058"),
+        ("qcd4jetstht1500_ee_2022",    "crab_20250512_151107"),
+        ("qcd4jetstht2000_ee_2022",    "crab_20250512_151117"),
+        ("ttto4q_ee_2022",             "crab_20250512_151128"),
+        ("ttto2l2nu_ee_2022",          "crab_20250512_151137"),
+        ("tttolnu2q_ee_2022",          "crab_20250512_151147"),
     ]
 
     
@@ -81,7 +121,7 @@ def main():
             "finished": data["finished"],
             "total": data["total"],
             "status": data["status"],
-            "outputDatasetTag": data["outputDatasetTag"],
+            # "outputDatasetTag": data["outputDatasetTag"],
             "scheduler": data["scheduler"],
             "help_url": data["help_url"],
             "dashboard_url": data["dashboard_url"]

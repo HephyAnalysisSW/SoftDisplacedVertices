@@ -1,11 +1,11 @@
 import subprocess
 
 datasets = {
-    'MET_Run2022B':    '/MET/Run2022B-27Jun2023-v2/AOD',
-    # 'MET_Run2022C':    '/MET/Run2022C-27Jun2023-v2/AOD',
-    # 'JETMET_Run2022C': '/JetMET/Run2022C-27Jun2023-v1/AOD',
-    # 'JETMET_Run2022D': '/JetMET/Run2022D-27Jun2023-v2/AOD',
-    # 'JETMET_Run2022E': '/JetMET/Run2022E-27Jun2023-v1/AOD',
+    # 'Run2022C-19Dec2023-v1': '/JetMET/Run2022C-19Dec2023-v1/AOD',
+    'Run2022D-19Dec2023-v1': '/JetMET/Run2022D-19Dec2023-v1/AOD',
+    'Run2022E-19Dec2023-v1': '/JetMET/Run2022E-19Dec2023-v1/AOD',
+    # 'Run2022F-19Dec2023-v2': '/JetMET/Run2022F-19Dec2023-v2/AOD',
+    # 'Run2022G-19Dec2023-v1': '/JetMET/Run2022G-19Dec2023-v1/AOD',
 }
 
 
@@ -30,17 +30,17 @@ config.Data.inputDataset = '{}'
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'Automatic'
 config.Data.publication = True
-config.Data.outputDatasetTag = '{}-mini-22Sep2023-v1'
+config.Data.outputDatasetTag = '{}_mini_v1'
 config.Data.lumiMask = 'https://cms-service-dqmdc.web.cern.ch/CAF/certification/Collisions22/Cert_Collisions2022_355100_362760_Golden.json'
 config.Data.partialDataset = False
-config.Data.ignoreLocality = True
+# config.Data.ignoreLocality = True
 
 # config.Site.blacklist=["T2_BR_SPRACE"]
 # config.Site.whitelist=["T1_RU*", "T1_US*"]
 # config.Site.ignoreGlobalBlacklist = True
 
 config.Site.storageSite = "T2_AT_Vienna"
-""".format(name, tag.split('_')[1])
+""".format(name, tag)
     with open("crabConfig.py", "w") as f:
         f.write(crabConfig)
     

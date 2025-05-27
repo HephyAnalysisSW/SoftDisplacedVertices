@@ -13,12 +13,12 @@ datasets = {
     # 'QCD-4Jets_HT-100to200':      '/QCD-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-200to400':      '/QCD-4Jets_HT-200to400_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-400to600':      '/QCD-4Jets_HT-400to600_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
-    # 'QCD-4Jets_HT-600to800':      '/QCD-4Jets_HT-600to800_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
+    'QCD-4Jets_HT-600to800':      '/QCD-4Jets_HT-600to800_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-800to1000':     '/QCD-4Jets_HT-800to1000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-1000to1200':    '/QCD-4Jets_HT-1000to1200_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-1200to1500':    '/QCD-4Jets_HT-1200to1500_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'QCD-4Jets_HT-1500to2000':    '/QCD-4Jets_HT-1500to2000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
-    'QCD-4Jets_HT-2000':          '/QCD-4Jets_HT-2000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
+    # 'QCD-4Jets_HT-2000':          '/QCD-4Jets_HT-2000_TuneCP5_13p6TeV_madgraphMLM-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v2/AODSIM',
     # 'TTto4Q':                     '/TTto4Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v4/AODSIM',
     # 'TTtoLNu2Q':                  '/TTtoLNu2Q_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v5/AODSIM',
     # 'TTto2L2Nu':                  '/TTto2L2Nu_TuneCP5_13p6TeV_powheg-pythia8/Run3Summer22DRPremix-124X_mcRun3_2022_realistic_v12-v4/AODSIM',
@@ -46,12 +46,12 @@ config.Data.inputDataset = '{}'
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'Automatic'
 config.Data.publication = True
-config.Data.outputDatasetTag = 'Run3Summer22CustomMiniAODv4-130X_mcRun3_2022_realistic_v5-v4'
+config.Data.outputDatasetTag = 'Run3Summer22CustomMiniAODv4-130X_mcRun3_2022_realistic_v5-v6'
 # {}
 config.Data.partialDataset = True
 # config.Data.ignoreLocality = True
 
-# config.Site.blacklist=["T2_BR_SPRACE"]
+config.Site.blacklist=["T2_DE_DESY"]
 # config.Site.blacklist=["T2_BR_SPRACE", "T2_IT_Pisa"]
 # config.Site.whitelist=["T1_RU_JINR_Tape"]
 # config.Site.whitelist=["T1_RU*", "T1_US*"]

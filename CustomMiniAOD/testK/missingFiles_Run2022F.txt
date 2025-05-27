@@ -1,0 +1,3 @@
+/store/data/Run2022F/JetMET/RAW/v1/000/360/946/00000/6011995f-fb53-41c3-a1a1-883320b5e9f0.root
+/store/data/Run2022F/JetMET/RAW/v1/000/361/044/00000/c1c8fb0b-4b75-4f7d-9c82-90a36597b975.root
+/store/data/Run2022F/JetMET/RAW/v1/000/362/107/00000/10326856-cb6c-481d-ac4f-50ef693fda85.root

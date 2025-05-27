@@ -2,13 +2,12 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_Run2022_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_v2 --era Run3,run3_miniAOD_12X --scenario pp --no_exec -n -1 --nThreads 2 --data
+# with command line options: --python_filename Data_Run2022_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --processName MINI --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_HcalSiPM_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 2 --data
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
-from Configuration.Eras.Modifier_run3_miniAOD_12X_cff import run3_miniAOD_12X
 
-process = cms.Process('PAT',Run3,run3_miniAOD_12X)
+process = cms.Process('MINI',Run3)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -23,14 +22,13 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(4000),
+    input = cms.untracked.int32(-1),
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    # fileNames = cms.untracked.vstring('file:AOD.root'),
-    fileNames = cms.untracked.vstring('/store/data/Run2022C/MET/AOD/27Jun2023-v2/25310000/82a8af2d-dc85-4df0-a872-7ea9fb154ef8.root'),
+    fileNames = cms.untracked.vstring('file:AOD.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -149,7 +147,7 @@ process.MINIAODoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_v2', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_HcalSiPM_v1', '')
 
 # Path and EndPath definitions
 process.Flag_BadChargedCandidateFilter = cms.Path(process.BadChargedCandidateFilter)
@@ -195,6 +193,12 @@ process.options.numberOfThreads = 2
 process.options.numberOfStreams = 0
 
 # customisation of the process.
+
+# Automatic addition of the customisation function from Configuration.DataProcessing.RecoTLR
+from Configuration.DataProcessing.RecoTLR import customisePostEra_Run3 
+
+#call to customisation function customisePostEra_Run3 imported from Configuration.DataProcessing.RecoTLR
+process = customisePostEra_Run3(process)
 
 # Automatic addition of the customisation function from Configuration.DataProcessing.Utils
 from Configuration.DataProcessing.Utils import addMonitoring 

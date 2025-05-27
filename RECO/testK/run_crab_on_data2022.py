@@ -1,4 +1,15 @@
+import subprocess
 
+datasets = {
+    # 'Run2022C-v1': '/JetMET/Run2022C-v1/RAW',
+    'Run2022E-v1': '/JetMET/Run2022E-v1/RAW',
+    # 'Run2022F-v1': '/JetMET/Run2022F-v1/RAW',
+}
+
+
+for tag, name in datasets.items():
+
+    crabConfig = """
 import CRABClient
 from CRABClient.UserUtilities import config 
 
@@ -13,14 +24,14 @@ config.JobType.psetName = '/afs/cern.ch/user/a/aguven/crab_submissions/CMSSW_13_
 config.JobType.maxMemoryMB = 8000
 config.JobType.numCores = 4
 
-config.Data.inputDataset = '/JetMET/Run2022E-v1/RAW'
+config.Data.inputDataset = '{}'
 config.Data.inputDBS = 'global'
 # config.Data.splitting = 'Automatic'
 config.Data.splitting = 'FileBased'
 config.Data.unitsPerJob = 1
 config.JobType.maxJobRuntimeMin = 1440
 config.Data.publication = True
-config.Data.outputDatasetTag = 'Run2022E-v1_aod_v1'
+config.Data.outputDatasetTag = '{}_aod_v1'
 
 # Run2022C
 # --------------------------------------------------------------------
@@ -44,3 +55,9 @@ config.Data.inputBlocks = ['/JetMET/Run2022E-v1/RAW#6077757b-462d-41cf-930c-c9a0
 # config.Site.ignoreGlobalBlacklist = True
 
 config.Site.storageSite = "T2_AT_Vienna"
+""".format(name, tag)
+    with open("crabConfig.py", "w") as f:
+        f.write(crabConfig)
+    
+    print(name)
+    subprocess.call(['crab', 'submit', '-c', 'crabConfig.py'])
