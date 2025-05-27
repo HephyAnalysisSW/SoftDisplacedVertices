@@ -40,6 +40,11 @@ def nanoAOD_customise_SoftDisplacedVerticesMC(process):
 
     process = nanoAOD_customise_SoftDisplacedVertices(process, "MC")
 
+
+    # Get total sum of weights from NanoAOD instead of going back to MiniAOD.
+    process.genFilterTable.variables.sumWeights     = Var("sumWeights()",     float, doc = "generator filter: sum of pass event weights", precision = -1)
+    process.genFilterTable.variables.sumPassWeights = Var("sumPassWeights()", float, doc = "generator filter: sum of event weights",      precision = -1)
+
     process.finalGenParticlesWithStableCharged = process.finalGenParticles.clone(
         src = cms.InputTag("prunedGenParticles")
     )
