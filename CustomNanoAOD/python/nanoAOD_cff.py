@@ -40,6 +40,13 @@ def nanoAOD_customise_SoftDisplacedVerticesMC(process):
 
     process = nanoAOD_customise_SoftDisplacedVertices(process, "MC")
 
+    process.genFilterTable.variables.sumWeights = Var(
+      "sumWeights()",               # C++ accessor
+      float,                        # branch type
+      doc = "generator filter: sum of event weights",
+      precision = 14                # same as other double columns
+    )
+
     process.finalGenParticlesWithStableCharged = process.finalGenParticles.clone(
         src = cms.InputTag("prunedGenParticles")
     )

@@ -1,3 +1,21 @@
+"""
+Compares MiniAOD datasets vs NanoAOD datasets
+---------------------------------------------
+
+Steps:
+1. Load the JSON file containing dataset information.
+2. For each sample name, retrieve the MiniAOD datasets.
+3. Use the DAS client to query the run and lumi information for each MiniAOD dataset.
+4. Merge the lumi information to LumiList.
+
+5. For each sample name, retrieve the NanoAOD datasets.
+6. Use the DAS client to query the run and lumi information for each NanoAOD dataset.
+7. Convert the NanoAOD lumi information to to LumiList.
+8. Subtract the NanoAOD lumi information from the MiniAOD lumi information.
+9. Log the results in a dictionary.
+
+"""
+
 import os
 import subprocess
 import json
@@ -6,7 +24,7 @@ from DASAPI import format_runlumiquery
 from get_RunLumiJSON import check_duplicates
 from FWCore.PythonUtilities.LumiList import LumiList
 
-def run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3):
+def run_N_attempts(command, max_trials=5, timeoutSec=20, sleepSec=5):
     for attempt in range(1, max_trials + 1):
         # Execute the command while capturing output as text.
         try:
@@ -30,9 +48,9 @@ def run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3):
 CMSSW_BASE = os.environ['CMSSW_BASE']
 SDV = os.path.join(CMSSW_BASE, 'src/SoftDisplacedVertices')
 
-json2023 = os.path.join(SDV, "Samples/json/MC_Run3Summer23.json")
+json2022 = os.path.join(SDV, "Samples/json/MC_Run3Summer22.json")
 
-with open(json2023) as f:
+with open(json2022) as f:
     d = json.load(f)
 
 sampleNames = d['AOD']['datasets']
@@ -40,12 +58,13 @@ sampleNames = d['AOD']['datasets']
 
 logDict = {}
 
-# sampleNames = ['ttto2l2nu_bpix_2023', 'tttolnu2q_bpix_2023']
-for sampleName in sampleNames:
+
+for sampleName in sampleNames:                  # ttto2l2nu_bpix_2023, tttolnu2q_bpix_2023 ...
     print(sampleName)
     print('-'*80)
     dataset_MiniAOD = d['CustomMiniAOD']['datasets'][sampleName]
-    if isinstance(dataset_MiniAOD, str):
+
+    if isinstance(dataset_MiniAOD, str):        # otherwise is a list anyways
         dataset_MiniAOD=[dataset_MiniAOD]
 
     merged_lumiDict_MiniAOD = {}    
@@ -53,7 +72,7 @@ for sampleName in sampleNames:
         arg = f"-query=run,lumi dataset={dataset_} instance=prod/phys03"
         command = ["dasgoclient", arg]
         
-        result = run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3)
+        result = run_N_attempts(command)
         
         lumiDict_MiniAOD = format_runlumiquery(result.stdout, format="runsAndLumis")
         for key, value in lumiDict_MiniAOD.items():
@@ -69,7 +88,7 @@ for sampleName in sampleNames:
     dataset_NanoAOD = d['CustomNanoAOD']['datasets'][sampleName]
     arg = f"-query=run,lumi dataset={dataset_NanoAOD} instance=prod/phys03"
     command = ["dasgoclient", arg]
-    result = run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3)
+    result = run_N_attempts(command)
     lumiDict_NanoAOD = format_runlumiquery(result.stdout, format="runsAndLumis")
     check_duplicates(lumiDict_NanoAOD)
     lumis_NanoAOD = LumiList(runsAndLumis=lumiDict_NanoAOD)

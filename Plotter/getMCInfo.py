@@ -35,7 +35,7 @@ def get_metadata(ss, sample_version):
         
 
         for filename in fnmatch.filter(filenames, '*.root'):
-            #print(filename)
+            print(" "*4, filename)
             filename_list.append(filename)
             file_path = os.path.join(root, filename)
             lumis = Lumis(file_path)
@@ -141,7 +141,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if not os.path.exists(args.outDir):
       os.makedirs(args.outDir)
-    # input_samples = s.all_bkg_bpix_2023
-    input_samples = s.all_bkg_2023
+    
+    input_samples = s.all_bkg_2022_ee
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
     get_metadata(input_samples,args.sample_version)

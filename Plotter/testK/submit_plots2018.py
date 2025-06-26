@@ -39,21 +39,21 @@ samples_to_plot = {
 }
 
 tier = {'sig'  : 'CustomNanoAOD',
-        'bkg'  : 'CustomNanoAOD',
-        'data' : 'CustomNanoAOD'
+        # 'bkg'  : 'CustomNanoAOD',
+        # 'data' : 'CustomNanoAOD'
 }
 
-json_db = {'sig'  : 'MC_RunIISummer20UL18.json',
-           'bkg'  : 'MC_RunIISummer20UL18.json',
-           'data' : 'Data_production_20240326.json'
+json_db = {'sig'  : 'MC_RunIISummer20UL18_ParT.json',
+           'bkg'  : 'MC_RunIISummer20UL18_ParT.json',
+           # 'data' : 'Data_production_20240326.json'
 }
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2023_check4_lep.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018_v2.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-work_subdir = "checks_2023"
-unique_dir  = "2023v2018_v4"
+work_subdir = "ParT_hists"
+unique_dir  = "vtx_2018_v3"
 
 work_dir = os.path.join(outDir_base, work_subdir)
 

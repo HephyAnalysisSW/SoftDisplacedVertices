@@ -161,14 +161,14 @@ new_variables:
   Max_vtx_PART_338_epoch_6: Max(vtx_PART_338_epoch_6)
   Max_vtx_PART_338_epoch_7: Max(vtx_PART_338_epoch_7)
 new_variables_mc:
-  # bjetgen : ['{0}', bjetgen]
-  # nbJet_gen: ['Sum({0})',bjetgen]
-  # bJet_eta_gen: ['Jet_eta[{0}]',bjetgen]
-  # bJet_phi_gen: ['Jet_phi[{0}]',bjetgen]
-  # SDVSecVtx_mindRdphidetabJet_gen: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_gen,bJet_eta_gen)"
-  # SDVSecVtx_closestbJetdR_gen: "SDVSecVtx_mindRdphidetabJet_gen[0]"
-  # SDVSecVtx_closestbJetdphi_gen: "SDVSecVtx_mindRdphidetabJet_gen[1]"
-  # SDVSecVtx_closestbJetdeta_gen: "SDVSecVtx_mindRdphidetabJet_gen[2]"
+  bjetgen : ['{0}', bjetgen]
+  nbJet_gen: ['Sum({0})',bjetgen]
+  bJet_eta_gen: ['Jet_eta[{0}]',bjetgen]
+  bJet_phi_gen: ['Jet_phi[{0}]',bjetgen]
+  SDVSecVtx_mindRdphidetabJet_gen: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_gen,bJet_eta_gen)"
+  SDVSecVtx_closestbJetdR_gen: "SDVSecVtx_mindRdphidetabJet_gen[0]"
+  SDVSecVtx_closestbJetdphi_gen: "SDVSecVtx_mindRdphidetabJet_gen[1]"
+  SDVSecVtx_closestbJetdeta_gen: "SDVSecVtx_mindRdphidetabJet_gen[2]"
   # SDVSecVtx_closestbJetidx_gen: "vtx_jetidx_at_mindR(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_gen,bJet_eta_gen)"
   # SDVSecVtx_closestbJet_btagDeepFlavB_gen: ROOT::VecOps::Take(Jet_btagDeepFlavB[bjetgen], SDVSecVtx_closestbJetidx_gen)
 
@@ -191,13 +191,13 @@ event_variables:
 - nbJet_tight
 - nbJet_ultratight
 - Max_vtx_PART_338_epoch_6
-- Max_vtx_PART_338_epoch_7
+# - Max_vtx_PART_338_epoch_7
 # - SRsMaxLxySig
 # - VR1sMaxLxySig
 # - VR2sMaxLxySig
 event_2d_plots:
   - [MET_pt_corr, Max_vtx_PART_338_epoch_6]
-  - [MET_pt_corr, Max_vtx_PART_338_epoch_7]
+  # - [MET_pt_corr, Max_vtx_PART_338_epoch_7]
   # - [MET_pt_corr,SRsMaxLxySig]
   # - [MET_pt_corr,VR1sMaxLxySig]
   # - [MET_pt_corr,VR2sMaxLxySig]
@@ -205,26 +205,10 @@ objects:
   SDVSecVtx:
     selections:
       all:
-      # gen_0_2:     b0_sel_0_2  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200
-      # gen_0_4:     b0_sel_0_4  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200
-      # loose1:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      # medium1: b0_sel_medium && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      tight:       b0_sel_tight        && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      # ultratight:  b0_sel_ultratight   && SDVSecVtx_ngoodtkb>=1 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      # tight2:       b0_sel_tight       && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
-      # ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_nTracks==2 # && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1 # && MET_pt_corr > 200
+      noB:    SDVSecVtx_closestbJetdR_tight > 0.3
+      hiML:            vtx_PART_338_epoch_6 > 0.95
+      exhiML:          vtx_PART_338_epoch_6 > 0.99
 
-      
-      # loose2:  b0_sel_loose  && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      # medium2: b0_sel_medium && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      # tight2:  b0_sel_tight  && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      # ultratight2:  b0_sel_ultratight  && SDVSecVtx_ngoodtkb>=2 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-
-      # medium1_nodR: b0_sel_medium_nodR && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-      # medium2_nodR: b0_sel_medium_nodR && SDVSecVtx_ngoodtkb>=1 && MET_pt_corr > 200 && SDVSecVtx_dphiMET < 1.5 && SDVSecVtx_dphijet0 > 1
-
-      # Lxy_loose1: b0_sel_loose  && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_Lxy > 3
-      # LxySig_loose1: b0_sel_loose  && SDVSecVtx_ngoodtkb>=1  && SDVSecVtx_LxySig > 20
     variables:
       - SDVSecVtx_mass
       - SDVSecVtx_Lxy
@@ -237,10 +221,10 @@ objects:
       - SDVSecVtx_ngoodtkb
       - SDVSecVtx_ndof
       - SDVSecVtx_charge
-      # - SDVSecVtx_closestbJetdR_loose
-      # - SDVSecVtx_closestbJetdR_medium
+      - SDVSecVtx_closestbJetdR_loose
+      - SDVSecVtx_closestbJetdR_medium
       - SDVSecVtx_closestbJetdR_tight
-      # - SDVSecVtx_closestbJetdR_gen
+      - SDVSecVtx_closestbJetdR_gen
       # - SDVSecVtx_closestbJetdphi_loose
       # - SDVSecVtx_closestbJetdphi_medium
       - SDVSecVtx_closestbJetdphi_tight
@@ -262,31 +246,27 @@ objects:
       - SDVSecVtx_TkMindxy
       - SDVSecVtx_TkMaxdxy
       - vtx_PART_338_epoch_6
-      - vtx_PART_338_epoch_7
+      # - vtx_PART_338_epoch_7
 
     2d_plots:
       - [MET_pt_corr, vtx_PART_338_epoch_6]
-      - [MET_pt_corr, vtx_PART_338_epoch_7]
-      # - [SDVSecVtx_Lxy,                              SDVSecVtx_LxySig]
-      # - [SDVSecVtx_Lxy,                            SDVSecVtx_mintkdxy]
-      # - [SDVSecVtx_Lxy,                            SDVSecVtx_maxtkdxy]
-      # - [SDVSecVtx_LxySig,                         SDVSecVtx_mintkdxy]
-      # - [SDVSecVtx_LxySig,                         SDVSecVtx_maxtkdxy]
-      # - [SDVSecVtx_mintkdxy,                       SDVSecVtx_maxtkdxy]
-
-      # - [SDVSecVtx_nTracks,                          SDVSecVtx_mass]
-      # - [SDVSecVtx_ngoodtk,                          SDVSecVtx_mass]
-      # - [SDVSecVtx_ngoodtkb,                         SDVSecVtx_mass]
-      # - [SDVSecVtx_Lxy,                              SDVSecVtx_mass]
-      # - [SDVSecVtx_LxySig,                           SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJetdR_loose,              SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJetdR_medium,             SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJetdR_tight,              SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJetdR_gen,                SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJet_btagDeepFlavB_loose,  SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJet_btagDeepFlavB_medium, SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJet_btagDeepFlavB_tight,  SDVSecVtx_mass]
-      # - [SDVSecVtx_closestbJet_btagDeepFlavB_gen,    SDVSecVtx_mass]
+      # - [MET_pt_corr, vtx_PART_338_epoch_7]
+      - [SDVSecVtx_Lxy,                              vtx_PART_338_epoch_6]
+      - [SDVSecVtx_LxySig,                           vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_mintkdxy,                         vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_maxtkdxy,                         vtx_PART_338_epoch_6]
+      - [SDVSecVtx_mass,                             vtx_PART_338_epoch_6]
+      - [SDVSecVtx_nTracks,                          vtx_PART_338_epoch_6]
+      - [SDVSecVtx_ngoodtk,                          vtx_PART_338_epoch_6]
+      - [SDVSecVtx_ngoodtkb,                         vtx_PART_338_epoch_6]
+      - [SDVSecVtx_closestbJetdR_loose,              vtx_PART_338_epoch_6]
+      - [SDVSecVtx_closestbJetdR_medium,             vtx_PART_338_epoch_6]
+      - [SDVSecVtx_closestbJetdR_tight,              vtx_PART_338_epoch_6]
+      - [SDVSecVtx_closestbJetdR_gen,                vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_closestbJet_btagDeepFlavB_loose,  vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_closestbJet_btagDeepFlavB_medium, vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_closestbJet_btagDeepFlavB_tight,  vtx_PART_338_epoch_6]
+      # - [SDVSecVtx_closestbJet_btagDeepFlavB_gen,    vtx_PART_338_epoch_6]
   Jet:
     selections:
       # all:

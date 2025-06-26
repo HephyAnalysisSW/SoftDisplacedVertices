@@ -68,7 +68,7 @@ def process_file(filename):
         result[run].append(lumiSection)
     if lumis._tfile:
         lumis._tfile.Close()
-    return result
+    return result, filename
 
 
 
@@ -94,8 +94,10 @@ def main(glob_patterns, output=None, nWorkers=1):
     ## MULTI-THREADED
     lumiDict = {}
     with concurrent.futures.ProcessPoolExecutor(max_workers=nWorkers) as executor:
-        for file_result in tqdm(executor.map(process_file, files), total=len(files), desc="Processing files"):
+        for file_result, fname in tqdm(executor.map(process_file, files), total=len(files), desc="Processing files"):
             for run, lumis in file_result.items():
+                # if 18723 in lumis:
+                #     print(fname)
                 if run not in lumiDict:
                     lumiDict[run] = []
                 lumiDict[run].extend(lumis)

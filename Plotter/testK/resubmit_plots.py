@@ -17,15 +17,15 @@ args = parser.parse_args()
 
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-    work_subdir = "checks_2023"
-    unique_dir  = "check11_bpix"
+    work_subdir = "ParT_hists"
+    unique_dir  = "vtx_2018"
 
     work_dir = os.path.join(outDir_base, work_subdir)
     outBaseDir = os.path.join(work_dir,str(unique_dir))
     
-    file_paths = {# 'sig':  os.path.join(outBaseDir,   'sig/job_ids.json'),
-                  'bkg':  os.path.join(outBaseDir,   'bkg/job_ids2023.json'),
-                  'data': os.path.join(outBaseDir,  'data/job_ids2023.json'),
+    file_paths = {'sig':  os.path.join(outBaseDir,   'sig/job_ids2018.json'),
+                  'bkg':  os.path.join(outBaseDir,   'bkg/job_ids2018.json'),
+                  # 'data': os.path.join(outBaseDir,  'data/job_ids2023.json'),
                 }
     
     for key, file_path in file_paths.items():

@@ -1,3 +1,21 @@
+"""
+Compares MiniAOD datasets vs MiniAOD files
+---------------------------------------------
+
+Steps:
+1. Load the JSON file containing dataset information.
+2. For each sample name, retrieve the MiniAOD datasets.
+3. Use the DAS client to query the run and lumi information for each MiniAOD dataset.
+4. Convert the lumi information to LumiList.
+
+5. For each sample name, retrieve the MiniAOD directories.
+6. Use FWLite to query the run and lumi information for each MiniAOD file.
+7. Convert the lumi information to to LumiList.
+8. Subtract the lumi information of physical from the MiniAOD lumi information of dataset.
+9. Log the results in a dictionary.
+
+"""
+
 import os
 import subprocess
 import json
@@ -7,7 +25,7 @@ from get_RunLumiJSON import check_duplicates
 from FWCore.PythonUtilities.LumiList import LumiList
 import get_RunLumiJSON
 
-def run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3):
+def run_N_attempts(command, max_trials=5, timeoutSec=20, sleepSec=5):
     for attempt in range(1, max_trials + 1):
         # Execute the command while capturing output as text.
         try:
@@ -31,16 +49,17 @@ def run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3):
 CMSSW_BASE = os.environ['CMSSW_BASE']
 SDV = os.path.join(CMSSW_BASE, 'src/SoftDisplacedVertices')
 
-json2023 = os.path.join(SDV, "Samples/json/MC_Run3Summer23.json")
+json2022 = os.path.join(SDV, "Samples/json/MC_Run3Summer22.json")
 
-with open(json2023) as f:
+with open(json2022) as f:
     d = json.load(f)
 
 sampleNames = list(d['AOD']['datasets'].keys())
 
 
 logDict = {}
-sampleNames = sampleNames
+sampleNames = ['wjetstolnu4jets_ee_2022', 'zto2nu4jetsht0100_ee_2022', 'zto2nu4jetsht0200_ee_2022', 'zto2nu4jetsht0400_ee_2022', 'zto2nu4jetsht0800_ee_2022', 'zto2nu4jetsht1500_ee_2022', 'zto2nu4jetsht2500_ee_2022', 'qcd4jetsht0040_ee_2022', 'qcd4jetsht0070_ee_2022', 'qcd4jetsht0100_ee_2022', 'qcd4jetsht0200_ee_2022', 'qcd4jetsht0400_ee_2022', 'qcd4jetsht0600_ee_2022', 'qcd4jetsht0800_ee_2022', 'qcd4jetsht1000_ee_2022', 'qcd4jetsht1200_ee_2022', 'qcd4jetsht1500_ee_2022', 'qcd4jetsht2000_ee_2022', 'ttto4q_ee_2022', 'ttto2l2nu_ee_2022', 'tttolnu2q_ee_2022']
+# sampleNames = ['qcd4jetsht1200_2022']
 for sampleName in sampleNames:
     print(sampleName)
     print('-'*80)
@@ -53,7 +72,7 @@ for sampleName in sampleNames:
         arg = f"-query=run,lumi dataset={dataset_} instance=prod/phys03"
         command = ["dasgoclient", arg]
         
-        result = run_N_attempts(command, max_trials=5, timeoutSec=10, sleepSec=3)
+        result = run_N_attempts(command)
         lumiDict_MiniAOD = format_runlumiquery(result.stdout, format="runsAndLumis")
         for key, value in lumiDict_MiniAOD.items():
             if key not in merged_lumiDict_MiniAOD:
@@ -67,11 +86,11 @@ for sampleName in sampleNames:
     dir_MiniAOD = d['CustomMiniAOD']['dir'][sampleName]
     if isinstance(dir_MiniAOD, str):
         dir_MiniAOD=[dir_MiniAOD]
-    dir_patters = []
+    dir_patterns = []
     for dir_ in dir_MiniAOD:
         pattern = os.path.join(dir_, "**/*.root")
-        dir_patters.append(pattern)
-        lumiDict_NanoAOD = get_RunLumiJSON.main(dir_patters, nWorkers=18)
+        dir_patterns.append(pattern)
+        lumiDict_NanoAOD = get_RunLumiJSON.main(dir_patterns, nWorkers=18)
         lumis_NanoAOD = LumiList(compactList=lumiDict_NanoAOD)
         lumisToProcess -= lumis_NanoAOD
     logDict[sampleName] = lumisToProcess.compactList
