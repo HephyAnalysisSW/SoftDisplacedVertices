@@ -29,7 +29,7 @@ process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
 process.load("SoftDisplacedVertices.ML.GNNGenInfo_cfi")
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(-1)
 )
 
 MessageLogger = cms.Service("MessageLogger")
@@ -51,6 +51,9 @@ process.source = cms.Source("PoolSource",
 process.options = cms.untracked.PSet(
     SkipEvent= cms.untracked.vstring("ProductNotFound"),
 )
+process.options.numberOfThreads=cms.untracked.uint32(1)
+process.options.numberOfStreams=cms.untracked.uint32(0)
+
 
 SimpleMemoryCheck = cms.Service("SimpleMemoryCheck",ignoreTotal = cms.untracked.int32(1) )
 

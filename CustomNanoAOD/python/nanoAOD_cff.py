@@ -1,7 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from PhysicsTools.NanoAOD.common_cff import *
 
-isN2N3 = False
 useIVF = False
 useGNN = True
 
@@ -81,8 +80,6 @@ def nanoAOD_customise_SoftDisplacedVerticesMC(process):
     process.load('SoftDisplacedVertices.CustomNanoAOD.GenSecondaryVertexTableProducer_cff')
     process.load('SoftDisplacedVertices.CustomNanoAOD.LLPTable_cfi')
 
-    if isN2N3:
-      process.LLPTable.LLPid_ = cms.vint32(1000023, 1000025)
     if useGNN:
       process.LLPTable.svToken = cms.InputTag("GNNVtxSoftDV")
     elif (not useIVF):

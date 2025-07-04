@@ -68,6 +68,12 @@ struct eventInfo
   std::vector<float> tk_ptError;
   std::vector<float> tk_normchi2;
   std::vector<float> tk_nvalidhits;
+  std::vector<bool> tk_matched;
+  std::vector<int> tk_clus_idx;
+  std::vector<float> tk_genv_x;
+  std::vector<float> tk_genv_y;
+  std::vector<float> tk_genv_z;
+
 };
 
 class Graph {
@@ -218,7 +224,7 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   iEvent.getByToken(primary_vertex_token, primary_vertices);
   const reco::Vertex* primary_vertex = &primary_vertices->at(0);
   if (primary_vertices->size()==0)
-    throw cms::Exception("GNNInterface") << "No Primary Vertices available!";
+    throw cms::Exception("GNNGenInfo") << "No Primary Vertices available!";
 
   edm::Handle<std::vector<SoftDV::PFIsolation>> tracks_isoDR03;
   iEvent.getByToken(isoDR03Token_, tracks_isoDR03);
@@ -232,9 +238,9 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", tt_builder);
 
   // Get Gen info
-  const std::vector<int> LLPid_ = {1000006};
-  const int LSPid_ = 1000022;
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, false);
+  std::pair<std::vector<int>,std::vector<int>> llp_idx_dm = SoftDV::FindLLP(genParticles, false);
+  std::vector<int> llp_idx = llp_idx_dm.first;
+  std::vector<int> llp_decaymdoe = llp_idx_dm.second;
   std::vector<std::set<int>> llp_track_idx;
   std::vector<std::set<reco::TrackRef>> llp_track_refs;
   std::set<int> llp_all_track;
@@ -339,7 +345,7 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
       std::vector<float> emb_i(emb.begin()+i*16,emb.begin()+(i+1)*16);
       std::vector<float> emb_j(emb.begin()+j*16,emb.begin()+(j+1)*16);
       float d2 = edge_dist(emb_i,emb_j);
-      if (d2<0.02){ // FIXME: the cut value on d2 should be revisited
+      if (d2<0.01415){ // FIXME: the cut value on d2 should be revisited
         sender_idx.push_back(i);
         receiver_idx.push_back(j);
         distance.push_back(d2);
@@ -361,7 +367,7 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   std::vector<float> gnn = NNs->at(1)->run(input_names_gnn_, input_GNN, input_shape_GNN, {}, 1)[0];
 
   if (gnn.size() != distance.size()) 
-    throw cms::Exception("GNNInterface") << "Embedding distance and GNN prediction doesn't match!";
+    throw cms::Exception("GNNGenInfo") << "Embedding distance and GNN prediction doesn't match!";
 
   // Select edges based on distance and gnn score
   std::vector<std::pair<int,int>> edges;
@@ -386,9 +392,12 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   std::set<int> clus_tk;
   std::vector<std::vector<int>> nmatches;
   std::vector<std::set<int>> llp_tk_matched;
+  std::map<int,int> tk_clus_map;
+  std::map<reco::TrackRef,int> tkref_clus_map;
   for (int illp=0; illp<nllp; ++illp) {
     llp_tk_matched.push_back(std::set<int>());
   }
+  int clus_count = 0;
   for (auto& ic : clus) {
     evInfo->ntk_clus += ic.size();
     evInfo->clus_ntk.push_back(ic.size());
@@ -402,6 +411,8 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
       clus_tk.insert(itk);
       SoftDV::PFIsolation isoDR03 = (*tracks_isoDR03)[itk];
       reco::TrackRef tk(tracks, itk);
+      tk_clus_map[itk] = evInfo->clus_ntk.size()-1;
+      tkref_clus_map[tk] = evInfo->clus_ntk.size()-1;
       vec.SetPx(tk->px());
       vec.SetPy(tk->py());
       vec.SetPy(tk->pz());
@@ -475,6 +486,7 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
                                                isoDR03.puChargedHadronIso()/2,0.0))
                             / tk->pt();
 
+
     evInfo->tk_pt.push_back(tk_pt);
     evInfo->tk_eta.push_back(tk_eta);
     evInfo->tk_phi.push_back(tk_phi);
@@ -486,6 +498,23 @@ void GNNGenInfo::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
     evInfo->tk_ptError.push_back(tk_ptError);
     evInfo->tk_normchi2.push_back(tk_normchi2);
     evInfo->tk_nvalidhits.push_back(tk_nvalidhits);
+    if (tkref_clus_map.find(tk)==tkref_clus_map.end())
+      evInfo->tk_clus_idx.push_back(-1);
+    else
+      evInfo->tk_clus_idx.push_back(tkref_clus_map[tk]);
+    if (tkref_genv_pos.find(tk)==tkref_genv_pos.end()){
+      evInfo->tk_matched.push_back(false);
+      evInfo->tk_genv_x.push_back(-1);
+      evInfo->tk_genv_y.push_back(-1);
+      evInfo->tk_genv_z.push_back(-1);
+    }
+    else{
+      evInfo->tk_matched.push_back(true);
+      std::vector<float> tk_genv = tkref_genv_pos[tk];
+      evInfo->tk_genv_x.push_back(tk_genv[0]);
+      evInfo->tk_genv_y.push_back(tk_genv[1]);
+      evInfo->tk_genv_z.push_back(tk_genv[2]);
+    }
   }
 
   std::vector<reco::Vertex> vtxs;
@@ -681,6 +710,11 @@ void GNNGenInfo::beginJob()
   eventTree->Branch("tk_ptError",  &evInfo->tk_ptError);
   eventTree->Branch("tk_normchi2",  &evInfo->tk_normchi2);
   eventTree->Branch("tk_nvalidhits",  &evInfo->tk_nvalidhits);
+  eventTree->Branch("tk_matched",  &evInfo->tk_matched);
+  eventTree->Branch("tk_clus_idx",  &evInfo->tk_clus_idx);
+  eventTree->Branch("tk_genv_x",  &evInfo->tk_genv_x);
+  eventTree->Branch("tk_genv_y",  &evInfo->tk_genv_y);
+  eventTree->Branch("tk_genv_z",  &evInfo->tk_genv_z);
 }
 
 void GNNGenInfo::initEventStructure()
@@ -720,6 +754,11 @@ void GNNGenInfo::initEventStructure()
   evInfo->tk_ptError.clear();
   evInfo->tk_normchi2.clear();
   evInfo->tk_nvalidhits.clear();
+  evInfo->tk_matched.clear();
+  evInfo->tk_clus_idx.clear();
+  evInfo->tk_genv_x.clear();
+  evInfo->tk_genv_y.clear();
+  evInfo->tk_genv_z.clear();
 }
 
 DEFINE_FWK_MODULE(GNNGenInfo);

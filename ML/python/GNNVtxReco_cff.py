@@ -27,8 +27,8 @@ trackVertexArbitratorGNN = trackVertexArbitrator.clone(
     )
 
 GNNVtxSoftDV = vertexMerger.clone(
-    #secondaryVertices = "trackVertexArbitratorGNN",
-    secondaryVertices = "vtxRecoGNN",
+    secondaryVertices = "trackVertexArbitratorGNN",
+    #secondaryVertices = "vtxRecoGNN",
     maxFraction = 0.2,
     minSignificance = 10.,
 )

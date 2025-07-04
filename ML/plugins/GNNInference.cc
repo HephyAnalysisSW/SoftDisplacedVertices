@@ -135,6 +135,8 @@ class GNNInference : public edm::stream::EDProducer<edm::GlobalCache<NNArray>> {
     double edge_dist_cut_;
     double edge_gnn_cut_;
 
+    bool useAVR;
+    bool useKF;
     std::unique_ptr<VertexReconstructor> vtxReco;
 };
 
@@ -148,7 +150,12 @@ GNNInference::GNNInference(const edm::ParameterSet &iConfig, const NNArray *cach
     edge_dist_cut_(iConfig.getParameter<double>("edge_dist_cut")),
     edge_gnn_cut_(iConfig.getParameter<double>("edge_gnn_cut")),
     //kv_reco(new KalmanVertexFitter(iConfig.getParameter<edm::ParameterSet>("kvr_params"), iConfig.getParameter<edm::ParameterSet>("kvr_params").getParameter<bool>("doSmoothing")))
+    useAVR(iConfig.getParameter<bool>("useAVR")),
+    useKF(iConfig.getParameter<bool>("useKF")),
     vtxReco(new ConfigurableVertexReconstructor(iConfig.getParameter<edm::ParameterSet>("vtx_params"))){
+    if ((useAVR+useKF)!=1)
+      throw cms::Exception("GNNInference", "One and only one of useAVR and useKF should be set to true!");
+
     produces<reco::VertexCollection>();
     produces<reco::TrackCollection>();
     }
@@ -327,96 +334,100 @@ void GNNInference::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
     clusters.push_back(icluster);
   }
 
-  // Below reconstructs vertices using Adaptive vertex reconstruction
-  /*
-  for (auto& ic : clusters) {
-    std::vector<int> vtks = ic.tks;
-    int nst = vtks.size();
-    std::vector<reco::TransientTrack> vtx_tks;
-    for (auto& ist : vtks) {
-      if (ttk_map.find(ist)==ttk_map.end())
-        throw cms::Exception("GNNInference") << "Track index " << ist << " not found in map!";
-      vtx_tks.push_back(ttk_map[ist]);
-    }
-    std::vector<TransientVertex> vs = vtxReco->vertices(vtx_tks);
-    for (auto& v : vs) {
-      if (v.isValid() && v.originalTracks().size()>1){
-        vertices->push_back(v);
-      }
-    }
-  }
-  */
-
-  // Below reconstructs vertices using Kalman vertex filter:
-  // Start from each pair of tracks to fit seed vertices
-  // Merge vertices when tracks are shared
-  for (auto& ic : clusters) {
-    std::vector<int> vtks = ic.tks;
-    int nst = vtks.size();
-    for (int iist=0; iist<nst; ++iist){
-      for (int jjst=iist+1; jjst<nst; ++jjst){
-        int ist = vtks[iist];
-        int jst = vtks[jjst];
+  if (useAVR) {
+    // Below reconstructs vertices using Adaptive vertex reconstruction
+    for (auto& ic : clusters) {
+      std::vector<int> vtks = ic.tks;
+      int nst = vtks.size();
+      std::vector<reco::TransientTrack> vtx_tks;
+      for (auto& ist : vtks) {
         if (ttk_map.find(ist)==ttk_map.end())
           throw cms::Exception("GNNInference") << "Track index " << ist << " not found in map!";
-        if (ttk_map.find(jst)==ttk_map.end())
-          throw cms::Exception("GNNInference") << "Track index " << jst << " not found in map!";
-        std::vector<reco::TransientTrack> track_pairs({ttk_map[ist],ttk_map[jst]});
-        std::vector<TransientVertex> vs = vtxReco->vertices(track_pairs);
-        for (auto& v : vs) {
-          const reco::Vertex nv(v);
-          if (v_pass(nv,primary_vertex)){
-            vertices->push_back(nv);
+        vtx_tks.push_back(ttk_map[ist]);
+      }
+      std::vector<TransientVertex> vs = vtxReco->vertices(vtx_tks);
+      for (auto& v : vs) {
+        if (v.isValid() && v.originalTracks().size()>1){
+          vertices->push_back(v);
+        }
+      }
+    }
+  }
+  else if (useKF) {
+    // Below reconstructs vertices using Kalman vertex filter:
+    // Start from each pair of tracks to fit seed vertices
+    // Merge vertices when tracks are shared
+    for (auto& ic : clusters) {
+      std::vector<int> vtks = ic.tks;
+      int nst = vtks.size();
+      for (int iist=0; iist<nst; ++iist){
+        for (int jjst=iist+1; jjst<nst; ++jjst){
+          int ist = vtks[iist];
+          int jst = vtks[jjst];
+          if (ttk_map.find(ist)==ttk_map.end())
+            throw cms::Exception("GNNInference") << "Track index " << ist << " not found in map!";
+          if (ttk_map.find(jst)==ttk_map.end())
+            throw cms::Exception("GNNInference") << "Track index " << jst << " not found in map!";
+          std::vector<reco::TransientTrack> track_pairs({ttk_map[ist],ttk_map[jst]});
+          std::vector<TransientVertex> vs = vtxReco->vertices(track_pairs);
+          for (auto& v : vs) {
+            const reco::Vertex nv(v);
+            if (v_pass(nv,primary_vertex)){
+              vertices->push_back(nv);
+            }
+          }
+        }
+      }
+    }
+
+    // Now try a vertex merge
+    VertexDistance3D dist;
+    for (auto sv1 = vertices->begin(); sv1!=vertices->end(); ++sv1) {
+      VertexState s1(RecoVertex::convertPos(sv1->position()),RecoVertex::convertError(sv1->error()));
+      for (auto sv2 = vertices->begin(); sv2!=vertices->end();++sv2) {
+        VertexState s2(RecoVertex::convertPos(sv2->position()),RecoVertex::convertError(sv2->error()));
+        double fr = vertexTools::computeSharedTracks(*sv1, *sv2);
+        if (fr > 0.3 && dist.distance(s1,s2).significance() < 10 && sv1-sv2!=0 && fr >= vertexTools::computeSharedTracks(*sv2, *sv1)) {
+          std::set<int> tk_sets;
+          for (auto it = sv1->tracks_begin();it!=sv1->tracks_end();++it) {
+            reco::TrackRef tref = it->castTo<reco::TrackRef>();
+            tk_sets.insert(tref.key());
+          }
+          for (auto it = sv2->tracks_begin();it!=sv2->tracks_end();++it) {
+            reco::TrackRef tref = it->castTo<reco::TrackRef>();
+            tk_sets.insert(tref.key());
+          }
+          std::vector<reco::TransientTrack> new_tks;
+          for (auto& it : tk_sets){
+            if (ttk_map.find(it)==ttk_map.end())
+              throw cms::Exception("GNNInference") << "Track index " << it << " not found in map!";
+            new_tks.push_back(ttk_map[it]);
+          }
+          std::vector<TransientVertex> vs = vtxReco->vertices(new_tks);
+          if (vs.size()>1) {
+            throw cms::Exception("GNNInference") << "More than 1 vertex is fitted!";
+          }
+          if (vs.size()==1) {
+            reco::Vertex nv = reco::Vertex(vs[0]);
+            if (nv.isValid() && nv.normalizedChi2()<10) {
+              *sv1 = nv;
+              if (sv2>sv1) {
+                vertices->erase(sv2);
+                sv1 -= 1;
+              }
+              else {
+                vertices->erase(sv2);
+                sv1 -= 2;
+              }
+              break;
+            }
           }
         }
       }
     }
   }
-
-  // Now try a vertex merge
-  VertexDistance3D dist;
-  for (auto sv1 = vertices->begin(); sv1!=vertices->end(); ++sv1) {
-    VertexState s1(RecoVertex::convertPos(sv1->position()),RecoVertex::convertError(sv1->error()));
-    for (auto sv2 = vertices->begin(); sv2!=vertices->end();++sv2) {
-      VertexState s2(RecoVertex::convertPos(sv2->position()),RecoVertex::convertError(sv2->error()));
-      double fr = vertexTools::computeSharedTracks(*sv1, *sv2);
-      if (fr > 0.3 && dist.distance(s1,s2).significance() < 10 && sv1-sv2!=0 && fr >= vertexTools::computeSharedTracks(*sv2, *sv1)) {
-        std::set<int> tk_sets;
-        for (auto it = sv1->tracks_begin();it!=sv1->tracks_end();++it) {
-          reco::TrackRef tref = it->castTo<reco::TrackRef>();
-          tk_sets.insert(tref.key());
-        }
-        for (auto it = sv2->tracks_begin();it!=sv2->tracks_end();++it) {
-          reco::TrackRef tref = it->castTo<reco::TrackRef>();
-          tk_sets.insert(tref.key());
-        }
-        std::vector<reco::TransientTrack> new_tks;
-        for (auto& it : tk_sets){
-          if (ttk_map.find(it)==ttk_map.end())
-            throw cms::Exception("GNNInference") << "Track index " << it << " not found in map!";
-          new_tks.push_back(ttk_map[it]);
-        }
-        std::vector<TransientVertex> vs = vtxReco->vertices(new_tks);
-        if (vs.size()>1) {
-          throw cms::Exception("GNNInference") << "More than 1 vertex is fitted!";
-        }
-        if (vs.size()==1) {
-          reco::Vertex nv = reco::Vertex(vs[0]);
-          if (nv.isValid() && nv.normalizedChi2()<10) {
-            *sv1 = nv;
-            if (sv2>sv1) {
-              vertices->erase(sv2);
-              sv1 -= 1;
-            }
-            else {
-              vertices->erase(sv2);
-              sv1 -= 2;
-            }
-            break;
-          }
-        }
-      }
-    }
+  else {
+    throw cms::Exception("GNNInference", "No vertex reco is specified!");
   }
 
   iEvent.put(std::move(vertices));

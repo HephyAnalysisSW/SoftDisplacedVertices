@@ -115,9 +115,9 @@ void LLPEff::analyze(const edm::Event &iEvent, const edm::EventSetup &iSetup) {
   iEvent.getByToken(genToken_, genParticles);
 
   // Get Gen info
-  const std::vector<int> LLPid_ = {1000006};
-  const int LSPid_ = 1000022;
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, false);
+  std::pair<std::vector<int>,std::vector<int>> llp_idx_dm = SoftDV::FindLLP(genParticles, false);
+  std::vector<int> llp_idx = llp_idx_dm.first;
+  std::vector<int> llp_decaymdoe = llp_idx_dm.second;
   std::vector<std::set<reco::TrackRef>> llp_track_refs;
   std::set<reco::TrackRef> llp_all_track;
   std::map<reco::TrackRef,std::vector<float>> tkref_genv_pos;
@@ -175,6 +175,7 @@ void LLPEff::analyze(const edm::Event &iEvent, const edm::EventSetup &iSetup) {
   evInfo->llp_min_vtx_normchi2 = std::vector<float>(nllp,std::numeric_limits<float>::infinity());
 
   for (auto& v:(*svs)) {
+    std::cout << "Vertex " << v.tracksSize() << " chi2 " << v.chi2() << std::endl;
     bool matched = false;
     float d = std::numeric_limits<float>::infinity();
     float d_2d = std::numeric_limits<float>::infinity();
@@ -189,6 +190,7 @@ void LLPEff::analyze(const edm::Event &iEvent, const edm::EventSetup &iSetup) {
         if (llp_track_refs[illp].find(ivtk_ref)==llp_track_refs[illp].end())
           continue;
         matched_vtks_illp.push_back(ivtk_ref);
+        std::cout << "matched track" << std::endl;
       }
       if (matched_vtks_illp.size()>1) {
         for (size_t ivtk=0; ivtk<matched_vtks_illp.size(); ++ivtk){

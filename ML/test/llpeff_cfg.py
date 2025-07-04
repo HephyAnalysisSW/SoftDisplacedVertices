@@ -3,8 +3,10 @@ import FWCore.ParameterSet.Config as cms
 import HLTrigger.HLTfilters.hltHighLevel_cfi as hlt
 from SoftDisplacedVertices.VtxReco.VertexReco_cff import VertexRecoSeq
 
-useIVF = True
+useIVF = False
 useGNN = False
+useGNNIVF = True
+useGNNAVRIVF = False
 
 process = cms.Process('MLTree')
 
@@ -118,6 +120,22 @@ elif useGNN:
       #process.vtxRecoGNN *
       process.GNNVtxSoftDV
       )
+elif useGNNIVF:
+  process.vtxReco = cms.Sequence(
+      process.vtxRecoGNN *
+      process.inclusiveVertexFinderGNN * 
+      process.vertexMergerGNN *
+      process.trackVertexArbitratorGNN *
+      process.GNNVtxSoftDV
+  )
+elif useGNNAVRIVF:
+  process.vertexMergerGNN.secondaryVertices = cms.InputTag("vtxRecoGNN")
+  process.vtxReco = cms.Sequence(
+      process.vtxRecoGNN *
+      process.vertexMergerGNN *
+      process.trackVertexArbitratorGNN *
+      process.GNNVtxSoftDV
+  )
 else:
   process.MFVSecondaryVerticesSoftDV = process.mfvVerticesMINIAOD.clone()
   process.vtxReco = cms.Sequence(

@@ -1,0 +1,8 @@
+{
+    "CustomNanoAOD_v3_GNNKF_clusmassCut": {
+        "dir": {
+            "stop_M600_585_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomNanoAOD_v3_GNNKF_clusmassCut/stop_M600_585_ct20_2018/output"
+        }, 
+        "dataset": {}
+    }
+}

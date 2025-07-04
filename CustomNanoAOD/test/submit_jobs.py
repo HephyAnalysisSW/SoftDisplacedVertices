@@ -8,17 +8,15 @@ import SoftDisplacedVertices.Samples.cmsRunJobs as job
 
 dryrun = False
 #input_label = "CustomMiniAODv1"
-#input_label = "CustomMiniAOD_v3_MLTraining_new"
-input_label = "CustomMiniAOD_v3_decaymode"
-version = "CustomNanoAOD_v3_decaymode"
+input_label = "CustomMiniAOD_v3"
+version = "CustomNanoAOD_v3_GNNKF_clusmassCut"
 
 j = job.cmsRunJob(cfg='MC_UL18_CustomNanoAOD.py',logLevel = "INFO")
 
 #input_samples = s.znunu_2018
 input_samples = [s.stop_2018[1]]
-#input_samples = s.c1n2_2018
 
-s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/CustomMiniAOD_v3_decaymode_3.json'),input_label)
+s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/CustomMiniAOD_v3.json'),input_label)
 
 for sp in input_samples:
   targetDir = "/scratch-cbe/users/ang.li/SoftDV/CLIP_{0}/{1}/".format(version,sp.name)

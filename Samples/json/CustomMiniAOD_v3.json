@@ -1,0 +1,13 @@
+{
+    "CustomMiniAOD_v3": {
+        "dir": {
+            "stop_M1000_985_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M1000_985_ct20_2018/output", 
+            "stop_M600_585_ct20_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M600_585_ct20_2018/output", 
+            "stop_M600_588_ct200_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M600_588_ct200_2018/output", 
+            "stop_M1000_980_ct2_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M1000_980_ct2_2018/output", 
+            "stop_M600_580_ct2_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M600_580_ct2_2018/output", 
+            "stop_M1000_988_ct200_2018": "/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3/stop_M1000_988_ct200_2018/output"
+        }, 
+        "dataset": {}
+    }
+}

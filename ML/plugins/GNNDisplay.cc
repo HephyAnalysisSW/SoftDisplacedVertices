@@ -225,9 +225,9 @@ void GNNDisplay::produce(edm::Event &iEvent, const edm::EventSetup &iSetup) {
   iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", tt_builder);
 
   // Get Gen info
-  const std::vector<int> LLPid_ = {1000006};
-  const int LSPid_ = 1000022;
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, false);
+  std::pair<std::vector<int>,std::vector<int>> llp_idx_dm = SoftDV::FindLLP(genParticles, false);
+  std::vector<int> llp_idx = llp_idx_dm.first;
+  std::vector<int> llp_decaymdoe = llp_idx_dm.second;
   std::vector<std::set<int>> llp_track_idx;
   std::vector<std::set<reco::TrackRef>> llp_track_refs;
   std::set<int> llp_all_track;
