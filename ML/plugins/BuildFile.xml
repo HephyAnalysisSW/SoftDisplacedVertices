@@ -16,6 +16,7 @@
 <use name="SoftDisplacedVertices/SoftDVDataFormats"/>
 
 <use name="RecoVertex/VertexTools"/>
+<use name="TrackingTools/IPTools"/>
 <use name="RecoVertex/KalmanVertexFit"/>
 <use name="RecoVertex/VertexPrimitives"/>
 <use name="RecoVertex/ConfigurableVertexReco"/>

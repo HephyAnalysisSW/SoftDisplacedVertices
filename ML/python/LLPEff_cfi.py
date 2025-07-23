@@ -23,6 +23,7 @@ vtx_params = cms.PSet(
 LLPEff = cms.EDAnalyzer('LLPEff',
     primary_vertex_token = cms.InputTag("offlineSlimmedPrimaryVertices"),
     secondary_vertex_token = cms.InputTag("GNNVtxSoftDV"),
+    GNN_tracks_token = cms.InputTag("vtxRecoGNN"),
     tracks = cms.InputTag("TrackFilter", "seed"),
     isoDR03 = cms.InputTag("TrackFilter", "isolationDR03"),
     gen = cms.InputTag("genParticles"),

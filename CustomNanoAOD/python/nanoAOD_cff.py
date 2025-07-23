@@ -2,7 +2,10 @@ import FWCore.ParameterSet.Config as cms
 from PhysicsTools.NanoAOD.common_cff import *
 
 useIVF = False
-useGNN = True
+useGNN = False
+useGNNIVF = False
+useGNNAVR = False
+useGNNAVRIVF = True
 
 def nanoAOD_customise_SoftDisplacedVertices(process, isMC=None):
     assert not (useIVF and useGNN)
@@ -45,11 +48,65 @@ def nanoAOD_customise_SoftDisplacedVertices(process, isMC=None):
       process.vtxReco = cms.Sequence(
           process.MFVSecondaryVerticesSoftDV
       )
+    if useIVF:
+      process.vtxReco = cms.Sequence(
+          process.inclusiveVertexFinderSoftDV *
+          process.vertexMergerSoftDV *
+          process.trackVertexArbitratorSoftDV *
+          process.IVFSecondaryVerticesSoftDV
+      )
+    elif useGNN:
+      ##process.GNNVtxSoftDV = process.GNNInference.clone()
+      ##process.GNNVtxSoftDV0 = process.GNNInference.clone()
+      ##process.GNNVtxSoftDV0 = process.GNNGenInfo.clone()
+      #process.GNNVtxSoftDV = process.vtxRecoGNN.clone()
+      #process.vtxReco = cms.Sequence(
+      #    #process.vtxRecoGNN *
+      #    #process.inclusiveVertexFinderGNN * 
+      #    #process.vertexMergerGNN *
+      #    #process.trackVertexArbitratorGNN *
+      #    process.GNNVtxSoftDV
+      #)
+      #process.GNNVtxSoftDV = process.mfvVerticesMINIAOD.clone(
+      #    seed_tracks_src = cms.InputTag('vtxRecoGNN'),
+      #    )
+      process.GNNVtxSoftDV = process.vtxRecoGNN.clone()
+      process.vtxReco = cms.Sequence(
+          #process.vtxRecoGNN *
+          process.GNNVtxSoftDV
+          )
+    elif useGNNIVF:
+      process.vtxReco = cms.Sequence(
+          process.vtxRecoGNN *
+          process.inclusiveVertexFinderGNN * 
+          process.vertexMergerGNN *
+          process.trackVertexArbitratorGNN *
+          process.GNNVtxSoftDV
+      )
+    elif useGNNAVR:
+      process.GNNVtxSoftDV.secondaryVertices = cms.InputTag("vtxRecoGNN")
+      process.vtxReco = cms.Sequence(
+          process.vtxRecoGNN *
+          process.GNNVtxSoftDV
+      )
+    elif useGNNAVRIVF:
+      process.vertexMergerGNN.secondaryVertices = cms.InputTag("vtxRecoGNN")
+      process.vtxReco = cms.Sequence(
+          process.vtxRecoGNN *
+          process.vertexMergerGNN *
+          process.trackVertexArbitratorGNN *
+          process.GNNVtxSoftDV
+      )
+    else:
+      process.MFVSecondaryVerticesSoftDV = process.mfvVerticesMINIAOD.clone()
+      process.vtxReco = cms.Sequence(
+          process.MFVSecondaryVerticesSoftDV
+      )
 
     process.load("SoftDisplacedVertices.CustomNanoAOD.SVTrackTable_cfi")
     process.load("SoftDisplacedVertices.CustomNanoAOD.RecoTrackTableProducer_cfi")
 
-    if useGNN:
+    if useGNN or useGNNIVF or useGNNAVRIVF or useGNNAVR:
       process.SVTrackTable.svSrc = cms.InputTag("GNNVtxSoftDV")
     elif (not useIVF):
       process.SVTrackTable.svSrc = cms.InputTag("MFVSecondaryVerticesSoftDV")
@@ -80,7 +137,7 @@ def nanoAOD_customise_SoftDisplacedVerticesMC(process):
     process.load('SoftDisplacedVertices.CustomNanoAOD.GenSecondaryVertexTableProducer_cff')
     process.load('SoftDisplacedVertices.CustomNanoAOD.LLPTable_cfi')
 
-    if useGNN:
+    if useGNN or useGNNIVF or useGNNAVRIVF or useGNNAVR:
       process.LLPTable.svToken = cms.InputTag("GNNVtxSoftDV")
     elif (not useIVF):
       process.LLPTable.svToken = cms.InputTag("MFVSecondaryVerticesSoftDV")

@@ -22,8 +22,8 @@ vertexMergerGNN = vertexMerger.clone(
 trackVertexArbitratorGNN = trackVertexArbitrator.clone(
     primaryVertices = cms.InputTag('offlineSlimmedPrimaryVertices'),
     secondaryVertices = cms.InputTag("vertexMergerGNN"),
-    #tracks = cms.InputTag("TrackFilter","seed"),
-    tracks = cms.InputTag("vtxRecoGNN"),
+    tracks = cms.InputTag("TrackFilter","seed"),
+    #tracks = cms.InputTag("vtxRecoGNN"),
     )
 
 GNNVtxSoftDV = vertexMerger.clone(
@@ -39,10 +39,10 @@ inclusiveVertexFinderGNN.maximumLongitudinalImpactParameter = cms.double(20.)
 inclusiveVertexFinderGNN.vertexMinAngleCosine = cms.double(0.00001)
 inclusiveVertexFinderGNN.clusterizer.clusterMinAngleCosine = cms.double(0.00001) #new
 inclusiveVertexFinderGNN.clusterizer.distanceRatio = cms.double(1) #new
-#trackVertexArbitratorGNN.distCut = cms.double(0.1)
+trackVertexArbitratorGNN.distCut = cms.double(0.1)
 trackVertexArbitratorGNN.trackMinPixels = cms.int32(0)
 trackVertexArbitratorGNN.dRCut = cms.double(5.0)
-trackVertexArbitratorGNN.sigCut = cms.double(999)
-trackVertexArbitratorGNN.distCut = cms.double(999)
-trackVertexArbitratorGNN.dLenFraction = cms.double(1.2)
-trackVertexArbitratorGNN.trackMinPixels = cms.int32(0)
+#trackVertexArbitratorGNN.sigCut = cms.double(999)
+#trackVertexArbitratorGNN.distCut = cms.double(999)
+#trackVertexArbitratorGNN.dLenFraction = cms.double(1.2)
+#trackVertexArbitratorGNN.trackMinPixels = cms.int32(0)

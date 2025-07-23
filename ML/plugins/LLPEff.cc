@@ -43,6 +43,11 @@ struct eventInfo
   std::vector<float> llp_closest_genv_dist_2d;
   std::vector<float> llp_min_vtx_normchi2;
   std::vector<int> llp_matched;
+  std::vector<float> llptk_pt;
+  std::vector<float> llptk_eta;
+  std::vector<float> llptk_phi;
+  std::vector<float> llptk_dxy;
+  std::vector<bool> llptk_inGNN;
   std::vector<int> vtx_matched;
   std::vector<float> vtx_chi2;
   std::vector<float> vtx_normchi2;
@@ -67,6 +72,7 @@ class LLPEff: public edm::one::EDAnalyzer<edm::one::SharedResources> {
 
     const edm::EDGetTokenT<reco::VertexCollection> primary_vertex_token;
     const edm::EDGetTokenT<reco::VertexCollection> secondary_vertex_token;
+    const edm::EDGetTokenT<reco::TrackCollection> GNN_tracks_token;
     const edm::EDGetTokenT<reco::TrackCollection> tracks_token;
     edm::EDGetTokenT<std::vector<SoftDV::PFIsolation>> isoDR03Token_;
 
@@ -81,6 +87,7 @@ class LLPEff: public edm::one::EDAnalyzer<edm::one::SharedResources> {
 LLPEff::LLPEff(const edm::ParameterSet &iConfig)
   : primary_vertex_token(consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("primary_vertex_token"))),
     secondary_vertex_token(consumes<reco::VertexCollection>(iConfig.getParameter<edm::InputTag>("secondary_vertex_token"))),
+    GNN_tracks_token(consumes<reco::TrackCollection>(iConfig.getParameter<edm::InputTag>("GNN_tracks_token"))),
     tracks_token(consumes<reco::TrackCollection>(iConfig.getParameter<edm::InputTag>("tracks"))),
     isoDR03Token_(consumes<std::vector<SoftDV::PFIsolation>>(iConfig.getParameter<edm::InputTag>("isoDR03"))),
     genToken_(consumes<std::vector<reco::GenParticle>>(iConfig.getParameter<edm::InputTag>("gen"))),
@@ -166,6 +173,29 @@ void LLPEff::analyze(const edm::Event &iEvent, const edm::EventSetup &iSetup) {
   if (llp_track_refs.size()!=2){
     throw cms::Exception("LLPEff") << "llp_track_idx.size incorrect!";
   }
+
+  edm::Handle<reco::TrackCollection> GNNtracks;
+  iEvent.getByToken(GNN_tracks_token, GNNtracks);
+
+  for (auto& illptk : llp_all_track) {
+    evInfo->llptk_pt.push_back(illptk->pt());
+    evInfo->llptk_eta.push_back(illptk->eta());
+    evInfo->llptk_phi.push_back(illptk->phi());
+    evInfo->llptk_dxy.push_back(illptk->dxy());
+    bool matched = false;
+    for (size_t ignntk=0; ignntk<GNNtracks->size(); ++ignntk) {
+      auto& gnntk = GNNtracks->at(ignntk);
+      double a = fabs(illptk->pt() - gnntk.pt()) + 1;
+      double b = fabs(illptk->eta() - gnntk.eta()) + 1;
+      double c = fabs(illptk->phi() - gnntk.phi()) + 1;
+      if (a * b * c < 1.3) {
+        matched = true;
+        break;
+      }
+    }
+    evInfo->llptk_inGNN.push_back(matched);
+  }
+
   int nllp =llp_track_refs.size(); 
 
   int ntks = tracks->size();
@@ -174,64 +204,84 @@ void LLPEff::analyze(const edm::Event &iEvent, const edm::EventSetup &iSetup) {
 
   evInfo->llp_min_vtx_normchi2 = std::vector<float>(nllp,std::numeric_limits<float>::infinity());
 
-  for (auto& v:(*svs)) {
-    std::cout << "Vertex " << v.tracksSize() << " chi2 " << v.chi2() << std::endl;
+  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, svs, tracks, primary_vertex->position(), false);
+  for (size_t ivtx=0; ivtx<svs->size(); ++ivtx) {
+    auto& v = svs->at(ivtx);
     bool matched = false;
-    float d = std::numeric_limits<float>::infinity();
-    float d_2d = std::numeric_limits<float>::infinity();
-    float d_z = std::numeric_limits<float>::infinity();
-    for (int illp=0; illp<nllp; ++illp) {
-      std::vector<reco::TrackRef> matched_vtks_illp;
-      float dist3d_min = std::numeric_limits<float>::infinity();
-      float dist2d_min = std::numeric_limits<float>::infinity();
-      float dz_min = std::numeric_limits<float>::infinity();
-      for (auto ivtk = v.tracks_begin(); ivtk<v.tracks_end(); ++ivtk) {
-        reco::TrackRef ivtk_ref = ivtk->castTo<reco::TrackRef>();
-        if (llp_track_refs[illp].find(ivtk_ref)==llp_track_refs[illp].end())
-          continue;
-        matched_vtks_illp.push_back(ivtk_ref);
-        std::cout << "matched track" << std::endl;
-      }
-      if (matched_vtks_illp.size()>1) {
-        for (size_t ivtk=0; ivtk<matched_vtks_illp.size(); ++ivtk){
-          for (size_t jvtk=ivtk+1; jvtk<matched_vtks_illp.size(); ++jvtk) {
-            reco::TrackRef ivtk_ref = matched_vtks_illp[ivtk];
-            reco::TrackRef jvtk_ref = matched_vtks_illp[jvtk];
-            if (tkref_genv_pos.find(ivtk_ref)==tkref_genv_pos.end())
-              throw cms::Exception("LLPEff") << "Track Refi not found in map!";
-            if (tkref_genv_pos.find(jvtk_ref)==tkref_genv_pos.end())
-              throw cms::Exception("LLPEff") << "Track Refj not found in map!";
-            std::vector<float> ivtk_pos = tkref_genv_pos[ivtk_ref];
-            std::vector<float> jvtk_pos = tkref_genv_pos[jvtk_ref];
-            float dist3d = std::hypot(ivtk_pos[0]-jvtk_pos[0],ivtk_pos[1]-jvtk_pos[1],ivtk_pos[2]-jvtk_pos[2]);
-            float dist2d = std::hypot(ivtk_pos[0]-jvtk_pos[0],ivtk_pos[1]-jvtk_pos[1]);
-            float dz = fabs(ivtk_pos[2]-jvtk_pos[2]);
-            if (dist3d<dist3d_min)
-              dist3d_min = dist3d;
-            if (dist2d<dist2d_min)
-              dist2d_min = dist2d;
-            if (dz<dz_min)
-              dz_min = dz;
-            if (dist3d<d){
-              d = dist3d;
-              d_2d = dist2d;
-              d_z = dz;
-            }
-          }
-        }
-      }
-      if (dist3d_min<0.005){
-        evInfo->llp_matched[illp] = true;
+    if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){
+      int llp_matched_idx = vtxllpmatch[ivtx].first;
+      int match_ntk = vtxllpmatch[ivtx].second;
+      if ( (llp_matched_idx>=0) && (match_ntk>1) ) {
         matched = true;
+        evInfo->llp_matched[llp_matched_idx] = true;
       }
     }
     evInfo->vtx_chi2.push_back(v.chi2());
     evInfo->vtx_matched.push_back(matched);
     evInfo->vtx_normchi2.push_back(v.normalizedChi2());
-    evInfo->vtx_genvdist.push_back(d);
-    evInfo->vtx_genvdist_2d.push_back(d_2d);
-    evInfo->vtx_genvdist_z.push_back(d_z);
+    evInfo->vtx_genvdist.push_back(-1);
+    evInfo->vtx_genvdist_2d.push_back(-1);
+    evInfo->vtx_genvdist_z.push_back(-1);
   }
+
+  //for (auto& v:(*svs)) {
+  //  std::cout << "Vertex " << v.tracksSize() << " chi2 " << v.chi2() << std::endl;
+  //  bool matched = false;
+  //  float d = std::numeric_limits<float>::infinity();
+  //  float d_2d = std::numeric_limits<float>::infinity();
+  //  float d_z = std::numeric_limits<float>::infinity();
+  //  for (int illp=0; illp<nllp; ++illp) {
+  //    std::vector<reco::TrackRef> matched_vtks_illp;
+  //    float dist3d_min = std::numeric_limits<float>::infinity();
+  //    float dist2d_min = std::numeric_limits<float>::infinity();
+  //    float dz_min = std::numeric_limits<float>::infinity();
+  //    for (auto ivtk = v.tracks_begin(); ivtk<v.tracks_end(); ++ivtk) {
+  //      reco::TrackRef ivtk_ref = ivtk->castTo<reco::TrackRef>();
+  //      if (llp_track_refs[illp].find(ivtk_ref)==llp_track_refs[illp].end())
+  //        continue;
+  //      matched_vtks_illp.push_back(ivtk_ref);
+  //      std::cout << "matched track" << std::endl;
+  //    }
+  //    if (matched_vtks_illp.size()>1) {
+  //      for (size_t ivtk=0; ivtk<matched_vtks_illp.size(); ++ivtk){
+  //        for (size_t jvtk=ivtk+1; jvtk<matched_vtks_illp.size(); ++jvtk) {
+  //          reco::TrackRef ivtk_ref = matched_vtks_illp[ivtk];
+  //          reco::TrackRef jvtk_ref = matched_vtks_illp[jvtk];
+  //          if (tkref_genv_pos.find(ivtk_ref)==tkref_genv_pos.end())
+  //            throw cms::Exception("LLPEff") << "Track Refi not found in map!";
+  //          if (tkref_genv_pos.find(jvtk_ref)==tkref_genv_pos.end())
+  //            throw cms::Exception("LLPEff") << "Track Refj not found in map!";
+  //          std::vector<float> ivtk_pos = tkref_genv_pos[ivtk_ref];
+  //          std::vector<float> jvtk_pos = tkref_genv_pos[jvtk_ref];
+  //          float dist3d = std::hypot(ivtk_pos[0]-jvtk_pos[0],ivtk_pos[1]-jvtk_pos[1],ivtk_pos[2]-jvtk_pos[2]);
+  //          float dist2d = std::hypot(ivtk_pos[0]-jvtk_pos[0],ivtk_pos[1]-jvtk_pos[1]);
+  //          float dz = fabs(ivtk_pos[2]-jvtk_pos[2]);
+  //          if (dist3d<dist3d_min)
+  //            dist3d_min = dist3d;
+  //          if (dist2d<dist2d_min)
+  //            dist2d_min = dist2d;
+  //          if (dz<dz_min)
+  //            dz_min = dz;
+  //          if (dist3d<d){
+  //            d = dist3d;
+  //            d_2d = dist2d;
+  //            d_z = dz;
+  //          }
+  //        }
+  //      }
+  //    }
+  //    if (dist3d_min<0.005){
+  //      evInfo->llp_matched[illp] = true;
+  //      matched = true;
+  //    }
+  //  }
+  //  evInfo->vtx_chi2.push_back(v.chi2());
+  //  evInfo->vtx_matched.push_back(matched);
+  //  evInfo->vtx_normchi2.push_back(v.normalizedChi2());
+  //  evInfo->vtx_genvdist.push_back(d);
+  //  evInfo->vtx_genvdist_2d.push_back(d_2d);
+  //  evInfo->vtx_genvdist_z.push_back(d_z);
+  //}
 
   eventTree->Fill();
 }
@@ -304,6 +354,11 @@ void LLPEff::beginJob()
   eventTree->Branch("llp_lxy",  &evInfo->llp_lxy);
   eventTree->Branch("llp_ntk_match",  &evInfo->llp_ntk_match);
   eventTree->Branch("llp_matched",  &evInfo->llp_matched);
+  eventTree->Branch("llptk_pt",  &evInfo->llptk_pt);
+  eventTree->Branch("llptk_eta",  &evInfo->llptk_eta);
+  eventTree->Branch("llptk_phi",  &evInfo->llptk_phi);
+  eventTree->Branch("llptk_dxy",  &evInfo->llptk_dxy);
+  eventTree->Branch("llptk_inGNN",  &evInfo->llptk_inGNN);
   eventTree->Branch("llp_closest_genv_dist",  &evInfo->llp_closest_genv_dist);
   eventTree->Branch("llp_closest_genv_dist_z",  &evInfo->llp_closest_genv_dist_z);
   eventTree->Branch("llp_closest_genv_dist_2d",  &evInfo->llp_closest_genv_dist_2d);
@@ -324,6 +379,11 @@ void LLPEff::initEventStructure()
   evInfo->llp_lxy.clear();
   evInfo->llp_ntk_match.clear();
   evInfo->llp_matched.clear();
+  evInfo->llptk_pt.clear();
+  evInfo->llptk_eta.clear();
+  evInfo->llptk_phi.clear();
+  evInfo->llptk_dxy.clear();
+  evInfo->llptk_inGNN.clear();
   evInfo->vtx_chi2.clear();
   evInfo->vtx_matched.clear();
   evInfo->vtx_normchi2.clear();
