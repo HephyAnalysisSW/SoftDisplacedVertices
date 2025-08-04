@@ -90,6 +90,25 @@ def miniAOD_filter_SoftDisplacedVertices(process):
 
     return process
 
+def miniAOD_trigger_isomu(process):
+    process.load("HLTrigger.HLTfilters.hltHighLevel_cfi")
+    process.hltHighLevel = process.hltHighLevel.clone(
+        HLTPaths = ['HLT_IsoMu24_v*', 'HLT_IsoMu27_v*'],
+        throw = False,
+        eventSetupPathsKey = '',
+        andOr = True,  # True means OR, False means AND
+    )
+    process.Flag_HLT_IsoMu24_27 = cms.Path(process.hltHighLevel)
+    process.schedule.append(process.Flag_HLT_IsoMu24_27)
+
+    if hasattr(process, 'MINIAODoutput'):
+        process.MINIAODoutput.SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('Flag_HLT_IsoMu24_27'))
+    elif hasattr(process, 'MINIAODSIMoutput'):
+        process.MINIAODSIMoutput.SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('Flag_HLT_IsoMu24_27'))
+    else:
+        print("WARNING: No MINIAOD[SIM]output definition")
+
+    return process
 
 
 
