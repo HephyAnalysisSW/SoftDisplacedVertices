@@ -8,3 +8,4 @@ __init__.py
 *Report.xml
 *.html
 *.ipynb_checkpoints*
+**/crab_projects

@@ -1,21 +1,17 @@
 # SoftDisplacedVertices
 Framework for Soft Displaced Vertices analysis.
 
-This package is currently in a preliminary stage. Tracks are selected and passed to the **InclusiveVertexFinder** to reconstruct secondary vertices.
+This branch `CMSSW_13_0_16` is used to submit **Run3** processings which require version 13_0_16 of CMSSW. So far only 2022, and 2023 data & MC are processed. One should check if the same setup works also for 2024 or not.
 
-The extension of standard MiniAOD and NanoAOD is done by applying the same set of conditions, calibrations, and alignments in the standard processing chain.  
-For instance our 2018 RunII MC reprocessing chain is based on the following:  
- [SUS-chain_RunIISummer20UL18wmLHEGEN_flowRunIISummer20UL18SIM_flowRunIISummer20UL18DIGIPremix_flowRunIISummer20UL18HLT_flowRunIISummer20UL18RECO_flowRunIISummer20UL18MiniAODv2_flowRunIISummer20UL18NanoAODv9-00066](https://cms-pdmv.cern.ch/mcm/chained_requests?prepid=SUS-chain_RunIISummer20UL18wmLHEGEN_flowRunIISummer20UL18SIM_flowRunIISummer20UL18DIGIPremix_flowRunIISummer20UL18HLT_flowRunIISummer20UL18RECO_flowRunIISummer20UL18MiniAODv2_flowRunIISummer20UL18NanoAODv9-00066).
+Multiple tools are developed to ensure all the lumi sections are processed well, and not to give rise to any duplicates. Inconsistencies can show up at any stage. Some examples could be:
+- CRAB might show the data transfer postproc. has failed, but in reality the files might have reached the destination: https://cms-talk.web.cern.ch/t/crab-generates-more-outputs-than-the-ones-listed-in-dataset/51490
+- CRAB can produce corrupted files and might not show that the job has failed: https://cms-talk.web.cern.ch/t/crab-produces-corrupted-file-and-does-not-fail/45888
+- TAPERECALL jobs might stall for site related issues for a long time: https://cms-talk.web.cern.ch/t/crab-is-not-aware-that-the-dataset-is-replicated/45305/2
 
-We first generate a customised version of [SUS-RunIISummer20UL18MiniAODv2-00068](https://cms-pdmv.cern.ch/mcm/requests?prepid=SUS-RunIISummer20UL18MiniAODv2-00068&page=0), \
-and then a customised version of [SUS-RunIISummer20UL18NanoAODv9-00068](https://cms-pdmv.cern.ch/mcm/requests?prepid=SUS-RunIISummer20UL18NanoAODv9-00068&page=0).
+Some of these cannot be avoided but can be checked manually. You can use the directory `CustomMiniAOD/testK/checks` for this.
 
-For different MC files it might be worth checking:
- - [History of MC Production Campaigns](https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmVMcCampaigns)
- - [NanoAOD Specific Explanations for the MC Campaigns](https://gitlab.cern.ch/cms-nanoAOD/nanoaod-doc/-/wikis/home)
-  
-  
-Check out the subdirectories of this repository to find more about the production.
+You can also find some addtional documentations here if you need them: https://github.com/alikaanguven/CMS_helpers/tree/main
+
 
 ## Instructions to Install
 ```
