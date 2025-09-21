@@ -19,12 +19,11 @@ do
         --datatier NANOAOD \
         --customise Configuration/DataProcessing/Utils.addMonitoring \
         --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
-        --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC \
+        --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVertices \
         -n -1 \
         --conditions "${DATA_GT[$era]}" \
         --era "${DATA_ERA[$era]}" \
         --scenario pp             \
-        --runUnscheduled          \
         --no_exec                 \
         --data                    \
         --nThreads 2

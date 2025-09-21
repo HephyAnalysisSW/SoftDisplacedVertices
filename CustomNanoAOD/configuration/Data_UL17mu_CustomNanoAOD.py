@@ -2,13 +2,17 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_UL17mu_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --eventcontent NANOAOD --datatier NANOAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC -n -1 --conditions 106X_dataRun2_v36 --era Run2_2017,run2_nanoAOD_106Xv2 --scenario pp --runUnscheduled --no_exec --data --nThreads 2
+# with command line options: --python_filename Data_UL17mu_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --eventcontent NANOAOD --datatier NANOAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVertices -n -1 --conditions 106X_dataRun2_v36 --era Run2_2017,run2_nanoAOD_106Xv2 --scenario pp --no_exec --data --nThreads 2
 import FWCore.ParameterSet.Config as cms
+from FWCore.ParameterSet.VarParsing import VarParsing
 
 from Configuration.Eras.Era_Run2_2017_cff import Run2_2017
 from Configuration.Eras.Modifier_run2_nanoAOD_106Xv2_cff import run2_nanoAOD_106Xv2
 
 process = cms.Process('NANO',Run2_2017,run2_nanoAOD_106Xv2)
+
+options = VarParsing ('analysis')
+options.parseArguments()
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -22,12 +26,12 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(options.maxEvents)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:MiniAOD.root'),
+    fileNames = cms.untracked.vstring(options.inputFiles),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -51,7 +55,7 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('NanoAOD.root'),
+    fileName = cms.untracked.string(options.outputFile),
     outputCommands = process.NANOAODEventContent.outputCommands
 )
 
@@ -78,6 +82,12 @@ process.options.numberOfConcurrentLuminosityBlocks=cms.untracked.uint32(1)
 
 # customisation of the process.
 
+# Automatic addition of the customisation function from PhysicsTools.NanoAOD.nano_cff
+from PhysicsTools.NanoAOD.nano_cff import nanoAOD_customizeData 
+
+#call to customisation function nanoAOD_customizeData imported from PhysicsTools.NanoAOD.nano_cff
+process = nanoAOD_customizeData(process)
+
 # Automatic addition of the customisation function from Configuration.DataProcessing.Utils
 from Configuration.DataProcessing.Utils import addMonitoring 
 
@@ -85,23 +95,10 @@ from Configuration.DataProcessing.Utils import addMonitoring
 process = addMonitoring(process)
 
 # Automatic addition of the customisation function from SoftDisplacedVertices.CustomNanoAOD.nanoAOD_cff
-from SoftDisplacedVertices.CustomNanoAOD.nanoAOD_cff import nanoAOD_customise_SoftDisplacedVerticesMC 
+from SoftDisplacedVertices.CustomNanoAOD.nanoAOD_cff import nanoAOD_customise_SoftDisplacedVertices 
 
-#call to customisation function nanoAOD_customise_SoftDisplacedVerticesMC imported from SoftDisplacedVertices.CustomNanoAOD.nanoAOD_cff
-process = nanoAOD_customise_SoftDisplacedVerticesMC(process)
-
-# End of customisation functions
-#do not add changes to your config after this point (unless you know what you are doing)
-from FWCore.ParameterSet.Utilities import convertToUnscheduled
-process=convertToUnscheduled(process)
-
-# customisation of the process.
-
-# Automatic addition of the customisation function from PhysicsTools.NanoAOD.nano_cff
-from PhysicsTools.NanoAOD.nano_cff import nanoAOD_customizeData 
-
-#call to customisation function nanoAOD_customizeData imported from PhysicsTools.NanoAOD.nano_cff
-process = nanoAOD_customizeData(process)
+#call to customisation function nanoAOD_customise_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomNanoAOD.nanoAOD_cff
+process = nanoAOD_customise_SoftDisplacedVertices(process)
 
 # End of customisation functions
 
