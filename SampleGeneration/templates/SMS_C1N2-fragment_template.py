@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 #Need hbar*c to convert lifetime to width
@@ -80,11 +80,11 @@ DECAY   1000016     0.00000000E+00   # snu_tauL decays
 DECAY   1000021     0.00000000E+00   # gluino decays
 DECAY   1000022     0.00000000E+00   # neutralino1 decays
 DECAY   1000023     %WCHI2%   # neutralino2 decays
-    0.00000000E+00    3     1000022   5   -5  # Dummy decay
+    0.00000000E+00    3     1000022   11   -11  # Dummy decay
     0.50000000E+00    2     1000022   25      # BR(N2 -> N1 + H)
     0.500000000E+00   2     1000022   23      # BR(N2 -> N1 + Z)
 DECAY   1000024     1.00000000E-01   # chargino1+ decays
-    0.00000000E+00    3     1000022   5   -5  # Dummy decay 
+    0.00000000E+00    3     1000022   12   -11  # Dummy decay 
     1.00000000E+00    2     1000022   24      # BR(N3 -> N1 + W)
 DECAY   1000025     0.00000000E+00   # neutralino3 decays
 DECAY   1000035     0.00000000E+00   # neutralino4 decays
@@ -94,7 +94,7 @@ DECAY   1000037     0.00000000E+00   # chargino2+ decays
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
@@ -106,7 +106,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
     comEnergy = cms.double(13000.),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CP2SettingsBlock,
+        pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             '1000023:tau0 = %.1f' % CTAU,
@@ -128,11 +128,13 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
 #            '25:onMode = off',
 #            '25:onIfMatch = 5 -5', # Only H->bb decays
             '25:m0 = 125.0',
+            '23:mMin = 0.1',
+            '24:mMin = 0.1',
 #            '23:onMode = off',
 #            '23:onIfAny = 1 2 3 4 5', # Only Z->qq decays
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CP2Settings',
+                                    'pythia8CP5Settings',
                                     'pythia8PSweightsSettings',
                                     'processParameters',
                                     'JetMatchingParameters',

@@ -5,7 +5,7 @@ source /cvmfs/cms.cern.ch/cmsset_default.sh
 n=EVENTCOUNT
 HOME="$PWD"
 #STORE="/scratch/ang.li/GenOutput_4_2bodystop"
-STORE="/scratch/ang.li/GenOutput_mixstop_new"
+STORE="/scratch/ang.li/GenOutput_C1N2_MLstudy"
 RUN_NUMBER=$RUN_NUMBER
 FIRST_EVENT=$FIRST_EVENT
 #EVENT_NUMBER=$EVENT_NUMBER

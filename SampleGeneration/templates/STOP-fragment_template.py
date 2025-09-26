@@ -1,13 +1,27 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 mStop = STOPMASS
 mLSP = LSPMASS
 ctau = CTAUVALUE
+ctaustr = "{:.1f}".format(ctau).replace('.','p')
 
 hBarCinGeVmm = 1.973269788e-13
 gevWidth = hBarCinGeVmm / ctau
+
+FLAVOR = 'stop'
+PROCESS_FILE = 'SimG4Core/CustomPhysics/data/stophadronProcessList.txt'
+#PARTICLE_FILE = 'Configuration/Generator/data/particles_%s_%d_GeV.txt'  % (FLAVOR, int(mStop))
+#SLHA_FILE ='Configuration/Generator/data/SUSY/LLStop/LL_%s_%d_Neutralino_%d_CTau_%s_SLHA.spc' % (FLAVOR, int(mStop), int(mLSP), ctaustr)
+#PDT_FILE = 'Configuration/Generator/data/hscppythiapdt%s%d.tbl'  % (FLAVOR, int(mStop))
+#For private generation
+PARTICLE_FILE = 'Configuration/GenProduction/data/particles_%s_%d_GeV.txt'  % (FLAVOR, int(mStop))
+SLHA_FILE ='Configuration/GenProduction/data/LL_%s_%d_Neutralino_%d_CTau_%s_SLHA.spc' % (FLAVOR, int(mStop), int(mLSP), ctaustr)
+PDT_FILE = 'Configuration/GenProduction/data/hscppythiapdt%s%d.tbl'  % (FLAVOR, int(mStop))
+USE_REGGE = False
+
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     args = cms.vstring("GRIDPACKFILE"),
@@ -19,77 +33,6 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 #Link to datacards:
 #https://github.com/CMS-SUS-XPAG/GenLHEfiles/tree/master/GridpackWorkflow/production/SMS-StopStop/templatecards
 
-
-baseSLHATable="""
-BLOCK MASS  # Mass Spectrum
-# PDG code           mass       particle
-   1000001     1.00000000E+05   # ~d_L
-   2000001     1.00000000E+05   # ~d_R
-   1000002     1.00000000E+05   # ~u_L
-   2000002     1.00000000E+05   # ~u_R
-   1000003     1.00000000E+05   # ~s_L
-   2000003     1.00000000E+05   # ~s_R
-   1000004     1.00000000E+05   # ~c_L
-   2000004     1.00000000E+05   # ~c_R
-   1000005     1.00000000E+05   # ~b_1
-   2000005     1.00000000E+05   # ~b_2
-   1000006     %MSTOP%          # ~t_1
-   2000006     1.00000000E+05   # ~t_2
-   1000011     1.00000000E+05   # ~e_L
-   2000011     1.00000000E+05   # ~e_R
-   1000012     1.00000000E+05   # ~nu_eL
-   1000013     1.00000000E+05   # ~mu_L
-   2000013     1.00000000E+05   # ~mu_R
-   1000014     1.00000000E+05   # ~nu_muL
-   1000015     1.00000000E+05   # ~tau_1
-   2000015     1.00000000E+05   # ~tau_2
-   1000016     1.00000000E+05   # ~nu_tauL
-   1000021     1.00000000E+05    # ~g
-   1000022     %MLSP%           # ~chi_10
-   1000023     1.00000000E+05   # ~chi_20
-   1000025     1.00000000E+05   # ~chi_30
-   1000035     1.00000000E+05   # ~chi_40
-   1000024     1.00000000E+05   # ~chi_1+
-   1000037     1.00000000E+05   # ~chi_2+
-
-# DECAY TABLE
-#         PDG            Width
-DECAY   1000001     0.00000000E+00   # sdown_L decays
-DECAY   2000001     0.00000000E+00   # sdown_R decays
-DECAY   1000002     0.00000000E+00   # sup_L decays
-DECAY   2000002     0.00000000E+00   # sup_R decays
-DECAY   1000003     0.00000000E+00   # sstrange_L decays
-DECAY   2000003     0.00000000E+00   # sstrange_R decays
-DECAY   1000004     0.00000000E+00   # scharm_L decays
-DECAY   2000004     0.00000000E+00   # scharm_R decays
-DECAY   1000005     0.00000000E+00   # sbottom1 decays
-DECAY   2000005     0.00000000E+00   # sbottom2 decays
-DECAY   1000006     %CTAU0%   # stop1 decays
-    0.00000000E+00    4    1000022      5     -1    2  # dummy allowed decay, in order to turn on off-shell decays
-    0.50000000E+00    3    1000022      5   24
-    0.50000000E+00    2    1000022      4 
-DECAY   2000006     0.00000000E+00   # stop2 decays
-DECAY   1000011     0.00000000E+00   # selectron_L decays
-DECAY   2000011     0.00000000E+00   # selectron_R decays
-DECAY   1000012     0.00000000E+00   # snu_elL decays
-DECAY   1000013     0.00000000E+00   # smuon_L decays
-DECAY   2000013     0.00000000E+00   # smuon_R decays
-DECAY   1000014     0.00000000E+00   # snu_muL decays
-DECAY   1000015     0.00000000E+00   # stau_1 decays
-DECAY   2000015     0.00000000E+00   # stau_2 decays
-DECAY   1000016     0.00000000E+00   # snu_tauL decays
-DECAY   1000021     0.00000000E+00   # gluino decays
-DECAY   1000022     0.00000000E+00   # neutralino1 decays
-DECAY   1000023     0.00000000E+00   # neutralino2 decays
-DECAY   1000024     0.00000000E+00   # chargino1+ decays
-DECAY   1000025     0.00000000E+00   # neutralino3 decays
-DECAY   1000035     0.00000000E+00   # neutralino4 decays
-DECAY   1000037     0.00000000E+00   # chargino2+ decays
-"""
-  
-slhatable = baseSLHATable.replace('%MSTOP%','%e' % mStop)
-slhatable = slhatable.replace('%MLSP%','%e' % mLSP)
-slhatable = slhatable.replace('%CTAU0%','%e' % gevWidth)
 model = "T2tt_dM-10to80"
 
 def matchParams(mass):
@@ -106,7 +49,8 @@ qcut, tru_eff = matchParams(mStop)
 
 basePythiaParameters = cms.PSet(
     pythia8CommonSettingsBlock,
-    pythia8CP2SettingsBlock,
+    pythia8CP5SettingsBlock,
+    pythia8PSweightsSettingsBlock,
     JetMatchingParameters = cms.vstring(
       'JetMatching:setMad = off',
       'JetMatching:scheme = 1',
@@ -124,7 +68,8 @@ basePythiaParameters = cms.PSet(
       'Check:abortIfVeto = on',
     ),
     parameterSets = cms.vstring('pythia8CommonSettings',
-                                'pythia8CP2Settings',
+                                'pythia8CP5Settings',
+                                'pythia8PSweightsSettings',
                                 'JetMatchingParameters'
     )
     )
@@ -137,18 +82,25 @@ basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:allow  = on'])
 basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:allowDecay = on'])
 basePythiaParameters.pythia8CommonSettings.extend(['RHadrons:setMasses = on'])
 
-generator = cms.EDFilter("Pythia8HadronizerFilter",
+generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
   maxEventsToPrint = cms.untracked.int32(1),
   pythiaPylistVerbosity = cms.untracked.int32(1),
   filterEfficiency = cms.untracked.double(1.0),
   pythiaHepMCVerbosity = cms.untracked.bool(False),
   comEnergy = cms.double(13000.),
   PythiaParameters = basePythiaParameters,
-  SLHATableForPythia8 = cms.string('%s' % slhatable),
+  SLHAFileForPythia8 = cms.string('%s' % SLHA_FILE), 
   ConfigDescription = cms.string('%s_%i_%i' % (model, mStop, mLSP)),
   #ConfigWeight = cms.double(wgt),
 )
 
+generator.hscpFlavor = cms.untracked.string(FLAVOR)
+generator.massPoint = cms.untracked.int32(int(mStop))
+generator.particleFile = cms.untracked.string(PARTICLE_FILE)
+generator.slhaFile = cms.untracked.string(SLHA_FILE)
+generator.processFile = cms.untracked.string(PROCESS_FILE)
+generator.pdtFile = cms.FileInPath(PDT_FILE)
+generator.useregge = cms.bool(USE_REGGE)
 
 #     Filter setup
 # ------------------------
