@@ -3,6 +3,7 @@ import SoftDisplacedVertices.Samples.Samples as ss
 import re
 import json
 import os
+import shutil
 
 import inspect
 
@@ -31,34 +32,61 @@ def print_info():
     print('-' * 80)
     print()
 
-
-samples_to_plot = {
-    # 'sig' : [sample.name for sample in ss.sig_benchmark],
-    'bkg' : [sample.name for sample in ss.all_bkg_2018],
-    # 'data': [sample.name for sample in ss.met_2018]
-}
-
 tier = {'sig'  : 'CustomNanoAOD',
         'bkg'  : 'CustomNanoAOD',
         # 'data' : 'CustomNanoAOD'
 }
 
-json_db = {'sig'  : 'MC_RunIISummer20UL18_ParT.json',
-           'bkg'  : 'MC_RunIISummer20UL18_ParT.json',
-           # 'data' : 'Data_production_20240326.json'
+
+# ANG's ML samples merged
+# -----------------------------------------------------------------
+samples_to_plot = {
+    'sig' : [sample.name for sample in ss.sig_AngML],
+    'bkg' : [sample.name for sample in ss.all_bkg_2018],
+    # 'data': [sample.name for sample in ss.met_2018]
 }
+json_db = {'sig'  : 'MLNano_merged.json',
+           'bkg'  : 'MLNano_merged.json',
+           # 'data' : ''
+}
+files_per_job = 2
+# ----------------------------------------------------------------
+
+
+# samples_to_plot = {
+#     'sig' : [sample.name for sample in ss.sig_benchmark],
+#     'bkg' : [sample.name for sample in ss.all_bkg_2018],
+#     # 'data': [sample.name for sample in ss.met_2018]
+# }
+# 
+# json_db = {'sig'  : 'MC_RunIISummer20UL18_ParT.json',
+#            'bkg'  : 'MC_RunIISummer20UL18_ParT.json',
+#            # 'data' : 'Data_production_20240326.json'
+# }
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018_v2.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/ML_7.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "vtx_2018_v3"
-files_per_job = 5
+unique_dir  = "SDVSecVtx_ParTScore"
+files_per_job = 2
 
 
-work_dir = os.path.join(outDir_base, work_subdir)
+work_dir   = os.path.join(outDir_base, work_subdir)
 outBaseDir = os.path.join(work_dir,str(unique_dir))
+
+
+# remove existing outBaseDir
+shutil.rmtree(outBaseDir)
+
+# Copy the config file to outBaseDir
+os.makedirs(outBaseDir, exist_ok=False)
+config_copy = os.path.join(outBaseDir, 'plot_config.yaml')
+
+shutil.copy(os.path.expandvars(config),
+            os.path.expandvars(config_copy))
+
 
 
 for s_type in samples_to_plot.keys():
@@ -83,9 +111,9 @@ for s_type in samples_to_plot.keys():
                 f.write("\n".join(chunk) + "\n")
         # ------------------------------------------------------------
             if s_type != 'data':
-                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config} --lumi 59683 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
+                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi 59683 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
             else:
-                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
+                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
 
             result = run(f'sbatch {command}', shell=True, capture_output = True, text = True)
             job_id = re.search("\d+", result.stdout).group()    # Get the number with '\d+'
@@ -98,5 +126,6 @@ for s_type in samples_to_plot.keys():
     print(f"\nWriting to {out_json_path}...\n")
     with open(out_json_path, 'w') as f:
         json.dump(job_dict, f, indent=2)
+
 
 print('\nFinished. Exiting...')

@@ -51,9 +51,9 @@ json_db = {'sig'  : 'MC_RunIISummer20UL18_ParT.json',
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
 config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/vtx_reco_data_2018_v2.yaml"
-outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-work_subdir = "ParT_hists"
-unique_dir  = "vtx_2018_v3"
+outDir_base =       "/scratch-cbe/users/alikaan.gueven/AN_plots/"
+work_subdir =       "ParT_hists"
+unique_dir  =       "vtx_2018_v3"
 
 work_dir = os.path.join(outDir_base, work_subdir)
 

@@ -196,6 +196,13 @@ stop_2018 = [
     Sample("stop_M1400_1385_ct20_2018", xsec=0.473E-03),
     Sample("stop_M1400_1380_ct2_2018", xsec=0.473E-03),
     Sample("stop_M1400_1375_ct0p2_2018", xsec=0.473E-03),
+    # --------------------------------------------------------
+    # from Ang ... (MLNano.json)
+    Sample("stop_M600_585_ct2_2018", xsec=0.205),
+    Sample("stop_M600_588_ct20_2018", xsec=0.205),
+    Sample("stopML_M600_595_ct20_2018", xsec=0.205),
+    Sample("stopML_M600_595_ct200_2018", xsec=0.205),
+    # --------------------------------------------------------
     ]
 
 c1n2_2018 = [
@@ -308,6 +315,7 @@ top_ee_2022 =   [Sample("ttto4q_ee_2022"   , xsec=422.06),
 # ------------------------------------------------------------------
 
 wlnu_2023  = [Sample("wjetstolnu4jets_2023", xsec=55390)]
+
 znunu_2023 = [Sample("zto2nu4jetsht0100_2023", xsec=273.7),
               Sample("zto2nu4jetsht0200_2023", xsec=75.96),
               Sample("zto2nu4jetsht0400_2023", xsec=13.19),
@@ -359,6 +367,20 @@ top_bpix_2023 =   [Sample("ttto4q_bpix_2023"   , xsec=422.06), # 762.1 XSDB valu
                    Sample("tttolnu2q_bpix_2023", xsec=131.08)  # 762.1 XSDB value
                   ]
 
+met_2022 = [
+Sample("met2022c_p1", xsec=-1),
+Sample("met2022c_p2", xsec=-1),
+Sample("met2022d",    xsec=-1)
+]
+
+met_2022_ee = [
+  Sample("met2022e_p1", xsec=-1),
+  Sample("met2022e_p2", xsec=-1),
+  Sample("met2022f_p1", xsec=-1),
+  Sample("met2022f_p2", xsec=-1),
+  Sample("met2022g",    xsec=-1)
+  ]
+
 
 met_2023 = [
   Sample("met2023b0",       xsec=-1),
@@ -383,34 +405,66 @@ lep_check_2023 = [
 
 sig_benchmark = [
    Sample("stop_M600_580_ct2_2018", xsec=0.205),
+   Sample("stop_M600_585_ct20_2018", xsec=0.205),
+   Sample("stop_M600_588_ct200_2018", xsec=0.205),
    Sample("stop_M1000_980_ct2_2018", xsec=0.00683),
+   Sample("stop_M1000_985_ct20_2018", xsec=0.00683),
+   Sample("stop_M1000_988_ct200_2018", xsec=0.00683),
+]
+
+sig_AngML = [
+   Sample("stop_M600_585_ct2_2018", xsec=0.205),
+   Sample("stop_M600_585_ct20_2018", xsec=0.205),
+   Sample("stop_M600_588_ct20_2018", xsec=0.205),
+   Sample("stop_M600_588_ct200_2018", xsec=0.205),
+   
+   Sample("stopML_M600_595_ct20_2018", xsec=0.205),
+   Sample("stopML_M600_595_ct200_2018", xsec=0.205),
 ]
 
 
 all_samples = [
     met_2017,
+    met_2022,
+    met_2023,
+
+    met_2022_ee,
+    met_2023_postbpix,
+
     wlnu_2017,
-    znunu_2017,
-    qcd_2017,
-    top_2017,
-    stop_2017,
-    met_2018,
-    znunu_2018,
     wlnu_2018,
-    qcd_2018,
-    stop_2018,
-    c1n2_2018,
-    top_2018,
+    wlnu_2022,
     wlnu_2023,
+
+    znunu_2017,
+    znunu_2018,
+    znunu_2022,
     znunu_2023,
+
+    qcd_2017,
+    qcd_2018,
+    qcd_2022,
     qcd_2023,
+
+    top_2017,
+    top_2018,
+    top_2022,
     top_2023,
+
+    wlnu_ee_2022,
+    znunu_ee_2022,
+    qcd_ee_2022,
+    top_ee_2022,
+
     wlnu_bpix_2023,
     znunu_bpix_2023,
     qcd_bpix_2023,
     top_bpix_2023,
-    met_2023,
-    met_2023_postbpix
+
+    stop_2017,
+    stop_2018,
+    c1n2_2018,
+
 ]
 
 all_signals = [

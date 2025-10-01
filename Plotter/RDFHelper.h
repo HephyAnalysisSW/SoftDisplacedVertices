@@ -685,6 +685,7 @@ ROOT::VecOps::RVec<float> Track_minJetdR_pt(ROOT::RVecF Track_phi, ROOT::RVecF T
   //printVec(min_pt);
   return min_pt;
 }
+
 // This function returns a list with the length of nTracks, each element labels whether the track is included in a SV or not
 ROOT::VecOps::RVec<int> Track_isInSV(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks){
   ROOT::RVecI isInSV(nTracks,0);
@@ -692,6 +693,18 @@ ROOT::VecOps::RVec<int> Track_isInSV(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks
     isInSV[idx] = 1;
   }
   return isInSV;
+}
+
+// This function returns a list with the length of nTracks, each element labels whether the track is included in a SV or not
+template<typename T>
+ROOT::VecOps::RVec<T> Track_getVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::VecOps::RVec<T> SDVSecVtx_Var, T fillValue=-1.0){
+  ROOT::VecOps::RVec<T> tk_vtxVar(nTracks, fillValue);
+  int i = 0;
+  for (auto& idx : SDVIdxLUT_TrackIdx){
+    tk_vtxVar[idx] = SDVSecVtx_Var[SDVIdxLUT_SecVtxIdx[i]];
+    i++;
+  }
+  return tk_vtxVar;
 }
 
 // This function returns a list with the length of nTracks, each element shows the weight of the track in the SV fit

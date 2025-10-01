@@ -223,7 +223,7 @@ class Plotter:
         d = d.Define("MET_corr", 'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
         d = d.Define("MET_pt_corr", 'MET_corr.first')
         d = d.Define("MET_phi_corr",'MET_corr.second')
-      elif self.year in ["2022", "2023", "2023BPix", "2024"]:
+      elif self.year in ["2022", "2022EE", "2023", "2023BPix", "2024"]:
         d = d.Define("MET_pt_corr",  'PuppiMET_pt')
         d = d.Define("MET_phi_corr", 'PuppiMET_phi')
       else:
@@ -233,7 +233,7 @@ class Plotter:
         if 'material' in self.cfg['mapveto']:
           d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
         if 'jetveto' in self.cfg['mapveto']:
-          if self.year in ["2022", "2023", "2023BPix", "2024"]:
+          if self.year in ["2022", "2022EE", "2023", "2023BPix", "2024"]:
             d = d.Define("Jet_mapveto", 
                         'applyJetVetoMap(Jet_pt, Jet_eta, Jet_phi, Jet_jetId, Jet_chEmEF, Jet_neEmEF, Jet_muonIdx1, Jet_muonIdx1, h_jv, "{}")'.format(self.year))
 

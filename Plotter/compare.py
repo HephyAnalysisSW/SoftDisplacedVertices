@@ -277,12 +277,16 @@ def compareSameFile(fn,legend,colors,scale,ratio):
   if not fdir:
     print("{} not available in {}!".format(args.dirs[0],f.GetName()))
   plots = [p.GetName() for p in fdir.GetListOfKeys()]
-  
+  print('plots: ', plots)
   for plt in plots:
+    # print('plt: ', plt)
     h_compare = []
+    plt_list = []
     for d in args.dirs:
+      # print("d+'/'+plt: ", d+'/'+plt)
       try:
         h = f.Get(d+'/'+plt)
+        plt_list.append(d+'/'+plt)
       except:
         print('{} is not available in {}!'.format(d+'/'+plt,f.GetName()))
         continue
@@ -292,7 +296,7 @@ def compareSameFile(fn,legend,colors,scale,ratio):
       h.SetDirectory(0)
       h_command(h)
       h_compare.append(h)
-  
+    print('plt_list: ', plt_list)
     comparehists(plt,h_compare,legend=legend,colors=colors,scale=scale,ratio=ratio)
   
   f.Close()

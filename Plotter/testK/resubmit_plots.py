@@ -18,7 +18,7 @@ args = parser.parse_args()
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
     work_subdir = "ParT_hists"
-    unique_dir  = "vtx_2018"
+    unique_dir  = "SDVSecVtx_ParTScore"
 
     work_dir = os.path.join(outDir_base, work_subdir)
     outBaseDir = os.path.join(work_dir,str(unique_dir))
