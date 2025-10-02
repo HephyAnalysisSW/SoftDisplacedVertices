@@ -1,0 +1,40 @@
+{
+    "AOD": {
+        "datasets": {
+            "mu0_2023b":  "/Muon0/Run2023B-PromptReco-v1/AOD",
+            "mu0_2023c":  "/Muon0/Run2023C-PromptReco-v4/AOD",
+            "mu0_2023d":  "/Muon0/Run2023D-PromptReco-v2/AOD",
+            "mu1_2023b":  "/Muon1/Run2023B-PromptReco-v1/AOD",
+            "mu1_2023c":  "/Muon1/Run2023C-PromptReco-v4/AOD",
+            "mu1_2023d":  "/Muon1/Run2023D-PromptReco-v2/AOD"
+        }
+    },
+
+    "CustomMiniAOD": {
+        "dir": {
+            
+        },
+        
+        "logical_dir": {
+
+        },
+
+        "datasets": {
+
+        }
+    },
+
+    "CustomNanoAOD": {
+        "logical_dir": {
+
+        },
+        "dir": {
+            
+        },
+
+        "datasets": {
+
+        }
+    }
+    
+}

@@ -1,0 +1,37 @@
+{
+    "AOD": {
+        "datasets": {
+            "mu2022c":  "/Muon/Run2022C-27Jun2023-v1/AOD",
+            "mu2022d":  "/Muon/Run2022D-27Jun2023-v2/AOD",
+            "mu2022e":  "/Muon/Run2022E-27Jun2023-v1/AOD"
+        }
+    },
+
+    "CustomMiniAOD": {
+        "dir": {
+            
+        },
+        
+        "logical_dir": {
+
+        },
+
+        "datasets": {
+
+        }
+    },
+
+    "CustomNanoAOD": {
+        "logical_dir": {
+
+        },
+        "dir": {
+            
+        },
+
+        "datasets": {
+
+        }
+    }
+    
+}

@@ -1,0 +1,84 @@
+{
+    "AOD": {
+        "datasets": {
+            "met2022c_p1":  "/JetMET/Run2022C-19Dec2023-v1/AOD",
+            "met2022d":     "/JetMET/Run2022D-19Dec2023-v1/AOD",
+            "met2022e_p1":  "/JetMET/Run2022E-19Dec2023-v1/AOD",
+            "met2022f_p1":  "/JetMET/Run2022F-19Dec2023-v2/AOD",
+            "met2022g":     "/JetMET/Run2022G-19Dec2023-v1/AOD",
+            "met2022c_p2":  "/JetMET/aguven-Run2022C-v1_aod_v1-e623d3b0817224b1d37ac5a1d5dde238/USER",
+            "met2022e_p2":  "/JetMET/aguven-Run2022E-v1_aod_v1-e623d3b0817224b1d37ac5a1d5dde238/USER",
+            "met2022f_p2":  "/JetMET/aguven-Run2022F-v1_aod_v1-e623d3b0817224b1d37ac5a1d5dde238/USER"
+        }
+    },
+
+    "CustomMiniAOD": {
+        "dir": {
+            "met2022c_p1": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022C-19Dec2023-v1_mini_v1/",
+            "met2022d":    "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022D-19Dec2023-v1_mini_v1/",
+            "met2022e_p1": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022E-19Dec2023-v1_mini_v1/",
+            "met2022f_p1": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022F-19Dec2023-v2_mini_v1/",
+            "met2022g":    "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022G-19Dec2023-v1_mini_v1/",
+            "met2022c_p2": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022C-19Dec2023-v1-rest_mini_v1/",
+            "met2022e_p2": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022E-19Dec2023-v1-rest_mini_v1/",
+            "met2022f_p2": "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022F-19Dec2023-v2-rest_mini_v1/"
+        },
+        
+        "logical_dir": {
+            "met2022c_p1": "/store/user/aguven/JetMET/Run2022C-19Dec2023-v1_mini_v1/",
+            "met2022d":    "/store/user/aguven/JetMET/Run2022D-19Dec2023-v1_mini_v1/",
+            "met2022e_p1": "/store/user/aguven/JetMET/Run2022E-19Dec2023-v1_mini_v1/",
+            "met2022f_p1": "/store/user/aguven/JetMET/Run2022F-19Dec2023-v2_mini_v1/",
+            "met2022g":    "/store/user/aguven/JetMET/Run2022G-19Dec2023-v1_mini_v1/",
+            "met2022c_p2": "/store/user/aguven/JetMET/Run2022C-19Dec2023-v1-rest_mini_v1/",
+            "met2022e_p2": "/store/user/aguven/JetMET/Run2022E-19Dec2023-v1-rest_mini_v1/",
+            "met2022f_p2": "/store/user/aguven/JetMET/Run2022F-19Dec2023-v2-rest_mini_v1/"
+        },
+
+        "datasets": {
+            "met2022c_p1":  "/JetMET/aguven-Run2022C-19Dec2023-v1_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022d":     "/JetMET/aguven-Run2022D-19Dec2023-v1_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022e_p1":  "/JetMET/aguven-Run2022E-19Dec2023-v1_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022f_p1":  "/JetMET/aguven-Run2022F-19Dec2023-v2_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022g":     "/JetMET/aguven-Run2022G-19Dec2023-v1_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022c_p2":  "/JetMET/aguven-Run2022C-19Dec2023-v1-rest_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022e_p2":  "/JetMET/aguven-Run2022E-19Dec2023-v1-rest_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER",
+            "met2022f_p2":  "/JetMET/aguven-Run2022F-19Dec2023-v2-rest_mini_v1-1d7be8231e5a51d5b8057e05d710c43a/USER"
+        }
+    },
+
+    "CustomNanoAOD": {
+        "logical_dir": {
+            "met2022c_p1":  "/store/user/aguven/JetMET/Run2022C_nano_v1/",
+            "met2022d":     "/store/user/aguven/JetMET/Run2022D_nano_v1",
+            "met2022e_p1":  "/store/user/aguven/JetMET/Run2022E_nano_v1",
+            "met2022f_p1":  "/store/user/aguven/JetMET/Run2022F_nano_v1",
+            "met2022g":     "/store/user/aguven/JetMET/Run2022G_nano_v1",
+            "met2022c_p2":  "/store/user/aguven/JetMET/Run2022C_rest_nano_v1",
+            "met2022e_p2":  "/store/user/aguven/JetMET/Run2022E_rest_nano_v1",
+            "met2022f_p2":  "/store/user/aguven/JetMET/Run2022F_rest_nano_v1"
+        },
+        "dir": {
+            "met2022c_p1":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022C_nano_v1/",
+            "met2022d":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022D_nano_v1",
+            "met2022e_p1":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022E_nano_v1",
+            "met2022f_p1":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022F_nano_v1",
+            "met2022g":     "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022G_nano_v1",
+            "met2022c_p2":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022C_rest_nano_v1",
+            "met2022e_p2":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022E_rest_nano_v1",
+            "met2022f_p2":  "/eos/vbc/experiments/cms/store/user/aguven/JetMET/Run2022F_rest_nano_v1"
+        },
+
+        "datasets": {
+            "met2022c_p1":  "/JetMET/aguven-Run2022C_nano_v1-00000000000000000000000000000000/USER",
+            "met2022d":     "/JetMET/aguven-Run2022D_nano_v1-00000000000000000000000000000000/USER",
+            "met2022e_p1":  "/JetMET/aguven-Run2022E_nano_v1-00000000000000000000000000000000/USER",
+            "met2022f_p1":  "/JetMET/aguven-Run2022F_nano_v1-00000000000000000000000000000000/USER",
+            "met2022g":     "/JetMET/aguven-Run2022G_nano_v1-00000000000000000000000000000000/USER",
+            "met2022c_p2":  "/JetMET/aguven-Run2022C_rest_nano_v1-00000000000000000000000000000000/USER",
+            "met2022e_p2":  "/JetMET/aguven-Run2022E_rest_nano_v1-00000000000000000000000000000000/USER",
+            "met2022f_p2":  "/JetMET/aguven-Run2022F_rest_nano_v1-00000000000000000000000000000000/USER"
+        }
+    }
+    
+}

@@ -9,3 +9,4 @@ __init__.py
 *.html
 *.ipynb_checkpoints*
 **/crab_projects
+Plotter/testK/tmp/*
