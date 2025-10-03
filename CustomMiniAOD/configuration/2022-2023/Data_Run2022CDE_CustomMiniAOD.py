@@ -2,12 +2,13 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_Run2023_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_Prompt_HcalSiPM_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 4 --data
+# with command line options: --python_filename Data_Run2022CDE_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --processName MINI --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_v2 --era Run3,run3_miniAOD_12X --scenario pp --no_exec -n -1 --nThreads 2 --data
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
+from Configuration.Eras.Modifier_run3_miniAOD_12X_cff import run3_miniAOD_12X
 
-process = cms.Process('MINI',Run3)
+process = cms.Process('MINI',Run3,run3_miniAOD_12X)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -28,7 +29,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('/store/data/Run2023D/JetMET1/AOD/19Dec2023-v1/2560000/c58f223d-4c0a-4612-84b4-42218c1f51a0.root'),
+    fileNames = cms.untracked.vstring('file:AOD.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -83,7 +84,7 @@ process.MINIAODoutput = cms.OutputModule("PoolOutputModule",
     dropMetaData = cms.untracked.string('ALL'),
     eventAutoFlushCompressedSize = cms.untracked.int32(-900),
     fastCloning = cms.untracked.bool(False),
-    fileName = cms.untracked.string('c58f223d-4c0a-4612-84b4-42218c1f51a0-MINIAOD.root'),
+    fileName = cms.untracked.string('MiniAOD.root'),
     outputCommands = process.MINIAODEventContent.outputCommands,
     overrideBranchesSplitLevel = cms.untracked.VPSet(
         cms.untracked.PSet(
@@ -147,7 +148,7 @@ process.MINIAODoutput = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_Prompt_HcalSiPM_v1', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_v2', '')
 
 # Path and EndPath definitions
 process.Flag_BadChargedCandidateFilter = cms.Path(process.BadChargedCandidateFilter)
@@ -207,13 +208,13 @@ from Configuration.DataProcessing.Utils import addMonitoring
 process = addMonitoring(process)
 
 # Automatic addition of the customisation function from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_filter_SoftDisplacedVertices 
+from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_trigger_isomu 
 
 #call to customisation function miniAOD_customise_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
 process = miniAOD_customise_SoftDisplacedVertices(process)
 
-#call to customisation function miniAOD_filter_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-process = miniAOD_filter_SoftDisplacedVertices(process)
+#call to customisation function miniAOD_trigger_isomu imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
+process = miniAOD_trigger_isomu(process)
 
 # End of customisation functions
 
