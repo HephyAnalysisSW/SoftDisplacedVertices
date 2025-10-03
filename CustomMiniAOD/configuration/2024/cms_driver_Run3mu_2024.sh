@@ -14,7 +14,7 @@ DATA_ERA["Run2024"]="Run3_2024"
 
 for era in "Run2024"
 do
-    cmsDriver.py --python_filename "Data_${era}_CustomMiniAOD.py" \
+    cmsDriver.py --python_filename "Data_${era}mu_CustomMiniAOD.py" \
         --filein "file:AOD.root" \
         --fileout "MiniAOD.root" \
         --step PAT \
