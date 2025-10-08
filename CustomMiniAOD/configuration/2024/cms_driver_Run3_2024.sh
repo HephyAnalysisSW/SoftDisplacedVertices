@@ -19,9 +19,9 @@ do
         --filein "file:AOD.root" \
         --fileout "MiniAOD.root" \
         --step PAT \
-        --eventcontent MINIAODSIM \
+        --processName MINI \
+        --eventcontent MINIAODSIM1 \
         --datatier MINIAODSIM \
-        --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 \
         --customise Configuration/DataProcessing/Utils.addMonitoring \
         --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVerticesMC \
         --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices \
