@@ -241,7 +241,7 @@ class cmsRunJob:
     if not os.path.exists( logdir):
         os.makedirs( logdir)
     if not dryrun:
-      p = subprocess.Popen(args="submit {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
+      p = subprocess.Popen(args="submit {0} --output={1} --title={2} --logLevel={3} --nCPUs=4".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
       self.logger.debug(p.stdout.read())
     self.logger.info("Archiving {}".format(self.jobname))
     shutil.move(self.jobname,os.path.join(self.info["jobdir"],"input",self.jobname))

@@ -23,6 +23,11 @@
 #include "DataFormats/VertexReco/interface/VertexFwd.h"
 #include "CommonTools/Utils/interface/StringCutObjectSelector.h"
 
+#include "TrackingTools/IPTools/interface/IPTools.h"
+#include "TrackingTools/Records/interface/TransientTrackRecord.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrack.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrackBuilder.h"
+
 #include "DataFormats/NanoAOD/interface/FlatTable.h"
 #include "RecoVertex/VertexTools/interface/VertexDistance3D.h"
 #include "RecoVertex/VertexTools/interface/VertexDistanceXY.h"
@@ -106,6 +111,9 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   edm::Handle<reco::TrackCollection> trIn;
   iEvent.getByToken(tksrc_, trIn);
 
+  edm::ESHandle<TransientTrackBuilder> tt_builder;
+  iSetup.get<TransientTrackRecord>().get("TransientTrackBuilder", tt_builder);
+
 
   auto vertices = std::make_unique<std::vector<reco::Vertex>>();
   std::vector<float> x,y,z,dlen, dlenSig, pAngle, Lxy, LxySig, chi2, normalizedChi2;
@@ -120,6 +128,8 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   /////////////////
   VertexDistance3D vdist;
   VertexDistanceXY vdistXY;
+  std::vector<float> tk_dist2d_min, tk_dist2d_max, tk_dist2d_min_sig, tk_dist2d_max_sig;
+  std::vector<float> tk_dist3d_min, tk_dist3d_max, tk_dist3d_min_sig, tk_dist3d_max_sig;
 
   std::vector<float> tk_eta, tk_phi, tk_dxy, tk_dz, tk_pt, tk_dxyError, tk_dzError, tk_ptError, tk_phiError, tk_etaError, tk_validFraction, tk_normalizedChi2;
   std::vector<int> tk_charge, tk_numberOfValidHits, tk_numberOfLostHits;
@@ -166,6 +176,17 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
         normalizedChi2.push_back(sv.normalizedChi2());
         ndof.push_back(sv.ndof());
 
+        std::vector<Measurement1D> dists2d;
+        std::vector<Measurement1D> dists3d;
+        double max2d = -1;
+        double max2dsig = -1;
+        double min2d = 999;
+        double min2dsig = 999;
+        double max3d = -1;
+        double max3dsig = -1;
+        double min3d = 999;
+        double min3dsig = 999;
+
         if (!sv.hasRefittedTracks()) {
           std::cout << "SV has no refitted tracks!" << std::endl;
         }
@@ -195,8 +216,46 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
             tk_tkIdx.push_back(otk.key());
             ntk_refit += 1;
 
+            reco::TransientTrack ttk = tt_builder->build(*otk);
+            auto dist2d = IPTools::absoluteTransverseImpactParameter(ttk, sv);
+            auto dist3d = IPTools::absoluteImpactParameter3D(ttk, sv);
+            if (dist2d.first) {
+              dists2d.push_back(dist2d.second);
+            }
+            if (dist3d.first) {
+              dists3d.push_back(dist3d.second);
+            }
+          }
+
+          for (size_t i=0; i<dists2d.size(); ++i) {
+            if (dists2d[i].value()>max2d) {
+              max2d = dists2d[i].value();
+              max2dsig = dists2d[i].significance();
+            }
+            if (dists2d[i].value()<min2d) {
+              min2d = dists2d[i].value();
+              min2dsig = dists2d[i].significance();
+            }
+          }
+          for (size_t i=0; i<dists3d.size(); ++i) {
+            if (dists3d[i].value()>max3d) {
+              max3d = dists3d[i].value();
+              max3dsig = dists3d[i].significance();
+            }
+            if (dists3d[i].value()<min3d) {
+              min3d = dists3d[i].value();
+              min3dsig = dists3d[i].significance();
+            }
           }
         }
+        tk_dist2d_min.push_back(min2d);
+        tk_dist2d_max.push_back(max2d);
+        tk_dist2d_min_sig.push_back(min2dsig);
+        tk_dist2d_max_sig.push_back(max2dsig);
+        tk_dist3d_min.push_back(min3d);
+        tk_dist3d_max.push_back(max3d);
+        tk_dist3d_min_sig.push_back(min3dsig);
+        tk_dist3d_max_sig.push_back(max3dsig);
 
         // GOOD TRACK CRITERIA
         // ---------------------------
@@ -296,6 +355,14 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   svsTable->addColumn<float>("ndof", ndof, "ndof of vertex fit", nanoaod::FlatTable::FloatColumn, 10);
   svsTable->addColumn<float>("sum_tkW", sum_tkW, "sum of track weights", nanoaod::FlatTable::FloatColumn, 10);
   svsTable->addColumn<int>("ngoodTrack", ngoodTrackVec, "number of good tracks associated with the vertex according to Ivan's criteria", nanoaod::FlatTable::IntColumn);
+  svsTable->addColumn<float>("tk_dist2d_min", tk_dist2d_min, "Min track dxy wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist2d_max", tk_dist2d_max, "Max track dxy wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist2d_min_sig", tk_dist2d_min_sig, "Min track dxy significance wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist2d_max_sig", tk_dist2d_max_sig, "Max track dxy significance wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist3d_min", tk_dist3d_min, "Min track d3d wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist3d_max", tk_dist3d_max, "Max track d3d wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist3d_min_sig", tk_dist3d_min_sig, "Min track d3d significance wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
+  svsTable->addColumn<float>("tk_dist3d_max_sig", tk_dist3d_max_sig, "Max track d3d significance wrt the vertex", nanoaod::FlatTable::FloatColumn, 10);
    
   
   if (debug) {
