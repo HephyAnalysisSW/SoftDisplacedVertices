@@ -28,7 +28,8 @@
             "mu0_2024f":    "/Muon0/Run2024F-PromptReco-v1/AOD",
             "mu0_2024g":    "/Muon0/Run2024G-PromptReco-v1/AOD",
             "mu0_2024h":    "/Muon0/Run2024H-PromptReco-v1/AOD",
-            "mu0_2024i":    "/Muon0/Run2024I-PromptReco-v1/AOD",
+            "mu0_2024i1":   "/Muon0/Run2024I-PromptReco-v1/AOD",
+            "mu0_2024i2":   "/Muon0/Run2024I-PromptReco-v2/AOD",
 
             "mu1_2024c":    "/Muon1/Run2024C-2024CDEReprocessing-v1/AOD",
             "mu1_2024d":    "/Muon1/Run2024D-2024CDEReprocessing-v1/AOD",
@@ -36,7 +37,8 @@
             "mu1_2024f":    "/Muon1/Run2024F-PromptReco-v1/AOD",
             "mu1_2024g":    "/Muon1/Run2024G-PromptReco-v1/AOD",
             "mu1_2024h":    "/Muon1/Run2024H-PromptReco-v1/AOD",
-            "mu1_2024i":    "/Muon1/Run2024I-PromptReco-v1/AOD"
+            "mu1_2024i1":   "/Muon1/Run2024I-PromptReco-v1/AOD",
+            "mu1_2024i2":   "/Muon1/Run2024I-PromptReco-v2/AOD"
         }
     },
 

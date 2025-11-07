@@ -89,6 +89,8 @@ def miniAOD_filter_SoftDisplacedVertices(process):
         process.MINIAODoutput.SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('Flag_pfMETSkim'))
     elif hasattr(process, 'MINIAODSIMoutput'):
         process.MINIAODSIMoutput.SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('Flag_pfMETSkim'))
+    elif hasattr(process, 'MINIAODSIM1output'):
+        process.MINIAODSIM1output.SelectEvents = cms.untracked.PSet(SelectEvents = cms.vstring('Flag_pfMETSkim'))
     else:
         print("WARNING: No MINIAOD[SIM]output definition")
 

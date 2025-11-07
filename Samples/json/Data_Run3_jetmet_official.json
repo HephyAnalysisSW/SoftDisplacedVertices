@@ -22,21 +22,23 @@
             "jetmet1_2023d1":   "/JetMET1/Run2023D-PromptReco-v1/AOD",
             "jetmet1_2023d2":   "/JetMET1/Run2023D-PromptReco-v2/AOD",
 
-            "jetmet0_2024c":    "/JetMET0/Run2024C-2024CDEReprocessing-v1/AOD",
-            "jetmet0_2024d":    "/JetMET0/Run2024D-2024CDEReprocessing-v1/AOD",
-            "jetmet0_2024e":    "/JetMET0/Run2024E-2024CDEReprocessing-v1/AOD",
-            "jetmet0_2024f":    "/JetMET0/Run2024F-PromptReco-v1/AOD",
-            "jetmet0_2024g":    "/JetMET0/Run2024G-PromptReco-v1/AOD",
-            "jetmet0_2024h":    "/JetMET0/Run2024H-PromptReco-v1/AOD",
-            "jetmet0_2024i":    "/JetMET0/Run2024I-PromptReco-v1/AOD",
+            "jetmet0_2024c":    "/JetMET0/Run2024C-EXOSoftDisplacedVertices-2024CDEReprocessing-v1/AOD",
+            "jetmet0_2024d":    "/JetMET0/Run2024D-EXOSoftDisplacedVertices-2024CDEReprocessing-v1/AOD",
+            "jetmet0_2024e":    "/JetMET0/Run2024E-EXOSoftDisplacedVertices-2024CDEReprocessing-v1/AOD",
+            "jetmet0_2024f":    "/JetMET0/Run2024F-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet0_2024g":    "/JetMET0/Run2024G-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet0_2024h":    "/JetMET0/Run2024H-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet0_2024i1":   "/JetMET0/Run2024I-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet0_2024i2":   "/JetMET0/Run2024I-EXOSoftDisplacedVertices-PromptReco-v2/AOD",
 
-            "jetmet1_2024c":    "/JetMET1/Run2024C-2024CDEReprocessing-v1/AOD",
-            "jetmet1_2024d":    "/JetMET1/Run2024D-2024CDEReprocessing-v1/AOD",
-            "jetmet1_2024e":    "/JetMET1/Run2024E-2024CDEReprocessing-v1/AOD",
-            "jetmet1_2024f":    "/JetMET1/Run2024F-PromptReco-v1/AOD",
-            "jetmet1_2024g":    "/JetMET1/Run2024G-PromptReco-v1/AOD",
-            "jetmet1_2024h":    "/JetMET1/Run2024H-PromptReco-v1/AOD",
-            "jetmet1_2024i":    "/JetMET1/Run2024I-PromptReco-v1/AOD"
+            "jetmet1_2024c":    "/JetMET1/Run2024C-EXOSoftDisplacedVertices-2024CDEReprocessing-v2/AOD",
+            "jetmet1_2024d":    "/JetMET1/Run2024D-EXOSoftDisplacedVertices-2024CDEReprocessing-v1/AOD",
+            "jetmet1_2024e":    "/JetMET1/Run2024E-EXOSoftDisplacedVertices-2024CDEReprocessing-v1/AOD",
+            "jetmet1_2024f":    "/JetMET1/Run2024F-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet1_2024g":    "/JetMET1/Run2024G-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet1_2024h":    "/JetMET1/Run2024H-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet1_2024i1":   "/JetMET1/Run2024I-EXOSoftDisplacedVertices-PromptReco-v1/AOD",
+            "jetmet1_2024i2":   "/JetMET1/Run2024I-EXOSoftDisplacedVertices-PromptReco-v2/AOD"
         }
     },
 
