@@ -185,9 +185,6 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   // Match LLP and reco vertices by daughter
   //
   std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, secondary_vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
-  if (secondary_vertices->size() != vtxllpmatch.size()){
-    throw cms::Exception("LLPTableProducer") << "secondary_vertices and vtxllpmatch size do not match!";
-  }
 
   for (size_t ivtx=0; ivtx<secondary_vertices->size(); ++ivtx) {
     if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){

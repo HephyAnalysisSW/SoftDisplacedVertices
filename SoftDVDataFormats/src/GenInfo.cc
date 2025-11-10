@@ -247,6 +247,7 @@ std::map<int,std::pair<int,int>> SoftDV::VtxLLPMatch(const edm::Handle<reco::Gen
     if (debug)
       std::cout << std::endl;
     if (nmatchtk.size()==0){
+      // return -1 for background
       res[ivtx] = std::pair<int,int>(-1,0);
     }
     else{

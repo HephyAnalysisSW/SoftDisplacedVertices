@@ -251,6 +251,23 @@ c1n2_2018 = [
     # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
+# 2024
+c1n2_2024 = [
+    Sample("C1N2_M400_398_ct0p2_2024", xsec=0.121),
+    Sample("C1N2_M400_398_ct2_2024", xsec=0.121),
+    Sample("C1N2_M400_398_ct20_2024", xsec=0.121),
+    Sample("C1N2_M400_398_ct200_2024", xsec=0.121),
+    Sample("C1N2_M400_395_ct0p2_2024", xsec=0.121),
+    Sample("C1N2_M400_395_ct2_2024", xsec=0.121),
+    Sample("C1N2_M400_395_ct20_2024", xsec=0.121),
+    Sample("C1N2_M400_395_ct200_2024", xsec=0.121),
+    Sample("C1N2_M400_388_ct0p2_2024", xsec=0.121),
+    Sample("C1N2_M400_388_ct2_2024", xsec=0.121),
+    Sample("C1N2_M400_388_ct20_2024", xsec=0.121),
+    Sample("C1N2_M400_388_ct200_2024", xsec=0.121),
+    ]
+
+
 all_samples = [
     met_2017,
     wlnu_2017,
@@ -264,12 +281,14 @@ all_samples = [
     qcd_2018,
     stop_2018,
     c1n2_2018,
-    top_2018
+    top_2018,
+    c1n2_2024,
 ]
 
 all_signals = [
     stop_2018,
     c1n2_2018,
+    c1n2_2024,
 ]
 
 all_bkg_2018 = [
@@ -285,8 +304,6 @@ all_sig_2018 = [
   *c1n2_2018
 ]
 
-# 2023
-wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
 
 for samples in all_samples:
   for s in samples:

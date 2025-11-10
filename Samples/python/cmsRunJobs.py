@@ -151,7 +151,7 @@ class cmsRunJob:
             ''' Partition list into chunks of approximately equal size'''
             # http://stackoverflow.com/questions/2659900/python-slicing-a-list-into-n-nearly-equal-length-partitions
             n_division = len(lst) / float(n)
-            return [ lst[int(round(n_division * i)): int(round(n_division * (i + 1)))] for i in xrange(n) ]
+            return [ lst[int(round(n_division * i)): int(round(n_division * (i + 1)))] for i in range(n) ]
     
         # 1 job / file as default
         if self.n_split is None:
@@ -197,7 +197,7 @@ class cmsRunJob:
     if os.path.exists(self.jobname):
       self.logger.warning("{} already exists, will remove the previous one...".format(self.jobname))
       os.remove(self.jobname)
-    with file(self.jobname, 'a+') as job_file:
+    with open(self.jobname, 'a+') as job_file:
         for i_chunk, chunk in enumerate(chunks):
             # set input if not GEN
             if files is not None:
@@ -208,7 +208,7 @@ class cmsRunJob:
                 os.makedirs( run_dir )
             move_cmds = []
             # set output
-            for out_name, output_module in self.module.process.outputModules.iteritems():
+            for out_name, output_module in self.module.process.outputModules.items():
                 output_filename     = 'out_%s_%i.root'%(out_name, i_chunk)
                 output_tmp_filename = 'out_%s_%i_%s.root'%(out_name, i_chunk, uuid_ )
                 output_module.fileName  = cms.untracked.string(os.path.join(run_dir, output_tmp_filename))
@@ -226,7 +226,7 @@ class cmsRunJob:
                     self.module.process.maxEvents.input = cms.untracked.int32(-1)
             # dump cfg
             out_cfg_name = os.path.join( batch_tmp, str(uuid.uuid4()).replace('-','_')+'.py' )
-            with file(out_cfg_name, 'w') as out_cfg:
+            with open(out_cfg_name, 'w') as out_cfg:
                 out_cfg.write(self.module.process.dumpPython())
             self.logger.debug("Written %s", out_cfg_name)
     
@@ -241,7 +241,7 @@ class cmsRunJob:
     if not os.path.exists( logdir):
         os.makedirs( logdir)
     if not dryrun:
-      p = subprocess.Popen(args="submit {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
+      p = subprocess.Popen(args="/groups/hephy/cms/ang.li/Tools/scripts/submit_el8 {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
       self.logger.debug(p.stdout.read())
     self.logger.info("Archiving {}".format(self.jobname))
     shutil.move(self.jobname,os.path.join(self.info["jobdir"],"input",self.jobname))
