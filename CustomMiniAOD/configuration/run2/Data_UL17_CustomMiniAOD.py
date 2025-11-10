@@ -7,9 +7,9 @@ import FWCore.ParameterSet.Config as cms
 from FWCore.ParameterSet.VarParsing import VarParsing
 
 from Configuration.Eras.Era_Run2_2017_cff import Run2_2017
-from Configuration.ProcessModifiers.run2_miniAOD_UL_cff import run2_miniAOD_UL
+from Configuration.ProcessModifiers.run2_miniAOD_UL_preSummer20_cff import run2_miniAOD_UL_preSummer20
 
-process = cms.Process('MINI',Run2_2017,run2_miniAOD_UL)
+process = cms.Process('MINI',Run2_2017,run2_miniAOD_UL_preSummer20)
 
 options = VarParsing ('analysis')
 options.parseArguments()
@@ -37,8 +37,12 @@ process.source = cms.Source("PoolSource",
 )
 
 process.options = cms.untracked.PSet(
-
 )
+
+#Setup FWK for multithreaded
+process.options.numberOfThreads=cms.untracked.uint32(2)
+process.options.numberOfStreams=cms.untracked.uint32(0)
+process.options.numberOfConcurrentLuminosityBlocks=cms.untracked.uint32(1)
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(

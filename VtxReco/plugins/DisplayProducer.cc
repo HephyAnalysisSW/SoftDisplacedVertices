@@ -37,8 +37,6 @@ class DisplayProducer : public edm::stream::EDProducer<> {
     void endStream() override;
 
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> genToken_;
-    const std::vector<int> LLPid_;
-    const int LSPid_;
     const edm::EDGetTokenT<reco::VertexCollection> pvToken_;
     const edm::EDGetTokenT<reco::TrackCollection> tkToken_;
     const edm::EDGetTokenT<reco::VertexCollection> svIVFToken_;
@@ -48,8 +46,6 @@ class DisplayProducer : public edm::stream::EDProducer<> {
 
 DisplayProducer::DisplayProducer(const edm::ParameterSet& params)
   : genToken_(consumes<std::vector<reco::GenParticle>>(params.getParameter<edm::InputTag>("src"))),
-    LLPid_(params.getParameter<std::vector<int>>("LLPid_")),
-    LSPid_(params.getParameter<int>("LSPid_")),
     pvToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("pvToken"))),
     tkToken_(consumes<reco::TrackCollection>(params.getParameter<edm::InputTag>("tkToken"))),
     svIVFToken_(consumes<reco::VertexCollection>(params.getParameter<edm::InputTag>("svIVFToken"))),
@@ -89,7 +85,7 @@ void DisplayProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
   edm::Handle<reco::VertexCollection> secondary_vertices_MFV;
   iEvent.getByToken(svMFVToken_, secondary_vertices_MFV);
 
-  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, LLPid_, LSPid_, debug);
+  std::vector<int> llp_idx = SoftDV::FindLLP(genParticles, debug).first;
   std::vector<float> llp_pt, llp_eta, llp_phi, llp_mass, llp_ctau, llp_decay_x, llp_decay_y, llp_decay_z;
   std::vector<int> llp_pdgId, llp_status, llp_statusFlags, llp_ngentk, llp_nrecotk;
 
