@@ -10,6 +10,7 @@ ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHel
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/METxyCorrection.h"'.format(os.environ['CMSSW_BASE']))
 #ROOT.EnableImplicitMT(4)
 # Maybe let ROOT decide the number of threads to use
+# FIXME: getting numpy arrays with MT results in unmatched columns in arrays
 ROOT.EnableImplicitMT()
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)

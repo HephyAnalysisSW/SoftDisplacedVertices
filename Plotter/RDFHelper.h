@@ -8,6 +8,7 @@
 #include <algorithm> 
 #include "correction.h"
 
+
 float dPhi(float phi1, float phi2) {
   float x = phi1-phi2;
   float o2pi = 1. / (2. * M_PI);
@@ -20,6 +21,24 @@ float dPhi(float phi1, float phi2) {
 float dR(float phi1, float phi2, float eta1, float eta2) {
     float dp = std::abs(dPhi(phi1, phi2));
     return sqrt(dp*dp+(eta1-eta2)*(eta1-eta2));
+}
+
+template<typename T>
+T dPhi_vec(T phi1, T phi2) {
+  T output;
+  for (size_t i=0; i<phi1.size(); ++i) {
+    output.push_back(dPhi(phi1[i],phi2[i]));
+  }
+  return output;
+}
+
+template<typename T> 
+T dR_vec(T phi1, T phi2, T eta1, T eta2) {
+  T output;
+  for (size_t i=0; i<phi1.size(); ++i) {
+    output.push_back(dR(phi1[i],phi2[i],eta1[i],eta2[i]));
+  }
+  return output;
 }
 
 template<typename T>
@@ -52,7 +71,10 @@ Float_t SDVSecVtx_evtweight(Float_t LeadingVtx_TkMaxdxy, std::string year, std::
     if (year=="2017"){
       if (mode=="nominal"){
         //rsfactor_TkMaxdxy  = {1., 0.99689352, 0.96465448, 0.91358948, 0.85472115, 0.80232196};
-        rsfactor_TkMaxdxy  = {0.81895884, 0.91001644, 0.95899597, 0.97989786, 0.89702031, 1.00312943, 0.92550734, 0.89001504, 0.9360201 , 0.89851336, 0.90940729};
+        // Normalize by events
+        //rsfactor_TkMaxdxy  = {0.81895884, 0.91001644, 0.95899597, 0.97989786, 0.89702031, 1.00312943, 0.92550734, 0.89001504, 0.9360201 , 0.89851336, 0.90940729};
+        // Normalize by prompt region
+        rsfactor_TkMaxdxy  = {0.93861687, 1.0429789 , 1.09911483, 1.12307069, 1.02808391, 1.14969663, 1.06073318, 1.02005509, 1.07278195, 1.02979511, 1.04228074};
       }
       else if (mode=="up"){
         rsfactor_TkMaxdxy = {1.00894579, 1.01506314, 0.99391774, 0.97094598, 0.9148092400000001, 0.92158699};
@@ -63,7 +85,10 @@ Float_t SDVSecVtx_evtweight(Float_t LeadingVtx_TkMaxdxy, std::string year, std::
     }
     if (year=="2018"){
       if (mode=="nominal"){
-        rsfactor_TkMaxdxy  = {0.91307031, 0.90444016, 0.95747962, 0.96137951, 0.94927026, 0.9840257 , 0.91494571, 0.9286432 , 0.91313339, 0.8617565 , 0.91007989};
+        // Normalize by events
+        //rsfactor_TkMaxdxy  = {0.91307031, 0.90444016, 0.95747962, 0.96137951, 0.94927026, 0.9840257 , 0.91494571, 0.9286432 , 0.91313339, 0.8617565 , 0.91007989};
+        // Normalize by prompt region
+        rsfactor_TkMaxdxy  = {0.9770583 , 0.96782335, 1.02457981, 1.02875301, 1.01579515, 1.05298624, 0.97906513, 0.99372254, 0.9771258 , 0.92214842, 0.97385831};
       }
       else if (mode=="up"){
         rsfactor_TkMaxdxy = {1.0074218, 1.00359949, 0.99200941, 0.81745492, 0.89075437, 0.93292433};
@@ -383,6 +408,55 @@ ROOT::VecOps::RVec<float> Track_modifiedIsolation(ROOT::RVecF Track_AbsIso, ROOT
   return Track_AbsIso_new;
 }
 
+ROOT::VecOps::RVec<float> Track_E(ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, ROOT::RVecF Track_phi) {
+  ROOT::RVecF Track_e;
+  for (size_t i=0; i<Track_pt.size(); ++i) {
+    ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+    vec.SetPt(Track_pt[i]);
+    vec.SetEta(Track_eta[i]);
+    vec.SetPhi(Track_phi[i]);
+    vec.SetM(0.13957018);
+    Track_e.push_back(vec.E());
+  }
+  return Track_e;
+}
+ROOT::VecOps::RVec<float> Track_px(ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, ROOT::RVecF Track_phi) {
+  ROOT::RVecF Track_px;
+  for (size_t i=0; i<Track_pt.size(); ++i) {
+    ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+    vec.SetPt(Track_pt[i]);
+    vec.SetEta(Track_eta[i]);
+    vec.SetPhi(Track_phi[i]);
+    vec.SetM(0.13957018);
+    Track_px.push_back(vec.Px());
+  }
+  return Track_px;
+}
+ROOT::VecOps::RVec<float> Track_py(ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, ROOT::RVecF Track_phi) {
+  ROOT::RVecF Track_py;
+  for (size_t i=0; i<Track_pt.size(); ++i) {
+    ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+    vec.SetPt(Track_pt[i]);
+    vec.SetEta(Track_eta[i]);
+    vec.SetPhi(Track_phi[i]);
+    vec.SetM(0.13957018);
+    Track_py.push_back(vec.Py());
+  }
+  return Track_py;
+}
+ROOT::VecOps::RVec<float> Track_pz(ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, ROOT::RVecF Track_phi) {
+  ROOT::RVecF Track_pz;
+  for (size_t i=0; i<Track_pt.size(); ++i) {
+    ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+    vec.SetPt(Track_pt[i]);
+    vec.SetEta(Track_eta[i]);
+    vec.SetPhi(Track_phi[i]);
+    vec.SetM(0.13957018);
+    Track_pz.push_back(vec.E());
+  }
+  return Track_pz;
+}
+
 // This function returns the modified PFIsolation
 ROOT::VecOps::RVec<float> Track_ntk_dRcone(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, ROOT::RVecF Track_phi, ROOT::RVecF Track_dz, float dz_cut) {
   ROOT::RVecI ntkdRcone(Track_pt.size(),-1);
@@ -526,6 +600,18 @@ ROOT::VecOps::RVec<int> Track_isInSV(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks
   ROOT::RVecI isInSV(nTracks,0);
   for (auto& idx : SDVIdxLUT_TrackIdx){
     isInSV[idx] = 1;
+  }
+  return isInSV;
+}
+
+ROOT::VecOps::RVec<int> Track_isInSV_sel(ROOT::RVecI SDVSecVtx_sel, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks){
+  ROOT::RVecI isInSV(nTracks,0);
+  ROOT::RVecI vtx_idx = ROOT::VecOps::Nonzero(SDVSecVtx_sel);
+  for (auto& idx : vtx_idx){
+    auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==idx];
+    for (auto& ti:tkIdx){
+      isInSV[ti] = 1;
+    }
   }
   return isInSV;
 }
@@ -836,3 +922,26 @@ ROOT::RVecF SDV_TkMindR(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_Se
     return SDVSecVtx_mindR;
 }
 
+template<typename T>
+T SDVTrack_VtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDVTrack, T SDVSecVtxVar) {
+  T output(nSDVTrack,-1);
+  for (size_t i=0; i<nSDVTrack; ++i) {
+    auto vtxIdx = SDVIdxLUT_SecVtxIdx[SDVIdxLUT_TrackIdx==i];
+    if (vtxIdx.size()>0) {
+      output[i] = SDVSecVtxVar[vtxIdx[0]];
+    }
+  }
+  return output;
+}
+
+template<typename T>
+T SDVTrack_TkVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, T SDVIdxLUT_Var, int nSDVTrack) {
+  T output(nSDVTrack,-1);
+  for (size_t i=0; i<nSDVTrack; ++i) {
+    auto var = SDVIdxLUT_Var[SDVIdxLUT_TrackIdx==i];
+    if (var.size()>0) {
+      output[i] = var[0];
+    }
+  }
+  return output;
+}

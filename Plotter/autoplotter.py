@@ -150,7 +150,10 @@ if __name__=="__main__":
     s.loadData(all_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.datalabel)
     info_path = os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.metadata))
 
-    plotter = p.Plotter(datalabel=args.datalabel,outputDir=args.output,lumi=lumi,info_path=info_path,input_filelist=args.filelist,config=args.config,year=args.year,isData=args.data,postfix=args.postfix)
+    fl = args.filelist
+    if fl == '':
+      fl = None
+    plotter = p.Plotter(datalabel=args.datalabel,outputDir=args.output,lumi=lumi,info_path=info_path,input_filelist=fl,config=args.config,year=args.year,isData=args.data,postfix=args.postfix)
 
     for sample in all_samples:
       plotter.setSample(sample)
