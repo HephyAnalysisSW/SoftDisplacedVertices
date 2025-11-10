@@ -50,13 +50,17 @@ for s in os.listdir(args.dir):
   if valid:
     with open(os.path.join(args.dir,s,"log/jobinfo.json"),'r') as fj:
       info = json.load(fj)
+    source_dir = info["output"]
     newdir = os.path.join(args.output,s)
     if os.path.exists(newdir):
       print("Target directory already exists! {}".format(newdir))
       print("Will override...")
     if args.eos:
-      print("xrdcp -rf -np {0} {1}".format(os.path.join(args.dir,s),args.redirector+newdir))
-      p = subprocess.Popen(args="xrdcp -rf -np {0} {1}".format(os.path.join(args.dir,s),args.redirector+newdir),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
+      print("xrdfs {0} mkdir -p {1}".format(args.redirector,newdir))
+      p = subprocess.Popen(args="xrdfs {0} mkdir -p {1}".format(args.redirector,newdir),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
+      print(p.stdout.read())
+      print("xrdcp -rf -np {0} {1}".format(source_dir,args.redirector+newdir))
+      p = subprocess.Popen(args="xrdcp -rf -np {0} {1}".format(source_dir,args.redirector+newdir),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
       print(p.stdout.read())
     else:
       shutil.copytree(os.path.join(args.dir,s),newdir, dirs_exist_ok=True)

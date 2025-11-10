@@ -15,6 +15,10 @@
 #include "FWCore/ServiceRegistry/interface/Service.h"
 #include "RecoVertex/VertexTools/interface/VertexDistance3D.h"
 #include "RecoVertex/VertexTools/interface/VertexDistanceXY.h"
+#include "TrackingTools/IPTools/interface/IPTools.h"
+#include "TrackingTools/Records/interface/TransientTrackRecord.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrack.h"
+#include "TrackingTools/TransientTrack/interface/TransientTrackBuilder.h"
 #include "SoftDisplacedVertices/SoftDVDataFormats/interface/GenInfo.h"
 
 struct MLInfo
@@ -54,6 +58,11 @@ struct MLInfo
   std::vector<double> vtx_tk_dphi_pvtx;
   std::vector<double> vtx_tk_deta_pvtx;
   std::vector<double> vtx_tk_pterr;
+  std::vector<double> vtx_tk_weight;
+  std::vector<double> vtx_tk_dist2d;
+  std::vector<double> vtx_tk_dist2derr;
+  std::vector<double> vtx_tk_dist3d;
+  std::vector<double> vtx_tk_dist3derr;
 };
 
 class MLTree : public edm::one::EDAnalyzer<edm::one::SharedResources> {
@@ -73,6 +82,7 @@ class MLTree : public edm::one::EDAnalyzer<edm::one::SharedResources> {
     const edm::EDGetTokenT<reco::VertexCollection> vtx_token;
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> gen_token;
     const edm::EDGetTokenT<reco::TrackCollection> tk_token;
+    const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> transientTrackBuilderToken_;
 
     const std::vector<int> LLPid_;
     const int LSPid_;
@@ -94,6 +104,7 @@ MLTree::MLTree(const edm::ParameterSet& cfg)
     vtx_token(consumes<reco::VertexCollection>(cfg.getParameter<edm::InputTag>("vtx_token"))),
     gen_token(consumes<std::vector<reco::GenParticle>>(cfg.getParameter<edm::InputTag>("gen_token"))),
     tk_token(consumes<reco::TrackCollection>(cfg.getParameter<edm::InputTag>("tk_token"))),
+    transientTrackBuilderToken_{esConsumes(edm::ESInputTag("", "TransientTrackBuilder"))},
     LLPid_(cfg.getParameter<std::vector<int>>("LLPid_")),
     LSPid_(cfg.getParameter<int>("LSPid_")),
     debug(cfg.getParameter<bool>("debug"))
@@ -101,7 +112,7 @@ MLTree::MLTree(const edm::ParameterSet& cfg)
   mlInfo = new MLInfo;
 }
 
-void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
+void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
   initEventStructure();
   edm::Handle<pat::JetCollection> jets;
   event.getByToken(jet_token, jets);
@@ -129,7 +140,10 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
   edm::Handle<reco::TrackCollection> tracks;
   event.getByToken(tk_token, tracks);
 
-  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, vertices, tracks, primary_vertex->position(), LLPid_, LSPid_, debug);
+  TransientTrackBuilder const* tt_builder = nullptr;
+  tt_builder = &setup.getData(transientTrackBuilderToken_);
+
+  std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, vertices, tracks, primary_vertex->position(), debug);
 
   int jet_leading_idx = -1;
   double jet_pt_max = -1;
@@ -196,6 +210,11 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
     std::vector<double> tk_dphi_pvtx;
     std::vector<double> tk_deta_pvtx;
     std::vector<double> tk_pterr;
+    std::vector<double> tk_weight;
+    std::vector<double> tk_dist2d;
+    std::vector<double> tk_dist2derr;
+    std::vector<double> tk_dist3d;
+    std::vector<double> tk_dist3derr;
 
     const double mass = 0.13957018;
     for (auto v_tk = vtx.tracks_begin(), vtke = vtx.tracks_end(); v_tk != vtke; ++v_tk){
@@ -224,6 +243,27 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
       tk_dphi_pvtx.push_back(reco::deltaPhi((**v_tk),vtx.p4()));
       tk_deta_pvtx.push_back(fabs((**v_tk).eta()-vtx.p4().eta()));
       tk_pterr.push_back((*v_tk)->ptError());
+      tk_weight.push_back(vtx.trackWeight((*v_tk)));
+
+      reco::TransientTrack ttk = tt_builder->build(**v_tk);
+      auto dist2d = IPTools::absoluteTransverseImpactParameter(ttk, vtx);
+      auto dist3d = IPTools::absoluteImpactParameter3D(ttk, vtx);
+      if (dist2d.first) {
+        tk_dist2d.push_back(dist2d.second.value());
+        tk_dist2derr.push_back(dist2d.second.error());
+      }
+      else {
+        tk_dist2d.push_back(-1);
+        tk_dist2derr.push_back(-1);
+      }
+      if (dist3d.first) {
+        tk_dist3d.push_back(dist3d.second.value());
+        tk_dist3derr.push_back(dist3d.second.error());
+      }
+      else {
+        tk_dist3d.push_back(-1);
+        tk_dist3derr.push_back(-1);
+      }
     }
     mlInfo->vtx_tk_px = tk_px;
     mlInfo->vtx_tk_py = tk_py;
@@ -245,6 +285,11 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup&) {
     mlInfo->vtx_tk_dphi_pvtx = tk_dphi_pvtx;
     mlInfo->vtx_tk_deta_pvtx = tk_deta_pvtx;
     mlInfo->vtx_tk_pterr = tk_pterr;
+    mlInfo->vtx_tk_weight = tk_weight;
+    mlInfo->vtx_tk_dist2d = tk_dist2d;
+    mlInfo->vtx_tk_dist2derr = tk_dist2derr;
+    mlInfo->vtx_tk_dist3d = tk_dist3d;
+    mlInfo->vtx_tk_dist3derr = tk_dist3derr;
 
     mlTree->Fill();
 
@@ -292,6 +337,11 @@ void MLTree::beginJob()
   mlTree->Branch("vtx_tk_dphi_pvtx", &mlInfo->vtx_tk_dphi_pvtx);
   mlTree->Branch("vtx_tk_deta_pvtx", &mlInfo->vtx_tk_deta_pvtx);
   mlTree->Branch("vtx_tk_pterr",  &mlInfo->vtx_tk_pterr);
+  mlTree->Branch("vtx_tk_weight", &mlInfo->vtx_tk_weight);
+  mlTree->Branch("vtx_tk_dist2d", &mlInfo->vtx_tk_dist2d);
+  mlTree->Branch("vtx_tk_dist2derr",  &mlInfo->vtx_tk_dist2derr);
+  mlTree->Branch("vtx_tk_dist3d", &mlInfo->vtx_tk_dist3d);
+  mlTree->Branch("vtx_tk_dist3derr",  &mlInfo->vtx_tk_dist3derr);
 }
 
 void MLTree::endJob()
@@ -334,6 +384,11 @@ void MLTree::initEventStructure()
   mlInfo->vtx_tk_dphi_pvtx.clear();
   mlInfo->vtx_tk_deta_pvtx.clear();
   mlInfo->vtx_tk_pterr.clear();
+  mlInfo->vtx_tk_weight.clear();
+  mlInfo->vtx_tk_dist2d.clear();
+  mlInfo->vtx_tk_dist2derr.clear();
+  mlInfo->vtx_tk_dist3d.clear();
+  mlInfo->vtx_tk_dist3derr.clear();
 }
 
 DEFINE_FWK_MODULE(MLTree);
