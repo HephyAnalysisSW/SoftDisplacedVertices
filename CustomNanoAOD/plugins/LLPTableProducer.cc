@@ -224,7 +224,6 @@ void LLPTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
   for (size_t ivtx=0; ivtx<secondary_vertices->size(); ++ivtx) {
     if (vtxllpmatch.find(ivtx) != vtxllpmatch.end()){
       int llp_matched_idx = vtxllpmatch[ivtx].first;
-      if (llp_matched_idx<0) continue;
       int match_ntk = vtxllpmatch[ivtx].second;
       if (llp_matched_idx<0) continue;
       SDV_match_bydau[ivtx] = llp_matched_idx;
