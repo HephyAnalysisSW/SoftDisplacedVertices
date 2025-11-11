@@ -247,4 +247,5 @@ class cmsRunJob:
     shutil.move(self.jobname,os.path.join(self.info["jobdir"],"input",self.jobname))
     with open(os.path.join(logdir,"jobinfo.json"),"w") as f:
       json.dump(self.info,f,indent=2)
+    return "/groups/hephy/cms/ang.li/Tools/scripts/submit_el8 {0} --output={1} --title={2} --logLevel={3}".format(os.path.join(self.info["jobdir"],"input",self.jobname),logdir,self.info["title"],self.logLevel)
 

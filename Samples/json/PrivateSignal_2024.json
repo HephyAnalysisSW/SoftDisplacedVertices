@@ -1,18 +1,22 @@
 {
     "AOD": {
         "dir": {
-            "C1N2_M400_398_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_0p2",
-            "C1N2_M400_398_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_2",
-            "C1N2_M400_398_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_20",
-            "C1N2_M400_398_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_200",
-            "C1N2_M400_395_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_0p2",
-            "C1N2_M400_395_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_2",
-            "C1N2_M400_395_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_20",
-            "C1N2_M400_395_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_200",
-            "C1N2_M400_388_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_0p2",
-            "C1N2_M400_388_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_2",
-            "C1N2_M400_388_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_20",
-            "C1N2_M400_388_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_200"
+            "C1N2_M400_398_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_0p2/AODSIM/",
+            "C1N2_M400_398_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_2/AODSIM/",
+            "C1N2_M400_398_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_20/AODSIM/",
+            "C1N2_M400_398_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_398_200/AODSIM/",
+            "C1N2_M400_395_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_0p2/AODSIM/",
+            "C1N2_M400_395_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_2/AODSIM/",
+            "C1N2_M400_395_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_20/AODSIM/",
+            "C1N2_M400_395_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_395_200/AODSIM/",
+            "C1N2_M400_388_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_0p2/AODSIM/",
+            "C1N2_M400_388_ct2_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_2/AODSIM/",
+            "C1N2_M400_388_ct20_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_20/AODSIM/",
+            "C1N2_M400_388_ct200_2024": "/scratch/ang.li/GenOutput_2024/C1N2_400_388_200/AODSIM/",
+			"stop_M1000_988_ct0p2_2024": "/scratch/ang.li/GenOutput_2024/STOP_1000_988_0p2/AODSIM/",
+			"stop_M1000_988_ct2_2024": "/scratch/ang.li/GenOutput_2024/STOP_1000_988_2/AODSIM/",
+			"stop_M1000_988_ct20_2024": "/scratch/ang.li/GenOutput_2024/STOP_1000_988_20/AODSIM/",
+			"stop_M1000_988_ct200_2024": "/scratch/ang.li/GenOutput_2024/STOP_1000_988_200/AODSIM/"
         }
     }
 }

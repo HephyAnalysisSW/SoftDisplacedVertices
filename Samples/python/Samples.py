@@ -267,6 +267,12 @@ c1n2_2024 = [
     Sample("C1N2_M400_388_ct200_2024", xsec=0.121),
     ]
 
+stop_2024 = [
+    Sample("stop_M1000_988_ct200_2024", xsec=0.00683),
+    Sample("stop_M1000_988_ct20_2024", xsec=0.00683),
+    Sample("stop_M1000_988_ct2_2024", xsec=0.00683),
+    Sample("stop_M1000_988_ct0p2_2024", xsec=0.00683),
+        ]
 
 all_samples = [
     met_2017,
@@ -289,6 +295,7 @@ all_signals = [
     stop_2018,
     c1n2_2018,
     c1n2_2024,
+    stop_2024,
 ]
 
 all_bkg_2018 = [

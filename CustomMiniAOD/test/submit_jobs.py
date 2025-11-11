@@ -11,15 +11,16 @@ dryrun = True
 #input_label = "CustomMiniAOD_v3"
 input_label = "AOD"
 #version = "CustomMiniAOD_MLstudy"
-version = "CustomMiniAOD_v3_test"
+version = "CustomMiniAOD_v4"
 #version = "CustomMiniAOD_lowdm"
 
 j = job.cmsRunJob(cfg='MC_Run3Summer24_CustomMiniAOD.py',logLevel = "INFO")
 
-input_samples = [s.c1n2_2024[0]]
+input_samples = s.stop_2024
 
 s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/PrivateSignal_2024.json'),input_label)
 
+sub_cmd = []
 for sp in input_samples:
   print(sp.name)
   targetDir = "/scratch-cbe/users/ang.li/SoftDV/CLIP_{0}/{1}/".format(version,sp.name)
@@ -34,16 +35,20 @@ for sp in input_samples:
     j.setJob(title=sp.name+input_label+version,input=input,instance=sp.dataset_instance[input_label],targetDir=targetDir,n_files=5)
 
     j.prepare()
-    j.submit(dryrun=dryrun)
+    c = j.submit(dryrun=dryrun)
     j.reset()
+    sub_cmd.append(c)
   else:
     with open("filename.txt","w") as fns:
       fns.write("\n".join(sp.getFileList(input_label,"")))
 
     j.setJob(title=sp.name+input_label+version, input="filename.txt",redirector = "file:",targetDir=targetDir,n_files=5)
     j.prepare()
-    j.submit(dryrun=dryrun)
+    c = j.submit(dryrun=dryrun)
     shutil.move("filename.txt",os.path.join(targetDir+'/input',"filename.txt"))
     j.reset()
+    sub_cmd.append(c)
 
-
+with open('jobs.sh','w') as f:
+    for i in sub_cmd:
+        f.write(i+';\n')
