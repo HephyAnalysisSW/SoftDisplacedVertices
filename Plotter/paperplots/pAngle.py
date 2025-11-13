@@ -1,29 +1,20 @@
-### Example usage:
-### 
-### Compare histograms for different directories in different files
-### python3 compare.py --input /eos/vbc/group/cms/ang.li/MLhists/MLNanoAODv2/stop_M600_588_ct200_2018_hist.root /eos/vbc/group/cms/ang.li/MLhists/MLNanoAODv2/stop_M600_580_ct2_2018_hist.root --dirs histtag histuntag  --nice 588 580 --scale --output /groups/hephy/cms/ang.li/plots/plots_test
-###
-### Compare histograms for the same directory in different files
-### python3 compare.py --input /eos/vbc/group/cms/ang.li/MLhists/MLNanoAODv2/stop_M600_588_ct200_2018_hist.root /eos/vbc/group/cms/ang.li/MLhists/MLNanoAODv2/stop_M600_580_ct2_2018_hist.root --dirs histtag  --nice 588 580 --scale --output /groups/hephy/cms/ang.li/plots/plots_test
-###
-### Compare histograms for different directories in the same file
-### python3 compare.py --input /eos/vbc/group/cms/ang.li/MLhists/MLNanoAODv2/stop_M600_588_ct200_2018_hist.root --dirs histtag histuntag  --nice tag untag --scale --output /groups/hephy/cms/ang.li/plots/plots_test
-
-
-import os,math
 import ROOT
-from array import array
 import cmsstyle as CMS
-import SoftDisplacedVertices.Samples.Samples as s
-ROOT.EnableImplicitMT()
-ROOT.gROOT.SetBatch(ROOT.kTRUE)
-ROOT.TH1.SetDefaultSumw2(True)
+from array import array
+import math
 ROOT.gStyle.SetOptStat(0)
+#ROOT.gROOT.SetBatch(1)
+ROOT.TH1.SetDefaultSumw2(True)
 ROOT.TGaxis.SetExponentOffset(-0.10, 0.01, "Y")
 
-import argparse
+def write(font, size, x, y, text):
+    w = ROOT.TLatex()
+    w.SetNDC()
+    w.SetTextFont(font)
+    w.SetTextSize(size)
+    w.DrawLatex(x, y, text)
+    return w
 
-## This part copied from https://github.com/Ang-Li-95/cmssw-usercode/blob/UL/Tools/python/ROOTTools.py#L27C1-L37C34
 class TH1EntriesProtector(object):
     """SetBinContent increments fEntries, making a hist's stats hard
     to understand afterward, as in e.g. move_above/below_into_bin
@@ -94,38 +85,7 @@ def move_overflows_into_visible_bins(h, opt='under over'):
         move_below_into_bin(h, h.GetBinLowEdge(h.GetXaxis().GetFirst()))
     if 'over' in opt:
         move_above_into_bin(h, h.GetBinLowEdge(h.GetXaxis().GetLast()))
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--data', type=str, nargs='+',default=[],
-                    help='data file to compare')
-parser.add_argument('--bkg', type=str, nargs='+',default=[],
-                    help='background files to compare')
-parser.add_argument('--bkgnice', type=str, nargs='+',default=[],
-                    help='background legend names')
-parser.add_argument('--signal', type=str, nargs='+',default=[],
-                    help='signal files to compare')
-parser.add_argument('--signice', type=str, nargs='+',default=[],
-                    help='signal legend names')
-parser.add_argument('--output', type=str,
-                    help='output dir')
-parser.add_argument('--dirs', type=str, nargs='+',
-                    help='directories to compare')
-parser.add_argument('--scale_to_data', action='store_true', default=False,
-                    help='Whether to scale the bkg plot according to data')
-parser.add_argument('--sig_scale', type=float, nargs='+',default=[],
-                    help='Scale factors for signal')
-parser.add_argument('--norm', action='store_true', default=False,
-                    help='Whether to normalise all the histograms')
-parser.add_argument('--commands', type=str, nargs='+',
-                    help="Additional commands, such as rebinning or set range etc.")
-parser.add_argument('--ratio', action='store_true', default=False,
-                    help="Whether to plot the ratio")
-
-args = parser.parse_args()
-
-signal_colors = [ROOT.kGreen,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
-bkg_colors = [ROOT.kBlue-9, ROOT.kBlue-5, ROOT.kCyan-9]
-
+        
 def AddHists(hs,ws):
   assert len(hs)==len(ws)
   hnew = hs[0].Clone()
@@ -147,12 +107,14 @@ def StackHists(hs,ws):
 
 def h_command(h):
   if args.commands is None:
-    return
+    return h
   for c in args.commands:
-    exec(c)
-    return
+    l_dict = {'h': h}
+    exec(c, globals(), l_dict)
+    h = l_dict['h']
+  return h
 
-def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, ratio=True, norm=False):
+def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, ratio=True, norm=False, text=None):
   assert not (scale_to_data and norm), "Cannot set scale_to_data and norm in the same time!"
   if colors is None:
     colors = colors_global[:len(hs)]
@@ -167,6 +129,7 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
   for k in hs:
     for i in range(len(hs[k])):
       h = hs[k][i]
+      #h=h.Rebin(11, '', array('d', [0,1,2,3,4,5,6,7,9,11,14,20]))
       move_overflows_into_visible_bins(h)
       h.GetYaxis().SetMaxDigits(2)
       if k=='bkg':
@@ -214,6 +177,8 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
   for h in hlist:
     x_label = h.GetXaxis().GetTitle()
     y_label = h.GetYaxis().GetTitle()
+    y_label = "Number of vertices"
+    y_label = "Fraction of vertices"
     #move_overflows_into_visible_bins(hs[i])
     y_max = max(y_max,h.GetMaximum())
     y_min_log = min(y_min_log,h.GetMinimum(1e-08))
@@ -222,34 +187,45 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     x_min = min(x_min,h.GetXaxis().GetBinLowEdge(h.GetXaxis().GetFirst()))
 
   if data is not None:
-    CMS.SetExtraText("Preliminary")
+    CMS.SetExtraText("")
   else:
-    CMS.SetExtraText("Simulation Preliminary")
-  CMS.SetLumi("100.3")
+    CMS.SetExtraText("Simulation")
+  CMS.SetLumi("100") # 2017+2018
   square=CMS.kSquare
   iPos=0
   
   ratio = ratio and (data is not None and bkg_mc is not None)
   if ratio:
     # Create canvas
-    canv = CMS.cmsDiCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, 0, 2.5, x_label, y_label, "Data/MC", square=square, extraSpace=0.1, iPos=iPos,)
-    cup = canv.GetListOfPrimitives()[0]
-    cdn = canv.GetListOfPrimitives()[1]
-    cup.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
-    cup.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
-    cup.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
-    cdn.GetListOfPrimitives()[1].SetTitleSize(0.09, "XYZ")
-    cdn.GetListOfPrimitives()[1].SetLabelSize(0.09, "XYZ")
-    cdn.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
-    #for i in canv.GetListOfPrimitives():
-    #  i.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
-    #  i.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
-    #  i.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
+    canv = CMS.cmsDiCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, 0.5, 1.5, x_label, y_label, "Data/Sim.", square=square, extraSpace=0.1, iPos=iPos,)
   else:
     canv = CMS.cmsCanvas(name, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min, x_label, y_label, square = CMS.kSquare, extraSpace=0.01, iPos=0)
-    canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
-    canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
-    canv.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
+    
+  if ratio:
+      hf = canv.GetListOfPrimitives().FindObject(name+"_1").GetListOfPrimitives().FindObject("hframe")
+      hf.GetXaxis().SetLabelSize(0.05)
+      hf.GetXaxis().SetTitleSize(0.075)
+      hf.GetXaxis().SetTitleOffset(1.2)
+      hf.GetYaxis().SetLabelSize(0.05)
+      hf.GetYaxis().SetTitleSize(0.05)
+      hf.GetYaxis().SetTitleOffset(1.25)
+
+      hf2 = canv.GetListOfPrimitives().FindObject(name+"_2").GetListOfPrimitives().FindObject("hframe")
+      hf2.GetXaxis().SetLabelSize(0.095)
+      hf2.GetXaxis().SetTitleSize(0.095)
+      hf2.GetXaxis().SetTitleOffset(1.5)
+      hf2.GetYaxis().SetLabelSize(0.095)
+      hf2.GetYaxis().SetTitleSize(0.095)
+      hf2.GetYaxis().SetTitleOffset(0.65)
+  else:
+      hf = canv.GetListOfPrimitives().FindObject("hframe")
+      hf.GetXaxis().SetLabelSize(0.035)
+      hf.GetXaxis().SetTitleSize(0.04)
+      hf.GetXaxis().SetTitleOffset(1.2)
+      hf.GetYaxis().SetLabelSize(0.035)
+      hf.GetYaxis().SetTitleSize(0.04)
+      hf.GetYaxis().SetTitleOffset(1.5)
+  canv.Update()
 
   leg = CMS.cmsLeg(0.2, 0.69, 0.99, 0.89, textSize=0.04,columns=2)
   if data is not None:
@@ -266,6 +242,18 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     leg.AddEntry(hs['sig'][i], legends['sig'][i],"l")
     hs['sig'][i].Draw("hist same")
 
+  cutline = ROOT.TLine(0.2, y_min_log, 0.2, 1)
+  CMS.cmsDrawLine(cutline, lcolor=ROOT.kBlack)
+
+  arrow = ROOT.TArrow(0.2, 0.5, 0.5, 0.5, 0.02, "|>")
+  arrow.SetLineColor(ROOT.kBlack)
+  arrow.SetLineWidth(2)
+  arrow.SetFillColor(ROOT.kBlack)
+  arrow.Draw()
+
+  ROOT.gPad.RedrawAxis()
+
+
   if ratio:
     # Lower pad
     canv.cd(2)
@@ -275,26 +263,29 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     ratio = data.Clone("ratio")
     ratio.Divide(bkg_mc)
     #for i in range(1,ratio.GetNbinsX()+1):
-    #    ratio.SetBinError(i,0)
-    #    #if(ratio.GetBinContent(i)):
-    #    #    ratio.SetBinError(i, math.sqrt(data.GetBinContent(i))/bkg_mc.GetBinContent(i))
-    #    #else:
-    #    #    ratio.SetBinError(i, 10^(-99))
+    #    if(ratio.GetBinContent(i)):
+    #        ratio.SetBinError(i, math.sqrt(data.GetBinContent(i))/bkg_mc.GetBinContent(i))
+    #    else:
+    #        ratio.SetBinError(i, 10^(-99))
     #yerr_root = ROOT.TGraphAsymmErrors()
-    #yerr_root.Divide(data, bkg_mc, 'pois') 
+    #yerr_root.Divide(data, bkg_mc, 'pois')
     #for i in range(0,yerr_root.GetN()+1):
     #    yerr_root.SetPointY(i,1)
     #CMS.cmsDraw(yerr_root, "e2same0", lwidth = 100, msize = 0, fcolor = ROOT.kBlack, fstyle = 3004)  
     CMS.cmsDraw(ratio, "E1X0", mcolor=ROOT.kBlack)
+    #CMS.cmsDraw(yerr_root, "E1X0", mcolor=ROOT.kBlack)
     ref_line = ROOT.TLine(x_min, 1, x_max, 1)
     CMS.cmsDrawLine(ref_line, lcolor=ROOT.kBlack, lstyle=ROOT.kDotted)
-
+  
   if ratio:
     canv.cd(1)
+  if text is not None:
+    #write(42, 0.04, 0.6, 0.6, text)
+    write(42, 0.035, 0.3, 0.68, text)
   CMS.cmsCanvasResetAxes(ROOT.gPad, x_min, x_max, y_min, (y_max-y_min)/0.65+y_min)
   canv.Update()
-  CMS.SaveCanvas(canv,"{}.pdf".format(args.output+'/'+name),False)
-  CMS.SaveCanvas(canv,"{}.png".format(args.output+'/'+name),False)
+  CMS.SaveCanvas(canv,"{}.pdf".format(name),False)
+  CMS.SaveCanvas(canv,"{}.png".format(name),False)
   #canv.SaveAs("{}.pdf".format(args.output+'/'+name))
   #canv.SaveAs("{}.png".format(args.output+'/'+name))
 
@@ -302,81 +293,87 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     canv.cd(1)
   CMS.cmsCanvasResetAxes(ROOT.gPad, x_min, x_max, y_min_log, y_min_log*((y_max/y_min_log)**(1/0.65)))
   ROOT.gPad.SetLogy()
+  ROOT.gPad.RedrawAxis()
   canv.Update()
-  CMS.SaveCanvas(canv,"{}_log.pdf".format(args.output+'/'+name),False)
-  CMS.SaveCanvas(canv,"{}_log.png".format(args.output+'/'+name),True)
+  CMS.SaveCanvas(canv,"{}_log.pdf".format(name),False)
+  CMS.SaveCanvas(canv,"{}_log.png".format(name),True)
 
-def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,sig_scale,scale_to_data,ratio,norm):
-  assert(len(bkgfns)==len(bkglegend))
-  assert(len(sigfns)==len(siglegend))
-  if len(sig_scale)==1:
-    sig_scale = len(sigfns)*sig_scale
-  elif len(sig_scale)>1:
-    assert(len(sigfns)==len(sig_scale))
+plt = 'All_SDVSecVtx_mn1sel_nomap/SDVSecVtx_pAngle'
+#plt = 'All_SDVSecVtx_all/SDVSecVtx_pAngle'
+hdir = "/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_hist2_mapveto_2g2regions_noPU/"
+fns = {
+    'data' : 'met{}_hist.root',
+    'st' : 'st_{}_hist.root',
+    'tt' : 'ttbar_{}_hist.root',
+    'qcd' : 'qcd_{}_hist.root',
+    'w' : 'wjets_{}_hist.root',
+    'z' : 'zjets_{}_hist.root',
+    'sig': 'C1N2_M400_385_ct20_{}_hist.root'
+}
+hs = {
+    2017: {},
+    2018: {},
+}
+sfs = {
+    2017: 1,
+    2018: 1,
+}
+hadd = {}
+for k in fns:
+    h_toadd = []
+    w_toadd = []
+    for year in [2017,2018]:
+        hd = hdir
+        pl = plt
+        if 'sig' in k:
+            hd = hd[:-1]+'_gen/'
+            pl = 'All_SDVSecVtx_mn1sel_nomap/SDVSecVtx_pAngle'
+            #pl = "All_SDVSecVtx_genmatch/SDVSecVtx_pAngle"
+        f = ROOT.TFile.Open(hd+fns[k].format(year))
+        h = f.Get(pl)
+        h.SetDirectory(0)
+        h.SetTitle(";Vertex #alpha_{p};Fraction of vertices")
+        hs[year][k] = h
+        h_toadd.append(h)
+        w_toadd.append(sfs[year])
+    
+    newh = AddHists(h_toadd,w_toadd)
+    newh.SetDirectory(0)
+    #newh=newh.Rebin(11, '', array('d', [0,1,2,3,4,5,6,7,9,11,14,20]))
+    #newh = h_command(newh)
+    hadd[k] = newh
+    
+h_plt = {
+    'data': [],
+    'bkg': [],
+    'sig': []
+}
 
-  legends = {
-      'bkg':bkglegend,
-      'sig':siglegend,
+h_plt['data'].append(hadd['data'])
+for k in ['st','tt','qcd','w','z']:
+    h_plt['bkg'].append(hadd[k])
+    
+h_plt['sig'].append(hadd['sig'])
+legends = {
+      'bkg':["Single t","t#bar{t}", "QCD", "W+jets", "Z+jets"],
+      'sig':[""],
       }
-  colors = {
+
+sigcolors = [ROOT.kGreen,ROOT.kRed,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+bkgcolors = [ROOT.kBlue-9, ROOT.kBlue-5, ROOT.kCyan-9]
+colors = {
       'bkg':bkgcolors,
       'sig':sigcolors,
       }
-  fs = {
-      'data': [ROOT.TFile.Open(fn) for fn in datafn],
-      'bkg': [ROOT.TFile.Open(fn) for fn in bkgfns],
-      'sig': [ROOT.TFile.Open(fn) for fn in sigfns]
-      }
-  dirs = ''
-  if (args.dirs is None) or (len(args.dirs)==0):
-    dirs = ''
-    plots = [p.GetName() for p in fs['data'][0].GetListOfKeys()]
-  else:
-    dirs = args.dirs[0]
-    if len(fs['data'])>0:
-      fdir = fs['data'][0].Get(dirs)
-    elif len(fs['bkg'])>0:
-      fdir = fs['bkg'][0].Get(dirs)
-    else:
-      fdir = fs['sig'][0].Get(dirs)
-    if not fdir:
-      if len(fs['data'])>0:
-        print("{} not available in {}!".format(args.dirs[0],fs['data'][0].GetName()))
-      elif len(fs['bkg'])>0:
-        print("{} not available in {}!".format(args.dirs[0],fs['bkg'][0].GetName()))
-      else:
-        print("{} not available in {}!".format(args.dirs[0],fs['sig'][0].GetName()))
-    plots = [p.GetName() for p in fdir.GetListOfKeys()]
-  
-  if not dirs=='':
-    dirs += '/'
-  for plt in plots:
-    hs = {}
-    doit = False
-    for k in fs:
-      if not (k in hs):
-        hs[k] = []
-      for f in fs[k]:
-        h = f.Get(dirs+plt)
-        if not h:
-          print('{} is not available in {}!'.format(dirs+plt,f.GetName()))
-          continue
-        if not ('TH1' in str(type(h))):
-          break
-        h.SetDirectory(0)
-        h_command(h)
-        hs[k].append(h)
-        doit = True
-    #datamccomparison(plt,hs,colors,legends,scale_to_data=False, ratio=True)
-    comparehists_cms(plt,hs,colors,legends,sig_scale=sig_scale,scale_to_data=scale_to_data, ratio=ratio,norm=norm)
-  
-  for k in fs:
-    for f in fs[k]:
-      f.Close()
 
-if __name__ == "__main__":
-  if not os.path.exists(args.output):
-    os.makedirs(args.output)
-  makeplots(args.data,args.bkg,args.signal,args.bkgnice,args.signice,bkg_colors,signal_colors,args.sig_scale,args.scale_to_data,ratio=args.ratio,norm=args.norm)
+desc = "#tilde{#chi}^{#pm}_{1} #rightarrow f#bar{f}'#kern[0.2]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
+param = "m_{#kern[0.1]{LLP}} = 400 GeV, #Deltam = 15 GeV, c#tau = 20 mm"
+text = f"#splitline{{{desc}}}{{{param}}}"
+#param2 = "#Delta m = 25 GeV, c#tau=20 mm"
 
+for k in h_plt:
+    for i in range(len(h_plt[k])):
+        #h_plt[k][i] = h_plt[k][i].Rebin(11, '', array('d', [0,1,2,3,4,5,6,7,9,11,14,20]))
+        h_plt[k][i] = h_plt[k][i].Rebin(2)
 
+comparehists_cms('SDVSecVtx_pAngle_ratio',h_plt,colors,legends,ratio=True,text=text,norm=True)

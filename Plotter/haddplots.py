@@ -53,7 +53,7 @@ if __name__=="__main__":
     targetpath = os.path.join(args.dir,'{0}_hist.root'.format(d))
     if os.path.exists(targetpath):
       print("\033[1;31m File {} already exists! Skipping...\033[0m".format(targetpath))
-      #continue
+      continue
     else:
       haddcmd = 'hadd {0} {1}/{2}/*.root > {1}/{2}/haddlog.txt'.format(targetpath,args.dir,d)
       print(haddcmd)

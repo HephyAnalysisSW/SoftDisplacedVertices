@@ -30,28 +30,28 @@ def getmapvetosyst(model,ctau,year):
   func = {
       2017:{
         'stop':{
-          'A': "2.59*TMath::Log(x)-0.9",
-          'B': "2.63*TMath::Log(x)-1.11",
+          'A': "0.94*TMath::Log10(x)-0.23",
+          'B': "1.36*TMath::Log10(x)-1.20",
           'C': "0",
           'D': "0",
           },
         'C1N2':{
-          'A': "1.87*TMath::Log(x)+0.76",
-          'B': "1.44*TMath::Log(x)+1.86",
+          'A': "1.31*TMath::Log10(x)+0.14",
+          'B': "1.67*TMath::Log10(x)-1.05",
           'C': "0",
           'D': "0",
           },
         },
       2018:{
         'stop':{
-          'A': "2.40*TMath::Log(x)-0.59",
-          'B': "2.37*TMath::Log(x)-0.56",
+          'A': "1.01*TMath::Log10(x)-0.54",
+          'B': "1.19*TMath::Log10(x)-0.85",
           'C': "0",
           'D': "0",
           },
         'C1N2':{
-          'A': "1.45*TMath::Log(x)+1.63",
-          'B': "1.78*TMath::Log(x)+1.06",
+          'A': "0.61*TMath::Log10(x)+1.27",
+          'B': "1.49*TMath::Log10(x)-0.38",
           'C': "0",
           'D': "0",
           },
@@ -333,9 +333,12 @@ def getNumEventsCtau(filepath, regions, model, mLLP, dm, ctau, BR, year, SF):
         BRweights1 = getBRweight(data[r]['LLP_decaymode1'],target=BR)
         ct_weights0 = getctauweight(data[r]['LLP_ctau0'],ict,ctau)
         ct_weights1 = getctauweight(data[r]['LLP_ctau1'],ict,ctau)
-        ct_weights = ct_weights0*ct_weights1*BRweights0*BRweights1
+        ct_weights_tot = ct_weights0*ct_weights1
+        ct_weights_tot = np.clip(ct_weights_tot,a_min=0,a_max=100)
+        ct_weights = ct_weights_tot*BRweights0*BRweights1
       elif model=='C1N2':
         ct_weights0 = getctauweight(data[r]['LLP_ctau0'],ict,ctau)
+        ct_weights0 = np.clip(ct_weights0,a_min=0,a_max=100)
         ct_weights = ct_weights0
       else:
         raise Exception("Model {} not supported!".format(model))
@@ -413,8 +416,15 @@ model = "stop"
 #model = "C1N2"
 filepathMC = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
 filepathData = '/eos/vbc/group/cms/ang.li/Histos_datacard_mapveto_2g2regions_noPU/'
-filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal/'
-filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal_HEM/'
+#filepathSig = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal/'
+#filepathSigHEM = '/eos/vbc/group/cms/ang.li/Histos_datacard_centralsignal_HEM/'
+#filepathSig = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_datacard_centralsignal_mcmap_bugfix/'
+#filepathSigHEM = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_datacard_centralsignal_mcmap_bugfix_HEM/'
+filepathSig = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_datacard_centralsignal_datamap_bugfix/'
+filepathSigHEM = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_datacard_centralsignal_datamap_bugfix_HEM/'
+
+#filepathSig = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_c1n2_lowdm/'
+#filepathSigHEM = '/scratch-cbe/users/ang.li/SoftDV/Histos/Histos_c1n2_lowdm/'
 
 if model=='stop':
   mLLP = [400,500,600,700,800,900,1000,1100,1200,1300,1400]

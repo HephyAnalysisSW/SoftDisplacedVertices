@@ -32,7 +32,8 @@ corrections:
 
 mapveto:
   data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
-  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
+  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+  #mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
 
 weights:
 

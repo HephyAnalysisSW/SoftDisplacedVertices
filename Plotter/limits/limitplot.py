@@ -7,6 +7,73 @@ from array import array
 import SoftDisplacedVertices.Samples.Samples as sps
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
 
+def drawText (text, posX, posY, font, align, size):
+    """This method allows to draw a given text with all the provided characteristics.
+
+    Args:
+        text (str): text to be written in the Current TPad/TCanvas.
+        posX (float): position in X (using NDC) where to place the text.
+        posY (float): poisition in Y (using NDC) where to place the text.
+        font (Font_t): Font to be used.
+        align (int): Alignment code for the text.
+        size (float): Size of the text.
+    """
+    latex = ROOT.TLatex()
+    latex.SetNDC()
+    latex.SetTextAngle(0)
+    latex.SetTextColor(ROOT.kBlack)
+
+    latex.SetTextFont(font)
+    latex.SetTextAlign(align)
+    latex.SetTextSize(size)
+    latex.DrawLatex(posX, posY, text)
+
+
+def draw_lumi(pad, iPosX=11, scaleLumi=1):
+    """
+    Draw the CMS text and luminosity information on the specified pad.
+
+    Args:
+        pad (ROOT.TPad): The pad to draw on.
+        iPosX (int, optional): The position of the CMS logo. Defaults to 11 (top-left, left-aligned).
+                               Set it to 0 to put it outside the box (top left)
+        scaleLumi (float, optional): Scale factor for the luminosity text size (default is 1, no scaling).
+    """
+    CMS.SetLumi("100")
+    CMS.SetEnergy("13")
+    relPosX = 0.035
+    relPosY = 0.035
+    relExtraDY = 1.2
+    outOfFrame = int(iPosX / 10) == 0
+    alignX_ = max(int(iPosX / 10), 1)
+    alignY_ = 1 if iPosX == 0 else 3
+    align_ = 10 * alignX_ + alignY_
+    H = pad.GetWh() * pad.GetHNDC()
+    W = pad.GetWw() * pad.GetWNDC()
+    l = pad.GetLeftMargin()
+    t = pad.GetTopMargin()
+    r = pad.GetRightMargin()
+    b = pad.GetBottomMargin()
+    outOfFrame_posY = 1 - t + CMS.lumiTextOffset * t
+    pad.cd()
+
+    lumiText = CMS.cms_lumi
+    if CMS.cms_energy != "":
+        lumiText += " (" + CMS.cms_energy + ")"
+    lumiText = '100 fb^{#minus1} (13 TeV)'
+
+    drawText(
+        text=lumiText,
+        posX=1 - r,
+        posY=outOfFrame_posY,
+        font=42,
+        align=31,
+        size=CMS.lumiTextSize * t * scaleLumi,
+    )
+    
+    CMS.UpdatePad(pad)
+
+
 def getwidth(m,dm):
     # this calculated the 4-body partial decay width 
     # m is the LLP mass and dm is the mass splitting
@@ -192,13 +259,13 @@ def make_1dplot(model):
           ct = stopct[dm]
           BR = ibc
           realctau = getctauBR(m,dm,BR)
-          decay_nice = "#tilde{{t}} #rightarrow bff'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}, B(#tilde{{t}} #rightarrow bff'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}".format(BR)
-          params_nice = "#Delta m = {} GeV, c#tau = {:.3} mm".format(dm,realctau)
+          decay_nice = "#tilde{{t}} #rightarrow bff'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}, B(#tilde{{t}} #rightarrow bff'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}".format(BR)
+          params_nice = "#Deltam = {} GeV, c#tau = {:.3} mm".format(dm,realctau)
         elif model=='C1N2':
           ct = ibc
           BR = 1
-          decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.1]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
-          params_nice = "#Delta m = {} GeV, c#tau = {} mm".format(dm,ct)
+          decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.2]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
+          params_nice = "#Deltam = {} GeV, c#tau = {} mm".format(dm,ct)
         ctstr = str(ct).replace('.','p')
         sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ctstr))
         if model=='stop':
@@ -220,7 +287,7 @@ def make_1dplot(model):
       CMS.SetExtraText("Preliminary")
       iPos = 0
       canv_name = 'limitplot_root'
-      CMS.SetLumi("100.3")
+      CMS.SetLumi("100")
       CMS.SetEnergy("13")
       CMS.ResetAdditionalInfo()
       canv = CMS.cmsCanvas(canv_name,xlow,xhigh,0.1,1e+05,"LLP mass (GeV)","Upper limits on #sigma (fb)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos)
@@ -247,6 +314,7 @@ def make_1dplot(model):
       mass_or_tau_text = write(42, 0.04, 0.20, 0.200, params_nice)
       savestr = "BR{}".format(BR).replace(".",'p') if model=='stop'  else "ct{}".format(ctstr) 
       CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_{}_dm{}_{}.pdf'.format(model,dm,savestr)),close=False)
+      CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_{}_dm{}_{}.root'.format(model,dm,savestr)),close=False)
       CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_{}_dm{}_{}.png'.format(model,dm,savestr)))
 
 def interpolate(h,x,y):
@@ -326,11 +394,15 @@ def exc_graph(h, color, style):
     xs,ys = array('d'), array('d')
     for iy in range(1, h.GetNbinsY()+1):
         y = yax.GetBinCenter(iy)
-        for ix in range(h.GetNbinsX(), 0, -1):
+        xprev = None
+        #for ix in range(h.GetNbinsX(), 0, -1):
+        for ix in range(1, h.GetNbinsX(), 1):
             x = xax.GetBinCenter(ix)
             l = h.GetBinContent(ix, iy)
             if l:
-                xs.append(x)
+                xprev = x 
+            elif xprev is not None:
+                xs.append(xprev)
                 ys.append(y)
                 break
     if len(xs)==0:
@@ -618,32 +690,39 @@ def draw_2dlimit_y_dm(model,rdir):
       xlow = 350
       xhigh = 1450
       production_nice = "#kern[0.1]{#tilde{t}}#kern[0.1]{#tilde{t}}"
-      decay_nice = "#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
-      params_nice = "#splitline{{B(#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%;}}{{B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}".format(100*k,100*(1.0-k))
+      decay_nice = "#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
+      params_nice = "#splitline{{B(#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}{{B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}".format(100*k,100*(1.0-k))
     elif model=='C1N2':
       xlow = 150
       xhigh = 650
       production_nice = "#kern[0.1]{#tilde{#chi}^{#pm}_{1}}#kern[0.1]{#tilde{#chi}^{0}_{2}}"
-      decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.1]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
+      decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.2]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
       params_nice = "c#tau = {} mm".format(k)
 
     # Styling
-    CMS.SetExtraText("Preliminary")
+    CMS.SetExtraText("")
     iPos = 0
     canv_name = 'limitplot_root_{}_bc{}'.format(model,k)
-    CMS.SetLumi("100.3")
+    CMS.SetLumi("100")
     CMS.SetEnergy("13")
+    CMS.SetLumi("")
+    CMS.SetEnergy("")
     CMS.ResetAdditionalInfo()
-    canv = CMS.cmsCanvas(canv_name,xlow,xhigh,11.5,27.5,"LLP mass (GeV)","#Delta m (GeV)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
-    canv.SetTopMargin(0.180)
+    canv = CMS.cmsCanvas(canv_name,xlow,xhigh,11.5,27.5,"LLP mass (GeV)","#Deltam (GeV)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
+    canv.SetRightMargin(0.2)
+    CMS.SetLumi("100")
+    CMS.SetEnergy("13")
+    draw_lumi(canv, iPos)
+    canv.SetTopMargin(0.190)
     canv.SetBottomMargin(0.12)
+
     hf = canv.GetListOfPrimitives().FindObject("hframe")
     hf.GetXaxis().SetLabelSize(0.035)
-    hf.GetXaxis().SetTitleSize(0.035)
+    hf.GetXaxis().SetTitleSize(0.040)
     hf.GetXaxis().SetTitleOffset(1.2)
     hf.GetYaxis().SetLabelSize(0.035)
-    hf.GetYaxis().SetTitleSize(0.035)
-    hf.GetYaxis().SetTitleOffset(1.2)
+    hf.GetYaxis().SetTitleSize(0.040)
+    hf.GetYaxis().SetTitleOffset(1.25)
     canv.Update()
     #canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
     #canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
@@ -651,9 +730,12 @@ def draw_2dlimit_y_dm(model,rdir):
     limit[k]['observed'].GetZaxis().SetTitle("95% CL upper limit on #sigma (fb)")
     limit[k]['observed'].GetZaxis().SetLabelSize(0.035)
     limit[k]['observed'].GetZaxis().SetLabelOffset(0.01)
-    limit[k]['observed'].GetZaxis().SetTitleSize(0.035)
-    limit[k]['observed'].GetZaxis().SetTitleOffset(1.40)
+    limit[k]['observed'].GetZaxis().SetTitleSize(0.040)
+    #limit[k]['observed'].GetZaxis().SetTitleOffset(1.7)
+    limit[k]['observed'].GetZaxis().SetTitleOffset(1.4)
+    limit[k]['observed'].SetMinimum(limit[k]['observed'].GetMinimum()/10.)
     #limit[k]['observed'].GetXaxis().SetLabelSize(0.1)
+    limit[k]['observed'].SetName("observed_limit")
     limit[k]['observed'].Draw("colzsame")
     exc[k]['expect50']['nm'].SetLineColor(ROOT.kRed)
     exc[k]['expect50']['nm'].SetLineWidth(3)
@@ -664,33 +746,39 @@ def draw_2dlimit_y_dm(model,rdir):
     exc[k]['expect84']['nm'].SetLineColor(ROOT.kRed)
     exc[k]['expect84']['nm'].SetLineWidth(1)
     exc[k]['expect84']['nm'].SetLineStyle(7)
+    exc[k]['expect50']['nm'].SetName('exp50_curve')
+    exc[k]['expect16']['nm'].SetName('exp16_curve')
+    exc[k]['expect84']['nm'].SetName('exp84_curve')
     exc[k]['expect50']['nm'].Draw('Lsame')
     exc[k]['expect16']['nm'].Draw('Lsame')
     exc[k]['expect84']['nm'].Draw('Lsame')
     exc[k]['observed']['nm'].SetLineColor(ROOT.kBlack)
     exc[k]['observed']['nm'].SetLineWidth(3)
+    exc[k]['observed']['nm'].SetName('obs_curve')
     exc[k]['observed']['nm'].Draw('Lsame')
 
     CMS.UpdatePalettePosition(limit[k]['observed'],canv=canv,Y2=0.9)
 
-    leg = ROOT.TLegend(canv.GetLeftMargin(), 0.820, 1-canv.GetRightMargin(), 0.931)
+    leg = ROOT.TLegend(canv.GetLeftMargin(), 0.810, 1-canv.GetRightMargin(), 0.931)
     leg.SetTextFont(42)
-    leg.SetTextSize(0.03)
-    leg.SetTextAlign(22)
+    leg.SetTextSize(0.038)
+    leg.SetTextAlign(12)
     leg.SetNColumns(2)
-    leg.SetColumnSeparation(0.35)
+    leg.SetColumnSeparation(0.40)
     leg.SetFillColor(ROOT.kWhite)
     leg.SetBorderSize(1)
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['observed']['nm'], '#kern[-0.16]{Observed}', 'L')
+    leg.AddEntry(exc[k]['observed']['nm'], 'Obs.', 'L')
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['expect50']['nm'], '#kern[-0.16]{Median expected}', 'L')
+    leg.AddEntry(exc[k]['expect50']['nm'], 'Med. exp.', 'L')
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['expect84']['nm'], '#kern[-0.16]{Expected #pm 1 #sigma_{exp}}', 'L')
+    leg.AddEntry(exc[k]['expect84']['nm'], 'Exp. #pm 1 #sigma_{exp}', 'L')
     leg.Draw()
-    sig_text         = write(42, 0.032, 0.18, 0.865, params_nice)
+    sig_text         = write(42, 0.036, 0.165, 0.86, params_nice)
+    canv.SetLogz()
 
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_bc{}.pdf'.format(model,k)),close=False)
+    CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_bc{}.root'.format(model,k)),close=False)
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_bc{}.png'.format(model,k)))
 
 def csv_2d_y_dm(model,outdir):
@@ -745,19 +833,21 @@ R_LIBS=~/.R Rscript Rscript.R
           ct = stopct[dm]
           BR = ibc
           realctau = getctauBR(m,dm,BR)
-          decay_nice = "#tilde{{t}} #rightarrow bff'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
-          params_nice = "B(#tilde{{t}} #rightarrow bff'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}; B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}".format(BR,1.0-BR)
+          decay_nice = "#tilde{{t}} #rightarrow bff'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
+          params_nice = "B(#tilde{{t}} #rightarrow bff'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}; B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}".format(BR,1.0-BR)
         elif model=='C1N2':
           ct = ibc
           BR = 1
-          decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.1]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
+          decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow ff'#kern[0.2]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
           params_nice = "c#tau = {} mm".format(ct)
         ctstr = str(ct).replace('.','p')
         sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ctstr))
         if model=='stop':
-          fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
+          #fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
+          fn = '{}_datacard_limitsum.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
         elif model=='C1N2':
-          fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
+          #fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
+          fn = '{}_datacard_limitsum.txt'.format(sample.name.replace("2018",'Run2'))
         result_path = os.path.join(path,fn)
         if os.path.exists(result_path):
           r.parse(sample,result_path)
@@ -852,32 +942,37 @@ def draw_2dlimit_y_ctau(model,rdir):
       xlow = 350
       xhigh = 1450
       production_nice = "#kern[0.1]{#tilde{t}}#kern[0.1]{#tilde{t}}"
-      decay_nice = "#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
-      params_nice = "#splitline{{B(#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%;}}{{B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}".format(100*k,100*(1.0-k))
+      decay_nice = "#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}} / c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}"
+      params_nice = "#splitline{{B(#tilde{{t}} #rightarrow bf#bar{{f}}'#kern[0.2]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}{{B(#tilde{{t}} #rightarrow c#kern[0.1]{{#tilde{{#chi}}^{{0}}_{{1}}}}) = {}%}}".format(100*k,100*(1.0-k))
     elif model=='C1N2':
       xlow = 150
       xhigh = 650
       production_nice = "#kern[0.1]{#tilde{#chi}^{#pm}_{1}}#kern[0.1]{#tilde{#chi}^{0}_{2}}"
-      decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow f#bar{f}'#kern[0.1]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
-      params_nice = "#splitline{{{}}}{{#Delta m = {} GeV}}".format(decay_nice,k)
+      decay_nice = "#tilde{#chi}^{#pm}_{1} #rightarrow f#bar{f}'#kern[0.2]{#tilde{#chi}^{0}_{1}}, #tilde{#chi}^{0}_{2} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}"
+      params_nice = "#splitline{{{}}}{{#Deltam = {} GeV}}".format(decay_nice,k)
 
     # Styling
-    CMS.SetExtraText("Preliminary")
+    CMS.SetExtraText("")
     iPos = 0
     canv_name = 'limitplot_root_{}_dm{}'.format(model,k)
-    CMS.SetLumi("100.3")
-    CMS.SetEnergy("13")
+    CMS.SetLumi("")
+    CMS.SetEnergy("")
     CMS.ResetAdditionalInfo()
     canv = CMS.cmsCanvas(canv_name,xlow,xhigh,0.1,271.35,"LLP mass (GeV)","c#tau (mm)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
-    canv.SetTopMargin(0.180)
+    canv.SetRightMargin(0.2)
+    CMS.SetLumi("100")
+    CMS.SetEnergy("13")
+    draw_lumi(canv, iPos)
+    canv.SetTopMargin(0.190)
     canv.SetBottomMargin(0.12)
+
     hf = canv.GetListOfPrimitives().FindObject("hframe")
     hf.GetXaxis().SetLabelSize(0.035)
-    hf.GetXaxis().SetTitleSize(0.035)
+    hf.GetXaxis().SetTitleSize(0.040)
     hf.GetXaxis().SetTitleOffset(1.2)
     hf.GetYaxis().SetLabelSize(0.035)
-    hf.GetYaxis().SetTitleSize(0.035)
-    hf.GetYaxis().SetTitleOffset(1.2)
+    hf.GetYaxis().SetTitleSize(0.040)
+    hf.GetYaxis().SetTitleOffset(1.25)
     canv.Update()
     #canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
     #canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
@@ -885,9 +980,12 @@ def draw_2dlimit_y_ctau(model,rdir):
     limit[k]['observed'].GetZaxis().SetTitle("95% CL upper limit on #sigma (fb)")
     limit[k]['observed'].GetZaxis().SetLabelSize(0.035)
     limit[k]['observed'].GetZaxis().SetLabelOffset(0.01)
-    limit[k]['observed'].GetZaxis().SetTitleSize(0.035)
-    limit[k]['observed'].GetZaxis().SetTitleOffset(1.40)
+    limit[k]['observed'].GetZaxis().SetTitleSize(0.040)
+    #limit[k]['observed'].GetZaxis().SetTitleOffset(1.65)
+    limit[k]['observed'].GetZaxis().SetTitleOffset(1.4)
     #limit[k]['observed'].GetXaxis().SetLabelSize(0.1)
+    limit[k]['observed'].SetMinimum(limit[k]['observed'].GetMinimum()/10.)
+    limit[k]['observed'].SetName("observed_limit")
     limit[k]['observed'].Draw("colzsame")
     exc[k]['expect50']['nm'].SetLineColor(ROOT.kRed)
     exc[k]['expect50']['nm'].SetLineWidth(3)
@@ -898,34 +996,40 @@ def draw_2dlimit_y_ctau(model,rdir):
     exc[k]['expect84']['nm'].SetLineColor(ROOT.kRed)
     exc[k]['expect84']['nm'].SetLineWidth(1)
     exc[k]['expect84']['nm'].SetLineStyle(7)
+    exc[k]['expect50']['nm'].SetName('exp50_curve')
+    exc[k]['expect16']['nm'].SetName('exp16_curve')
+    exc[k]['expect84']['nm'].SetName('exp84_curve')
     exc[k]['expect50']['nm'].Draw('Lsame')
     exc[k]['expect16']['nm'].Draw('Lsame')
     exc[k]['expect84']['nm'].Draw('Lsame')
     exc[k]['observed']['nm'].SetLineColor(ROOT.kBlack)
     exc[k]['observed']['nm'].SetLineWidth(3)
+    exc[k]['observed']['nm'].SetName('obs_curve')
     exc[k]['observed']['nm'].Draw('Lsame')
 
     CMS.UpdatePalettePosition(limit[k]['observed'],canv=canv,Y2=0.9)
 
-    leg = ROOT.TLegend(canv.GetLeftMargin(), 0.820, 1-canv.GetRightMargin(), 0.931)
+    leg = ROOT.TLegend(canv.GetLeftMargin(), 0.810, 1-canv.GetRightMargin(), 0.931)
     leg.SetTextFont(42)
-    leg.SetTextSize(0.03)
-    leg.SetTextAlign(22)
+    leg.SetTextSize(0.038)
+    leg.SetTextAlign(12)
     leg.SetNColumns(2)
-    leg.SetColumnSeparation(0.35)
+    leg.SetColumnSeparation(0.4)
     leg.SetFillColor(ROOT.kWhite)
     leg.SetBorderSize(1)
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['observed']['nm'], '#kern[-0.16]{Observed}', 'L')
+    leg.AddEntry(exc[k]['observed']['nm'], 'Obs.', 'L')
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['expect50']['nm'], '#kern[-0.16]{Median expected}', 'L')
+    leg.AddEntry(exc[k]['expect50']['nm'], 'Med. exp.', 'L')
     leg.AddEntry(0, '', '')
-    leg.AddEntry(exc[k]['expect84']['nm'], '#kern[-0.16]{Expected #pm 1 #sigma_{exp}}', 'L')
+    leg.AddEntry(exc[k]['expect84']['nm'], 'Exp. #pm 1 #sigma_{exp}', 'L')
     leg.Draw()
-    sig_text         = write(42, 0.032, 0.18, 0.86, params_nice)
+    sig_text         = write(42, 0.038, 0.17, 0.85, params_nice)
     canv.SetLogy()
+    canv.SetLogz()
 
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_dm{}.pdf'.format(model,k)),close=False)
+    CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_dm{}.root'.format(model,k)),close=False)
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}_dm{}.png'.format(model,k)))
 
 def csv_2d_y_ctau(model,outdir):
@@ -988,9 +1092,10 @@ R_LIBS=~/.R Rscript Rscriptctau.R
         ctstr = str(ct).replace('.','p')
         sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ctstr))
         if model=='stop':
-          fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
+          #fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
+          fn = '{}_datacard_limitsum.txt'.format(sample.name.replace("2018",'Run2').replace("ct{}".format(ctstr),"BR{}".format(BR)).replace('.','p'))
         elif model=='C1N2':
-          fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
+          fn = '{}_datacard_limitsum.txt'.format(sample.name.replace("2018",'Run2'))
         result_path = os.path.join(path,fn)
         if os.path.exists(result_path):
           r.parse(sample,result_path)
@@ -1041,10 +1146,10 @@ def draw_2dlimit(model):
     CMS.SetExtraText("Preliminary")
     iPos = 0
     canv_name = 'limitplot_root'
-    CMS.SetLumi("100.3")
+    CMS.SetLumi("100")
     CMS.SetEnergy("13")
     CMS.ResetAdditionalInfo()
-    canv = CMS.cmsCanvas(canv_name,375,1425,11.5,25.5,"LLP mass (GeV)","#Delta m (GeV)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
+    canv = CMS.cmsCanvas(canv_name,375,1425,11.5,25.5,"LLP mass (GeV)","#Deltam (GeV)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos,with_z_axis=True)
     canv.SetTopMargin(0.180)
     canv.SetBottomMargin(0.12)
     canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
@@ -1095,20 +1200,21 @@ def draw_2dlimit(model):
     #CMS.SaveCanvas(canv,"2dlimit.pdf",close=False)
     #CMS.SaveCanvas(canv,"2dlimit.png",close=False)
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}.pdf'.format(model)),close=False)
+    CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}.root'.format(model)),close=False)
     CMS.SaveCanvas(canv,os.path.join(output,'limit2d_{}.png'.format(model)))
 
 model = 'C1N2'
-path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_post_C1N2_Run2_20250429_central_finegrid/'
-rdir = '/users/ang.li/public/SoftDV/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/limits/limit_csv_C1N2_Run2_20250429_central_finegrid/'
-output = '/groups/hephy/cms/ang.li/SDV/{}limit_C1N2_Run2_20250429_central_2D_finegrid/'.format(model)
+path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_HybridNew2C1N2_Run2_20250516_2/'
+rdir = '/users/ang.li/public/SoftDV/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/limits/limit_csv_C1N2_Run2_20250516_2_HybridNew2/'
+output = '/groups/hephy/cms/ang.li/SDV/{}limitHybridNew2_C1N2_Run2_20250516_2_root/'.format(model)
 #make_1dplot(model)
 draw_2dlimit_y_ctau(model,rdir)
-#csv_2d_y_ctau(model,"limit_csv_C1N2_Run2_20250429_central_finegrid")
+#csv_2d_y_ctau(model,"limit_csv_C1N2_Run2_20250516_2_HybridNew2")
 
-#model = 'stop'
-#path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_post_stop_Run2_20250429_central/'
-#rdir = '/users/ang.li/public/SoftDV/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/limits/limit_csv_stop_Run2_20250429_central/'
-#output = '/groups/hephy/cms/ang.li/SDV/{}limit_stop_Run2_20250429_central_2D/'.format(model)
-##make_1dplot(model)
-#draw_2dlimit_y_dm(model,rdir)
-##csv_2d_y_dm(model,"limit_csv_stop_Run2_20250429_central")
+model = 'stop'
+path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_HybridNew2stop_Run2_20250516_2/'
+rdir = '/users/ang.li/public/SoftDV/CMSSW_13_3_0/src/SoftDisplacedVertices/Plotter/limits/limit_csv_stop_Run2_20250516_2_HybridNew2/'
+output = '/groups/hephy/cms/ang.li/SDV/{}limitHybridNew2_stop_Run2_20250516_2_2D_root/'.format(model)
+#make_1dplot(model)
+draw_2dlimit_y_dm(model,rdir)
+#csv_2d_y_dm(model,"limit_csv_stop_Run2_20250516_2_HybridNew2")

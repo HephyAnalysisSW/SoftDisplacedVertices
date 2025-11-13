@@ -1,9 +1,15 @@
-vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
-vtx_sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
-vtx_g2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
-vtx_2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
-vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
-vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_g2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+#vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_sel_loose: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_g2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_2tk_sel: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==2)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_sel_val1: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==1)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
+vtx_sel_val2: ( SDVSecVtx_dphiMET<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack==0)&&( SDVSecVtx_dphijet0>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_nnonPUTrack>0) 
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
 bjetmedium: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.2783)
@@ -14,7 +20,7 @@ muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
 tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
-presel: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && nJetHEMsig==0
+presel: MET_pt_corr>400 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_BadChargedCandidateFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 nJetHEM: "(run>=319077)*Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
 
 corrections:
@@ -30,10 +36,10 @@ corrections:
   met:
     mode: "nominal"
 
-mapveto:
-  data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
-  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
-  #mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
+#mapveto:
+#  data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+#  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+#  #mc_path: "/eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
 
 weights:
 
@@ -50,7 +56,6 @@ new_variables:
   Jet_eta_selHEM: ['Jet_eta[{0}]',jet_selHEM]
   Jet_phi_selHEM: ['Jet_phi[{0}]',jet_selHEM]
   nJet_sel: ['Sum({0})',jet_sel]
-  nJetHEMsig: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
   nbJet_loose: ['Sum({0})',bjetloose]
   nbJet_medium: ['Sum({0})',bjetmedium]
   nbJet_tight: ['Sum({0})',bjettight]
@@ -149,240 +154,13 @@ new_variables_mc:
   LLP_ctau1: "LLP_ctau[1]"
   LLP_decaymode0: "LLP_decaymode[0]"
   LLP_decaymode1: "LLP_decaymode[1]"
-  qcd_weight0: 'LHEScaleWeight[0]'
-  qcd_weight1: 'LHEScaleWeight[1]'
-  qcd_weight2: 'LHEScaleWeight[2]'
-  qcd_weight3: 'LHEScaleWeight[3]'
-  qcd_weight4: 'LHEScaleWeight[4]'
-  qcd_weight5: 'LHEScaleWeight[5]'
-  qcd_weight6: 'LHEScaleWeight[6]'
-  qcd_weight7: 'LHEScaleWeight[7]'
-  qcd_weight8: 'LHEScaleWeight[8]'
-  pdf_weight0: 'LHEPdfWeight[0]'
-  pdf_weight1: 'LHEPdfWeight[1]'
-  pdf_weight2: 'LHEPdfWeight[2]'
-  pdf_weight3: 'LHEPdfWeight[3]'
-  pdf_weight4: 'LHEPdfWeight[4]'
-  pdf_weight5: 'LHEPdfWeight[5]'
-  pdf_weight6: 'LHEPdfWeight[6]'
-  pdf_weight7: 'LHEPdfWeight[7]'
-  pdf_weight8: 'LHEPdfWeight[8]'
-  pdf_weight9: 'LHEPdfWeight[9]'
-  pdf_weight10: 'LHEPdfWeight[10]'
-  pdf_weight11: 'LHEPdfWeight[11]'
-  pdf_weight12: 'LHEPdfWeight[12]'
-  pdf_weight13: 'LHEPdfWeight[13]'
-  pdf_weight14: 'LHEPdfWeight[14]'
-  pdf_weight15: 'LHEPdfWeight[15]'
-  pdf_weight16: 'LHEPdfWeight[16]'
-  pdf_weight17: 'LHEPdfWeight[17]'
-  pdf_weight18: 'LHEPdfWeight[18]'
-  pdf_weight19: 'LHEPdfWeight[19]'
-  pdf_weight20: 'LHEPdfWeight[20]'
-  pdf_weight21: 'LHEPdfWeight[21]'
-  pdf_weight22: 'LHEPdfWeight[22]'
-  pdf_weight23: 'LHEPdfWeight[23]'
-  pdf_weight24: 'LHEPdfWeight[24]'
-  pdf_weight25: 'LHEPdfWeight[25]'
-  pdf_weight26: 'LHEPdfWeight[26]'
-  pdf_weight27: 'LHEPdfWeight[27]'
-  pdf_weight28: 'LHEPdfWeight[28]'
-  pdf_weight29: 'LHEPdfWeight[29]'
-  pdf_weight30: 'LHEPdfWeight[30]'
-  pdf_weight31: 'LHEPdfWeight[31]'
-  pdf_weight32: 'LHEPdfWeight[32]'
-  pdf_weight33: 'LHEPdfWeight[33]'
-  pdf_weight34: 'LHEPdfWeight[34]'
-  pdf_weight35: 'LHEPdfWeight[35]'
-  pdf_weight36: 'LHEPdfWeight[36]'
-  pdf_weight37: 'LHEPdfWeight[37]'
-  pdf_weight38: 'LHEPdfWeight[38]'
-  pdf_weight39: 'LHEPdfWeight[39]'
-  pdf_weight40: 'LHEPdfWeight[40]'
-  pdf_weight41: 'LHEPdfWeight[41]'
-  pdf_weight42: 'LHEPdfWeight[42]'
-  pdf_weight43: 'LHEPdfWeight[43]'
-  pdf_weight44: 'LHEPdfWeight[44]'
-  pdf_weight45: 'LHEPdfWeight[45]'
-  pdf_weight46: 'LHEPdfWeight[46]'
-  pdf_weight47: 'LHEPdfWeight[47]'
-  pdf_weight48: 'LHEPdfWeight[48]'
-  pdf_weight49: 'LHEPdfWeight[49]'
-  pdf_weight50: 'LHEPdfWeight[50]'
-  pdf_weight51: 'LHEPdfWeight[51]'
-  pdf_weight52: 'LHEPdfWeight[52]'
-  pdf_weight53: 'LHEPdfWeight[53]'
-  pdf_weight54: 'LHEPdfWeight[54]'
-  pdf_weight55: 'LHEPdfWeight[55]'
-  pdf_weight56: 'LHEPdfWeight[56]'
-  pdf_weight57: 'LHEPdfWeight[57]'
-  pdf_weight58: 'LHEPdfWeight[58]'
-  pdf_weight59: 'LHEPdfWeight[59]'
-  pdf_weight60: 'LHEPdfWeight[60]'
-  pdf_weight61: 'LHEPdfWeight[61]'
-  pdf_weight62: 'LHEPdfWeight[62]'
-  pdf_weight63: 'LHEPdfWeight[63]'
-  pdf_weight64: 'LHEPdfWeight[64]'
-  pdf_weight65: 'LHEPdfWeight[65]'
-  pdf_weight66: 'LHEPdfWeight[66]'
-  pdf_weight67: 'LHEPdfWeight[67]'
-  pdf_weight68: 'LHEPdfWeight[68]'
-  pdf_weight69: 'LHEPdfWeight[69]'
-  pdf_weight70: 'LHEPdfWeight[70]'
-  pdf_weight71: 'LHEPdfWeight[71]'
-  pdf_weight72: 'LHEPdfWeight[72]'
-  pdf_weight73: 'LHEPdfWeight[73]'
-  pdf_weight74: 'LHEPdfWeight[74]'
-  pdf_weight75: 'LHEPdfWeight[75]'
-  pdf_weight76: 'LHEPdfWeight[76]'
-  pdf_weight77: 'LHEPdfWeight[77]'
-  pdf_weight78: 'LHEPdfWeight[78]'
-  pdf_weight79: 'LHEPdfWeight[79]'
-  pdf_weight80: 'LHEPdfWeight[80]'
-  pdf_weight81: 'LHEPdfWeight[81]'
-  pdf_weight82: 'LHEPdfWeight[82]'
-  pdf_weight83: 'LHEPdfWeight[83]'
-  pdf_weight84: 'LHEPdfWeight[84]'
-  pdf_weight85: 'LHEPdfWeight[85]'
-  pdf_weight86: 'LHEPdfWeight[86]'
-  pdf_weight87: 'LHEPdfWeight[87]'
-  pdf_weight88: 'LHEPdfWeight[88]'
-  pdf_weight89: 'LHEPdfWeight[89]'
-  pdf_weight90: 'LHEPdfWeight[90]'
-  pdf_weight91: 'LHEPdfWeight[91]'
-  pdf_weight92: 'LHEPdfWeight[92]'
-  pdf_weight93: 'LHEPdfWeight[93]'
-  pdf_weight94: 'LHEPdfWeight[94]'
-  pdf_weight95: 'LHEPdfWeight[95]'
-  pdf_weight96: 'LHEPdfWeight[96]'
-  pdf_weight97: 'LHEPdfWeight[97]'
-  pdf_weight98: 'LHEPdfWeight[98]'
-  pdf_weight99: 'LHEPdfWeight[99]'
-  pdf_weight100: 'LHEPdfWeight[100]'
-  pdf_weight101: 'LHEPdfWeight[101]'
-  pdf_weight102: 'LHEPdfWeight[102]'
 
 savepkl:
   - evt_weight
-  - L1PreFiringWeight_Nom
-  - L1PreFiringWeight_Up
-  - L1PreFiringWeight_Dn
   - LLP_ctau0
   - LLP_ctau1
   - LLP_decaymode0
   - LLP_decaymode1
-  - qcd_weight0
-  - qcd_weight1
-  - qcd_weight2
-  - qcd_weight3
-  - qcd_weight4
-  - qcd_weight5
-  - qcd_weight6
-  - qcd_weight7
-  - qcd_weight8
-  - pdf_weight0
-  - pdf_weight1
-  - pdf_weight2
-  - pdf_weight3
-  - pdf_weight4
-  - pdf_weight5
-  - pdf_weight6
-  - pdf_weight7
-  - pdf_weight8
-  - pdf_weight9
-  - pdf_weight10
-  - pdf_weight11
-  - pdf_weight12
-  - pdf_weight13
-  - pdf_weight14
-  - pdf_weight15
-  - pdf_weight16
-  - pdf_weight17
-  - pdf_weight18
-  - pdf_weight19
-  - pdf_weight20
-  - pdf_weight21
-  - pdf_weight22
-  - pdf_weight23
-  - pdf_weight24
-  - pdf_weight25
-  - pdf_weight26
-  - pdf_weight27
-  - pdf_weight28
-  - pdf_weight29
-  - pdf_weight30
-  - pdf_weight31
-  - pdf_weight32
-  - pdf_weight33
-  - pdf_weight34
-  - pdf_weight35
-  - pdf_weight36
-  - pdf_weight37
-  - pdf_weight38
-  - pdf_weight39
-  - pdf_weight40
-  - pdf_weight41
-  - pdf_weight42
-  - pdf_weight43
-  - pdf_weight44
-  - pdf_weight45
-  - pdf_weight46
-  - pdf_weight47
-  - pdf_weight48
-  - pdf_weight49
-  - pdf_weight50
-  - pdf_weight51
-  - pdf_weight52
-  - pdf_weight53
-  - pdf_weight54
-  - pdf_weight55
-  - pdf_weight56
-  - pdf_weight57
-  - pdf_weight58
-  - pdf_weight59
-  - pdf_weight60
-  - pdf_weight61
-  - pdf_weight62
-  - pdf_weight63
-  - pdf_weight64
-  - pdf_weight65
-  - pdf_weight66
-  - pdf_weight67
-  - pdf_weight68
-  - pdf_weight69
-  - pdf_weight70
-  - pdf_weight71
-  - pdf_weight72
-  - pdf_weight73
-  - pdf_weight74
-  - pdf_weight75
-  - pdf_weight76
-  - pdf_weight77
-  - pdf_weight78
-  - pdf_weight79
-  - pdf_weight80
-  - pdf_weight81
-  - pdf_weight82
-  - pdf_weight83
-  - pdf_weight84
-  - pdf_weight85
-  - pdf_weight86
-  - pdf_weight87
-  - pdf_weight88
-  - pdf_weight89
-  - pdf_weight90
-  - pdf_weight91
-  - pdf_weight92
-  - pdf_weight93
-  - pdf_weight94
-  - pdf_weight95
-  - pdf_weight96
-  - pdf_weight97
-  - pdf_weight98
-  - pdf_weight99
-  - pdf_weight100
-  - pdf_weight101
-  - pdf_weight102
 
 regions:
   All: 
