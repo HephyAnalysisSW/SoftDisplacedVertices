@@ -3,9 +3,11 @@
 #include "TCanvas.h"
 #include "TH1D.h"
 #include "TLatex.h"
+#include "TString.h"
 #include "Math/Vector4D.h"
 #include "TStyle.h"
 #include <algorithm> 
+#include <string>
 #include "correction.h"
 
 
@@ -223,6 +225,24 @@ float Muon_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF et
     weight *= isf;
   }
   return weight;
+}
+
+ROOT::RVecB GetJetID(correction::Correction::Ref evaluator, ROOT::RVecF eta, ROOT::RVecF chHEF, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF, ROOT::RVecF chMultiplicity, ROOT::RVecF neMultiplicity) {
+    ROOT::RVecB jetid;
+    for (size_t i=0; i<eta.size(); ++i) {
+        bool res = evaluator->evaluate({eta[i], chHEF[i], neHEF[i], chEmEF[i], neEmEF[i], muEF[i], chMultiplicity[i], neMultiplicity[i], chMultiplicity[i]+neMultiplicity[i]});
+        jetid.push_back(res);
+    }
+    return jetid;
+}
+
+ROOT::RVecF GetJetVeto(correction::Correction::Ref evaluator, std::string type, ROOT::RVecF eta, ROOT::RVecF phi) {
+    ROOT::RVecF vetoed;
+    for (size_t i=0; i<eta.size(); ++i) {
+        float res = evaluator->evaluate({type, eta[i], phi[i]});
+        vetoed.push_back(res);
+    }
+    return vetoed;
 }
 
 int Leading_Vtx_Idx(ROOT::RVecI Vertex_nGoodTracks, ROOT::RVecF Vertex_LxySig) {
