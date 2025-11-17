@@ -48,7 +48,7 @@
             "isomu2017d" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2017D_nano_v1",
             "isomu2017e" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2017E_nano_v1",
             "isomu2017f" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2017F_nano_v1"
-                },
+        },
 
         "logical_dir": {
             "isomu2017b" : "/store/user/wuzh/SingleMuon/Run2017B_nano_v1",
@@ -56,7 +56,7 @@
             "isomu2017d" : "/store/user/wuzh/SingleMuon/Run2017D_nano_v1",
             "isomu2017e" : "/store/user/wuzh/SingleMuon/Run2017E_nano_v1",
             "isomu2017f" : "/store/user/wuzh/SingleMuon/Run2017F_nano_v1"
-                }
+        }
         
     }
 }
