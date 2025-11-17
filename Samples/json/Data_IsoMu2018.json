@@ -4,7 +4,7 @@
             "isomu2018a" : "/SingleMuon/Run2018A-15Feb2022_UL2018-v1/AOD",
             "isomu2018b" : "/SingleMuon/Run2018B-15Feb2022_UL2018-v1/AOD",
             "isomu2018c" : "/SingleMuon/Run2018C-15Feb2022_UL2018-v1/AOD",
-            "isomu2018d" : "/SingleMuon/Run2018D-15Feb2022_UL2018-v1/AOD",
+            "isomu2018d" : "/SingleMuon/Run2018D-15Feb2022_UL2018-v1/AOD"
         }
     },
 
@@ -13,19 +13,19 @@
             "isomu2018a" : "/SingleMuon/wuzh-Run2018A_mini_v1-8cbc4ced37f0b45d0ea4d70b0a895466/USER",
             "isomu2018b" : "/SingleMuon/wuzh-Run2018B_mini_v1-8cbc4ced37f0b45d0ea4d70b0a895466/USER",
             "isomu2018c" : "/SingleMuon/wuzh-Run2018C_mini_v1-8cbc4ced37f0b45d0ea4d70b0a895466/USER",
-            "isomu2018d" : "/SingleMuon/wuzh-Run2018D_mini_v1-8cbc4ced37f0b45d0ea4d70b0a895466/USER",
+            "isomu2018d" : "/SingleMuon/wuzh-Run2018D_mini_v1-8cbc4ced37f0b45d0ea4d70b0a895466/USER"
         },
         "dir": {
             "isomu2018a" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018A_mini_v1",
             "isomu2018b" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018B_mini_v1",
             "isomu2018c" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018C_mini_v1",
-            "isomu2018d" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018D_mini_v1",
+            "isomu2018d" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018D_mini_v1"
         },
         "logical_dir": {
             "isomu2018a" : "/store/user/wuzh/SingleMuon/Run2018A_mini_v1",
             "isomu2018b" : "/store/user/wuzh/SingleMuon/Run2018B_mini_v1",
             "isomu2018c" : "/store/user/wuzh/SingleMuon/Run2018C_mini_v1",
-            "isomu2018d" : "/store/user/wuzh/SingleMuon/Run2018D_mini_v1",
+            "isomu2018d" : "/store/user/wuzh/SingleMuon/Run2018D_mini_v1"
         }
     },
 
@@ -34,22 +34,22 @@
             "isomu2018a" : "/SingleMuon/wuzh-Run2018A_nano_v1-00000000000000000000000000000000/USER",
             "isomu2018b" : "/SingleMuon/wuzh-Run2018B_nano_v1-00000000000000000000000000000000/USER",
             "isomu2018c" : "/SingleMuon/wuzh-Run2018C_nano_v1-00000000000000000000000000000000/USER",
-            "isomu2018d" : "/SingleMuon/wuzh-Run2018D_nano_v1-00000000000000000000000000000000/USER",
+            "isomu2018d" : "/SingleMuon/wuzh-Run2018D_nano_v1-00000000000000000000000000000000/USER"
         },
 
         "dir": {
             "isomu2018a" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018A_nano_v1",
             "isomu2018b" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018B_nano_v1",
             "isomu2018c" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018C_nano_v1",
-            "isomu2018d" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018D_nano_v1",
-                },
+            "isomu2018d" : "/eos/vbc/experiments/cms/store/user/wuzh/SingleMuon/Run2018D_nano_v1"
+        },
 
         "logical_dir": {
             "isomu2018a" : "/store/user/wuzh/SingleMuon/Run2018A_nano_v1",
             "isomu2018b" : "/store/user/wuzh/SingleMuon/Run2018B_nano_v1",
             "isomu2018c" : "/store/user/wuzh/SingleMuon/Run2018C_nano_v1",
-            "isomu2018d" : "/store/user/wuzh/SingleMuon/Run2018D_nano_v1",
-                }
+            "isomu2018d" : "/store/user/wuzh/SingleMuon/Run2018D_nano_v1"
+        }
         
     }
 }
