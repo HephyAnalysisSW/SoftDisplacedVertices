@@ -20,16 +20,19 @@
 #include "TrackingTools/TransientTrack/interface/TransientTrack.h"
 #include "TrackingTools/TransientTrack/interface/TransientTrackBuilder.h"
 #include "SoftDisplacedVertices/SoftDVDataFormats/interface/GenInfo.h"
+#include "SoftDisplacedVertices/SoftDVDataFormats/interface/PFIsolation.h"
 
 struct MLInfo
 {
   int vtx_match;
   int vtx_nmatchtks;
   int label_llp;
+  double MET;
   double vtx_x;
   double vtx_y;
   double vtx_z;
   double vtx_ntracks;
+  double vtx_normchi2;
   double vtx_ndof;
   double vtx_lxy;
   double vtx_lxy_err;
@@ -63,6 +66,7 @@ struct MLInfo
   std::vector<double> vtx_tk_dist2derr;
   std::vector<double> vtx_tk_dist3d;
   std::vector<double> vtx_tk_dist3derr;
+  std::vector<double> vtx_tk_pfRelIso03_all;
 };
 
 class MLTree : public edm::one::EDAnalyzer<edm::one::SharedResources> {
@@ -83,6 +87,7 @@ class MLTree : public edm::one::EDAnalyzer<edm::one::SharedResources> {
     const edm::EDGetTokenT<std::vector<reco::GenParticle>> gen_token;
     const edm::EDGetTokenT<reco::TrackCollection> tk_token;
     const edm::ESGetToken<TransientTrackBuilder, TransientTrackRecord> transientTrackBuilderToken_;
+    const edm::EDGetTokenT<std::vector<SoftDV::PFIsolation>> isoDR03_token;
 
     const std::vector<int> LLPid_;
     const int LSPid_;
@@ -105,6 +110,7 @@ MLTree::MLTree(const edm::ParameterSet& cfg)
     gen_token(consumes<std::vector<reco::GenParticle>>(cfg.getParameter<edm::InputTag>("gen_token"))),
     tk_token(consumes<reco::TrackCollection>(cfg.getParameter<edm::InputTag>("tk_token"))),
     transientTrackBuilderToken_{esConsumes(edm::ESInputTag("", "TransientTrackBuilder"))},
+    isoDR03_token(consumes<std::vector<SoftDV::PFIsolation>>(cfg.getParameter<edm::InputTag>("isoDR03"))),
     LLPid_(cfg.getParameter<std::vector<int>>("LLPid_")),
     LSPid_(cfg.getParameter<int>("LSPid_")),
     debug(cfg.getParameter<bool>("debug"))
@@ -142,6 +148,8 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
 
   TransientTrackBuilder const* tt_builder = nullptr;
   tt_builder = &setup.getData(transientTrackBuilderToken_);
+  edm::Handle<std::vector<SoftDV::PFIsolation>> recoTracks_isoDR03;
+  event.getByToken(isoDR03_token, recoTracks_isoDR03);
 
   std::map<int,std::pair<int,int>> vtxllpmatch = SoftDV::VtxLLPMatch( genParticles, vertices, tracks, primary_vertex->position(), debug);
 
@@ -181,7 +189,8 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
     mlInfo->vtx_y = vtx.y();
     mlInfo->vtx_z = vtx.z();
     mlInfo->vtx_ntracks = vtx.tracksSize();
-    mlInfo->vtx_ndof = vtx.normalizedChi2();
+    mlInfo->vtx_normchi2 = vtx.normalizedChi2();
+    mlInfo->vtx_ndof = vtx.ndof();
     mlInfo->vtx_lxy = d.value();
     mlInfo->vtx_lxy_err = d.error();
     mlInfo->vtx_dphi_jet1 = reco::deltaPhi(l_vector, leading_jet);
@@ -189,6 +198,7 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
     mlInfo->vtx_acollinearity = reco::deltaPhi(l_vector, vtx.p4());
     mlInfo->vtx_E = vtx.p4().E();
     mlInfo->vtx_pt = vtx.p4().pt();
+    mlInfo->MET = met.pt();
 
     std::vector<double> tk_px;
     std::vector<double> tk_py;
@@ -215,9 +225,18 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
     std::vector<double> tk_dist2derr;
     std::vector<double> tk_dist3d;
     std::vector<double> tk_dist3derr;
+    std::vector<double> tk_pfRelIso03_all;
 
     const double mass = 0.13957018;
     for (auto v_tk = vtx.tracks_begin(), vtke = vtx.tracks_end(); v_tk != vtke; ++v_tk){
+      int track_id = v_tk->key();
+      SoftDV::PFIsolation isoDR03 = (*recoTracks_isoDR03)[track_id];
+      double pfRelIso03_all_ = (isoDR03.chargedHadronIso() +
+                         std::max<double>(isoDR03.neutralHadronIso() +
+                                          isoDR03.photonIso() -
+                                          isoDR03.puChargedHadronIso()/2,0.0))
+                         / (*v_tk)->pt();
+      tk_pfRelIso03_all.push_back(pfRelIso03_all_);
       tk_px.push_back((*v_tk)->px());
       tk_py.push_back((*v_tk)->py());
       tk_pz.push_back((*v_tk)->pz());
@@ -290,6 +309,7 @@ void MLTree::analyze(const edm::Event& event, const edm::EventSetup& setup) {
     mlInfo->vtx_tk_dist2derr = tk_dist2derr;
     mlInfo->vtx_tk_dist3d = tk_dist3d;
     mlInfo->vtx_tk_dist3derr = tk_dist3derr;
+    mlInfo->vtx_tk_pfRelIso03_all = tk_pfRelIso03_all;
 
     mlTree->Fill();
 
@@ -305,10 +325,12 @@ void MLTree::beginJob()
   mlTree->Branch("vtx_match",      &mlInfo->vtx_match);
   mlTree->Branch("vtx_nmatchtks",      &mlInfo->vtx_nmatchtks);
   mlTree->Branch("label_llp",      &mlInfo->label_llp);
+  mlTree->Branch("MET",      &mlInfo->MET);
   mlTree->Branch("vtx_x",      &mlInfo->vtx_x);
   mlTree->Branch("vtx_y",      &mlInfo->vtx_y);
   mlTree->Branch("vtx_z",      &mlInfo->vtx_z);
   mlTree->Branch("vtx_ntracks",&mlInfo->vtx_ntracks);
+  mlTree->Branch("vtx_normchi2",   &mlInfo->vtx_normchi2);
   mlTree->Branch("vtx_ndof",   &mlInfo->vtx_ndof);
   mlTree->Branch("vtx_lxy",    &mlInfo->vtx_lxy);
   mlTree->Branch("vtx_lxy_err",&mlInfo->vtx_lxy_err);
@@ -342,6 +364,7 @@ void MLTree::beginJob()
   mlTree->Branch("vtx_tk_dist2derr",  &mlInfo->vtx_tk_dist2derr);
   mlTree->Branch("vtx_tk_dist3d", &mlInfo->vtx_tk_dist3d);
   mlTree->Branch("vtx_tk_dist3derr",  &mlInfo->vtx_tk_dist3derr);
+  mlTree->Branch("vtx_tk_pfRelIso03_all",  &mlInfo->vtx_tk_pfRelIso03_all);
 }
 
 void MLTree::endJob()
@@ -352,11 +375,13 @@ void MLTree::initEventStructure()
   mlInfo->vtx_match = -1;
   mlInfo->vtx_nmatchtks = -1;
   mlInfo->label_llp = 0;
+  mlInfo->MET = 0;
   mlInfo->vtx_x = -999;
   mlInfo->vtx_y = -999;
   mlInfo->vtx_z = -999;
   mlInfo->vtx_ntracks = -1;
   mlInfo->vtx_ndof = -1;
+  mlInfo->vtx_normchi2 = -1;
   mlInfo->vtx_lxy = -1;
   mlInfo->vtx_lxy_err = -1;
   mlInfo->vtx_dphi_jet1 = -999;
@@ -389,6 +414,7 @@ void MLTree::initEventStructure()
   mlInfo->vtx_tk_dist2derr.clear();
   mlInfo->vtx_tk_dist3d.clear();
   mlInfo->vtx_tk_dist3derr.clear();
+  mlInfo->vtx_tk_pfRelIso03_all.clear();
 }
 
 DEFINE_FWK_MODULE(MLTree);

@@ -4,7 +4,10 @@ import HLTrigger.HLTfilters.hltHighLevel_cfi as hlt
 from SoftDisplacedVertices.VtxReco.VertexReco_cff import VertexRecoSeq
 
 useIVF = False
-useGNN = True
+useGNN = False
+useGNNIVF = False
+useGNNAVR = False
+useGNNAVRIVF = True
 
 process = cms.Process('MLTree')
 
@@ -33,7 +36,7 @@ process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
 process.load("SoftDisplacedVertices.ML.MLTree_cfi")
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(100)
 )
 
 MessageLogger = cms.Service("MessageLogger")
@@ -41,8 +44,7 @@ MessageLogger = cms.Service("MessageLogger")
 
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLTraining/stopML_M800_780_ct20_2018/output/out_MINIAODSIMoutput_0.root'),
-    #fileNames = cms.untracked.vstring('file:/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_MLTraining_new/stop_M600_580_ct2_2018/output/out_MINIAODSIMoutput_0.root'),
+    fileNames = cms.untracked.vstring('file:/eos/vbc/experiments/cms/store/user/lian/CustomMiniAOD_v3_MLTraining_new/stop_M600_580_ct2_2018/output/out_MINIAODSIMoutput_0.root'),
     # fileNames = cms.untracked.vstring('file:/scratch-cbe/users/ang.li/SoftDV/MiniAOD_vtxreco/Stop_600_588_200/MINIAODSIMoutput_0.root'),
     #fileNames = cms.untracked.vstring('file:/eos/vbc/experiments/cms/store/user/liko/ZJetsToNuNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8/ZJetsToNuNu_HT-1200To2500_MC_UL18_CustomMiniAODv1/231029_221242/0000/MiniAOD_1.root'),
     secondaryFileNames = cms.untracked.vstring()
@@ -92,13 +94,37 @@ elif useGNN:
       process.GNNVtxSoftDV
       )
   process.MLTree.vtx_token = cms.InputTag("GNNVtxSoftDV")
+elif useGNNIVF:
+  process.vtxReco = cms.Sequence(
+      process.vtxRecoGNN *
+      process.inclusiveVertexFinderGNN * 
+      process.vertexMergerGNN *
+      process.trackVertexArbitratorGNN *
+      process.GNNVtxSoftDV
+  )
+  process.MLTree.vtx_token = cms.InputTag("GNNVtxSoftDV")
+elif useGNNAVR:
+  process.GNNVtxSoftDV.secondaryVertices = cms.InputTag("vtxRecoGNN")
+  process.vtxReco = cms.Sequence(
+      process.vtxRecoGNN *
+      process.GNNVtxSoftDV
+  )
+  process.MLTree.vtx_token = cms.InputTag("GNNVtxSoftDV")
+elif useGNNAVRIVF:
+  process.vertexMergerGNN.secondaryVertices = cms.InputTag("vtxRecoGNN")
+  process.vtxReco = cms.Sequence(
+      process.vtxRecoGNN *
+      process.vertexMergerGNN *
+      process.trackVertexArbitratorGNN *
+      process.GNNVtxSoftDV
+  )
+  process.MLTree.vtx_token = cms.InputTag("GNNVtxSoftDV")
 else:
   process.MFVSecondaryVerticesSoftDV = process.mfvVerticesMINIAOD.clone()
   process.vtxReco = cms.Sequence(
       process.MFVSecondaryVerticesSoftDV
   )
   process.MLTree.vtx_token = cms.InputTag("MFVSecondaryVerticesSoftDV")
-#VertexRecoSeq(process, 'vtxReco', useMINIAOD=False, useIVF=True)
 
 ## Output definition
 #output_mod = cms.OutputModule("NanoAODOutputModule",

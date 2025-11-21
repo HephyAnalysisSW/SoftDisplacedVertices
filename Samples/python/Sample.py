@@ -14,9 +14,6 @@ class Sample:
     self.dataset_instance = {}
     self.nevents = {}
 
-  def setparam(self):
-    pass
-
   def setxsec(self,xsec):
     self.xsec = xsec
 

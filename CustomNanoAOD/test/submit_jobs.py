@@ -19,10 +19,13 @@ s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplace
 sub_cmd = []
 for sp in input_samples:
   targetDir = "/scratch-cbe/users/ang.li/SoftDV/CLIP_{0}/{1}/".format(version,sp.name)
-  assert not os.path.exists(targetDir)
+  #assert not os.path.exists(targetDir), "Path {} already exists!".format(targetDir)
+  if os.path.exists(targetDir):
+    print("Path {} already exists!".format(targetDir))
+    continue
   useDBS = False
-  if input_label in sp.dataset:
-    useDBS = True
+  #if input_label in sp.dataset:
+  #  useDBS = True
   if useDBS:
     input = 'dbs:'+sp.dataset[input_label]
     j.setJob(title=sp.name+input_label+version,input=input,instance=sp.dataset_instance[input_label],targetDir=targetDir,n_files=1)
@@ -36,6 +39,7 @@ for sp in input_samples:
       fns.write("\n".join(sp.getFileList(input_label,"")))
 
     j.setJob(title=sp.name+input_label+version, input="filename.txt",targetDir=targetDir,redirector = "file:",n_files=1)
+    #j.setJob(title=sp.name+input_label+version, input="filename.txt",targetDir=targetDir,redirector = "root://eos.grid.vbc.ac.at/",n_files=1)
     j.prepare()
     c = j.submit(dryrun=dryrun)
     shutil.move("filename.txt",os.path.join(targetDir+'/input',"filename.txt"))
