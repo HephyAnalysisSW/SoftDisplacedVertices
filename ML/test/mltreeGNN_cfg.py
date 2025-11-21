@@ -36,7 +36,7 @@ process.load("SoftDisplacedVertices.ML.GNNInference_cfi")
 process.load("SoftDisplacedVertices.ML.MLTree_cfi")
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(100)
 )
 
 MessageLogger = cms.Service("MessageLogger")

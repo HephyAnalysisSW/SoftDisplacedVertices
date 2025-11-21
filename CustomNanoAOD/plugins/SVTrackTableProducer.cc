@@ -124,6 +124,9 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   std::vector<int> ngoodTrackVec;
   ////// temporary
   std::vector<float> tk_W; // track weight
+  std::vector<float> tk_vtxdist2d, tk_vtxdist2d_err;
+  std::vector<float> tk_vtxdist3d, tk_vtxdist3d_err;
+
   // std::vector<float> tk_pt_vec; // track weight
   /////////////////
   VertexDistance3D vdist;
@@ -307,6 +310,26 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
               TrackIdx.push_back(&tr - &((*trIn)[0]));
               tk_W.push_back(sv.trackWeight(*v_tk));
 
+              reco::TransientTrack ttk = tt_builder->build(**v_tk);
+              auto dist2d = IPTools::absoluteTransverseImpactParameter(ttk, sv);
+              auto dist3d = IPTools::absoluteImpactParameter3D(ttk, sv);
+              if (dist2d.first) {
+                tk_vtxdist2d.push_back(dist2d.second.value());
+                tk_vtxdist2d_err.push_back(dist2d.second.error());
+              }
+              else {
+                tk_vtxdist2d.push_back(-1);
+                tk_vtxdist2d_err.push_back(-1);
+              }
+              if (dist3d.first) {
+                tk_vtxdist3d.push_back(dist3d.second.value());
+                tk_vtxdist3d_err.push_back(dist3d.second.error());
+              }
+              else {
+                tk_vtxdist3d.push_back(-1);
+                tk_vtxdist3d_err.push_back(-1);
+              }
+
               // Sanity check --- temporary code
               // tk_pt_vec.push_back(tr.pt());
               ////////////////////////////////////
@@ -474,6 +497,10 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   LUT->addColumn<int>("SecVtxIdx", SecVtxIdx, "Secondary vertex index", nanoaod::FlatTable::IntColumn);
   LUT->addColumn<int>("TrackIdx", TrackIdx, "Track index", nanoaod::FlatTable::IntColumn);
   LUT->addColumn<float>("TrackWeight", tk_W, "Trck weight", nanoaod::FlatTable::FloatColumn, -1);
+  LUT->addColumn<float>("TrackVtxdist2d", tk_vtxdist2d, "Track 2d IP wrt vertex", nanoaod::FlatTable::FloatColumn, -1);
+  LUT->addColumn<float>("TrackVtxdist2d_err", tk_vtxdist2d_err, "Track 2d IP uncertainty wrt vertex", nanoaod::FlatTable::FloatColumn, -1);
+  LUT->addColumn<float>("TrackVtxdist3d", tk_vtxdist3d, "Track 3d IP wrt vertex", nanoaod::FlatTable::FloatColumn, -1);
+  LUT->addColumn<float>("TrackVtxdist3d_err", tk_vtxdist3d_err, "Track 3d IP uncertainty wrt vertex", nanoaod::FlatTable::FloatColumn, -1);
   // LUT->addColumn<float>("Trackpt", tk_pt_vec, "Secondary vertex index", nanoaod::FlatTable::FloatColumn, -1);
   // ----------------------------------------------------------------------------------------------------
 
