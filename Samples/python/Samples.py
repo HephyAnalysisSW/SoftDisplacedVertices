@@ -289,6 +289,7 @@ all_samples = [
     c1n2_2018,
     top_2018,
     c1n2_2024,
+    stop_2024,
 ]
 
 all_signals = [
