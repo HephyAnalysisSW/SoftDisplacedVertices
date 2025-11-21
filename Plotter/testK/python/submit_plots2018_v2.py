@@ -6,7 +6,6 @@ import os
 import shutil
 
 import inspect
-
 def print_info():
     # Get the caller's local variables
     caller_locals = inspect.currentframe().f_back.f_locals
@@ -66,10 +65,10 @@ files_per_job = 2
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/ML_7.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/vtx_PART_859_epoch_87_test1_copy.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "SDVSecVtx_ParTScore"
+unique_dir  = "vtx_PART_859_epoch_87_test1_copy"
 files_per_job = 2
 
 
@@ -78,7 +77,8 @@ outBaseDir = os.path.join(work_dir,str(unique_dir))
 
 
 # remove existing outBaseDir
-shutil.rmtree(outBaseDir)
+if os.path.isdir(outBaseDir):
+    shutil.rmtree(outBaseDir)
 
 # Copy the config file to outBaseDir
 os.makedirs(outBaseDir, exist_ok=False)
@@ -111,15 +111,15 @@ for s_type in samples_to_plot.keys():
                 f.write("\n".join(chunk) + "\n")
         # ------------------------------------------------------------
             if s_type != 'data':
-                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi 59683 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
+                command = f'sh/submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi 59683 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year}"'
             else:
-                command = f'submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
+                command = f'sh/submit_to_cpu_short.sh "python3 -u {autoplotter_path}  --sample {sample} --filelist {fileList_path} --postfix {i} --output {outDir} --config {config_copy} --lumi -1 --json {json_db[s_type]} --datalabel {tier[s_type]} --year {year} --data"'
 
             result = run(f'sbatch {command}', shell=True, capture_output = True, text = True)
             job_id = re.search("\d+", result.stdout).group()    # Get the number with '\d+'
             info_dict = {'command': f'sbatch {command}',        # Save command [important for resubmitting]
-                        'jobid':   job_id}                     # Save job_id  [identify the status with sacct]
-            job_dict[f'{sample}_{i}'] = info_dict                        # Add to dict
+                        'jobid':   job_id}                      # Save job_id  [identify the status with sacct]
+            job_dict[f'{sample}_{i}'] = info_dict               # Add to dict
             print(result.stdout[:-1])
     
     out_json_path = os.path.join(outDir, 'job_ids2018.json')

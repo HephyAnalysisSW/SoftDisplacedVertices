@@ -9,7 +9,7 @@ from collections import defaultdict
 year = 2018
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "SDVSecVtx_ParTScore"
+unique_dir  = "vtx_PART_859_epoch_87_test1_copy"
 workbase_dir = os.path.join(outDir_base, work_subdir)
 work_dir = os.path.join(workbase_dir, unique_dir)
 

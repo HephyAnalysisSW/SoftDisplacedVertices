@@ -26,7 +26,7 @@ run_compareK(){
     --signice  signal                                                          \
     --output $OUTDIR                                                           \
     --dirs $1                                                                  \
-#     --norm                                                                     \
+    --norm                                                                     \
 
 # python3 ../compare.py                                                            \
 # --input $SIGNAL                                                                  \
@@ -41,8 +41,8 @@ run_compareK(){
     mv $OUTDIR/*.png            $PNGDIR
 }
 
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
-
+# HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_859_epoch_87_test1_copy
 DATA=$HISTDIR/data/met_2018_hist.root
 QCD=$HISTDIR/bkg/qcd_2018_hist.root
 WJETS=$HISTDIR/bkg/wjets_2018_hist.root

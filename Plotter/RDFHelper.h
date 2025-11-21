@@ -1017,6 +1017,17 @@ std::vector<ROOT::RVecF> SDV_TkMinMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::R
     return minmaxdxy;
 }
 
+
+template <typename T>
+T get_subleading(const ROOT::VecOps::RVec<T>& v, T fillValue) {
+  // usage in Plotter:
+  // subleading_vtx_ML12: get_subleading(ML12, float(-0.1))
+  // ------------------------------------------------------------------------------------
+  if (v.size() < 2) return fillValue;              // or throw, depending on your style
+  auto sorted_v = ROOT::VecOps::Sort(v);    // ascending
+  return sorted_v[sorted_v.size() - 2];     // 2nd largest
+}
+
 /* ROOT::RVecF SDV_BJetMindR(int nSDV, int nJet, ROOT::RVecF SDVSecVtx_phi, ROOT::RVecF SDVSecVtx_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta)
 {
     ROOT::RVecF SDV_bjetmindR(nSDV,-1);
