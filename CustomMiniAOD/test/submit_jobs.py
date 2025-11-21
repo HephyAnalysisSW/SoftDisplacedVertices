@@ -22,7 +22,6 @@ s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplace
 
 sub_cmd = []
 for sp in input_samples:
-  print(sp.name)
   targetDir = "/scratch-cbe/users/ang.li/SoftDV/CLIP_{0}/{1}/".format(version,sp.name)
   if os.path.exists(targetDir):
     continue

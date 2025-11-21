@@ -6,20 +6,17 @@ import shutil
 import SoftDisplacedVertices.Samples.Samples as s
 import SoftDisplacedVertices.Samples.cmsRunJobs as job
 
-dryrun = False
-#input_label = "CustomMiniAODv1"
-#input_label = "CustomMiniAOD_v3_MLTraining_new"
-input_label = "CustomMiniAOD_v3_decaymode"
-version = "CustomNanoAOD_v3_decaymode"
+dryrun = True
+input_label = "CustomMiniAOD_v4"
+version = "CustomNanoAOD_v4"
 
-j = job.cmsRunJob(cfg='MC_UL18_CustomNanoAOD.py',logLevel = "INFO")
+j = job.cmsRunJob(cfg='MC_Run3Summer24_CustomNanoAOD.py',logLevel = "INFO")
 
-#input_samples = s.znunu_2018
-input_samples = [s.stop_2018[1]]
-#input_samples = s.c1n2_2018
+input_samples = s.c1n2_2024+s.stop_2024
 
-s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/CustomMiniAOD_v3_decaymode_3.json'),input_label)
+s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/CustomMiniAOD_v4.json'),input_label)
 
+sub_cmd = []
 for sp in input_samples:
   targetDir = "/scratch-cbe/users/ang.li/SoftDV/CLIP_{0}/{1}/".format(version,sp.name)
   assert not os.path.exists(targetDir)
@@ -31,16 +28,20 @@ for sp in input_samples:
     j.setJob(title=sp.name+input_label+version,input=input,instance=sp.dataset_instance[input_label],targetDir=targetDir,n_files=1)
 
     j.prepare()
-    j.submit(dryrun=dryrun)
+    c = j.submit(dryrun=dryrun)
     j.reset()
+    sub_cmd.append(c)
   else:
     with open("filename.txt","w") as fns:
       fns.write("\n".join(sp.getFileList(input_label,"")))
 
-    j.setJob(title=sp.name+input_label+version, input="filename.txt",targetDir=targetDir,n_files=1)
+    j.setJob(title=sp.name+input_label+version, input="filename.txt",targetDir=targetDir,redirector = "file:",n_files=1)
     j.prepare()
-    j.submit(dryrun=dryrun)
+    c = j.submit(dryrun=dryrun)
     shutil.move("filename.txt",os.path.join(targetDir+'/input',"filename.txt"))
     j.reset()
+    sub_cmd.append(c)
 
-
+with open('jobs.sh','w') as f:
+    for i in sub_cmd:
+        f.write(i+';\n')
