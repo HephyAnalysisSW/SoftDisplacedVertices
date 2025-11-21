@@ -1,0 +1,39 @@
+{
+    "CustomNanoAOD_v3_GNNAVRIVF": {
+        "dir": {
+            "zjetstonunuht0100_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht0100_2018/output", 
+            "qcdht0050_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0050_2018/output", 
+            "stop_M600_585_ct2_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/stop_M600_585_ct2_2018/output", 
+            "stop_M600_585_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/stop_M600_585_ct20_2018/output", 
+            "ttbar_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/ttbar_2018/output", 
+            "qcdht0200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0200_2018/output", 
+            "qcdht1500_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht1500_2018/output", 
+            "wjetstolnuht0400_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht0400_2018/output", 
+            "zjetstonunuht2500_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht2500_2018/output", 
+            "qcdht0500_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0500_2018/output", 
+            "qcdht1000_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht1000_2018/output", 
+            "wjetstolnuht0200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht0200_2018/output", 
+            "zjetstonunuht0200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht0200_2018/output", 
+            "st_tch_t_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/st_tch_t_2018/output", 
+            "wjetstolnuht0100_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht0100_2018/output", 
+            "zjetstonunuht0800_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht0800_2018/output", 
+            "st_tW_t_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/st_tW_t_2018/output", 
+            "qcdht0700_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0700_2018/output", 
+            "wjetstolnuht0800_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht0800_2018/output", 
+            "zjetstonunuht1200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht1200_2018/output", 
+            "st_tW_tbar_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/st_tW_tbar_2018/output", 
+            "wjetstolnuht1200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht1200_2018/output", 
+            "wjetstolnuht2500_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht2500_2018/output", 
+            "st_tch_tbar_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/st_tch_tbar_2018/output", 
+            "stop_M600_588_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/stop_M600_588_ct20_2018/output", 
+            "qcdht2000_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht2000_2018/output", 
+            "qcdht0100_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0100_2018/output", 
+            "qcdht0300_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/qcdht0300_2018/output", 
+            "stop_M600_588_ct200_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/stop_M600_588_ct200_2018/output", 
+            "wjetstolnuht0600_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/wjetstolnuht0600_2018/output", 
+            "zjetstonunuht0400_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht0400_2018/output", 
+            "zjetstonunuht0600_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomNanoAOD_v3_GNNAVRIVF/zjetstonunuht0600_2018/output"
+        }, 
+        "dataset": {}
+    }
+}
