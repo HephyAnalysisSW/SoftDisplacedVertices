@@ -10,7 +10,9 @@ parser = argparse.ArgumentParser()
 help_S = """All the jobs starting after this time/date will be searched. 
 The argument will be passed to sacct.
 Pass the date-time like this: 2024-11-14T00:00:00"""
+
 parser.add_argument('-S', type=str, help=help_S)
+parser.add_argument('--uniquedir', type=str, required=True, help='e.g. vtx_PART_859_epoch_87_testxxx')
 
 args = parser.parse_args()
 
@@ -18,14 +20,14 @@ args = parser.parse_args()
 if __name__=="__main__":
     outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
     work_subdir = "ParT_hists"
-    unique_dir  = "vtx_PART_859_epoch_87_test1_copy"
+    unique_dir  = args.uniquedir # "vtx_PART_859_epoch_87_test3_reverse"
 
     work_dir = os.path.join(outDir_base, work_subdir)
     outBaseDir = os.path.join(work_dir,str(unique_dir))
     
     file_paths = {'sig':  os.path.join(outBaseDir,   'sig/job_ids2018.json'),
                   'bkg':  os.path.join(outBaseDir,   'bkg/job_ids2018.json'),
-                  # 'data': os.path.join(outBaseDir,  'data/job_ids2023.json'),
+                  # 'data': os.path.join(outBaseDir,  'data/job_ids2018.json'),
                 }
     
     for key, file_path in file_paths.items():

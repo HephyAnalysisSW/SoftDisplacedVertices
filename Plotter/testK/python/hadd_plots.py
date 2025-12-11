@@ -9,7 +9,7 @@ from collections import defaultdict
 year = 2018
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "vtx_PART_859_epoch_87_test1_copy"
+unique_dir  = "vtx_PART_859_epoch_87_test3_reverse"
 workbase_dir = os.path.join(outDir_base, work_subdir)
 work_dir = os.path.join(workbase_dir, unique_dir)
 
@@ -48,20 +48,34 @@ CMD_dict = {'bkg':  [f'hadd -f {wjets_out} {wjets_in}',
 # group the individual signals like stop_..._hist0.root stop_..._hist1.root stop_..._hist2.root
 # without mixing different signal points.
 # 
-glob_pattern = os.path.join(dirs['sig'], f'stop_M*_ct*_2018_hist*.root')
-files = glob.glob(glob_pattern)
+glob_patterns = []
+glob_patterns.append(os.path.join(dirs['sig'], f'stop_M*_ct*_2018_hist*.root'))
+glob_patterns.append(os.path.join(dirs['sig'], f'stopML_M*_ct*_2018_hist*.root'))
+glob_patterns.append(os.path.join(dirs['sig'], f'stopMLstudy_M*_ct*_2018_hist*.root'))
+glob_patterns.append(os.path.join(dirs['sig'], f'C1N2MLstudy_M*_ct*_2018_hist*.root'))
+
+
+files = []
+for pattern in glob_patterns:
+    files.extend(glob.glob(pattern))
 
 # Dictionary to group files by their common prefix
 groups = defaultdict(list)
 
 # Regular expression to extract the group key (everything before _hist...)
-pattern = re.compile(r"(stop_M\d+_\d+_ct\d+_2018)_hist\d+\.root")
+re_patterns = []
+
+re_patterns.append(re.compile(r"(stop_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
+re_patterns.append(re.compile(r"(stopML_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
+re_patterns.append(re.compile(r"(stopMLstudy_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
+re_patterns.append(re.compile(r"(C1N2MLstudy_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
 
 for f in files:
-    match = pattern.match(os.path.basename(f))
-    if match:
-        key = match.group(1)  # e.g., "stop_M600_585_ct20_2018"
-        groups[key].append(f)
+    for pattern in re_patterns:
+        match = pattern.match(os.path.basename(f))
+        if match:
+            key = match.group(1)  # e.g., "stop_M600_585_ct20_2018"
+            groups[key].append(f)
 
 sig_commands = []
 for key, group in groups.items():
@@ -70,9 +84,8 @@ for key, group in groups.items():
 
 # --------------------------------------------------------------------------------
 
+
 CMD_dict['sig'] = sig_commands
-
-
 
 
 for key, cmds in CMD_dict.items():

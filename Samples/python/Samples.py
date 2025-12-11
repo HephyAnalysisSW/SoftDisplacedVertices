@@ -139,7 +139,7 @@ met_2018 = [
     Sample("met2018b", xsec=-1),
     Sample("met2018c", xsec=-1),
     Sample("met2018d", xsec=-1),
-    Sample("met2018d_rest", xsec=-1),
+    Sample("met2018d_rest1", xsec=-1),
     ]
 
 znunu_2018 = [
@@ -422,9 +422,40 @@ sig_AngML = [
    Sample("stopML_M600_595_ct200_2018", xsec=0.205),
 ]
 
+sig_AngML_new = [
+   Sample("stop_M600_585_ct20_2018", xsec=0.205),
+   Sample("stopML_M600_595_ct200_2018", xsec=0.205),
+   Sample("stopML_M600_595_ct20_2018", xsec=0.205),
+   Sample("stop_M600_585_ct2_2018", xsec=0.205),
+   Sample("stop_M600_588_ct20_2018", xsec=0.205),
+   Sample("stop_M600_588_ct200_2018", xsec=0.205),
+   Sample("C1N2MLstudy_M400_388_ct20_2018",   xsec=0.121),
+   Sample("C1N2MLstudy_M400_388_ct0p2_2018",  xsec=0.121),
+   Sample("C1N2MLstudy_M400_395_ct0p2_2018",  xsec=0.121),
+   Sample("C1N2MLstudy_M400_395_ct20_2018",   xsec=0.121),
+   Sample("stopMLstudy_M1000_995_ct0p2_2018", xsec=0.00683),
+   Sample("stopMLstudy_M1000_995_ct20_2018",  xsec=0.00683),
+   Sample("stopMLstudy_M1000_988_ct20_2018",  xsec=0.00683),
+   Sample("stopMLstudy_M1000_988_ct0p2_2018", xsec=0.00683),
+]
+
+sig_alien = [
+  Sample("C1N2MLstudy_M400_388_ct20_2018", xsec=0.121),
+  Sample("C1N2MLstudy_M400_388_ct0p2_2018", xsec=0.121),
+  Sample("C1N2MLstudy_M400_395_ct0p2_2018", xsec=0.121),
+  Sample("C1N2MLstudy_M400_395_ct20_2018", xsec=0.121),
+  Sample("stopMLstudy_M1000_995_ct0p2_2018", xsec=0.00683),
+  Sample("stopMLstudy_M1000_995_ct20_2018", xsec=0.00683),
+  Sample("stopMLstudy_M1000_988_ct20_2018", xsec=0.00683),
+  Sample("stopMLstudy_M1000_988_ct0p2_2018", xsec=0.00683)
+]
+
+
+
 
 all_samples = [
     met_2017,
+    met_2018,
     met_2022,
     met_2023,
 
@@ -464,6 +495,7 @@ all_samples = [
     stop_2017,
     stop_2018,
     c1n2_2018,
+    sig_AngML_new,
 
 ]
 

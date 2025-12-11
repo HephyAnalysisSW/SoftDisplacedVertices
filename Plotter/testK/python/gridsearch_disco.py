@@ -25,21 +25,23 @@ import ROOT
 ROOT.EnableImplicitMT()    # Tells ROOT to go parallel
 
 
-def open_tfiles(workdir, tdir, histname, sigtag):
+def open_tfiles(workdir, tdir, histname, sigtag, isData=False):
 
-    
-
-    bkg_dir = os.path.join(workdir, 'bkg')
     sig_dir = os.path.join(workdir, 'sig')
-
+    if isData:
+        bkg_dir = os.path.join(workdir, 'data')
+    else:
+        bkg_dir = os.path.join(workdir, 'bkg')
 
 
     sig_file = ROOT.TFile(os.path.join(sig_dir, f"{sigtag}_hist.root"), 'READ')
     sig_dir  = getattr(sig_file, tdir)
     sig_hist = getattr(sig_dir, histname).Clone()
 
-
-    bkg_file = ROOT.TFile(os.path.join(bkg_dir, f"all_2018_hist.root"), 'READ')
+    if isData:
+        bkg_file = ROOT.TFile(os.path.join(bkg_dir, f"met_2018_hist.root"), 'READ')
+    else:
+        bkg_file = ROOT.TFile(os.path.join(bkg_dir, f"all_2018_hist.root"), 'READ')
     bkg_dir  = getattr(bkg_file, tdir)
     bkg_hist = getattr(bkg_dir, histname).Clone()
 
@@ -52,18 +54,10 @@ def close_tfiles(tfiles):
     for tfile in tfiles:
         tfiles[tfile].Close()
 
-def calc_unc(region, region_unc, x_boundary, y_boundary, tables, noncl=None):
-    """
-    Content:
-    - 20% systematic uncertainty on the background prediction
-    - non-closure uncertainty from data-driven closure test
-    - statistical uncertainty on the background prediction
-
-    All added in quadratures.
-    """
-    unc1 = tables[region].loc[x_boundary, y_boundary] * 0.20
-    unc2 = tables[region].loc[x_boundary, y_boundary] * noncl if noncl else 0.
-    unc3 = tables[region_unc].loc[x_boundary, y_boundary]
+def calc_unc(bkg_NA, bkg_NA_unc, noncl=None):
+    unc1 = bkg_NA * 0.20
+    unc2 = bkg_NA * noncl if noncl else 0.
+    unc3 = bkg_NA_unc
     total_unc = np.sqrt(unc1**2 + unc2**2 + unc3**2)
     return total_unc
 
@@ -90,7 +84,7 @@ def makeTables(
                   'bkg_NA_unc', 'bkg_NB_unc', 'bkg_NC_unc', 'bkg_ND_unc',
                   'Z_A', 'Z_B', 'Z_C', 'Z_D',
                   'Z_noncl_A', 'Z_noncl_B', 'Z_noncl_C', 'Z_noncl_D',
-                  'Z_noncl_plus1s_A', 'Z_noncl_plus1s_B', 'Z_noncl_plus1s_C', 'Z_noncl_plus1s_D',
+                  # 'Z_noncl_plus1s_A', 'Z_noncl_plus1s_B', 'Z_noncl_plus1s_C', 'Z_noncl_plus1s_D',
                   'noncl', 'noncl_unc',
                 ]
     tables = dict()
@@ -107,29 +101,30 @@ def makeTables(
             y_up    = bkg_hist.GetNbinsY()+1
             y_bound = bkg_hist.GetYaxis().FindBin(y_boundary)
 
+            if x_boundary <= x_loCut: continue
+            if y_boundary <= y_loCut: continue
+
 
             # ------------ Backgrounds --------------
             c_err = c_double(0.0)
-            NA = ufloat(bkg_hist.IntegralAndError(x_bound,    x_up,       y_bound,    y_up,          c_err), c_err.value) * bkgScale
-            NB = ufloat(bkg_hist.IntegralAndError(x_lo,       x_bound-1,  y_bound,    y_up,          c_err), c_err.value) * bkgScale
-            NC = ufloat(bkg_hist.IntegralAndError(x_bound,    x_up,       y_lo,      y_bound-1,      c_err), c_err.value) * bkgScale
-            ND = ufloat(bkg_hist.IntegralAndError(x_lo,       x_bound-1,  y_lo,      y_bound-1,      c_err), c_err.value) * bkgScale
+            bkg_NA = ufloat(bkg_hist.IntegralAndError(x_bound,    x_up,       y_bound,    y_up,          c_err), c_err.value) * bkgScale
+            bkg_NB = ufloat(bkg_hist.IntegralAndError(x_lo,       x_bound-1,  y_bound,    y_up,          c_err), c_err.value) * bkgScale
+            bkg_NC = ufloat(bkg_hist.IntegralAndError(x_bound,    x_up,       y_lo,      y_bound-1,      c_err), c_err.value) * bkgScale
+            bkg_ND = ufloat(bkg_hist.IntegralAndError(x_lo,       x_bound-1,  y_lo,      y_bound-1,      c_err), c_err.value) * bkgScale
 
-            num   = NB * NC
-            denom = NA * ND
-            noncl = np.abs(1- num/denom) if denom.n > 0 else ufloat(1e-5, 1e-5)
+            num   = bkg_NB * bkg_NC
+            denom = bkg_NA * bkg_ND
+            noncl = np.abs(1- num/denom) if denom.n > 0 else ufloat(0., 1.)
 
-            eps = 5e-1
+            tables['bkg_NA'].loc[x_boundary, y_boundary] = bkg_NA.n
+            tables['bkg_NB'].loc[x_boundary, y_boundary] = bkg_NB.n
+            tables['bkg_NC'].loc[x_boundary, y_boundary] = bkg_NC.n
+            tables['bkg_ND'].loc[x_boundary, y_boundary] = bkg_ND.n
 
-            tables['bkg_NA'].loc[x_boundary, y_boundary] = max(eps, NA.n) # max: in case there are negative bins
-            tables['bkg_NB'].loc[x_boundary, y_boundary] = max(eps, NB.n)
-            tables['bkg_NC'].loc[x_boundary, y_boundary] = max(eps, NC.n)
-            tables['bkg_ND'].loc[x_boundary, y_boundary] = max(eps, ND.n)
-
-            tables['bkg_NA_unc'].loc[x_boundary, y_boundary] = max(eps, NA.s)
-            tables['bkg_NB_unc'].loc[x_boundary, y_boundary] = max(eps, NB.s)
-            tables['bkg_NC_unc'].loc[x_boundary, y_boundary] = max(eps, NC.s)
-            tables['bkg_ND_unc'].loc[x_boundary, y_boundary] = max(eps, ND.s)
+            tables['bkg_NA_unc'].loc[x_boundary, y_boundary] = bkg_NA.s
+            tables['bkg_NB_unc'].loc[x_boundary, y_boundary] = bkg_NB.s
+            tables['bkg_NC_unc'].loc[x_boundary, y_boundary] = bkg_NC.s
+            tables['bkg_ND_unc'].loc[x_boundary, y_boundary] = bkg_ND.s
 
             tables['noncl'].loc[x_boundary, y_boundary]     = noncl.n
             tables['noncl_unc'].loc[x_boundary, y_boundary] = noncl.s
@@ -137,37 +132,28 @@ def makeTables(
 
             # ------------ Signals --------------
             c_err = c_double(0.0)
-            NA = ufloat(sig_hist.IntegralAndError(x_bound,    x_up,       y_bound,    y_up,          c_err), c_err.value) * sigScale
-            NB = ufloat(sig_hist.IntegralAndError(x_lo,       x_bound-1,  y_bound,    y_up,          c_err), c_err.value) * sigScale
-            NC = ufloat(sig_hist.IntegralAndError(x_bound,    x_up,       y_lo,      y_bound-1,      c_err), c_err.value) * sigScale
-            ND = ufloat(sig_hist.IntegralAndError(x_lo,       x_bound-1,  y_lo,      y_bound-1,      c_err), c_err.value) * sigScale
+            sig_NA = ufloat(sig_hist.IntegralAndError(x_bound,    x_up,       y_bound,    y_up,          c_err), c_err.value) * sigScale
+            sig_NB = ufloat(sig_hist.IntegralAndError(x_lo,       x_bound-1,  y_bound,    y_up,          c_err), c_err.value) * sigScale
+            sig_NC = ufloat(sig_hist.IntegralAndError(x_bound,    x_up,       y_lo,      y_bound-1,      c_err), c_err.value) * sigScale
+            sig_ND = ufloat(sig_hist.IntegralAndError(x_lo,       x_bound-1,  y_lo,      y_bound-1,      c_err), c_err.value) * sigScale
 
-            eps = 5e-1
+            tables['sig_NA'].loc[x_boundary, y_boundary] = sig_NA.n
+            tables['sig_NB'].loc[x_boundary, y_boundary] = sig_NB.n
+            tables['sig_NC'].loc[x_boundary, y_boundary] = sig_NC.n
+            tables['sig_ND'].loc[x_boundary, y_boundary] = sig_ND.n
 
-            tables['sig_NA'].loc[x_boundary, y_boundary] = max(eps, NA.n) # max: in case there are negative bins
-            tables['sig_NB'].loc[x_boundary, y_boundary] = max(eps, NB.n)
-            tables['sig_NC'].loc[x_boundary, y_boundary] = max(eps, NC.n)
-            tables['sig_ND'].loc[x_boundary, y_boundary] = max(eps, ND.n)
-
-            tables['sig_NA_unc'].loc[x_boundary, y_boundary] = max(eps, NA.s)
-            tables['sig_NB_unc'].loc[x_boundary, y_boundary] = max(eps, NB.s)
-            tables['sig_NC_unc'].loc[x_boundary, y_boundary] = max(eps, NC.s)
-            tables['sig_ND_unc'].loc[x_boundary, y_boundary] = max(eps, ND.s)
+            tables['sig_NA_unc'].loc[x_boundary, y_boundary] = sig_NA.s
+            tables['sig_NB_unc'].loc[x_boundary, y_boundary] = sig_NB.s
+            tables['sig_NC_unc'].loc[x_boundary, y_boundary] = sig_NC.s
+            tables['sig_ND_unc'].loc[x_boundary, y_boundary] = sig_ND.s
 
             # ------------ Significance --------------
+            eps = 5e-1
 
-            Z_A      = ROOT.RooStats.AsimovSignificance(tables['sig_NA'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NA'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NA', 'bkg_NA_unc', x_boundary, y_boundary, tables))
-            Z_B      = ROOT.RooStats.AsimovSignificance(tables['sig_NB'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NB'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NB', 'bkg_NB_unc', x_boundary, y_boundary, tables))
-            Z_C      = ROOT.RooStats.AsimovSignificance(tables['sig_NC'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NC'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NC', 'bkg_NC_unc', x_boundary, y_boundary, tables))
-            Z_D      = ROOT.RooStats.AsimovSignificance(tables['sig_ND'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_ND'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_ND', 'bkg_ND_unc', x_boundary, y_boundary, tables))
+            Z_A = ROOT.RooStats.AsimovSignificance(max(eps, sig_NA.n), max(eps, bkg_NA.n), calc_unc(max(eps, bkg_NA.n), max(eps, bkg_NA.s), 0.))
+            Z_B = ROOT.RooStats.AsimovSignificance(max(eps, sig_NB.n), max(eps, bkg_NB.n), calc_unc(max(eps, bkg_NB.n), max(eps, bkg_NB.s), 0.))
+            Z_C = ROOT.RooStats.AsimovSignificance(max(eps, sig_NC.n), max(eps, bkg_NC.n), calc_unc(max(eps, bkg_NC.n), max(eps, bkg_NC.s), 0.))
+            Z_D = ROOT.RooStats.AsimovSignificance(max(eps, sig_ND.n), max(eps, bkg_ND.n), calc_unc(max(eps, bkg_ND.n), max(eps, bkg_ND.s), 0.))
 
             
             tables['Z_A'].loc[x_boundary, y_boundary] = Z_A
@@ -177,45 +163,29 @@ def makeTables(
 
             # ------------ Significance with non-clsoure uncertainty --------------
 
-            Z_A      = ROOT.RooStats.AsimovSignificance(tables['sig_NA'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NA'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NA', 'bkg_NA_unc', x_boundary, y_boundary, tables, noncl.n))
-            Z_B      = ROOT.RooStats.AsimovSignificance(tables['sig_NB'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NB'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NB', 'bkg_NB_unc', x_boundary, y_boundary, tables, noncl.n))
-            Z_C      = ROOT.RooStats.AsimovSignificance(tables['sig_NC'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NC'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NC', 'bkg_NC_unc', x_boundary, y_boundary, tables, noncl.n))
-            Z_D      = ROOT.RooStats.AsimovSignificance(tables['sig_ND'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_ND'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_ND', 'bkg_ND_unc', x_boundary, y_boundary, tables, noncl.n))
+            Z_noncl_A = ROOT.RooStats.AsimovSignificance(max(eps, sig_NA.n), max(eps, bkg_NA.n), calc_unc(max(eps, bkg_NA.n), max(eps, bkg_NA.s), abs(noncl.n)))
+            Z_noncl_B = ROOT.RooStats.AsimovSignificance(max(eps, sig_NB.n), max(eps, bkg_NB.n), calc_unc(max(eps, bkg_NB.n), max(eps, bkg_NB.s), abs(noncl.n)))
+            Z_noncl_C = ROOT.RooStats.AsimovSignificance(max(eps, sig_NC.n), max(eps, bkg_NC.n), calc_unc(max(eps, bkg_NC.n), max(eps, bkg_NC.s), abs(noncl.n)))
+            Z_noncl_D = ROOT.RooStats.AsimovSignificance(max(eps, sig_ND.n), max(eps, bkg_ND.n), calc_unc(max(eps, bkg_ND.n), max(eps, bkg_ND.s), abs(noncl.n)))
 
             
-            tables['Z_noncl_A'].loc[x_boundary, y_boundary] = Z_A
-            tables['Z_noncl_B'].loc[x_boundary, y_boundary] = Z_B
-            tables['Z_noncl_C'].loc[x_boundary, y_boundary] = Z_C
-            tables['Z_noncl_D'].loc[x_boundary, y_boundary] = Z_D
+            tables['Z_noncl_A'].loc[x_boundary, y_boundary] = Z_noncl_A
+            tables['Z_noncl_B'].loc[x_boundary, y_boundary] = Z_noncl_B
+            tables['Z_noncl_C'].loc[x_boundary, y_boundary] = Z_noncl_C
+            tables['Z_noncl_D'].loc[x_boundary, y_boundary] = Z_noncl_D
 
             # ------------ Significance with non-clsoure uncertainty plus one sigma unc. -------
 
-            Z_A      = ROOT.RooStats.AsimovSignificance(tables['sig_NA'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NA'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NA', 'bkg_NA_unc', x_boundary, y_boundary, tables, noncl.n + noncl.s))
-            Z_B      = ROOT.RooStats.AsimovSignificance(tables['sig_NB'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NB'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NB', 'bkg_NB_unc', x_boundary, y_boundary, tables, noncl.n + noncl.s))
-            Z_C      = ROOT.RooStats.AsimovSignificance(tables['sig_NC'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_NC'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_NC', 'bkg_NC_unc', x_boundary, y_boundary, tables, noncl.n + noncl.s))
-            Z_D      = ROOT.RooStats.AsimovSignificance(tables['sig_ND'].loc[x_boundary, y_boundary],
-                                                         tables['bkg_ND'].loc[x_boundary, y_boundary],
-                                                         calc_unc('bkg_ND', 'bkg_ND_unc', x_boundary, y_boundary, tables, noncl.n + noncl.s))
+            # Z_noncl_plus1s_A = ROOT.RooStats.AsimovSignificance(max(eps, sig_NA), max(eps, bkg_NA.n), calc_unc(max(eps, bkg_NA.n), max(eps, bkg_NA.s), noncl.n))
+            # Z_noncl_plus1s_B = ROOT.RooStats.AsimovSignificance(max(eps, sig_NB), max(eps, bkg_NB.n), calc_unc(max(eps, bkg_NB.n), max(eps, bkg_NB.s), noncl.n))
+            # Z_noncl_plus1s_C = ROOT.RooStats.AsimovSignificance(max(eps, sig_NC), max(eps, bkg_NC.n), calc_unc(max(eps, bkg_NC.n), max(eps, bkg_NC.s), noncl.n))
+            # Z_noncl_plus1s_D = ROOT.RooStats.AsimovSignificance(max(eps, sig_ND), max(eps, bkg_ND.n), calc_unc(max(eps, bkg_ND.n), max(eps, bkg_ND.s), noncl.n))
 
             
-            tables['Z_noncl_plus1s_A'].loc[x_boundary, y_boundary] = Z_A
-            tables['Z_noncl_plus1s_B'].loc[x_boundary, y_boundary] = Z_B
-            tables['Z_noncl_plus1s_C'].loc[x_boundary, y_boundary] = Z_C
-            tables['Z_noncl_plus1s_D'].loc[x_boundary, y_boundary] = Z_D
+            # tables['Z_noncl_plus1s_A'].loc[x_boundary, y_boundary] = Z_A
+            # tables['Z_noncl_plus1s_B'].loc[x_boundary, y_boundary] = Z_B
+            # tables['Z_noncl_plus1s_C'].loc[x_boundary, y_boundary] = Z_C
+            # tables['Z_noncl_plus1s_D'].loc[x_boundary, y_boundary] = Z_D
             
     return tables
 
@@ -235,6 +205,9 @@ def main(uniquedir: str,
          scan_y_loCut: list[float],
          sigScale: float,
          bkgScale: float,
+         tdir: str,
+         histname: str,
+         isData: bool = False,
          ) -> None:
     
     USER = os.getenv('USER')
@@ -242,10 +215,11 @@ def main(uniquedir: str,
     WORKDIR = os.path.join(HISTDIR, uniquedir)                      # e.g. 'vtx_PART_859_epoch_87_test1'
 
     tfiles, th2s = open_tfiles(
-        workdir =    WORKDIR,
-        tdir =      'SP1_evt',
-        histname =  'leading_vtx_ML1_vs_leading_vtx_ML2',
-        sigtag =   sigtag
+        workdir =   WORKDIR,
+        tdir    =   tdir,        # e.g. SP1_evt
+        histname =  histname,    # e.g. leading_vtx_ML1_vs_leading_vtx_ML2
+        sigtag =    sigtag,       # e.g. stop_M600_585_ct20_2018
+        isData =  isData,
         )
     
     sig_hist = th2s['sig']
@@ -283,10 +257,12 @@ def main(uniquedir: str,
             )
             myDict[f"{x_cut:.2f},{y_cut:.2f}"] = tables
     
-    OUTDIR = os.path.join(WORKDIR, sigtag)
-    TABLEDIR = os.path.join(OUTDIR, 'tables')
-    TABLEPATH = os.path.join(TABLEDIR, f"gridsearch_disco.pkl")
-    os.makedirs(TABLEDIR, exist_ok=True)
+    TABLEDIR = os.path.join(WORKDIR, 'tables')
+    SIGTABLEDIR = os.path.join(TABLEDIR, f"{sigtag}_{tdir}_{histname}")
+    if isData:
+        SIGTABLEDIR += "_withdata"
+    TABLEPATH = os.path.join(SIGTABLEDIR, f"gridsearch_disco.pkl")
+    os.makedirs(SIGTABLEDIR, exist_ok=True)
 
     save_pickle(myDict, TABLEPATH)
     close_tfiles(tfiles)   
@@ -336,6 +312,23 @@ if __name__ == "__main__":
     help="Signal scale factor (float). Default: 1.0"
     )
     p.add_argument(
+    "--tdir",
+    type=str,
+    default=None,
+    help="region in your plotter config: e.g. SP1_evt"
+    )
+    p.add_argument(
+    "--histname",
+    type=str,
+    default=None,
+    help="Histogram name in your yaml congig: e.g. leading_vtx_ML1_vs_leading_vtx_ML2"
+    )
+    p.add_argument(
+    "--isData",
+    action="store_true",
+    help="Are you passing the data or the background histograms?"
+    )
+    p.add_argument(
         "--test",
         action="store_true",
         help="Enables test mode. Runs over a predifened directory with default values."
@@ -382,6 +375,9 @@ if __name__ == "__main__":
         print(f"    scan_y_loCut   = {args.scan_y_loCut},")
         print(f"    sigScale       = {args.sigScale},")
         print(f"    bkgScale       = {args.bkgScale},")
+        print(f"    tdir           = {args.tdir},")
+        print(f"    histname       = {args.histname},")
+        print(f"    isData         = {args.isData},")
         print(")")
     else:
         main(
@@ -391,4 +387,7 @@ if __name__ == "__main__":
             scan_y_loCut = args.scan_y_loCut,
             sigScale     = args.sigScale,
             bkgScale     = args.bkgScale,
+            tdir         = args.tdir,
+            histname     = args.histname,
+            isData       = args.isData,
         )

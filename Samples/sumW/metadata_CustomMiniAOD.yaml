@@ -1,0 +1,383 @@
+C1N2MLstudy_M400_388_ct0p2_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1281.0
+    sumWeights: 12900.0
+  - filename: out_MINIAODSIMoutput_15.root
+    sumPassWeights: 1302.0
+    sumWeights: 12848.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 1275.0
+    sumWeights: 12920.0
+  - filename: out_MINIAODSIMoutput_14.root
+    sumPassWeights: 1280.0
+    sumWeights: 12954.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1195.0
+    sumWeights: 12927.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 1289.0
+    sumWeights: 12955.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 1234.0
+    sumWeights: 12960.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 984.0
+    sumWeights: 10365.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1292.0
+    sumWeights: 12987.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1263.0
+    sumWeights: 12850.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1240.0
+    sumWeights: 12904.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1211.0
+    sumWeights: 13041.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1206.0
+    sumWeights: 12907.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 1277.0
+    sumWeights: 12945.0
+  - filename: out_MINIAODSIMoutput_13.root
+    sumPassWeights: 1203.0
+    sumWeights: 12881.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1205.0
+    sumWeights: 12875.0
+  totalsumPassWeights: 19737.0
+  totalsumWeights: 204219.0
+C1N2MLstudy_M400_388_ct20_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1193.0
+    sumWeights: 12944.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 993.0
+    sumWeights: 10339.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1350.0
+    sumWeights: 12934.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 1280.0
+    sumWeights: 12859.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1203.0
+    sumWeights: 12888.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1206.0
+    sumWeights: 12919.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1238.0
+    sumWeights: 13155.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1264.0
+    sumWeights: 12904.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1189.0
+    sumWeights: 12843.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 1281.0
+    sumWeights: 12868.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1246.0
+    sumWeights: 13049.0
+  totalsumPassWeights: 13443.0
+  totalsumWeights: 139702.0
+C1N2MLstudy_M400_395_ct0p2_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1225.0
+    sumWeights: 12861.0
+  - filename: out_MINIAODSIMoutput_14.root
+    sumPassWeights: 1224.0
+    sumWeights: 12942.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 1239.0
+    sumWeights: 12892.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1300.0
+    sumWeights: 12954.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 1329.0
+    sumWeights: 13030.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 1222.0
+    sumWeights: 12877.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1245.0
+    sumWeights: 12940.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 1223.0
+    sumWeights: 13022.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 1265.0
+    sumWeights: 12890.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1268.0
+    sumWeights: 12959.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1195.0
+    sumWeights: 13102.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1198.0
+    sumWeights: 12845.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1225.0
+    sumWeights: 12928.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1240.0
+    sumWeights: 12878.0
+  - filename: out_MINIAODSIMoutput_13.root
+    sumPassWeights: 1296.0
+    sumWeights: 12972.0
+  - filename: out_MINIAODSIMoutput_15.root
+    sumPassWeights: 1259.0
+    sumWeights: 12962.0
+  totalsumPassWeights: 19953.0
+  totalsumWeights: 207054.0
+C1N2MLstudy_M400_395_ct20_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 1258.0
+    sumWeights: 12916.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 942.0
+    sumWeights: 10403.0
+  - filename: out_MINIAODSIMoutput_14.root
+    sumPassWeights: 1240.0
+    sumWeights: 12890.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1264.0
+    sumWeights: 12937.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 1220.0
+    sumWeights: 12929.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1276.0
+    sumWeights: 13002.0
+  - filename: out_MINIAODSIMoutput_15.root
+    sumPassWeights: 1232.0
+    sumWeights: 12930.0
+  - filename: out_MINIAODSIMoutput_16.root
+    sumPassWeights: 1229.0
+    sumWeights: 12959.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 1217.0
+    sumWeights: 12963.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 1315.0
+    sumWeights: 13104.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1205.0
+    sumWeights: 12926.0
+  - filename: out_MINIAODSIMoutput_17.root
+    sumPassWeights: 1204.0
+    sumWeights: 12869.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1223.0
+    sumWeights: 12893.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1246.0
+    sumWeights: 12735.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1218.0
+    sumWeights: 12873.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1234.0
+    sumWeights: 12868.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1257.0
+    sumWeights: 12994.0
+  - filename: out_MINIAODSIMoutput_13.root
+    sumPassWeights: 961.0
+    sumWeights: 10369.0
+  totalsumPassWeights: 21741.0
+  totalsumWeights: 227560.0
+stopMLstudy_M1000_988_ct0p2_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 2066.0
+    sumWeights: 6234.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 2153.0
+    sumWeights: 6362.0
+  - filename: out_MINIAODSIMoutput_14.root
+    sumPassWeights: 1681.0
+    sumWeights: 5020.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1687.0
+    sumWeights: 5153.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 2032.0
+    sumWeights: 6285.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 2070.0
+    sumWeights: 6344.0
+  - filename: out_MINIAODSIMoutput_15.root
+    sumPassWeights: 2230.0
+    sumWeights: 6372.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 2017.0
+    sumWeights: 6217.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 2088.0
+    sumWeights: 6272.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 2055.0
+    sumWeights: 6307.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 2058.0
+    sumWeights: 6261.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 2211.0
+    sumWeights: 6387.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1658.0
+    sumWeights: 4924.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1670.0
+    sumWeights: 5060.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 2118.0
+    sumWeights: 6384.0
+  - filename: out_MINIAODSIMoutput_13.root
+    sumPassWeights: 2076.0
+    sumWeights: 6287.0
+  totalsumPassWeights: 31870.0
+  totalsumWeights: 95869.0
+stopMLstudy_M1000_988_ct20_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 2089.0
+    sumWeights: 6297.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1684.0
+    sumWeights: 5063.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 2109.0
+    sumWeights: 6284.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 2060.0
+    sumWeights: 6322.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 2065.0
+    sumWeights: 6287.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 2094.0
+    sumWeights: 6288.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 2192.0
+    sumWeights: 6303.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 2084.0
+    sumWeights: 6260.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 2110.0
+    sumWeights: 6325.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 2069.0
+    sumWeights: 6297.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 2141.0
+    sumWeights: 6432.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 2154.0
+    sumWeights: 6347.0
+  totalsumPassWeights: 24851.0
+  totalsumWeights: 74505.0
+stopMLstudy_M1000_995_ct0p2_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1281.0
+    sumWeights: 3898.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1599.0
+    sumWeights: 4840.0
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1279.0
+    sumWeights: 3854.0
+  - filename: out_MINIAODSIMoutput_13.root
+    sumPassWeights: 1632.0
+    sumWeights: 4840.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 1301.0
+    sumWeights: 3887.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 1633.0
+    sumWeights: 4926.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1616.0
+    sumWeights: 4758.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 1665.0
+    sumWeights: 4901.0
+  - filename: out_MINIAODSIMoutput_14.root
+    sumPassWeights: 1681.0
+    sumWeights: 4997.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 1591.0
+    sumWeights: 4875.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1571.0
+    sumWeights: 4779.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 1632.0
+    sumWeights: 4870.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1558.0
+    sumWeights: 4814.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1570.0
+    sumWeights: 4743.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1591.0
+    sumWeights: 4875.0
+  totalsumPassWeights: 23200.0
+  totalsumWeights: 69857.0
+stopMLstudy_M1000_995_ct20_2018:
+  files:
+  - filename: out_MINIAODSIMoutput_2.root
+    sumPassWeights: 1621.0
+    sumWeights: 4841.0
+  - filename: out_MINIAODSIMoutput_3.root
+    sumPassWeights: 1672.0
+    sumWeights: 4885.0
+  - filename: out_MINIAODSIMoutput_4.root
+    sumPassWeights: 1569.0
+    sumWeights: 4807.0
+  - filename: out_MINIAODSIMoutput_12.root
+    sumPassWeights: 1689.0
+    sumWeights: 4981.0
+  - filename: out_MINIAODSIMoutput_11.root
+    sumPassWeights: 1582.0
+    sumWeights: 4897.0
+  - filename: out_MINIAODSIMoutput_10.root
+    sumPassWeights: 1572.0
+    sumWeights: 4896.0
+  - filename: out_MINIAODSIMoutput_6.root
+    sumPassWeights: 1654.0
+    sumWeights: 4862.0
+  - filename: out_MINIAODSIMoutput_8.root
+    sumPassWeights: 1589.0
+    sumWeights: 4833.0
+  - filename: out_MINIAODSIMoutput_0.root
+    sumPassWeights: 1643.0
+    sumWeights: 4797.0
+  - filename: out_MINIAODSIMoutput_1.root
+    sumPassWeights: 1614.0
+    sumWeights: 4793.0
+  - filename: out_MINIAODSIMoutput_5.root
+    sumPassWeights: 1574.0
+    sumWeights: 4854.0
+  - filename: out_MINIAODSIMoutput_9.root
+    sumPassWeights: 1540.0
+    sumWeights: 4721.0
+  - filename: out_MINIAODSIMoutput_7.root
+    sumPassWeights: 1557.0
+    sumWeights: 4827.0
+  totalsumPassWeights: 20876.0
+  totalsumWeights: 62994.0

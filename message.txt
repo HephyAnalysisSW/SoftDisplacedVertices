@@ -1,0 +1,9 @@
+feat: add Disco configs and reorganize Plotter notebooks/scripts
+
+- Add new 2018 Disco + vtx YAML configs
+- Add gridsearch notebooks + utilities
+- Move notebooks to misc/ and significance/ subfolders
+- Move python and shell scripts into python/ and sh/ subdirs
+- Remove old compare_MCdirs18.sh
+- Update RDFHelper.h and MLNano.json
+

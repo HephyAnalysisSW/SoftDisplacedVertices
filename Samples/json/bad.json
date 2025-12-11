@@ -1,0 +1,15 @@
+{
+    "CustomMiniAOD": {
+        "dir": {
+            "C1N2MLstudy_M400_388_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/C1N2MLstudy_M400_388_ct20_2018/output", 
+            "C1N2MLstudy_M400_388_ct0p2_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/C1N2MLstudy_M400_388_ct0p2_2018/output", 
+            "C1N2MLstudy_M400_395_ct0p2_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/C1N2MLstudy_M400_395_ct0p2_2018/output", 
+            "C1N2MLstudy_M400_395_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/C1N2MLstudy_M400_395_ct20_2018/output", 
+            "stopMLstudy_M1000_995_ct0p2_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/stopMLstudy_M1000_995_ct0p2_2018/output", 
+            "stopMLstudy_M1000_995_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/stopMLstudy_M1000_995_ct20_2018/output", 
+            "stopMLstudy_M1000_988_ct20_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/stopMLstudy_M1000_988_ct20_2018/output", 
+            "stopMLstudy_M1000_988_ct0p2_2018": "/scratch-cbe/users/ang.li/SoftDV/CLIP_CustomMiniAOD_MLstudy/stopMLstudy_M1000_988_ct0p2_2018/output"
+        }, 
+        "dataset": {}
+    }
+}

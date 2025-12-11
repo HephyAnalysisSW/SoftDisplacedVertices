@@ -142,6 +142,6 @@ if __name__ == '__main__':
     if not os.path.exists(args.outDir):
       os.makedirs(args.outDir)
     
-    input_samples = s.all_bkg_2022_ee
+    input_samples = s.sig_alien
     s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
     get_metadata(input_samples,args.sample_version)

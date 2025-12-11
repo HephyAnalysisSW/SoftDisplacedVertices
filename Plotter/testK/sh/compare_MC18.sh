@@ -42,7 +42,7 @@ run_compareK(){
 }
 
 # HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_859_epoch_87_test1_copy
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_859_epoch_87_test3
 DATA=$HISTDIR/data/met_2018_hist.root
 QCD=$HISTDIR/bkg/qcd_2018_hist.root
 WJETS=$HISTDIR/bkg/wjets_2018_hist.root

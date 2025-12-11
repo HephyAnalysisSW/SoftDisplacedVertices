@@ -880,6 +880,36 @@ ROOT::RVecF LLP_GenTkSumpT(ROOT::RVecI SDVGenPart_isGentk, ROOT::RVecI SDVGenPar
     return LLP_gtkpTsum;
 }
 
+template <typename T>
+std::vector<ROOT::VecOps::RVec<T>> get_EEt(const ROOT::VecOps::RVec<T> &pt,
+                                           const ROOT::VecOps::RVec<T> &eta,
+                                           const ROOT::VecOps::RVec<T> &phi,
+                                           const ROOT::VecOps::RVec<T> &mass)
+{
+    const size_t n = pt.size();
+
+    std::vector<ROOT::VecOps::RVec<T>> out;
+    out.reserve(2);
+
+    // First vector = E, second vector = Et
+    out.emplace_back(ROOT::VecOps::RVec<T>(n));   // out[0]
+    out.emplace_back(ROOT::VecOps::RVec<T>(n));   // out[1]
+
+    for (size_t i = 0; i < n; ++i) {
+        ROOT::Math::PtEtaPhiMVector p4(
+            static_cast<double>(pt[i]),
+            static_cast<double>(eta[i]),
+            static_cast<double>(phi[i]),
+            static_cast<double>(mass[i])
+        );
+
+        out[0][i] = static_cast<T>(p4.E());
+        out[1][i] = static_cast<T>(p4.Et());
+    }
+
+    return out;
+}
+
 
 ROOT::RVecF LLP_GenTkMinpT(ROOT::RVecI SDVGenPart_isGentk, ROOT::RVecI SDVGenPart_LLPIdx, int nLLP, ROOT::RVecF SDVGenPart_pt, ROOT::RVecF SDVGenPart_eta, ROOT::RVecF SDVGenPart_phi, ROOT::RVecF SDVGenPart_mass)
 {
