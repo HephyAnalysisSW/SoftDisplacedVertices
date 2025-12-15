@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_Run2023mu_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_PromptAnalysis_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 2 --data
+# with command line options: --python_filename Data_Run2023_mu_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --processName MINI --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_PromptAnalysis_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 2 --data
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -28,8 +28,7 @@ process.maxEvents = cms.untracked.PSet(
 
 # Input source
 process.source = cms.Source("PoolSource",
-    # fileNames = cms.untracked.vstring('file:/eos/vbc/experiments/cms/store/data/Run2023D/Muon1/AOD/PromptReco-v2/000/371/225/00000/5f3efe8c-de70-43e0-a8c7-a532844ca6c3.root'),
-    fileNames = cms.untracked.vstring('file:/eos/vbc/experiments/cms/store/data/Run2023C/Muon0/AOD/PromptReco-v4/000/369/694/00000/c7d201af-b017-4daa-bc44-6b490615fc4a.root'),
+    fileNames = cms.untracked.vstring('file:AOD.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 
@@ -84,8 +83,7 @@ process.MINIAODoutput = cms.OutputModule("PoolOutputModule",
     dropMetaData = cms.untracked.string('ALL'),
     eventAutoFlushCompressedSize = cms.untracked.int32(-900),
     fastCloning = cms.untracked.bool(False),
-    # fileName = cms.untracked.string('2023D_test.root'),
-    fileName = cms.untracked.string('2023C_test.root'),
+    fileName = cms.untracked.string('MiniAOD.root'),
     outputCommands = process.MINIAODEventContent.outputCommands,
     overrideBranchesSplitLevel = cms.untracked.VPSet(
         cms.untracked.PSet(
@@ -195,6 +193,12 @@ process.options.numberOfThreads = 2
 process.options.numberOfStreams = 0
 
 # customisation of the process.
+
+# Automatic addition of the customisation function from Configuration.DataProcessing.RecoTLR
+from Configuration.DataProcessing.RecoTLR import customisePostEra_Run3 
+
+#call to customisation function customisePostEra_Run3 imported from Configuration.DataProcessing.RecoTLR
+process = customisePostEra_Run3(process)
 
 # Automatic addition of the customisation function from Configuration.DataProcessing.Utils
 from Configuration.DataProcessing.Utils import addMonitoring 

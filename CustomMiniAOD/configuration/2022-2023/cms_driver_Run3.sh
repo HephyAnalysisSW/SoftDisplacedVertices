@@ -21,26 +21,26 @@ MC_ERA["Run3Summer23BPix"]="Run3_2023"
 
 
 
-# for era in "Run3Summer22" "Run3Summer22EE" "Run3Summer23" "Run3Summer23BPix"
-# do
-#     cmsDriver.py CustomMiniAOD --python_filename "MC_${era}_CustomMiniAOD.py" \
-#         --filein "file:AOD.root" \
-#         --fileout "MiniAOD.root" \
-#         --step PAT \
-#         --eventcontent MINIAODSIM \
-#         --datatier MINIAODSIM \
-#         --customise Configuration/DataProcessing/Utils.addMonitoring \
-#         --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVerticesMC \
-#         --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices \
-#         --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
-#         --conditions "${MC_GT[$era]}" \
-#         --geometry DB:Extended \
-#         --era "${MC_ERA[$era]}" \
-#         --no_exec \
-#         -n -1 \
-#         --nThreads 2 \
-#         --mc
-# done
+for era in "Run3Summer22" "Run3Summer22EE" "Run3Summer23" "Run3Summer23BPix"
+do
+    cmsDriver.py CustomMiniAOD --python_filename "MC_${era}_CustomMiniAOD.py" \
+        --filein "file:AOD.root" \
+        --fileout "MiniAOD.root" \
+        --step PAT \
+        --eventcontent MINIAODSIM \
+        --datatier MINIAODSIM \
+        --customise Configuration/DataProcessing/Utils.addMonitoring \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVerticesMC \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices \
+        --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
+        --conditions "${MC_GT[$era]}" \
+        --geometry DB:Extended \
+        --era "${MC_ERA[$era]}" \
+        --no_exec \
+        -n -1 \
+        --nThreads 2 \
+        --mc
+done
 
 
 

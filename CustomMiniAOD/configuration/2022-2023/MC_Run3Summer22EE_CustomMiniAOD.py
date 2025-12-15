@@ -24,14 +24,13 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(4000),
+    input = cms.untracked.int32(-1),
     output = cms.optional.untracked.allowed(cms.int32,cms.PSet)
 )
 
 # Input source
 process.source = cms.Source("PoolSource",
-    # fileNames = cms.untracked.vstring('file:AOD.root'),
-    fileNames = cms.untracked.vstring('/store/mc/Run3Summer22EEDRPremix/Zto2Nu-4Jets_HT-100to200_TuneCP5_13p6TeV_madgraphMLM-pythia8/AODSIM/124X_mcRun3_2022_realistic_postEE_v1-v2/50001/cd95145e-ec17-4536-89c5-678258bfc6cd.root'),
+    fileNames = cms.untracked.vstring('file:AOD.root'),
     secondaryFileNames = cms.untracked.vstring()
 )
 

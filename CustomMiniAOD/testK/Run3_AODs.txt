@@ -1,0 +1,10 @@
+cms:/store/data/Run2022C/JetMET/AOD/27Jun2023-v1/2540000/0050bbcf-b86c-403d-993b-bab86b007203.root
+cms:/store/data/Run2022F/JetMET/AOD/PromptReco-v1/000/360/927/00001/2e5bd712-3599-4d13-8fd8-78815d8458f1.root
+cms:/store/data/Run2023C/JetMET0/AOD/PromptReco-v2/000/367/516/00000/dbb7a9d4-6c81-458d-9536-0629232f7dc9.root
+cms:/store/data/Run2024D/JetMET0/AOD/2024CDEReprocessing-v1/25610000/b5e24367-d0aa-4b49-a25d-008918ea6238.root
+cms:/store/data/Run2024G/JetMET0/AOD/PromptReco-v1/000/384/322/00000/a34ee895-1275-40d2-a002-9860d038b452.root
+cms:/store/data/Run2022D/Muon/AOD/27Jun2023-v2/25210000/8c920459-66ae-4712-876d-6cb777991202.root
+cms:/store/data/Run2023C/Muon1/AOD/PromptReco-v4/000/368/566/00000/deb5e9d0-413f-4ec0-bc01-da4a59d76938.root
+cms:/store/data/Run2022F/Muon/AOD/PromptReco-v1/000/361/054/00000/9585d8dd-0bfe-4e46-b878-c5582e2d4100.root
+cms:/store/data/Run2024E/Muon1/AOD/2024CDEReprocessing-v1/910000/f98cce2c-6b59-40de-82ca-f4e4903da94c.root
+cms:/store/data/Run2024I/Muon1/AOD/PromptReco-v1/000/386/693/00000/5aa340c8-a837-4266-8fa9-d53859c3fb90.root

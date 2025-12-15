@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_Run2022FG_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --processName MINI --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_PromptAnalysis_v1 --era Run3,run3_miniAOD_12X --scenario pp --no_exec -n -1 --nThreads 2 --data
+# with command line options: --python_filename Data_Run2022FG_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --processName MINI --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_PromptAnalysis_v1 --era Run3,run3_miniAOD_12X --scenario pp --no_exec -n -1 --nThreads 2 --data
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -208,13 +208,13 @@ from Configuration.DataProcessing.Utils import addMonitoring
 process = addMonitoring(process)
 
 # Automatic addition of the customisation function from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_trigger_isomu 
+from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_filter_SoftDisplacedVertices 
 
 #call to customisation function miniAOD_customise_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
 process = miniAOD_customise_SoftDisplacedVertices(process)
 
-#call to customisation function miniAOD_trigger_isomu imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-process = miniAOD_trigger_isomu(process)
+#call to customisation function miniAOD_filter_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
+process = miniAOD_filter_SoftDisplacedVertices(process)
 
 # End of customisation functions
 
