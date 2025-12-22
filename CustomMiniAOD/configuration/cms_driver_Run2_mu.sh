@@ -27,5 +27,6 @@ do
         --runUnscheduled          \
         --no_exec                 \
         --data                    \
-        --nThreads 2
+        --nThreads 2              \
+        -n -1
 done

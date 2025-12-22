@@ -2,13 +2,13 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_UL18mu_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_filter_SoftDisplacedVertices --conditions 106X_dataRun2_v36 --procModifiers run2_miniAOD_UL --era Run2_2018 --scenario pp --runUnscheduled --no_exec --data --nThreads 2
+# with command line options: --python_filename Data_UL18mu_CustomMiniAOD.py --filein file:AOD.root --fileout MiniAOD.root --step PAT --eventcontent MINIAOD --datatier MINIAOD --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu --conditions 106X_dataRun2_v36 --procModifiers run2_miniAOD_UL --era Run2_2018 --scenario pp --runUnscheduled --no_exec --data --nThreads 2 -n -1
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run2_2018_cff import Run2_2018
 from Configuration.ProcessModifiers.run2_miniAOD_UL_cff import run2_miniAOD_UL
 
-process = cms.Process('MINI',Run2_2018,run2_miniAOD_UL)
+process = cms.Process('PAT',Run2_2018,run2_miniAOD_UL)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -23,7 +23,7 @@ process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1)
+    input = cms.untracked.int32(-1)
 )
 
 # Input source
@@ -38,7 +38,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('--python_filename nevts:1'),
+    annotation = cms.untracked.string('--python_filename nevts:-1'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -170,13 +170,13 @@ from Configuration.DataProcessing.Utils import addMonitoring
 process = addMonitoring(process)
 
 # Automatic addition of the customisation function from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_filter_SoftDisplacedVertices 
+from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff import miniAOD_customise_SoftDisplacedVertices,miniAOD_trigger_isomu 
 
 #call to customisation function miniAOD_customise_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
 process = miniAOD_customise_SoftDisplacedVertices(process)
 
-#call to customisation function miniAOD_filter_SoftDisplacedVertices imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
-process = miniAOD_filter_SoftDisplacedVertices(process)
+#call to customisation function miniAOD_trigger_isomu imported from SoftDisplacedVertices.CustomMiniAOD.miniAOD_cff
+process = miniAOD_trigger_isomu(process)
 
 # End of customisation functions
 #do not add changes to your config after this point (unless you know what you are doing)
