@@ -1,0 +1,19 @@
+<use name="FWCore/Framework"/>
+<use name="FWCore/ParameterSet"/>
+<use name="FWCore/ServiceRegistry"/>
+<use name="FWCore/MessageLogger"/>
+<use name="FWCore/Utilities"/>
+
+<use name="CommonTools/UtilAlgos"/>     <!-- TFileService -->
+<use name="CommonTools/Utils"/>         <!-- TFileDirectory -->
+
+<use name="DataFormats/PatCandidates"/>
+<use name="DataFormats/METReco"/>       <!-- reco::MET::LorentzVector -->
+
+<use name="JetMETCorrections/Objects"/> <!-- JetCorrectionsRecord -->
+<use name="JetMETCorrections/Modules"/> <!-- JetResolution interface -->
+<use name="CondFormats/JetMETObjects"/> <!-- JetCorrectorParameters -->
+<use name="CondFormats/DataRecord"/>    <!-- JetResolutionRcd -->
+
+<use name="SoftDisplacedVertices/JERC"/>
+
