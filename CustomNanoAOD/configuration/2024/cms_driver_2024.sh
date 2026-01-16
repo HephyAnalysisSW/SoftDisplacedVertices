@@ -19,7 +19,7 @@ do
         --fileout "NanoAOD.root" \
         --step NANO \
         --scenario pp \
-        --eventcontent NANOAODSIM1 \
+        --eventcontent NANOAODSIM \
         --datatier NANOAODSIM \
         --customise Configuration/DataProcessing/Utils.addMonitoring           \
         --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC \
