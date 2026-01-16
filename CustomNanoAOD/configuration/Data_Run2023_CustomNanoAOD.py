@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: --python_filename Data_Run2023_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --eventcontent NANOAOD --datatier NANOAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise PhysicsTools/NanoAOD/nano_cff.nanoL1TrigObjCustomize --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_Prompt_HcalSiPM_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 2 --data
+# with command line options: --python_filename Data_Run2023_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --eventcontent NANOAOD --datatier NANOAOD --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 --customise Configuration/DataProcessing/Utils.addMonitoring --customise PhysicsTools/NanoAOD/nano_cff.nanoL1TrigObjCustomize --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVertices --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_dataRun3_PromptAnalysis_v1 --era Run3 --scenario pp --no_exec -n -1 --nThreads 2 --data
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
@@ -87,7 +87,7 @@ process.NANOAODoutput = cms.OutputModule("NanoAODOutputModule",
 
 # Other statements
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_Prompt_HcalSiPM_v1', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '130X_dataRun3_PromptAnalysis_v1', '')
 
 # Path and EndPath definitions
 process.nanoAOD_step = cms.Path(process.nanoSequence)

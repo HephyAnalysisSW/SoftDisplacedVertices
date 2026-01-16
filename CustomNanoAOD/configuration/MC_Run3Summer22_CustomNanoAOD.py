@@ -2,12 +2,13 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: CustomNanoAOD --python_filename MC_Run3Summer22_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --scenario pp --eventcontent NANOAODSIM --datatier NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_mcRun3_2022_realistic_v5 --geometry DB:Extended --era Run3 --no_exec -n -1 --nThreads 2 --mc
+# with command line options: CustomNanoAOD --python_filename MC_Run3Summer22_CustomNanoAOD.py --filein file:MiniAOD.root --fileout NanoAOD.root --step NANO --scenario pp --eventcontent NANOAODSIM --datatier NANOAODSIM --customise Configuration/DataProcessing/Utils.addMonitoring --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC --customise_commands=process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000 --conditions 130X_mcRun3_2022_realistic_v5 --geometry DB:Extended --era Run3,run3_miniAOD_12X --no_exec -n -1 --nThreads 2 --mc
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run3_cff import Run3
+from Configuration.Eras.Modifier_run3_miniAOD_12X_cff import run3_miniAOD_12X
 
-process = cms.Process('NANO',Run3)
+process = cms.Process('NANO',Run3,run3_miniAOD_12X)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
