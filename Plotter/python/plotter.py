@@ -1,5 +1,6 @@
 import os
 import yaml
+import json
 import numpy as np
 import pickle
 import ROOT
@@ -8,6 +9,7 @@ correctionlib.register_pyroot_binding()
 import SoftDisplacedVertices.Samples.Samples as s
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDFHelper.h"'.format(os.environ['CMSSW_BASE']))
 ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/METxyCorrection.h"'.format(os.environ['CMSSW_BASE']))
+ROOT.gInterpreter.Declare('#include "{}/src/SoftDisplacedVertices/Plotter/RDF_JERC.h"'.format(os.environ['CMSSW_BASE']))
 #ROOT.EnableImplicitMT(4)
 # Maybe let ROOT decide the number of threads to use
 # FIXME: getting numpy arrays with MT results in unmatched columns in arrays
@@ -31,6 +33,7 @@ class Plotter:
         with open(config, "r") as f_cfg:
             cfg = yaml.load(f_cfg, Loader=yaml.FullLoader)
         self.cfg = cfg
+        self.setJERC()
         if not self.isData:
             self.setCorrections()
             if ('new_variables_mc' in self.cfg) and (self.cfg['new_variables_mc'] is not None):
@@ -51,6 +54,25 @@ class Plotter:
                             self.cfg['objects'][o]['variables'] += self.cfg['objects'][o]['variables_mc']
                         else:
                             self.cfg['objects'][o]['variables'] = self.cfg['objects'][o]['variables_mc']
+        else:
+            if ('new_variables_data' in self.cfg) and (self.cfg['new_variables_data'] is not None):
+                if ('new_variables' in self.cfg):
+                    for v in self.cfg['new_variables_data']:
+                        self.cfg['new_variables'][v] = self.cfg['new_variables_mc'][v]
+                else:
+                    self.cfg['new_variables'] = self.cfg['new_variables_data']
+            if ('event_variables_data' in self.cfg) and (self.cfg['event_variables_data'] is not None):
+                if ('event_variables' in self.cfg):
+                    self.cfg['event_variables'] += self.cfg['event_variables_data']
+                else:
+                    self.cfg['event_variables'] = self.cfg['event_variables_data']
+            if ('objects' in self.cfg) and (self.cfg['objects'] is not None):
+                for o in self.cfg['objects']:
+                    if ('variables_data' in self.cfg['objects'][o]) and (self.cfg['objects'][o]['variables_data'] is not None):
+                        if ('variables' in self.cfg['objects'][o]):
+                            self.cfg['objects'][o]['variables'] += self.cfg['objects'][o]['variables_data']
+                        else:
+                            self.cfg['objects'][o]['variables'] = self.cfg['objects'][o]['variables_data']
 
         if ('mapveto' in self.cfg):
             if 'material' in self.cfg['mapveto'] and self.cfg['mapveto']['material'] is not None:
@@ -64,6 +86,53 @@ class Plotter:
                 self.f1 = ROOT.TFile.Open(mappath)
                 ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
                 self.f1.Close()
+
+    def setJERC(self):
+        # read the config file that includes the path and tag names of the corrections
+        jerc_config = "{}/src/SoftDisplacedVertices/Plotter/data/JecConfigAK4.json".format(os.environ['CMSSW_BASE'])
+        assert os.path.exists(jerc_config), "JERC config {} does not exist!".format(jerc_config)
+        with open(jerc_config,'r') as jercf:
+            jercconf = json.load(jercf)
+
+        # set up the evaluators
+        jesmode = "JesNominal" # this is the nominal jes without syst
+        jestagname = "tagNameL1L2L3Res" # this is the tag name of the jes
+        jestagname = {
+                "L1": "tagNameL1FastJet",
+                "L2": "tagNameL2Relative",
+                "L2L3": "tagNameL2L3Residual", # this is for data only
+                }
+        jermode = "JerNominal" # this is the nominal jer without syst
+        jerresotagname = "tagNamePtResolution"
+        jersftagname = "tagNameJerScaleFactor"
+        # path of the smear factor calculation
+        jersmear_jsonpath = "{}/src/SoftDisplacedVertices/Plotter/data/jer_smear.json.gz".format(os.environ["CMSSW_BASE"])
+        if self.year in ["2022Pre","2022Post","2023Pre","2023Post","2024"]:
+            assert self.year in jercconf, "Year {} not available in JERC!".format(self.year)
+            assert "jercJsonPath" in jercconf[self.year], "jercJsonPath does not exist in JERC for {}!".format(self.year)
+            jsonpath = jercconf[self.year]["jercJsonPath"]
+            jercloadcmd = 'auto jercf = correction::CorrectionSet::from_file("{}");'.format(jsonpath)
+            jercloadcmd += 'std::map<std::string,correction::Correction::Ref> jerc_refs;'
+            if self.isData:
+                for era in jercconf[self.year]['ApplyOnData'][jesmode]:
+                    for itag in jestagname:
+                        tagname = jercconf[self.year]['ApplyOnData'][jesmode][era][jestagname[itag]]
+                        jercloadcmd += 'jerc_refs.insert({{"data_jes_{}_{}",jercf->at("{}")}});'.format(itag,era,tagname)
+
+            else:
+                for itag in jestagname:
+                    if itag=="L2L3":
+                        continue
+                    tagname = jercconf[self.year]['ApplyOnMC'][jesmode][jestagname[itag]]
+                    jercloadcmd += 'jerc_refs.insert({{"MC_jes_{}",jercf->at("{}")}});'.format(itag,tagname)
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_reso",jercf->at("{}")}});'.format(jercconf[self.year]['ApplyOnMC'][jermode][jerresotagname])
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_sf",jercf->at("{}")}});'.format(jercconf[self.year]['ApplyOnMC'][jermode][jersftagname])
+                jercloadcmd += 'auto jersmearf = correction::CorrectionSet::from_file("{}");'.format(jersmear_jsonpath)
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_smear",jersmearf->at("{}")}});'.format("JERSmear")
+
+            print(jercloadcmd)
+            ROOT.gInterpreter.ProcessLine(jercloadcmd)
+            print("Loaded")
 
     def setCorrections(self):
       if 'corrections' in self.cfg and self.cfg['corrections'] is not None:
@@ -175,7 +244,10 @@ class Plotter:
       return -1
     
     def AddVars(self,d):
+        # Add years first
+        d = d.DefinePerSample("year",'"{}"'.format(self.year))
         # MET xy corrections
+        # FIXME: this should be different for run2 and run3
         d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
         d = d.Define("MET_pt_corr",'MET_corr.first')
         d = d.Define("MET_phi_corr",'MET_corr.second')
