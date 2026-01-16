@@ -12,17 +12,19 @@ declare -A MC_ERA
 MC_ERA["Run3Summer24"]="Run3_2024"
 
 
+
 for era in "Run3Summer24"
 do
-    cmsDriver.py CustomNanoAOD --python_filename "MC_${era}_CustomNanoAOD.py" \
-        --filein "file:MiniAOD.root" \
-        --fileout "NanoAOD.root" \
-        --step NANO \
-        --scenario pp \
-        --eventcontent NANOAODSIM1 \
-        --datatier NANOAODSIM \
-        --customise Configuration/DataProcessing/Utils.addMonitoring           \
-        --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVerticesMC \
+    cmsDriver.py CustomMiniAOD --python_filename "MC_${era}_CustomMiniAOD.py" \
+        --filein "file:AOD.root" \
+        --fileout "MiniAOD.root" \
+        --step PAT \
+        --eventcontent MINIAODSIM \
+        --datatier MINIAODSIM \
+        --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 \
+        --customise Configuration/DataProcessing/Utils.addMonitoring \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVerticesMC \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu \
         --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
         --conditions "${MC_GT[$era]}" \
         --geometry DB:Extended \
@@ -34,8 +36,11 @@ do
 done
 
 
+
+
 # DATA
 # ------------------------------------------------------------------------
+
 
 declare -A DATA_GT
 DATA_GT["Run2024"]="150X_dataRun3_v2"
@@ -43,17 +48,21 @@ DATA_GT["Run2024"]="150X_dataRun3_v2"
 declare -A DATA_ERA
 DATA_ERA["Run2024"]="Run3_2024"
 
+
+
 for era in "Run2024"
 do
-    cmsDriver.py --python_filename "Data_${era}_CustomNanoAOD.py" \
-        --filein "file:MiniAOD.root" \
-        --fileout "NanoAOD.root" \
-        --step NANO \
-        --eventcontent NANOAOD \
-        --datatier NANOAOD \
+    cmsDriver.py --python_filename "Data_${era}mu_CustomMiniAOD.py" \
+        --filein "file:AOD.root" \
+        --fileout "MiniAOD.root" \
+        --step PAT \
+        --processName MINI \
+        --eventcontent MINIAOD \
+        --datatier MINIAOD \
         --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 \
-        --customise Configuration/DataProcessing/Utils.addMonitoring           \
-        --customise SoftDisplacedVertices/CustomNanoAOD/nanoAOD_cff.nanoAOD_customise_SoftDisplacedVertices \
+        --customise Configuration/DataProcessing/Utils.addMonitoring \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVertices \
+        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu \
         --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
         --conditions "${DATA_GT[$era]}" \
         --era "${DATA_ERA[$era]}" \
