@@ -1,42 +1,5 @@
 #!/bin/bash -x
 
-# MC
-# ------------------------------------------------------------------------
-
-
-declare -A MC_GT
-MC_GT["Run3Summer24"]="150X_mcRun3_2024_realistic_v2"
-
-
-declare -A MC_ERA
-MC_ERA["Run3Summer24"]="Run3_2024"
-
-
-
-for era in "Run3Summer24"
-do
-    cmsDriver.py CustomMiniAOD --python_filename "MC_${era}_CustomMiniAOD.py" \
-        --filein "file:AOD.root" \
-        --fileout "MiniAOD.root" \
-        --step PAT \
-        --eventcontent MINIAODSIM \
-        --datatier MINIAODSIM \
-        --customise Configuration/DataProcessing/RecoTLR.customisePostEra_Run3 \
-        --customise Configuration/DataProcessing/Utils.addMonitoring \
-        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_customise_SoftDisplacedVerticesMC \
-        --customise SoftDisplacedVertices/CustomMiniAOD/miniAOD_cff.miniAOD_trigger_isomu \
-        --customise_commands="process.add_(cms.Service('InitRootHandlers', EnableIMT = cms.untracked.bool(False)));process.MessageLogger.cerr.FwkReport.reportEvery=1000" \
-        --conditions "${MC_GT[$era]}" \
-        --geometry DB:Extended \
-        --era "${MC_ERA[$era]}" \
-        --no_exec \
-        -n -1 \
-        --nThreads 2 \
-        --mc
-done
-
-
-
 
 # DATA
 # ------------------------------------------------------------------------
