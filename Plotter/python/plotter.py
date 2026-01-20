@@ -58,7 +58,7 @@ class Plotter:
             if ('new_variables_data' in self.cfg) and (self.cfg['new_variables_data'] is not None):
                 if ('new_variables' in self.cfg):
                     for v in self.cfg['new_variables_data']:
-                        self.cfg['new_variables'][v] = self.cfg['new_variables_mc'][v]
+                        self.cfg['new_variables'][v] = self.cfg['new_variables_data'][v]
                 else:
                     self.cfg['new_variables'] = self.cfg['new_variables_data']
             if ('event_variables_data' in self.cfg) and (self.cfg['event_variables_data'] is not None):
@@ -96,7 +96,7 @@ class Plotter:
 
         # set up the evaluators
         jesmode = "JesNominal" # this is the nominal jes without syst
-        jestagname = "tagNameL1L2L3Res" # this is the tag name of the jes
+        #jestagname = "tagNameL1L2L3Res" # this is the tag name of the jes
         jestagname = {
                 "L1": "tagNameL1FastJet",
                 "L2": "tagNameL2Relative",
@@ -130,9 +130,7 @@ class Plotter:
                 jercloadcmd += 'auto jersmearf = correction::CorrectionSet::from_file("{}");'.format(jersmear_jsonpath)
                 jercloadcmd += 'jerc_refs.insert({{"MC_jer_smear",jersmearf->at("{}")}});'.format("JERSmear")
 
-            print(jercloadcmd)
             ROOT.gInterpreter.ProcessLine(jercloadcmd)
-            print("Loaded")
 
     def setCorrections(self):
       if 'corrections' in self.cfg and self.cfg['corrections'] is not None:
@@ -248,9 +246,10 @@ class Plotter:
         d = d.DefinePerSample("year",'"{}"'.format(self.year))
         # MET xy corrections
         # FIXME: this should be different for run2 and run3
-        d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
-        d = d.Define("MET_pt_corr",'MET_corr.first')
-        d = d.Define("MET_phi_corr",'MET_corr.second')
+        if ('2017' in self.year) or ('2018' in self.year):
+            d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
+            d = d.Define("MET_pt_corr",'MET_corr.first')
+            d = d.Define("MET_phi_corr",'MET_corr.second')
         if ('mapveto' in self.cfg):
           d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
         vars_to_define = ['new_variables']
@@ -313,7 +312,9 @@ class Plotter:
         d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
       else:
         d = self.applyCorrections(d)
-        d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
+        #d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
+        #FIXME
+        d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
       return d
     
     def getRDF(self):

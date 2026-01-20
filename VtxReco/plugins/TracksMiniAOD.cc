@@ -18,7 +18,6 @@ class TracksMiniAOD : public edm::one::EDProducer<edm::one::SharedResources> {
 TracksMiniAOD::TracksMiniAOD(const edm::ParameterSet& cfg)
   : packed_candidates_token(consumes<pat::PackedCandidateCollection>(cfg.getParameter<edm::InputTag>("packed_candidates")))
 {
-  usesResource();
   produces<reco::TrackCollection>();
 }
 

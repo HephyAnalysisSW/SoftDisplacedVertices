@@ -1,6 +1,10 @@
 presel: MET_pt>0
 
+corrections:
+
 new_variables:
+  # Only for testing
+  drun: "dummyRunNumber(run,year)"
   CorrT1METJet_rawFactor: 'ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)'
   CorrT1METJet_chEmEF: 'ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)'
   CorrT1METJet_neEmEF: 'ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)'
@@ -9,36 +13,46 @@ new_variables:
   METJet_phi: 'ROOT::VecOps::Concatenate(Jet_phi,CorrT1METJet_phi)'
   METJet_pt: 'ROOT::VecOps::Concatenate(Jet_pt,CorrT1METJet_rawPt)'
   METJet_rawFactor: 'ROOT::VecOps::Concatenate(Jet_rawFactor,CorrT1METJet_rawFactor)'
-  METJet_muonSubtrFactor: 'ROOT::VecOps::Concatenate(Jet_muonSubtrFactor, METJet_muonSubtrFactor)'
+  METJet_muonSubtrFactor: 'ROOT::VecOps::Concatenate(Jet_muonSubtrFactor, CorrT1METJet_muonSubtrFactor)'
   METJet_chEmEF: 'ROOT::VecOps::Concatenate(Jet_chEmEF,CorrT1METJet_chEmEF)'
   METJet_neEmEF: 'ROOT::VecOps::Concatenate(Jet_neEmEF,CorrT1METJet_neEmEF)'
 new_variables_mc:
   CorrT1METJet_genJetIdx: 'genJetIdx_CorrT1METJet(CorrT1METJet_eta, CorrT1METJet_phi, GenJet_eta, GenJet_phi)'
   METJet_genJetIdx: 'ROOT::VecOps::Concatenate(Jet_genJetIdx,CorrT1METJet_genJetIdx)'
-  JERC_jet_ptmass: 'JERC_jet(jerc_ref, false, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi)'
+  #JERC_jet_ptmass: 'JERC_jet_MC(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi)'
+  JERC_jet_ptmass: 'JERC_jet_MC(jerc_refs, year, drun, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi)'
   Jet_pt_corr: 'JERC_jet_ptmass.first'
   Jet_mass_corr: 'JERC_jet_ptmass.second'
-  JERC_MET_ptphi: 'JERC_MET(jerc_ref, false, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi )'
+  #JERC_MET_ptphi: 'JERC_MET_MC(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi )'
+  JERC_MET_ptphi: 'JERC_MET_MC(jerc_refs, year, drun, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi )'
   MET_corr_pt: 'JERC_MET_ptphi.first'
   MET_corr_phi: 'JERC_MET_ptphi.second'
 new_variables_data:
-  JERC_jet_ptmass: 'JERC_jet(jerc_ref, true, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll)'
+  #JERC_jet_ptmass: 'JERC_jet_data(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll)'
+  JERC_jet_ptmass: 'JERC_jet_data(jerc_refs, year, drun, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll)'
   Jet_pt_corr: 'JERC_jet_ptmass.first'
   Jet_mass_corr: 'JERC_jet_ptmass.second'
-  JERC_MET_ptphi: 'JERC_MET(jerc_ref, true, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll)'
+  #JERC_MET_ptphi: 'JERC_MET_data(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll)'
+  JERC_MET_ptphi: 'JERC_MET_data(jerc_refs, year, drun, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll)'
   MET_corr_pt: 'JERC_MET_ptphi.first'
   MET_corr_phi: 'JERC_MET_ptphi.second'
 regions:
   All: 
+  #MET: MET_corr_pt > 200
 event_variables:
-- MET_corr_pt
-- MET_corr_phi
+    - MET_corr_pt
+    #- MET_corr_phi
 event_2d_plots:
 
 objects:
     Jet:
+        selections:
+            all:
+        variables:
         - Jet_pt_corr
         - Jet_mass_corr
+          
+        2d_plots:
 
 plot_setting:
     MET_corr_pt: [MET_corr_pt,'MET_corr_pt',100,0,1000]
