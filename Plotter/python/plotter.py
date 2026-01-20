@@ -312,9 +312,7 @@ class Plotter:
         d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
       else:
         d = self.applyCorrections(d)
-        #d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
-        #FIXME
-        d = d.Define("evt_weight","{0}{1}".format(weight,self.weightstr))
+        d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
       return d
     
     def getRDF(self):
