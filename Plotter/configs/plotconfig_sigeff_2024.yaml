@@ -1,5 +1,5 @@
-vtx_sel: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
-vtx_sel_gen: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_matchedLLPnDau_bydau>1)
+vtx_sel: ( acos(cos(SDVSecVtx_L_phi-PuppiMET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
+vtx_sel_gen: ( acos(cos(SDVSecVtx_L_phi-PuppiMET_phi))<1.5 )&&(SDVSecVtx_LxySig>=20.)&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1) && (SDVSecVtx_matchedLLPnDau_bydau>1)
 #vtx_sel: ( acos(cos(SDVSecVtx_L_phi-MET_phi))<1.5 )&&(SDVSecVtx_pAngle>0.2)&&(SDVSecVtx_nGoodTrack>=2)&&( acos(cos(SDVSecVtx_L_phi-Jet_phi[0]))>1 ) && (SDVSecVtx_ndof>1)
 muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
@@ -23,6 +23,8 @@ corrections:
         "2024":
             path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetvetomaps.json.gz"
             name: "Summer24Prompt24_RunBCDEFGHI_V1"
+    metxy: False
+    
   
 new_variables:
   Jet_id_bool: "GetJetID(jetideva,Jet_eta,Jet_chHEF,Jet_neHEF,Jet_chEmEF,Jet_neEmEF,Jet_muEF,Jet_chMultiplicity,Jet_neMultiplicity)"
@@ -95,7 +97,7 @@ plot_setting:
   nLLP: [nLLP,';nLLP;A.U.',10,0,10]
   evt_weight: [evt_weight,';weight;A.U.',100,-2,2]
   LHE_HT: [LHE_HT, ';LHE HT (GeV);A.U.', 500, 0, 5000]
-  MET_pt: [PuppiMET_pt, ';MET (GeV);A.U.', 100, 0, 1000]
+  PuppiMET_pt: [PuppiMET_pt, ';MET (GeV);A.U.', 100, 0, 1000]
   SDVTrack_dxy_InSV: [SDVTrack_dxy_InSV, ";track dxy (cm);A.U.",400,-20,20]
   SDVTrack_dxyError_InSV: [SDVTrack_dxyError_InSV,";track #sigma dxy (cm);A.U.",100,0,1]
   SDVTrack_dxySig_InSV: [SDVTrack_dxySig_InSV,";track |dxy/#sigma dxy|;A.U.",500,0,100]

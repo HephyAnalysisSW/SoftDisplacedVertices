@@ -227,7 +227,23 @@ float Muon_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF et
   return weight;
 }
 
-ROOT::RVecB GetJetID(correction::Correction::Ref evaluator, ROOT::RVecF eta, ROOT::RVecF chHEF, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF, ROOT::RVecF chMultiplicity, ROOT::RVecF neMultiplicity) {
+ROOT::RVecB GetJetID(ROOT::RVecU jetid, ROOT::RVecF eta, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF) {
+    ROOT::RVecB jetid;
+    for (size_t i=0; i<eta.size(); ++i) {
+        bool Jet_passJetIdTight = false;
+        if (abs(eta[i]) <= 2.7) Jet_passJetIdTight = jetid[i] & (1 << 1);
+        else if (abs(eta[i]) > 2.7 && abs(eta[i]) <= 3.0) Jet_passJetIdTight = (jetid[i] & (1 << 1)) && (neHEF[i] < 0.99);
+        else if (abs(eta[i]) > 3.0) Jet_passJetIdTight = (jetid[i] & (1 << 1)) && (neEmEF[i] < 0.4);
+
+        bool Jet_passJetIdTightLepVeto = false;
+        if (abs(eta[i]) <= 2.7) Jet_passJetIdTightLepVeto = Jet_passJetIdTight && (muEF[i] < 0.8) && (chEmEF[i] < 0.8);
+        else Jet_passJetIdTightLepVeto = Jet_passJetIdTight;
+        jetid.push_back(jetid);
+    }
+    return jetid;
+}
+
+ROOT::RVecB GetJetID(correction::Correction::Ref evaluator, ROOT::RVecF eta, ROOT::RVecF chHEF, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF, ROOT::RVecI chMultiplicity, ROOT::RVecI neMultiplicity) {
     ROOT::RVecB jetid;
     for (size_t i=0; i<eta.size(); ++i) {
         bool res = evaluator->evaluate({eta[i], chHEF[i], neHEF[i], chEmEF[i], neEmEF[i], muEF[i], chMultiplicity[i], neMultiplicity[i], chMultiplicity[i]+neMultiplicity[i]});

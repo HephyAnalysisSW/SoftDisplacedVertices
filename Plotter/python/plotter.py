@@ -87,6 +87,16 @@ class Plotter:
                 ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
                 self.f1.Close()
 
+        if self.cfg['corrections'] is not None:
+            if 'jetid' in self.cfg['corrections'] and self.cfg['corrections']['jetid'] is not None:
+                assert str(self.year) in self.cfg['corrections']['jetid'], "Year {} not defined in jetid!".format(self.year)
+                ROOT.gInterpreter.ProcessLine('auto jetidf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['path']))
+                ROOT.gInterpreter.ProcessLine('auto jetideva = jetidf->at("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['name']))
+            if 'jetmapveto' in self.cfg['corrections'] and self.cfg['corrections']['jetmapveto'] is not None:
+                assert str(self.year) in self.cfg['corrections']['jetmapveto'], "Year {} not defined in jetmapveto!".format(self.year)
+                ROOT.gInterpreter.ProcessLine('auto jetmepvetof = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['path']))
+                ROOT.gInterpreter.ProcessLine('auto jetmapvetoeva = jetmepvetof->at("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['name']))
+
     def setJERC(self):
         # read the config file that includes the path and tag names of the corrections
         jerc_config = "{}/src/SoftDisplacedVertices/Plotter/data/JecConfigAK4.json".format(os.environ['CMSSW_BASE'])
@@ -136,26 +146,18 @@ class Plotter:
       if 'corrections' in self.cfg and self.cfg['corrections'] is not None:
         if 'PU' in self.cfg['corrections'] and self.cfg['corrections']['PU'] is not None:
           assert str(self.year) in self.cfg['corrections']['PU'], "Year {} not defined in PU correction!".format(self.year)
-          ROOT.gInterpreter.Declare('auto puf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['path']))
-          ROOT.gInterpreter.Declare('auto pu = puf->at("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['name']))
+          ROOT.gInterpreter.ProcessLine('auto puf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['path']))
+          ROOT.gInterpreter.ProcessLine('auto pu = puf->at("{}");'.format(self.cfg['corrections']['PU'][str(self.year)]['name']))
         if 'electron' in self.cfg['corrections'] and self.cfg['corrections']['electron'] is not None:
           assert str(self.year) in self.cfg['corrections']['electron'], "Year {} not defined in electron correction!".format(self.year)
-          ROOT.gInterpreter.Declare('auto elec = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['path']))
-          ROOT.gInterpreter.Declare('auto elesf = elec->at("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['name']))
+          ROOT.gInterpreter.ProcessLine('auto elec = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['path']))
+          ROOT.gInterpreter.ProcessLine('auto elesf = elec->at("{}");'.format(self.cfg['corrections']['electron'][str(self.year)]['name']))
         if 'photon' in self.cfg['corrections'] and self.cfg['corrections']['photon'] is not None:
-          ROOT.gInterpreter.Declare('auto phoc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['path']))
-          ROOT.gInterpreter.Declare('auto phosf = phoc->at("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['name']))
+          ROOT.gInterpreter.ProcessLine('auto phoc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['path']))
+          ROOT.gInterpreter.ProcessLine('auto phosf = phoc->at("{}");'.format(self.cfg['corrections']['photon'][str(self.year)]['name']))
         if 'muon' in self.cfg['corrections'] and self.cfg['corrections']['muon'] is not None:
-          ROOT.gInterpreter.Declare('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['path']))
-          ROOT.gInterpreter.Declare('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['name']))
-        if 'jetid' in self.cfg['corrections'] and self.cfg['corrections']['jetid'] is not None:
-            assert str(self.year) in self.cfg['corrections']['jetid'], "Year {} not defined in jetid!".format(self.year)
-            ROOT.gInterpreter.Declare('auto jetidf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['path']))
-            ROOT.gInterpreter.Declare('auto jetideva = jetidf->at("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['name']))
-        if 'jetmapveto' in self.cfg['corrections'] and self.cfg['corrections']['jetmapveto'] is not None:
-            assert str(self.year) in self.cfg['corrections']['jetmapveto'], "Year {} not defined in jetmapveto!".format(self.year)
-            ROOT.gInterpreter.Declare('auto jetmepvetof = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['path']))
-            ROOT.gInterpreter.Declare('auto jetmapvetoeva = jetmepvetof->at("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['name']))
+          ROOT.gInterpreter.ProcessLine('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['path']))
+          ROOT.gInterpreter.ProcessLine('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['name']))
 
     def applyCorrections(self,d):
       self.weightstr = ''
@@ -246,10 +248,11 @@ class Plotter:
         d = d.DefinePerSample("year",'"{}"'.format(self.year))
         # MET xy corrections
         # FIXME: this should be different for run2 and run3
-        if ('2017' in self.year) or ('2018' in self.year):
-            d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
-            d = d.Define("MET_pt_corr",'MET_corr.first')
-            d = d.Define("MET_phi_corr",'MET_corr.second')
+        if ("corrections" in self.cfg) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
+            if ('2017' in self.year) or ('2018' in self.year):
+                d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
+                d = d.Define("MET_pt_corr",'MET_corr.first')
+                d = d.Define("MET_phi_corr",'MET_corr.second')
         if ('mapveto' in self.cfg):
           d = d.Define("SDVSecVtx_mapveto","return ROOT::VecOps::Map(SDVSecVtx_x,SDVSecVtx_y, [](float x, float y){return h_mm->GetBinContent(h_mm->FindBin(x,y)) > 0.01;})")
         vars_to_define = ['new_variables']
@@ -322,6 +325,7 @@ class Plotter:
       - Filter events
       - Produce normalisation weights based on xsec
       '''
+      print(self.filelist)
       d = ROOT.RDataFrame("Events",self.filelist)
       d = self.AddVars(d)
       d = self.AddVarsWithSelection(d)

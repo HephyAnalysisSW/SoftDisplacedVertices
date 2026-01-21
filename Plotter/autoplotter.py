@@ -5,6 +5,7 @@ import os
 import math
 import uuid
 import shutil
+import ROOT
 import SoftDisplacedVertices.Plotter.plotter as p
 import SoftDisplacedVertices.Plotter.plot_setting as ps
 import SoftDisplacedVertices.Samples.Samples as s
