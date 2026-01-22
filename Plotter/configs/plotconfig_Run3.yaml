@@ -1,0 +1,64 @@
+muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
+ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
+tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
+jet_sel: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20)
+jet_sel_mapveto: (Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)
+
+presel: MET_pt>0 && veto_jet_sel_ecalBadCalib==0
+
+corrections:
+    #PU:
+    #    "2018":
+    #        path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+    #        name: "Collisions18_UltraLegacy_goldenJSON"
+    #        mode: "nominal"
+    jetid:
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
+            name: "AK4PUPPI_TightLeptonVeto"
+    jetmapveto:
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22CDSep23-Summer22-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22_23Sep2023_RunCD_V1"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22EE_23Sep2023_RunEFG_V1"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23CSep23-Summer23-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23Prompt23_RunC_V1"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23BPixPrompt23_RunD_V1"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetvetomaps.json.gz"
+            name: "Summer24Prompt24_RunBCDEFGHI_V1"
+    metxy: False
+    JERC: True
+
+new_variables:
+    veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
+
+regions:
+  All: 
+  #MET: MET_pt_corr > 200
+event_variables:
+    - MET_pt_corr
+    - MET_phi_corr
+event_2d_plots:
+
+objects:
+    Jet:
+        selections:
+            all:
+        variables:
+        - Jet_pt_corr
+        - Jet_mass_corr
+          
+        2d_plots:
+
+plot_setting:
+    MET_pt_corr: [MET_pt_corr,'MET_corr_pt',100,0,1000]
+    MET_phi_corr: [MET_phi_corr,'MET_corr_phi',128,-3.2,3.2]
+    Jet_pt_corr: [Jet_pt_corr,'Jet_pt_corr',100,0,1000]
+    Jet_mass_corr: [Jet_mass_corr,'Jet_mass_corr',100,0,1000]

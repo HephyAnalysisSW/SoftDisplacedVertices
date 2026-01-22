@@ -967,6 +967,17 @@ stop_2024 = [
     Sample("stop_M1000_988_ct0p2_2024", xsec=0.00683),
         ]
 
+muon_2022Pre = [
+    Sample("muon2022prec", xsec=-1),
+    Sample("muon2022pred", xsec=-1),
+        ]
+
+muon_2022Post = [
+    Sample("muon2022poste", xsec=-1),
+    Sample("muon2022postf", xsec=-1),
+    Sample("muon2022postg", xsec=-1),
+        ]
+
 all_samples = [
     met_2017,
     wlnu_2017,
@@ -988,6 +999,8 @@ all_samples = [
     MLstudy_2018,
     c1n2_2024,
     stop_2024,
+    muon_2022Pre,
+    muon_2022Post,
 ]
 
 all_signals = [

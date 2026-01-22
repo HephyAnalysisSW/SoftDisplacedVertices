@@ -228,7 +228,7 @@ float Muon_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF et
 }
 
 ROOT::RVecB GetJetID(ROOT::RVecU jetid, ROOT::RVecF eta, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF) {
-    ROOT::RVecB jetid;
+    ROOT::RVecB jetid_new;
     for (size_t i=0; i<eta.size(); ++i) {
         bool Jet_passJetIdTight = false;
         if (abs(eta[i]) <= 2.7) Jet_passJetIdTight = jetid[i] & (1 << 1);
@@ -238,9 +238,9 @@ ROOT::RVecB GetJetID(ROOT::RVecU jetid, ROOT::RVecF eta, ROOT::RVecF neHEF, ROOT
         bool Jet_passJetIdTightLepVeto = false;
         if (abs(eta[i]) <= 2.7) Jet_passJetIdTightLepVeto = Jet_passJetIdTight && (muEF[i] < 0.8) && (chEmEF[i] < 0.8);
         else Jet_passJetIdTightLepVeto = Jet_passJetIdTight;
-        jetid.push_back(jetid);
+        jetid_new.push_back(Jet_passJetIdTightLepVeto);
     }
-    return jetid;
+    return jetid_new;
 }
 
 ROOT::RVecB GetJetID(correction::Correction::Ref evaluator, ROOT::RVecF eta, ROOT::RVecF chHEF, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF, ROOT::RVecI chMultiplicity, ROOT::RVecI neMultiplicity) {
@@ -253,6 +253,7 @@ ROOT::RVecB GetJetID(correction::Correction::Ref evaluator, ROOT::RVecF eta, ROO
 }
 
 ROOT::RVecF GetJetVeto(correction::Correction::Ref evaluator, std::string type, ROOT::RVecF eta, ROOT::RVecF phi) {
+    // Non-zero values means vetoed
     ROOT::RVecF vetoed;
     for (size_t i=0; i<eta.size(); ++i) {
         float res = evaluator->evaluate({type, eta[i], phi[i]});

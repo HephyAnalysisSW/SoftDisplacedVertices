@@ -89,9 +89,10 @@ class Plotter:
 
         if self.cfg['corrections'] is not None:
             if 'jetid' in self.cfg['corrections'] and self.cfg['corrections']['jetid'] is not None:
-                assert str(self.year) in self.cfg['corrections']['jetid'], "Year {} not defined in jetid!".format(self.year)
-                ROOT.gInterpreter.ProcessLine('auto jetidf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['path']))
-                ROOT.gInterpreter.ProcessLine('auto jetideva = jetidf->at("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['name']))
+                if str(self.year)=="2024":
+                    assert str(self.year) in self.cfg['corrections']['jetid'], "Year {} not defined in jetid!".format(self.year)
+                    ROOT.gInterpreter.ProcessLine('auto jetidf = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['path']))
+                    ROOT.gInterpreter.ProcessLine('auto jetideva = jetidf->at("{}");'.format(self.cfg['corrections']['jetid'][str(self.year)]['name']))
             if 'jetmapveto' in self.cfg['corrections'] and self.cfg['corrections']['jetmapveto'] is not None:
                 assert str(self.year) in self.cfg['corrections']['jetmapveto'], "Year {} not defined in jetmapveto!".format(self.year)
                 ROOT.gInterpreter.ProcessLine('auto jetmepvetof = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['path']))
@@ -243,12 +244,52 @@ class Plotter:
       print("No sum weight record found for {}!".format(self.s.name))
       return -1
     
+    def AddJERCVars(self,d):
+        d = d.Define('CorrT1METJet_rawFactor','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
+        d = d.Define('CorrT1METJet_chEmEF','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
+        d = d.Define('CorrT1METJet_neEmEF','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
+        d = d.Define('METJet_area','ROOT::VecOps::Concatenate(Jet_area,CorrT1METJet_area)')
+        d = d.Define('METJet_eta','ROOT::VecOps::Concatenate(Jet_eta,CorrT1METJet_eta)')
+        d = d.Define('METJet_phi','ROOT::VecOps::Concatenate(Jet_phi,CorrT1METJet_phi)')
+        d = d.Define('METJet_pt','ROOT::VecOps::Concatenate(Jet_pt,CorrT1METJet_rawPt)')
+        d = d.Define('METJet_rawFactor','ROOT::VecOps::Concatenate(Jet_rawFactor,CorrT1METJet_rawFactor)')
+        d = d.Define('METJet_muonSubtrFactor','ROOT::VecOps::Concatenate(Jet_muonSubtrFactor, CorrT1METJet_muonSubtrFactor)')
+        d = d.Define('METJet_chEmEF','ROOT::VecOps::Concatenate(Jet_chEmEF,CorrT1METJet_chEmEF)')
+        d = d.Define('METJet_neEmEF','ROOT::VecOps::Concatenate(Jet_neEmEF,CorrT1METJet_neEmEF)')
+        if self.isData:
+            d = d.Define('JERC_jet_ptmass','JERC_jet_data(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll)')
+            d = d.Define('JERC_MET_ptphi','JERC_MET_data(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll)')
+        else:
+            d = d.Define('CorrT1METJet_genJetIdx','genJetIdx_CorrT1METJet(CorrT1METJet_eta, CorrT1METJet_phi, GenJet_eta, GenJet_phi)')
+            d = d.Define('METJet_genJetIdx','ROOT::VecOps::Concatenate(Jet_genJetIdx,CorrT1METJet_genJetIdx)')
+            d = d.Define('JERC_jet_ptmass','JERC_jet_MC(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi)')
+            d = d.Define('JERC_MET_ptphi','JERC_MET_MC(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi )')
+
+        d = d.Define('Jet_pt_corr','JERC_jet_ptmass.first')
+        d = d.Define('Jet_mass_corr','JERC_jet_ptmass.second')
+        d = d.Define('MET_pt_corr','JERC_MET_ptphi.first')
+        d = d.Define('MET_phi_corr','JERC_MET_ptphi.second')
+
+        return d
+
+    def AddJetID(self,d):
+        if "2024" in self.year:
+            d = d.Define("Jet_jetId_TightLepVeto","GetJetID(jetideva,Jet_eta,Jet_chHEF,Jet_neHEF,Jet_chEmEF,Jet_neEmEF,Jet_muEF,Jet_chMultiplicity,Jet_neMultiplicity)")
+        elif ("2022" in self.year) or ("2023" in self.year):
+            d = d.Define("Jet_jetId_TightLepVeto","GetJetID(Jet_jetId,Jet_eta,Jet_neHEF,Jet_chEmEF,Jet_neEmEF,Jet_muEF)")
+        return d
+
     def AddVars(self,d):
         # Add years first
         d = d.DefinePerSample("year",'"{}"'.format(self.year))
+        d = d.DefinePerSample("isData",'{}'.format(1 if self.isData else 0))
+        # Apply JERC 
+        if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('JERC' in self.cfg['corrections']) and (self.cfg['corrections']['JERC']):
+            d = self.AddJERCVars(d)
+        d = self.AddJetID(d)
         # MET xy corrections
         # FIXME: this should be different for run2 and run3
-        if ("corrections" in self.cfg) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
+        if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
             if ('2017' in self.year) or ('2018' in self.year):
                 d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
                 d = d.Define("MET_pt_corr",'MET_corr.first')
@@ -325,7 +366,6 @@ class Plotter:
       - Filter events
       - Produce normalisation weights based on xsec
       '''
-      print(self.filelist)
       d = ROOT.RDataFrame("Events",self.filelist)
       d = self.AddVars(d)
       d = self.AddVarsWithSelection(d)

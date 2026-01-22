@@ -1,0 +1,11 @@
+{
+    "CustomNanoAOD": {
+        "dataset": {
+            "muon2022prec": "/Muon/wuzh-Run2022C_nano_v1-00000000000000000000000000000000/USER",
+            "muon2022pred": "/Muon/wuzh-Run2022D_nano_v1-00000000000000000000000000000000/USER",
+            "muon2022poste": "/Muon/wuzh-Run2022E_nano_v1-00000000000000000000000000000000/USER",
+            "muon2022postf": "/Muon/wuzh-Run2022F_nano_v1-00000000000000000000000000000000/USER",
+            "muon2022postg": "/Muon/wuzh-Run2022G_nano_v1-00000000000000000000000000000000/USER"
+        }
+    }
+}

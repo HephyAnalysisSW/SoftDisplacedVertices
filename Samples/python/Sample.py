@@ -42,7 +42,7 @@ class Sample:
 
   def getFileList(self, label, namebase):
     #FIXME: Make this work for DBS
-    assert (label in self.dirs) or (label in self.eosdirs)
+    assert (label in self.dirs) or (label in self.eosdirs) or (label in self.dataset)
     fileNames = []
     if label in self.dirs:
       for root, dirs, files in os.walk(self.dirs[label]):
@@ -63,6 +63,17 @@ class Sample:
             dirstack.append(d_temp+ele.name)
           elif (namebase in ele.name) and (ele.name.endswith('.root')):
             fileNames.append(redirector+d_temp+ele.name)
+    elif label in self.dataset:
+        redir = "root://cms-xrd-global.cern.ch/"
+        if self.dataset_instance[label]=="phys03":
+            redir = "root://eos.grid.vbc.ac.at/"
+        dbs='dasgoclient -query="file dataset={} instance=prod/{}"'.format(self.dataset[label],self.dataset_instance[label])
+        dbsOut = os.popen(dbs).readlines()
+        for line in dbsOut:
+            if line.startswith('/store/'):
+                fileNames.append(redir+line.rstrip())
+            else:
+                print("ignored line {}".format(line))
     else:
       print("No files found for {}!".format(self.name))
 
