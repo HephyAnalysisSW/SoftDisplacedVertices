@@ -243,6 +243,13 @@ class Plotter:
         return sample_info[i]['totalsumWeights']
       print("No sum weight record found for {}!".format(self.s.name))
       return -1
+
+    def ApplyNoiseFilters(self,d):
+        if ('2022' in self.year) or ('2023' in self.year):
+            d = d.Filter("Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_eeBadScFilter")
+        elif ('2024' in self.year):
+            d = d.Filter("Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter")
+        return d
     
     def AddJERCVars(self,d):
         d = d.Define('CorrT1METJet_rawFactor','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
@@ -280,6 +287,7 @@ class Plotter:
         return d
 
     def AddVars(self,d):
+        d = self.ApplyNoiseFilters(d)
         # Add years first
         d = d.DefinePerSample("year",'"{}"'.format(self.year))
         d = d.DefinePerSample("isData",'{}'.format(1 if self.isData else 0))
