@@ -5,7 +5,13 @@
             "muon2022pred": "/Muon/wuzh-Run2022D_nano_v1-00000000000000000000000000000000/USER",
             "muon2022poste": "/Muon/wuzh-Run2022E_nano_v1-00000000000000000000000000000000/USER",
             "muon2022postf": "/Muon/wuzh-Run2022F_nano_v1-00000000000000000000000000000000/USER",
-            "muon2022postg": "/Muon/wuzh-Run2022G_nano_v1-00000000000000000000000000000000/USER"
+            "muon2022postg": "/Muon/wuzh-Run2022G_nano_v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jets_2022pre":"/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jets_2022post":"/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1-00000000000000000000000000000000/USER"
+        },
+        "totalsumWeights": {
+            "wjetstolnu4jets_2022pre":     11088691133724.3,
+            "wjetstolnu4jets_2022post": 43912646977129.375
         }
     }
 }

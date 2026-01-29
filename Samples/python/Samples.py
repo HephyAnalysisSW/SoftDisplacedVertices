@@ -967,10 +967,18 @@ stop_2024 = [
     Sample("stop_M1000_988_ct0p2_2024", xsec=0.00683),
         ]
 
+wlnu_2022Pre = [
+    Sample("wjetstolnu4jets_2022pre",xsec=55390.0),
+    ]
+
 muon_2022Pre = [
     Sample("muon2022prec", xsec=-1),
     Sample("muon2022pred", xsec=-1),
         ]
+
+wlnu_2022Post = [
+    Sample("wjetstolnu4jets_2022post",xsec=55390.0),
+    ]
 
 muon_2022Post = [
     Sample("muon2022poste", xsec=-1),
@@ -999,7 +1007,9 @@ all_samples = [
     MLstudy_2018,
     c1n2_2024,
     stop_2024,
+    wlnu_2022Pre,
     muon_2022Pre,
+    wlnu_2022Post,
     muon_2022Post,
 ]
 
