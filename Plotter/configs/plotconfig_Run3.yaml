@@ -1,18 +1,34 @@
-muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
-ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
-photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
-tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
+muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
+ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
+tau_sel: (Tau_idDeepTau2018v2p5VSmu>0) && (Tau_idDeepTau2018v2p5VSe>0) && (Tau_idDeepTau2018v2p5VSjet>0) && (abs(Tau_eta)<2.5) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
 jet_sel: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20)
 jet_sel_mapveto: (Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)
 
-presel: MET_pt>0 && veto_jet_sel_ecalBadCalib==0
+presel: HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && MET_pt_corr>200 && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 
 corrections:
-    #PU:
-    #    "2018":
-    #        path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-    #        name: "Collisions18_UltraLegacy_goldenJSON"
-    #        mode: "nominal"
+    PU:
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22CDSep23-Summer22-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_355100_357900_eraBCD_GoldenJson"
+            mode: "nominal"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_359022_362760_eraEFG_GoldenJson"
+            mode: "nominal"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23CSep23-Summer23-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_366403_369802_eraBC_GoldenJson"
+            mode: "nominal"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_369803_370790_eraD_GoldenJson"
+            mode: "nominal"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/puWeights_BCDEFGHI.json.gz"
+            name: "Collisions24_BCDEFGHI_goldenJSON"
+            mode: "nominal"
     jetid:
         "2024":
             path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
@@ -38,6 +54,24 @@ corrections:
 
 new_variables:
     veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
+    Jet_pt_sel: ['Jet_pt_corr[{0}]',jet_sel]
+    Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
+    Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
+    Jet_chHEF_sel: ['Jet_chHEF[{0}]',jet_sel]
+    Jet_neHEF_sel: ['Jet_neHEF[{0}]',jet_sel]
+    Jet_nConstituents_sel: ['Jet_nConstituents[{0}]',jet_sel]
+    nJet_sel: ['Sum({0})',jet_sel]
+    leadingjet_pt: Jet_pt_sel[0]
+    leadingjet_phi: Jet_phi_sel[0]
+    leadingjet_eta: Jet_eta_sel[0]
+    leadingjet_chHEF: Jet_chHEF_sel[0]
+    leadingjet_neHEF: Jet_neHEF_sel[0]
+    leadingjet_nConstituents: Jet_nConstituents_sel[0]
+    dphi_MET_jet0: acos(cos(leadingjet_phi-MET_phi_corr))
+    nMuon_sel: ['Sum({0})', muon_sel]
+    nEle_sel: ['Sum({0})', ele_sel]
+    nPhoton_sel: ['Sum({0})', photon_sel]
+    nTau_sel: ['Sum({0})', tau_sel]
 
 regions:
   All: 

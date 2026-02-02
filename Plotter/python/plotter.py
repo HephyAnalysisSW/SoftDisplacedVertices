@@ -286,15 +286,25 @@ class Plotter:
             d = d.Define("Jet_jetId_TightLepVeto","GetJetID(Jet_jetId,Jet_eta,Jet_neHEF,Jet_chEmEF,Jet_neEmEF,Jet_muEF)")
         return d
 
+    def applyJvm(self,d):
+        d = d.Define('Jet_mapveto','GetJetVeto(jetmapvetoeva, "jetvetomap", Jet_eta, Jet_phi)')
+        d = d.Define('Jet_sel_mapveto','(Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)')
+        d = d.Define('nJet_mapvetoed','Sum(Jet_mapveto[Jet_sel_mapveto])')
+
+        d = d.Filter('nJet_mapvetoed==0')
+        return d
+
     def AddVars(self,d):
         d = self.ApplyNoiseFilters(d)
         # Add years first
         d = d.DefinePerSample("year",'"{}"'.format(self.year))
         d = d.DefinePerSample("isData",'{}'.format(1 if self.isData else 0))
         # Apply JERC 
-        if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('JERC' in self.cfg['corrections']) and (self.cfg['corrections']['JERC']):
-            d = self.AddJERCVars(d)
-        d = self.AddJetID(d)
+        if ('2022' in self.year) or ('2023' in self.year) or ('2024' in self.year):
+            if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('JERC' in self.cfg['corrections']) and (self.cfg['corrections']['JERC']):
+                d = self.AddJERCVars(d)
+            d = self.AddJetID(d)
+            d = self.applyJvm(d)
         # MET xy corrections
         # FIXME: this should be different for run2 and run3
         if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
