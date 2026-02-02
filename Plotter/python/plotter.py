@@ -75,17 +75,16 @@ class Plotter:
                             self.cfg['objects'][o]['variables'] = self.cfg['objects'][o]['variables_data']
 
         if ('mapveto' in self.cfg):
-            if 'material' in self.cfg['mapveto'] and self.cfg['mapveto']['material'] is not None:
-                mappath = ''
-                if self.isData:
-                    assert 'data_path' in self.cfg['mapveto'], "data_path not available in config!"
-                    mappath = self.cfg['mapveto']['data_path']
-                else:
-                    assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
-                    mappath = self.cfg['mapveto']['mc_path']
-                self.f1 = ROOT.TFile.Open(mappath)
-                ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
-                self.f1.Close()
+            mappath = ''
+            if self.isData:
+                assert 'data_path' in self.cfg['mapveto'], "data_path not available in config!"
+                mappath = self.cfg['mapveto']['data_path']
+            else:
+                assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
+                mappath = self.cfg['mapveto']['mc_path']
+            self.f1 = ROOT.TFile.Open(mappath)
+            ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
+            self.f1.Close()
 
         if self.cfg['corrections'] is not None:
             if 'jetid' in self.cfg['corrections'] and self.cfg['corrections']['jetid'] is not None:
@@ -249,9 +248,15 @@ class Plotter:
             d = d.Filter("Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_eeBadScFilter")
         elif ('2024' in self.year):
             d = d.Filter("Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter")
+        elif ('2017' in self.year) or ('2018' in self.year):
+            d = d.Filter("Flag_goodVertices && Flag_globalSuperTightHalo2016Filter && Flag_HBHENoiseFilter && Flag_HBHENoiseIsoFilter && Flag_EcalDeadCellTriggerPrimitiveFilter && Flag_BadPFMuonFilter && Flag_BadPFMuonDzFilter && Flag_hfNoisyHitsFilter && Flag_eeBadScFilter && Flag_ecalBadCalibFilter")
+        else:
+            raise Exception("No noise filters implemented for year {}!".format(self.year))
         return d
     
     def AddJERCVars(self,d):
+        if not (('2022' in self.year) or ('2023' in self.year) or ('2024' in self.year)):
+            raise Exception("Recalculating JERC variables not implemented for year {}!".format(self.year))
         d = d.Define('CorrT1METJet_rawFactor','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
         d = d.Define('CorrT1METJet_chEmEF','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
         d = d.Define('CorrT1METJet_neEmEF','ROOT::VecOps::RVec<float>(CorrT1METJet_area.size(),0)')
@@ -280,6 +285,8 @@ class Plotter:
         return d
 
     def AddJetID(self,d):
+        if not (('2022' in self.year) or ('2023' in self.year) or ('2024' in self.year)):
+            raise Exception("Recalculating JetID not implemented for year {}!".format(self.year))
         if "2024" in self.year:
             d = d.Define("Jet_jetId_TightLepVeto","GetJetID(jetideva,Jet_eta,Jet_chHEF,Jet_neHEF,Jet_chEmEF,Jet_neEmEF,Jet_muEF,Jet_chMultiplicity,Jet_neMultiplicity)")
         elif ("2022" in self.year) or ("2023" in self.year):
@@ -287,6 +294,8 @@ class Plotter:
         return d
 
     def applyJvm(self,d):
+        if not (('2022' in self.year) or ('2023' in self.year) or ('2024' in self.year)):
+            raise Exception("Jet map veto not implemented for year {}!".format(self.year))
         d = d.Define('Jet_mapveto','GetJetVeto(jetmapvetoeva, "jetvetomap", Jet_eta, Jet_phi)')
         d = d.Define('Jet_sel_mapveto','(Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)')
         d = d.Define('nJet_mapvetoed','Sum(Jet_mapveto[Jet_sel_mapveto])')
@@ -306,7 +315,7 @@ class Plotter:
             d = self.AddJetID(d)
             d = self.applyJvm(d)
         # MET xy corrections
-        # FIXME: this should be different for run2 and run3
+        # FIXME: Is this needed for run3?
         if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
             if ('2017' in self.year) or ('2018' in self.year):
                 d = d.Define("MET_corr",'SDV::METXYCorr_Met_MetPhi(MET_pt,MET_phi,run,"{}",{},PV_npvs)'.format(self.year,"false" if self.isData else "true"))
