@@ -336,11 +336,10 @@ class Plotter:
                 var_define = self.cfg[v][newvar]
               d = d.Define(newvar,var_define)
         # HEM veto for 2018 data
-        if self.year=="2018" and self.isData:
-        #if self.year=="2018":
-          d = d.Define("nJetHEM", self.cfg['nJetHEM'])
-        else:
-          d = d.Define("nJetHEM", "0")
+        #if self.year=="2018" and self.isData:
+        #  d = d.Define("nJetHEM", self.cfg['nJetHEM'])
+        #else:
+        #  d = d.Define("nJetHEM", "0")
         return d
     
     def AddVarsWithSelection(self,d):
