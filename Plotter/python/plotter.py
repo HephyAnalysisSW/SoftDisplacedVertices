@@ -313,7 +313,8 @@ class Plotter:
             if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('JERC' in self.cfg['corrections']) and (self.cfg['corrections']['JERC']):
                 d = self.AddJERCVars(d)
             d = self.AddJetID(d)
-            d = self.applyJvm(d)
+            if ("corrections" in self.cfg) and ('jetmapveto' in self.cfg['corrections']) and (self.cfg['corrections']['jetmapveto'] is not None) and ('use' in self.cfg['corrections']['jetmapveto']) and (self.cfg['corrections']['jetmapveto']['use']):
+                d = self.applyJvm(d)
         # MET xy corrections
         # FIXME: Is this needed for run3?
         if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
