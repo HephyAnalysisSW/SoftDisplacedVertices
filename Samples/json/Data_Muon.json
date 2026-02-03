@@ -6,12 +6,24 @@
             "muon2022poste": "/Muon/wuzh-Run2022E_nano_v1-00000000000000000000000000000000/USER",
             "muon2022postf": "/Muon/wuzh-Run2022F_nano_v1-00000000000000000000000000000000/USER",
             "muon2022postg": "/Muon/wuzh-Run2022G_nano_v1-00000000000000000000000000000000/USER",
+
             "wjetstolnu4jets_2022pre":"/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1-00000000000000000000000000000000/USER",
-            "wjetstolnu4jets_2022post":"/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1-00000000000000000000000000000000/USER"
+            "wjetstolnu4jets_2022post":"/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1-00000000000000000000000000000000/USER",
+
+            "muon02023prec": "/Muon0/wuzh-Run2023C_nano_v1-00000000000000000000000000000000/USER",
+            "muon12023prec": "/Muon1/wuzh-Run2023C_nano_v1-00000000000000000000000000000000/USER",
+            "muon02023postd": "/Muon0/wuzh-Run2023D_nano_v1-00000000000000000000000000000000/USER",
+            "muon12023postd": "/Muon1/wuzh-Run2023D_nano_v1-00000000000000000000000000000000/USER",
+
+            "wjetstolnu4jets_2023pre": "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer23CustomNanoAODv12-130X_mcRun3_2023_realistic_v14-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jets_2023post": "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1-00000000000000000000000000000000/USER"
+
         },
         "totalsumWeights": {
             "wjetstolnu4jets_2022pre":     11088691133724.3,
-            "wjetstolnu4jets_2022post": 43912646977129.375
+            "wjetstolnu4jets_2022post": 43912646977129.375,
+            "wjetstolnu4jets_2023pre":   23517689261848.203,
+            "wjetstolnu4jets_2023post":   11932667489629.225
         }
     }
 }

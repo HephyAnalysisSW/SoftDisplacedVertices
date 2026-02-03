@@ -986,6 +986,24 @@ muon_2022Post = [
     Sample("muon2022postg", xsec=-1),
         ]
 
+wlnu_2023Pre = [
+    Sample("wjetstolnu4jets_2023pre",xsec=55390.0),
+    ]
+
+muon_2023Pre = [
+    Sample("muon02023prec", xsec=-1),
+    Sample("muon12023prec", xsec=-1),
+        ]
+
+wlnu_2023Post = [
+    Sample("wjetstolnu4jets_2023post",xsec=55390.0),
+    ]
+
+muon_2023Post = [
+    Sample("muon02023postd", xsec=-1),
+    Sample("muon12023postd", xsec=-1),
+        ]
+
 all_samples = [
     met_2017,
     wlnu_2017,
@@ -1011,6 +1029,10 @@ all_samples = [
     muon_2022Pre,
     wlnu_2022Post,
     muon_2022Post,
+    wlnu_2023Pre,
+    muon_2023Pre,
+    wlnu_2023Post,
+    muon_2023Post,
 ]
 
 all_signals = [
