@@ -65,6 +65,11 @@ process.options = cms.untracked.PSet(
     wantSummary = cms.untracked.bool(False)
 )
 
+#Setup FWK for multithreaded
+process.options.numberOfThreads=cms.untracked.uint32(2)
+process.options.numberOfStreams=cms.untracked.uint32(0)
+process.options.numberOfConcurrentLuminosityBlocks=cms.untracked.uint32(1)
+
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
     annotation = cms.untracked.string('CustomMiniAOD nevts:-1'),

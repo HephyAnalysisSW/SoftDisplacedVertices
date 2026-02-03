@@ -44,8 +44,6 @@ MFVGenAOD = cms.EDProducer('MFVRecowithGenAOD',
                              verbose = cms.untracked.bool(False),
                              gensrc = cms.InputTag("genParticles"),
                              pvToken = cms.InputTag("offlineSlimmedPrimaryVertices"),
-                             LLPid_ = cms.vint32(1000006),
-                             LSPid_ = cms.int32(1000022),
                              )
 
 MFVGenMINIAOD = cms.EDProducer('MFVRecowithGenMINIAOD',
@@ -83,6 +81,4 @@ MFVGenMINIAOD = cms.EDProducer('MFVRecowithGenMINIAOD',
                              verbose = cms.untracked.bool(False),
                              gensrc = cms.InputTag("genParticles"),
                              pvToken = cms.InputTag("offlineSlimmedPrimaryVertices"),
-                             LLPid_ = cms.vint32(1000023), #1000006 for stop 1000023 for C1N2
-                             LSPid_ = cms.int32(1000022),
                              )

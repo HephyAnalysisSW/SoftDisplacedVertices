@@ -7,6 +7,9 @@
 <use name="DataFormats/Candidate"/>
 <use name="RecoVertex/VertexTools"/>
 <use name="RecoVertex/VertexPrimitives"/>
+<use name="TrackingTools/IPTools"/>
+<use name="TrackingTools/Records"/>
+<use name="TrackingTools/TransientTrack"/>
 
 <use name="FWCore/ParameterSet"/>
 <use name="FWCore/Framework"/>

@@ -283,6 +283,8 @@ all_samples = [
 all_signals = [
     stop_2018,
     c1n2_2018,
+    stop_MLtraining_2018,
+    c1n2_lowdm_2018,
 ]
 
 all_bkg_2018 = [
