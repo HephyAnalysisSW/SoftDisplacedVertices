@@ -11,10 +11,14 @@ import argparse
 import subprocess
 import json
 import logger
+import shutil
 #import logger
 
+from XRootD import client
+from XRootD.client.flags import MkDirFlags
+
 class cmsRunJob:
-  def __init__(self,title="job",logLevel = "INFO", input = None, instance = "global", redirector = "root://cms-xrd-global.cern.ch/", targetDir = None, cfg = None, limit = 0, n_split = None, n_files = 0):
+  def __init__(self,title="job",logLevel = "INFO", input = None, instance = "global", redirector = "root://cms-xrd-global.cern.ch/", targetDir = None, target_redirector = None, cfg = None, limit = 0, n_split = None, n_files = 0):
     #Log level for logging
     self.logLevel = logLevel
     #dbs:<DAS name>, local directory, or file with filenames
@@ -25,6 +29,11 @@ class cmsRunJob:
     self.redirector = redirector
     #output director
     self.targetDir = targetDir
+    #target directory redirector (if on eos)
+    self.eosfs = None
+    self.target_redirector = target_redirector
+    if target_redirector is not None:
+        self.eosfs = client.FileSystem(target_redirector)
     #Which config.
     self.cfg = cfg
     #Limit DAS query?
@@ -62,6 +71,9 @@ class cmsRunJob:
     self.redirector = "root://cms-xrd-global.cern.ch/"
     #output director
     self.targetDir = None
+    #target directory redirector (if on eos)
+    self.target_redirector = None
+    self.eosfs = None
     #Limit DAS query?
     self.limit = 0
     #Number of jobs.
@@ -75,7 +87,7 @@ class cmsRunJob:
         }
     self.jobname = "job.sh"
 
-  def setJob(self,title="job",input = None, instance = "global", redirector = "root://cms-xrd-global.cern.ch/", targetDir = None, limit = 0, n_split = None, n_files = 0):
+  def setJob(self,title="job",input = None, instance = "global", redirector = "root://cms-xrd-global.cern.ch/", targetDir = None, target_redirector = None, limit = 0, n_split = None, n_files = 0):
     #dbs:<DAS name>, local directory, or file with filenames
     self.input = input
     #DAS instance.
@@ -84,6 +96,11 @@ class cmsRunJob:
     self.redirector = redirector
     #output director
     self.targetDir = targetDir
+    #target directory redirector (if on eos)
+    self.eosfs = None
+    self.target_redirector = target_redirector
+    if target_redirector is not None:
+        self.eosfs = client.FileSystem(target_redirector)
     #Limit DAS query?
     self.limit = limit
     #Number of jobs.
@@ -96,6 +113,8 @@ class cmsRunJob:
         "outname":"out",
         }
     self.jobname = "job_{}.sh".format(title)
+    user          = os.getenv("USER")
+    self.batch_tmp     = "/scratch-cbe/users/%s/SoftDV/jobs/%s/input"%(user,self.jobname.replace(".sh",''))
 
   def isValid(self):
     if self.input is None or self.targetDir is None or self.cfg is None:
@@ -103,6 +122,20 @@ class cmsRunJob:
     if self.module is None:
       return False
     return True
+
+  def createDir(self, newdir, redirector=None):
+    if redirector is not None:
+        # check dir exists on eos
+        status, _ = self.eosfs.stat(newdir)
+        if not status.ok:
+            status, _ = self.eosfs.mkdir(newdir, flags=MkDirFlags.MAKEPATH)
+        if status.ok:
+            self.logger.debug( 'Created job directory %s', newdir )
+        else:
+            self.logger.error( 'Failed to create directory %s', newdir )
+    elif not os.path.exists( newdir ):
+        os.makedirs( newdir )
+        self.logger.debug( 'Created job directory %s', newdir )
 
   def prepare(self):
     assert self.isValid()
@@ -151,7 +184,7 @@ class cmsRunJob:
             ''' Partition list into chunks of approximately equal size'''
             # http://stackoverflow.com/questions/2659900/python-slicing-a-list-into-n-nearly-equal-length-partitions
             n_division = len(lst) / float(n)
-            return [ lst[int(round(n_division * i)): int(round(n_division * (i + 1)))] for i in xrange(n) ]
+            return [ lst[int(round(n_division * i)): int(round(n_division * (i + 1)))] for i in range(n) ]
     
         # 1 job / file as default
         if self.n_split is None:
@@ -168,83 +201,124 @@ class cmsRunJob:
     
     targetDir = os.path.join( self.targetDir, subDirName )
     self.info["jobdir"] = targetDir
-    if not os.path.exists( targetDir ):
-        os.makedirs( targetDir )
-        self.logger.debug( 'Created job directory %s', targetDir )
+    self.createDir(targetDir,self.target_redirector)
 
     targetDir_out = os.path.join(targetDir, 'output')
     self.info["output"] = targetDir_out
-    if not os.path.exists( targetDir_out ):
-        os.makedirs( targetDir_out )
-        self.logger.debug( 'Created output directory %s', targetDir_out )
+    self.createDir(targetDir_out,self.target_redirector)
     
     targetDir_fs = os.path.join( self.targetDir, subDirName, 'fs')
-    if not os.path.exists( targetDir_fs ):
-        os.makedirs( targetDir_fs )
-        self.logger.debug( 'Created TFileService output directory %s', targetDir_fs )
+    self.createDir(targetDir_fs,self.target_redirector)
     
-    user          = os.getenv("USER")
-    #batch_tmp     = "/scratch/%s/batch_input/"%(user)
-    batch_tmp     = os.path.join(self.info["jobdir"],"input")
+    targetDir_in  = os.path.join(self.info["jobdir"],"input")
+
+    if os.path.exists(self.batch_tmp):
+        print("Tmp path {} exists, removing...".format(self.batch_tmp))
+        shutil.rmtree(self.batch_tmp)
     
-    if not os.path.exists( batch_tmp):
-        os.makedirs( batch_tmp )
-        self.logger.debug( 'Created directory %s', batch_tmp)
+    self.createDir(self.batch_tmp)
+    self.createDir(targetDir_in,self.target_redirector)
     
     # write the configs
     import FWCore.ParameterSet.Config as cms
+
+    files_tomove = []
+    # set output
+    for out_name, output_module in self.module.process.outputModules.items():
+        files_tomove.append(output_module.fileName.value())
+    # set output from TFileService
+    if hasattr( self.module.process, "TFileService" ):
+        files_tomove.append(self.module.process.TFileService.fileName.value())
+    
+    # set maxEvents to -1 if not GEN
+    if files is not None:
+        if hasattr( self.module.process, "maxEvents" ):
+            assert(self.module.process.maxEvents.input==-1), "maxEvent not -1!"
+    # dump cfg
+    out_cfg_name_local = 'job_cfg.py'
+    out_cfg_name_tmp = os.path.join( self.batch_tmp, out_cfg_name_local )
+    out_cfg_name = os.path.join( targetDir_in, out_cfg_name_local )
+    #shutil.copy(self.cfg,out_cfg_name_tmp)
+    if self.eosfs is None:
+        shutil.copy(self.cfg,out_cfg_name)
+    else:
+        cmd = f'xrdcp {self.cfg} {self.target_redirector}{out_cfg_name}'
+        proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        assert proc.returncode==0, f"{cmd} failed."
+    self.logger.debug("Config copied %s", out_cfg_name)
+
     import uuid
     if os.path.exists(self.jobname):
       self.logger.warning("{} already exists, will remove the previous one...".format(self.jobname))
       os.remove(self.jobname)
-    with file(self.jobname, 'a+') as job_file:
+    with open(self.jobname, 'a+') as job_file:
         for i_chunk, chunk in enumerate(chunks):
-            # set input if not GEN
-            if files is not None:
-                self.module.process.source.fileNames = cms.untracked.vstring(map(lambda filename: self.redirector+filename, chunk))
             uuid_ =  str(uuid.uuid4())
             run_dir = '/tmp/%s/'%uuid_
             if not os.path.exists( run_dir ):
                 os.makedirs( run_dir )
-            move_cmds = []
-            # set output
-            for out_name, output_module in self.module.process.outputModules.iteritems():
-                output_filename     = 'out_%s_%i.root'%(out_name, i_chunk)
-                output_tmp_filename = 'out_%s_%i_%s.root'%(out_name, i_chunk, uuid_ )
-                output_module.fileName  = cms.untracked.string(os.path.join(run_dir, output_tmp_filename))
-                move_cmds.append( (os.path.join(run_dir, output_tmp_filename), os.path.join(targetDir_out, output_filename)) )
-            # set output from TFileService
-            if hasattr( self.module.process, "TFileService" ):
-                output_filename_fs   = 'fs_%i.root'%(i_chunk)
-                output_tmp_filename_fs = 'fs_%i_%s.root'%(i_chunk, uuid_ )
-                self.module.process.TFileService.fileName = cms.string(os.path.join(run_dir, output_tmp_filename_fs))
-                move_cmds.append( (os.path.join(run_dir, output_tmp_filename_fs), os.path.join(targetDir_fs, output_filename_fs)) )
-    
-            # set maxEvents to -1 if not GEN
+
+            if self.eosfs is None:
+                input_cmds = "cp {} {};".format(out_cfg_name,os.path.join(run_dir,out_cfg_name_local))
+            else:
+                input_cmds = "xrdcp {}/{} {};".format(self.target_redirector,out_cfg_name,os.path.join(run_dir,out_cfg_name_local))
             if files is not None:
-                if hasattr( self.module.process, "maxEvents" ):
-                    self.module.process.maxEvents.input = cms.untracked.int32(-1)
-            # dump cfg
-            out_cfg_name = os.path.join( batch_tmp, str(uuid.uuid4()).replace('-','_')+'.py' )
-            with file(out_cfg_name, 'w') as out_cfg:
-                out_cfg.write(self.module.process.dumpPython())
-            self.logger.debug("Written %s", out_cfg_name)
+                intputfn_local = "input_list.txt"
+                intputfn_tmp = os.path.join(self.batch_tmp,"input_list_%i.txt"%(i_chunk))
+                intputfn = os.path.join(targetDir_in,"input_list_%i.txt"%(i_chunk))
+                with open(intputfn_tmp,"w") as f_inputlist:
+                    for ic in chunk:
+                        f_inputlist.write(self.redirector+ic+"\n")
+
+                input_cmds += "cp {} {};".format(intputfn_tmp,os.path.join(run_dir,intputfn_local))
+                #if self.eosfs is None:
+                #    #shutil.copy(intputfn_tmp,intputfn)
+                #    input_cmds += "cp {} {};".format(intputfn,os.path.join(run_dir,intputfn_local))
+                #else:
+                #    #cmd = f'xrdcp {intputfn_tmp} {self.target_redirector}{intputfn}'
+                #    #proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                #    #assert proc.returncode==0, f"{cmd} failed."
+                #    input_cmds += "xrdcp {}/{} {};".format(self.target_redirector,intputfn,os.path.join(run_dir,intputfn_local))
+
+            move_cmds = []
+            for ifile in files_tomove:
+                move_cmds.append( (ifile,os.path.join(targetDir_out, ifile.replace('.root','_%i.root'%(i_chunk)))) )
     
             move_string =  ";" if len(move_cmds)>0 else ""
-            move_string += ";".join(["mv %s %s"%move_cmd for move_cmd in move_cmds])
-            job_file.write('mkdir -p %s; cd %s;cmsRun %s'%( run_dir, run_dir, out_cfg_name + move_string + '\n'))
+            if self.eosfs is None:
+                move_string += ";".join(["mv %s %s"%move_cmd for move_cmd in move_cmds])
+                move_string += ";cp {} {};".format(intputfn_local,intputfn)
+            else:
+                move_string += ";".join([f"xrdcp {move_cmd[0]} {self.target_redirector}/{move_cmd[1]}" for move_cmd in move_cmds])
+                move_string += ";xrdcp {} {}/{};".format(intputfn_local,self.target_redirector,intputfn)
+            job_file.write('set -e;mkdir -p %s; cd %s;%s cmsRun %s'%( run_dir, run_dir, input_cmds, out_cfg_name_local + move_string + '\n'))
 
   def submit(self, dryrun=False):
     assert os.path.exists(self.jobname)
     self.logger.info("Submitting jobs")
     logdir = os.path.join(self.info["jobdir"],"log")
-    if not os.path.exists( logdir):
-        os.makedirs( logdir)
+    self.createDir(logdir,self.target_redirector)
     if not dryrun:
-      p = subprocess.Popen(args="submit {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
+      p = subprocess.Popen(args="/groups/hephy/cms/ang.li/Tools/scripts/submit_el8 {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel),stdout = subprocess.PIPE,stderr = subprocess.STDOUT, shell=True)
       self.logger.debug(p.stdout.read())
     self.logger.info("Archiving {}".format(self.jobname))
-    shutil.move(self.jobname,os.path.join(self.info["jobdir"],"input",self.jobname))
-    with open(os.path.join(logdir,"jobinfo.json"),"w") as f:
+
+    if self.eosfs is None:
+        shutil.copy(self.jobname,os.path.join(self.info["jobdir"],"input",self.jobname))
+    else:
+        cmd = f'xrdcp {self.jobname} {self.target_redirector}/{os.path.join(self.info["jobdir"],"input",self.jobname)}'
+        proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        assert proc.returncode==0, f"{cmd} failed."
+    self.logger.debug("Job file moved %s", os.path.join(self.info["jobdir"],"input",self.jobname))
+
+    with open(os.path.join(self.batch_tmp,"jobinfo.json"),"w") as f:
       json.dump(self.info,f,indent=2)
+    if self.eosfs is None:
+        shutil.copy(os.path.join(self.batch_tmp,"jobinfo.json"),os.path.join(logdir,"jobinfo.json"))
+    else:
+        cmd = f'xrdcp {os.path.join(self.batch_tmp,"jobinfo.json")} {self.target_redirector}/{os.path.join(logdir,"jobinfo.json")}'
+        proc = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        assert proc.returncode==0, f"{cmd} failed."
+    self.logger.debug("Json file moved %s", os.path.join(logdir,"jobinfo.json"))
+    return "/groups/hephy/cms/ang.li/Tools/scripts/submit_el8 {0} --output={1} --title={2} --logLevel={3}".format(self.jobname,logdir,self.info["title"],self.logLevel)
 

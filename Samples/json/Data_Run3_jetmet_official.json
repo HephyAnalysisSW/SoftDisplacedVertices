@@ -1,6 +1,6 @@
 {
     "AOD": {
-        "datasets": {
+        "dataset": {
 
             "jetmet_2022c":     "/JetMET/Run2022C-27Jun2023-v1/AOD",
             "jetmet_2022d":     "/JetMET/Run2022D-27Jun2023-v2/AOD",
@@ -42,14 +42,12 @@
 
     "CustomMiniAOD": {
         "dir": {
-            
         },
         
         "logical_dir": {
-
         },
 
-        "datasets": {
+        "dataset": {
 
         }
     },
@@ -62,7 +60,7 @@
             
         },
 
-        "datasets": {
+        "dataset": {
 
         }
     }

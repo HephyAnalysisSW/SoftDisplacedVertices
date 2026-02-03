@@ -2,6 +2,7 @@
 
 import sys
 import json
+import argparse
 import optparse
 
 import ROOT
@@ -30,14 +31,14 @@ def merge_ranges(lumis):
     return merged
 
 
-def main(output_json, files):
+def main(output_json, files, redirector=''):
     all_runs = {}
 
     print("Reading MiniAOD EDM files:")
     for f in files:
         print(f)
         try:
-            lumis = Lumis(f)
+            lumis = Lumis(redirector+f)
         except Exception as e:
             print("  !! Failed to open with FWLite:", f)
             print("     Error:", e)
@@ -75,6 +76,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     output_json = sys.argv[1]
-    input_files = sys.argv[2:]
+    redirector = sys.argv[2]
+    input_files = sys.argv[3:]
 
-    main(output_json, input_files) 
+    main(output_json, input_files, redirector) 

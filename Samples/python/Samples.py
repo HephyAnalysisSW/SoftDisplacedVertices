@@ -46,7 +46,7 @@ def _set_signal_stuff(sample):
     sample.mass = _mass(sample)
     sample.massLSP = _massLSP(sample)
 
-def loadData(samples, json_path, label):
+def loadData(samples, json_path, label, instance='phys03'):
   with open(json_path,'r') as fj:
     d = json.load(fj)
 
@@ -59,7 +59,7 @@ def loadData(samples, json_path, label):
     if ('totalsumWeights' in d[label]) and (s.name in d[label]['totalsumWeights']):
       s.setNEvents(label,d[label]['totalsumWeights'][s.name])
     if ("dataset" in d[label]) and (s.name in d[label]["dataset"]):
-      s.setDataset(label=label,dataset=d[label]["dataset"][s.name],instance='phys03')
+      s.setDataset(label=label,dataset=d[label]["dataset"][s.name],instance=instance)
       setable = True
     if ("dir" in d[label]) and (s.name in d[label]["dir"]):
       s.setDirs(label=label,dirs=d[label]["dir"][s.name])
@@ -251,6 +251,18 @@ c1n2_2018 = [
     # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
+met_2022 = [
+    Sample("jetmet_2022c", xsec=-1),
+    Sample("jetmet_2022d", xsec=-1),
+    Sample("jetmet_2022e", xsec=-1),
+    Sample("jetmet_2022f", xsec=-1),
+    Sample("jetmet_2022g", xsec=-1),
+    ]
+
+# 2023
+wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
+
+
 all_samples = [
     met_2017,
     wlnu_2017,
@@ -264,7 +276,8 @@ all_samples = [
     qcd_2018,
     stop_2018,
     c1n2_2018,
-    top_2018
+    top_2018,
+    met_2022
 ]
 
 all_signals = [
@@ -285,8 +298,6 @@ all_sig_2018 = [
   *c1n2_2018
 ]
 
-# 2023
-wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
 
 for samples in all_samples:
   for s in samples:
