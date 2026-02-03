@@ -65,7 +65,7 @@ files_per_job = 2
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/vtx_PART_859_epoch_87_test1_copy.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/SDVSecVtx_ParT.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
 unique_dir  = "vtx_PART_859_epoch_87_test1_copy"

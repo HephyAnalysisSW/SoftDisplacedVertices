@@ -12,21 +12,21 @@ bjetmedium:      (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet
 bjettight:       (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && Jet_btagDeepFlavB>0.71
 nJetHEM: "Sum((Jet_eta_selHEM>-3.0) && (Jet_eta_selHEM<-1.3) && (Jet_phi_selHEM>-1.57) && (Jet_phi_selHEM<-0.87))"
 
-presel:       MET_pt_corr>200                                                          &&
-              Flag_goodVertices                                                        &&
-              Flag_globalSuperTightHalo2016Filter                                      &&
-              Flag_HBHENoiseFilter                                                     && 
-              Flag_HBHENoiseIsoFilter                                                  && 
-              Flag_EcalDeadCellTriggerPrimitiveFilter                                  && 
-              Flag_BadPFMuonFilter                                                     && 
-              Flag_BadPFMuonDzFilter                                                   && 
-              Flag_hfNoisyHitsFilter                                                   && 
-              Flag_BadChargedCandidateFilter                                           && 
-              Flag_eeBadScFilter                                                       && 
-              Flag_ecalBadCalibFilter                                                  &&
-              HLT_PFMETNoMu120_PFMHTNoMu120_IDTight                                    &&
-              nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0             &&
-              nJet_sel > 0 && leadingjet_pt > 100 && nJetHEM == 0 && dphi_MET_jet0 > 1.0
+presel:          MET_pt_corr>180                                                          &&
+                 Flag_goodVertices                                                        &&
+                 Flag_globalSuperTightHalo2016Filter                                      &&
+                 Flag_HBHENoiseFilter                                                     && 
+                 Flag_HBHENoiseIsoFilter                                                  && 
+                 Flag_EcalDeadCellTriggerPrimitiveFilter                                  && 
+                 Flag_BadPFMuonFilter                                                     && 
+                 Flag_BadPFMuonDzFilter                                                   && 
+                 Flag_hfNoisyHitsFilter                                                   && 
+                 Flag_BadChargedCandidateFilter                                           && 
+                 Flag_eeBadScFilter                                                       && 
+                 Flag_ecalBadCalibFilter                                                  &&
+                 HLT_PFMETNoMu120_PFMHTNoMu120_IDTight                                    &&
+                 nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0             &&
+                 nJet_sel > 0 && leadingjet_pt > 100 && nJetHEM == 0 && dphi_MET_jet0 > 1.0
 
 corrections:
   PU:
@@ -93,9 +93,6 @@ new_variables:
 
   # define vertex vars
   # ------------------------------------------------------------------------
-  SDVSecVtx_EEt: get_EEt(SDVSecVtx_pt, SDVSecVtx_L_eta, SDVSecVtx_L_phi, SDVSecVtx_mass)
-  SDVSecVtx_E:  SDVSecVtx_EEt[0]
-  SDVSecVtx_Et: SDVSecVtx_EEt[1]
 
   SDVSecVtx_ngoodtk:  SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx, SDVIdxLUT_TrackIdx, SDVTrack_isGoodTrack,   nSDVSecVtx)
   SDVSecVtx_ngoodtkb: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx, SDVIdxLUT_TrackIdx, SDVTrack_isGoodTrack_b, nSDVSecVtx)
@@ -195,20 +192,20 @@ new_variables:
   SDVSecVtx_closestbJet_btagDeepFlavB_tight:  ROOT::VecOps::Take(Jet_btagDeepFlavB[bjettight],  SDVSecVtx_closestbJetidx_tight)
 
 
-  ML1: vtx_PART_931_epoch_397_p1
-  ML2: vtx_PART_931_epoch_397_p2
+  ML_score: vtx_PART_1111best_valloss_epoch
 
-  ML12: ML1 * ML2
-  Max_ML12: Max(ML12)
-  ArgMax_ML12: ArgMax(ML12)
+  ML_score_clone1 : ML_score
+  ML_score_clone2 : ML_score
 
-  leading_vtx_ML1: ML1[ArgMax_ML12]
-  leading_vtx_ML2: ML2[ArgMax_ML12]
+  Max_ML_score:        Max(ML_score)
+  Max_ML_score_clone1: Max(ML_score_clone1)
+  Max_ML_score_clone2: Max(ML_score_clone2)
+
 
   # define track vars
   # ------------------------------------------------------------------------
 
-  SDVTrack_vtx_ML_score: Track_getVtxVar(SDVIdxLUT_TrackIdx, nSDVTrack, SDVIdxLUT_SecVtxIdx, ML12, float(-1.0))
+  SDVTrack_vtx_ML_score: Track_getVtxVar(SDVIdxLUT_TrackIdx, nSDVTrack, SDVIdxLUT_SecVtxIdx, ML_score, float(-1.0))
 
 
   # define vertex selections
@@ -223,19 +220,23 @@ new_variables:
   b0_sel_medium_nodR:                                        SDVSecVtx_ndof>1
 
 
-  
-  # SP2_vertexCuts:  SDVSecVtx_ngoodtkb>=2 && SDVSecVtx_mapveto==0
-  # SP1_vertexCuts:  SDVSecVtx_ngoodtkb>=1 && SDVSecVtx_mapveto==0
-  
-  SP2_vertexCuts_dphi: SDVSecVtx_mapveto==0 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=2
-  SP1_vertexCuts_dphi: SDVSecVtx_mapveto==0 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=1
-  SP_vertexCuts_dphi:  SDVSecVtx_mapveto==0 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1
-  CP_vertexCuts_dphi:  SDVSecVtx_mapveto==0 && SDVSecVtx_dphiMET>=1.5 && SDVSecVtx_dphijet0>0.4 && SDVSecVtx_dphijet0<=1
-  
-  nGoodVtx_SP2_dphi:   Sum(SP2_vertexCuts_dphi)
-  nGoodVtx_SP1_dphi:   Sum(SP1_vertexCuts_dphi)
-  nGoodVtx_SP_dphi:    Sum(SP_vertexCuts_dphi)
-  nGoodVtx_CP_dphi:    Sum(CP_vertexCuts_dphi)
+  SP2_vertexCuts:  SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=2 && SDVSecVtx_mapveto==0
+  SP1_vertexCuts:  SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=1 && SDVSecVtx_mapveto==0
+  SP_vertexCuts:   SDVSecVtx_dphiMET< 1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_mapveto==0
+  CP_vertexCuts:   SDVSecVtx_dphiMET>=1.5 && SDVSecVtx_dphijet0>0.4 && SDVSecVtx_dphijet0<1 && SDVSecVtx_mapveto==0
+  material:        SDVSecVtx_mapveto==1
+
+  nGoodVtx_SP2:   Sum(SP2_vertexCuts)
+  nGoodVtx_SP1:   Sum(SP1_vertexCuts)
+  nGoodVtx_SP:    Sum(SP_vertexCuts)
+  nGoodVtx_CP:    Sum(CP_vertexCuts)
+  nGoodVtx_material: Sum(material)
+
+  SP2_Max_ML_score: Max(ML_score[SP2_vertexCuts])
+  SP1_Max_ML_score: Max(ML_score[SP1_vertexCuts])
+  SP_Max_ML_score:  Max(ML_score[SP_vertexCuts])
+  CP_Max_ML_score:  Max(ML_score[CP_vertexCuts])
+  material_Max_ML_score: Max(ML_score[material])
 
 
 
@@ -261,10 +262,10 @@ new_variables_mc:
 
 regions:
   all:
-  SP2: nGoodVtx_SP2_dphi > 0
-  SP1: nGoodVtx_SP1_dphi > 0
-  SP:  nGoodVtx_SP_dphi  > 0
-  CP:  nGoodVtx_CP_dphi  > 0
+  SP2:    nGoodVtx_SP2 > 0
+  SP1:    nGoodVtx_SP1 > 0
+  SP:     nGoodVtx_SP  > 0
+  CP:     nGoodVtx_SP == 0 && nGoodVtx_CP > 0
 
 
 event_variables:
@@ -273,35 +274,47 @@ event_variables:
 - dphi_MET_jet0
 - nJet_sel
 - nJet_sel_fromvetomap
+- Max_ML_score
+- Max_ML_score_clone1
+- Max_ML_score_clone2
+- SP2_Max_ML_score
+- SP1_Max_ML_score
+- SP_Max_ML_score
+- CP_Max_ML_score
+- material_Max_ML_score
 - leadingjet_pt
-- leading_vtx_ML1
-- leading_vtx_ML2
-- Max_ML12
+- nGoodVtx_SP2
+- nGoodVtx_SP1
+- nGoodVtx_SP
+- nGoodVtx_CP
 
 event_variables_mc:
   - nbJet_gen
 event_2d_plots:
-  - [leading_vtx_ML1, leading_vtx_ML2]
+  - [MET_pt_corr, Max_ML_score]
+  - [MET_pt_corr, Max_ML_score_clone1]
+  - [MET_pt_corr, Max_ML_score_clone2]
+  - [MET_pt_corr, SP2_Max_ML_score]
+  - [MET_pt_corr, SP1_Max_ML_score]
+  - [MET_pt_corr, SP_Max_ML_score]
+  - [MET_pt_corr, CP_Max_ML_score]
 
 objects:
   SDVSecVtx:
     selections:
       all:
-      ML00: ML12 < 0.50
-      ML50: ML12 >= 0.50 && ML12 < 0.80
-      ML80: ML12 >= 0.80 && ML12 < 0.90
-      ML90: ML12 >= 0.90
-      # leading: ArgMax_ML12
+      # potatoML:                  ML_score < 0.5
+      # loML:     ML_score >= 0.5 && ML_score < 0.96
+      # hiML:     ML_score >= 0.96
+      exhiML:   ML_score >= 0.99
+      # exhiML_and_cutBased1:   ML_score >= 0.98 && SDVSecVtx_pAngle>0.1 && SDVSecVtx_dphiMET<1.5
+      # exhiML_and_cutBased2:   ML_score >= 0.98 && SDVSecVtx_pAngle>0.1 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1
+      # exhiML_and_cutBased3_1: ML_score >= 0.98 && SDVSecVtx_pAngle>0.1 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=1
+      # exhiML_and_cutBased3_2: ML_score >= 0.98 && SDVSecVtx_pAngle>0.1 && SDVSecVtx_dphiMET<1.5 && SDVSecVtx_dphijet0>1 && SDVSecVtx_ngoodtk>=2
       # genmatch: SDVSecVtx_matchedLLPnDau_bydau > 1
 
     variables:
-
-      - SDVSecVtx_pt
-      - SDVSecVtx_L_eta
-      - SDVSecVtx_L_phi
       - SDVSecVtx_mass
-      - SDVSecVtx_E
-      - SDVSecVtx_Et
       - SDVSecVtx_Lxy
       - SDVSecVtx_LxySig
       - SDVSecVtx_pAngle
@@ -341,21 +354,19 @@ objects:
       - SDVSecVtx_TkMindxy
       - SDVSecVtx_TkMaxdxy
       
-      - ML1
-      - ML2
-      - ML12
+      - ML_score
+      - ML_score_clone1
+      - ML_score_clone2
 
     
-  #   variables_mc:
-  #     - SDVSecVtx_closestbJetdR_gen
-  #     - SDVSecVtx_closestbJetdphi_gen
-  #     - SDVSecVtx_closestbJetdeta_gen
-  #     - SDVSecVtx_closestbJet_btagDeepFlavB_gen
+    variables_mc:
+      - SDVSecVtx_closestbJetdR_gen
+      - SDVSecVtx_closestbJetdphi_gen
+      - SDVSecVtx_closestbJetdeta_gen
+      - SDVSecVtx_closestbJet_btagDeepFlavB_gen
 
     2d_plots:
-      - [ML1, ML2]
-      - [MET_pt_corr,                                ML1]
-      - [MET_pt_corr,                                ML2]
+      # - [MET_pt_corr,                                ML_score_clone1]
       # - [SDVSecVtx_Lxy,                              ML_score_clone1]
       # - [SDVSecVtx_LxySig,                           ML_score_clone1]
       # - [SDVSecVtx_mintkdxy,                         ML_score_clone1]
@@ -370,53 +381,53 @@ objects:
       # - [SDVSecVtx_closestJetdR_vetomapsel,          ML_score_clone1]
       # - [SDVSecVtx_closestbJet_btagDeepFlavB_tight,  ML_score_clone1]
 
-  # SDVTrack:
-  #   selections:
-  #     all:
-  #     sv_tracks: SDVTrack_isInSV
-  #     loML:      SDVTrack_isInSV && SDVTrack_vtx_ML_score >= 0.5  && SDVTrack_vtx_ML_score < 0.96
-  #     hiML:      SDVTrack_isInSV && SDVTrack_vtx_ML_score >= 0.96
+  SDVTrack:
+    selections:
+      all:
+      sv_tracks: SDVTrack_isInSV
+      loML:      SDVTrack_isInSV && SDVTrack_vtx_ML_score >= 0.5  && SDVTrack_vtx_ML_score < 0.96
+      hiML:      SDVTrack_isInSV && SDVTrack_vtx_ML_score >= 0.96
 
-  #   variables:
-  #     - SDVTrack_qoverp
-  #     - SDVTrack_dxySig
-  #     - SDVTrack_dzSig
-  #     - SDVTrack_ptSig
-  #     - SDVTrack_dphi_jet0
-  #     - SDVTrack_deta_jet0
-  #     - SDVTrack_dR_jet0
-  #     - SDVTrack_dphi_MET
-  #     - SDVTrack_dxydzratio
-  #     - SDVTrack_pfRelIso03_all
-  #     - SDVTrack_pfRelIso03_chg
-  #     - SDVTrack_dr03TkSumPt 
-  #     - SDVTrack_normalizedChi2
-  #     - SDVTrack_eta
-  #     - SDVTrack_phi
-  #     - SDVTrack_pt
-  #     - SDVTrack_numberOfValidHits
-  #     - SDVTrack_vtx_ML_score
+    variables:
+      - SDVTrack_qoverp
+      - SDVTrack_dxySig
+      - SDVTrack_dzSig
+      - SDVTrack_ptSig
+      - SDVTrack_dphi_jet0
+      - SDVTrack_deta_jet0
+      - SDVTrack_dR_jet0
+      - SDVTrack_dphi_MET
+      - SDVTrack_dxydzratio
+      - SDVTrack_pfRelIso03_all
+      - SDVTrack_pfRelIso03_chg
+      - SDVTrack_dr03TkSumPt 
+      - SDVTrack_normalizedChi2
+      - SDVTrack_eta
+      - SDVTrack_phi
+      - SDVTrack_pt
+      - SDVTrack_numberOfValidHits
+      - SDVTrack_vtx_ML_score
 
-  #   variables_mc:
+    variables_mc:
 
-  #   2d_plots:
+    2d_plots:
 
 
   
-  # Jet:
-  #   selections:
-  #     # all:
-  #     bjettight:      bjettight
-  #   variables:
-  #     - Jet_btagDeepFlavB
-  #     - Jet_nConstituents
-  #     - Jet_nTracks_dR0p2
-  #     - Jet_nTracks_dR0p4
-  #     - Jet_nTracks_dR0p2_pt1
-  #     - Jet_nTracks_dR0p4_pt1
-  #     - Jet_mass
-  #   2d_plots:
-  #     # - [Jet_mass, Jet_btagDeepFlavB]
+  Jet:
+    selections:
+      # all:
+      bjettight:      bjettight
+    variables:
+      - Jet_btagDeepFlavB
+      - Jet_nConstituents
+      - Jet_nTracks_dR0p2
+      - Jet_nTracks_dR0p4
+      - Jet_nTracks_dR0p2_pt1
+      - Jet_nTracks_dR0p4_pt1
+      - Jet_mass
+    2d_plots:
+      # - [Jet_mass, Jet_btagDeepFlavB]
 
 plot_setting:
   MET_pt_corr:      [MET_pt_corr,   ';MET_corr (GeV);Counts',     20, 0, 1000]
@@ -426,43 +437,29 @@ plot_setting:
   nJet_sel:             [nJet_sel,      ';nJet_sel;Counts',            20, 0, 20]
   nJet_sel_fromvetomap: [nJet_sel_fromvetomap, ';nJet_sel_fromvetomap;Counts', 20, 0, 20]
 
-  # ML_score:             [ML_score,        ';ML_score;Counts',           500, 0.,       1.]
-  # ML_score_clone1:      [ML_score_clone1, ';ML_score_clone1;Counts',    200, 0.998,   1.0]
-  # ML_score_clone2:      [ML_score_clone2,  ';ML_score_clone2 ;Counts',  200, 0.996,   1.0]
+  ML_score:             [ML_score,        ';ML_score;Counts',           500, 0.,       1.]
+  ML_score_clone1:      [ML_score_clone1, ';ML_score_clone1;Counts',    200, 0.998,   1.0]
+  ML_score_clone2:      [ML_score_clone2,  ';ML_score_clone2 ;Counts',  200, 0.996,   1.0]
 
+  Max_ML_score:         [Max_ML_score,         ';Max_ML_score ;Counts',            1000,   0.,   1.0]
+  Max_ML_score_clone1:  [Max_ML_score_clone1,  ';Max_ML_score_clone1 ;Counts',      500, 0.50,   1.0]
+  Max_ML_score_clone2:  [Max_ML_score_clone2,  ';Max_ML_score_clone2 ;Counts',      500, 0.95,   1.0]
 
-  leading_vtx_ML1:      [leading_vtx_ML1,  ';leading_vtx_ML1 ;Counts',  200, 0.,   1.0]
-  leading_vtx_ML2:      [leading_vtx_ML2,  ';leading_vtx_ML2 ;Counts',  200, 0.,   1.0]
-
-  ML1:      [ML1,   ';ML1 ;Counts',  200, 0.,   1.0]
-  ML2:      [ML2,   ';ML2 ;Counts',  200, 0.,   1.0]
-  ML12:     [ML12,  ';ML12 ;Counts', 200, 0.,   1.0]
-
-  Max_ML12:      [Max_ML12,  ';Max_ML12 ;Counts',  200, 0.,   1.0]
-
-  # Max_ML_score:         [Max_ML_score,         ';Max_ML_score ;Counts',             500,   0.,   1.0]
-  # Max_ML_score_clone1:  [Max_ML_score_clone1,  ';Max_ML_score_clone1 ;Counts',      500, 0.50,   1.0]
-  # Max_ML_score_clone2:  [Max_ML_score_clone2,  ';Max_ML_score_clone2 ;Counts',      500, 0.95,   1.0]
-
-  # SP1_Max_ML_score:      [SP1_Max_ML_score,    ';SP1_Max_ML_score ;Counts',         500, 0.95,   1.0]
-  # SP2_Max_ML_score:      [SP2_Max_ML_score,    ';SP2_Max_ML_score ;Counts',         500, 0.95,   1.0]
-  # SP_Max_ML_score:       [SP_Max_ML_score,     ';SP_Max_ML_score ;Counts',          500, 0.95,   1.0]
-  # CP_Max_ML_score:       [CP_Max_ML_score,     ';CP_Max_ML_score ;Counts',          500, 0.95,   1.0]
+  SP1_Max_ML_score:      [SP1_Max_ML_score,      ';SP1_Max_ML_score ;Counts',         10000, 0.0,   1.0]
+  SP2_Max_ML_score:      [SP2_Max_ML_score,      ';SP2_Max_ML_score ;Counts',         10000, 0.0,   1.0]
+  SP_Max_ML_score:       [SP_Max_ML_score,       ';SP_Max_ML_score ;Counts',          10000, 0.0,   1.0]
+  CP_Max_ML_score:       [CP_Max_ML_score,       ';CP_Max_ML_score ;Counts',          10000, 0.0,   1.0]
+  material_Max_ML_score: [material_Max_ML_score, ';material_Max_ML_score ;Counts',    1000, 0.0,   1.0]
 
   nGoodVtx_SP2:  [nGoodVtx_SP2, ';nGoodVtx_SP2 ;Counts', 10, 0, 10]
   nGoodVtx_SP1:  [nGoodVtx_SP1, ';nGoodVtx_SP1 ;Counts', 10, 0, 10]
   nGoodVtx_SP:   [nGoodVtx_SP,  ';nGoodVtx_SP ;Counts',  10, 0, 10]
   nGoodVtx_CP:   [nGoodVtx_CP,  ';nGoodVtx_CP ;Counts',  10, 0, 10]
 
-  # SP_lo_Max_ML_score:   [SP_lo_Max_ML_score, ';SP_lo_Max_ML_score ;Counts', 1000, 0.95, 1.0]
-  # SP_hi_Max_ML_score:   [SP_hi_Max_ML_score, ';SP_hi_Max_ML_score ;Counts', 1000, 0.95, 1.0]
+  SP_lo_Max_ML_score:   [SP_lo_Max_ML_score, ';SP_lo_Max_ML_score ;Counts', 1000, 0.95, 1.0]
+  SP_hi_Max_ML_score:   [SP_hi_Max_ML_score, ';SP_hi_Max_ML_score ;Counts', 1000, 0.95, 1.0]
 
-  SDVSecVtx_pt:         [SDVSecVtx_pt,       ';SDVSecVtx_pt (GeV);Counts', 80, 0, 40]
-  SDVSecVtx_L_eta:        [SDVSecVtx_L_eta,      ';SDVSecVtx_L_eta;Counts',      25, 0, 5]
-  SDVSecVtx_L_phi:        [SDVSecVtx_L_phi,      ';SDVSecVtx_L_phi (rad);Counts', 32, -3.142, 3.142]
-  SDVSecVtx_mass:       [SDVSecVtx_mass,     ';SDVSecVtx_mass (GeV);Counts', 80, 0, 4]
-  SDVSecVtx_E:          [SDVSecVtx_E,        ';SDVSecVtx_E (GeV);Counts',    80, 0, 40]
-  SDVSecVtx_Et:         [SDVSecVtx_Et,       ';SDVSecVtx_Et (GeV);Counts',   80, 0, 40]
+  SDVSecVtx_mass:       [SDVSecVtx_mass,     ';SDVSecVtx_mass (GeV);Counts', 100, 0, 2]
   SDVSecVtx_Lxy:        [SDVSecVtx_Lxy,      ';SDVSecVtx_Lxy (cm);Counts', 40, 0, 40]
   SDVSecVtx_LxySig:     [SDVSecVtx_LxySig,   ';SDVSecVtx_LxySig;Counts', 40, 0, 400]
   SDVSecVtx_pAngle:     [SDVSecVtx_pAngle,   ';SDVSecVtx_pAngle (rad);Counts', 32, 0, 3.2]

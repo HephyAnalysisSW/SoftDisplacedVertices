@@ -38,32 +38,22 @@ tier = {
 }
 
 samples_to_plot = {
-    'sig' : [sample.name for sample in ss.sig_AngML_new],
-    'bkg' : [sample.name for sample in ss.all_bkg_2018],
-    # 'data': [sample.name for sample in ss.met_2018]
+    'sig' : [sample.name for sample in ss.sig_K0_check],
 }
 
-# json_db = {
-#     'sig'  : 'MLNano_merged.json',
-#     'bkg'  : 'MLNano_merged.json',
-#     'data' : 'CustomNanoAOD_GNN_data_merged.json'
-# }
-
 json_db = {
-    'sig'  : 'CustomNanoAOD_GNNAVRIVF_new2.json',
-    'bkg'  : 'CustomNanoAOD_GNNAVRIVF_new2.json',
-    # 'data' : 'CustomNanoAOD_GNN_data_merged.json'
+    'sig'  : 'K0_check.json',
 }
 
 
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/vtx_PART_1065_epoch_18_K0test3.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/vtx_PART_1065_epoch_18_K0_check.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "vtx_PART_1065_epoch_18_K0test4"
-files_per_job = 2
+unique_dir  = "vtx_PART_1065_epoch_18_K0_check"
+files_per_job = 20
 
 
 work_dir   = os.path.join(outDir_base, work_subdir)

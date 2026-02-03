@@ -9,7 +9,7 @@ from collections import defaultdict
 year = 2018
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "vtx_PART_859_epoch_87_test3_reverse"
+unique_dir  = "vtx_PART_1111best_valloss_epoch_test_deltaphi"
 workbase_dir = os.path.join(outDir_base, work_subdir)
 work_dir = os.path.join(workbase_dir, unique_dir)
 
@@ -53,6 +53,7 @@ glob_patterns.append(os.path.join(dirs['sig'], f'stop_M*_ct*_2018_hist*.root'))
 glob_patterns.append(os.path.join(dirs['sig'], f'stopML_M*_ct*_2018_hist*.root'))
 glob_patterns.append(os.path.join(dirs['sig'], f'stopMLstudy_M*_ct*_2018_hist*.root'))
 glob_patterns.append(os.path.join(dirs['sig'], f'C1N2MLstudy_M*_ct*_2018_hist*.root'))
+glob_patterns.append(os.path.join(dirs['sig'], f'C1N2ML_M*_ct*_2018_hist*.root'))
 
 
 files = []
@@ -69,6 +70,7 @@ re_patterns.append(re.compile(r"(stop_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
 re_patterns.append(re.compile(r"(stopML_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
 re_patterns.append(re.compile(r"(stopMLstudy_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
 re_patterns.append(re.compile(r"(C1N2MLstudy_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
+re_patterns.append(re.compile(r"(C1N2ML_M\d+_\d+_ct[^_]+_2018)_hist\d+\.root"))
 
 for f in files:
     for pattern in re_patterns:

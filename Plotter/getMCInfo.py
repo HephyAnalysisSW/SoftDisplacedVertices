@@ -21,6 +21,7 @@ def get_metadata(ss, sample_version):
     json_dict['totalsumWeights'] = dict()
     
     for sp in ss:
+      print('Processing sample: ', sp.name)
       sample_dir = sp.getFileDirs(sample_version)
 
       yaml_dict[sp.name] = {'totalsumWeights': None,
@@ -38,7 +39,11 @@ def get_metadata(ss, sample_version):
             print(" "*4, filename)
             filename_list.append(filename)
             file_path = os.path.join(root, filename)
-            lumis = Lumis(file_path)
+            try:
+                lumis = Lumis(file_path)
+            except:
+                print("[ERROR]             Could not open file:", file_path)
+                continue
             lumisumWeights = []
             lumisumPassWeights = []
             for lumi in lumis:
@@ -142,6 +147,8 @@ if __name__ == '__main__':
     if not os.path.exists(args.outDir):
       os.makedirs(args.outDir)
     
-    input_samples = s.sig_alien
-    s.loadData(input_samples,os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),args.sample_version)
+    input_samples = s.sig_ML_all
+    s.loadData(input_samples,
+               os.path.join(os.environ['CMSSW_BASE'],'src/SoftDisplacedVertices/Samples/json/{}'.format(args.json)),
+               args.sample_version)
     get_metadata(input_samples,args.sample_version)

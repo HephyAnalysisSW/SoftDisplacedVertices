@@ -1,0 +1,12 @@
+{
+    "CustomNanoAOD": {
+        "dir": {
+            "C1N2ML_M500_485_ct20_2018_IVF":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/IVF_test/C1N2ML_M500_485_ct20_2018",
+            "C1N2ML_M500_485_ct20_2018_GNN":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/GNN_test/C1N2ML_M500_485_ct20_2018"
+        },
+        "totalsumWeights": {
+            "C1N2ML_M500_485_ct20_2018_IVF":  100000.0,
+            "C1N2ML_M500_485_ct20_2018_GNN":  100000.0
+            }
+    }
+}

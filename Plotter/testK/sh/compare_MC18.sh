@@ -2,7 +2,7 @@
 
 run_compareK(){
 
-    OUTDIR=$HISTDIR/plots/datavMC/$1
+    OUTDIR=$HISTDIR/plots/MC/$1
     PDFDIR=$OUTDIR/pdf
     PNGDIR=$OUTDIR/png
     LOGPNGDIR=$OUTDIR/logpng
@@ -42,13 +42,14 @@ run_compareK(){
 }
 
 # HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_859_epoch_87_test3
-DATA=$HISTDIR/data/met_2018_hist.root
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_1111best_valloss_epoch_test_MET180
+# DATA=$HISTDIR/data/met_2018_hist.root
 QCD=$HISTDIR/bkg/qcd_2018_hist.root
 WJETS=$HISTDIR/bkg/wjets_2018_hist.root
 ZJETS=$HISTDIR/bkg/zjets_2018_hist.root
 TOP=$HISTDIR/bkg/top_2018_hist.root
-SIGNAL=$HISTDIR/sig/stop_M600_585_ct20_2018_hist.root
+SIGNAL=$HISTDIR/sig/C1N2ML_M500_485_ct20_2018_hist.root
+# SIGNAL=$HISTDIR/sig/stopMLstudy_M1000_988_ct20_2018_hist.root
 
 
 # Extract and process the names directly using a pipeline and a while-read loop

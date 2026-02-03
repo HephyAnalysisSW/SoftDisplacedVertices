@@ -140,7 +140,7 @@ def h_command(h):
     return
 
 def datamccomparison(name,data,mc,scale=False, ratio=True):
-  c = ROOT.TCanvas("c"+name,"c"+name,600,600)
+  c = ROOT.TCanvas("c"+name,"c"+name,1000,1000)
   l = ROOT.TLegend(0.6,0.7,0.9,0.9)
   move_overflows_into_visible_bins(data)
   move_overflows_into_visible_bins(mc)
@@ -173,7 +173,7 @@ def datamccomparison(name,data,mc,scale=False, ratio=True):
   else:
     mc.Draw("histE1")
     data.Draw("PE SAME")
-    c.SetLogy()
+    # c.SetLogy()
 
   l.Draw()
   c.Update()
@@ -184,7 +184,7 @@ def datamccomparison(name,data,mc,scale=False, ratio=True):
 def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
   if colors is None:
     colors = colors_global[:len(hs)]
-  c = ROOT.TCanvas("c"+name,"c"+name,600,600)
+  c = ROOT.TCanvas("c"+name,"c"+name,1000,1000)
   l = ROOT.TLegend(0.6,0.7,0.9,0.9)
   y_max = 0
   y_min = 1
@@ -208,7 +208,8 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
   else:
     for i in range(len(hs)):
       if i==0:
-        hs[i].SetMaximum(10*y_max)
+        hs[i].SetMaximum(1.5*y_max)
+        # hs[i].SetMaximum(10*y_max)
         #hs[i].SetMinimum(0.5*y_min)
         hs[i].DrawClone()
       else:
@@ -221,7 +222,7 @@ def comparehists(name,hs,legend,colors=None,scale=False, ratio=False):
     c.GetUpperPad().SetLogy()
     c.GetUpperPad().BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
   else:
-    c.SetLogy()
+    # c.SetLogy()
     c.BuildLegend(x1=0.58,y1=0.8,x2=0.88,y2=1.0)
 
   c.Update()

@@ -33,15 +33,16 @@ class DotDict(dict):
 
 
 params = DotDict()
-params.scan_x_loCut    = ' '.join([str(s) for s in [0.00]]) # [0.00, 0.20, 0.40, 0.60]])
-params.scan_y_loCut    = ' '.join([str(s) for s in [0.00]]) # [0.00, 0.20, 0.40, 0.60]])
+params.scan_x_loCut    = ' '.join([str(s) for s in [0.00,]])
+params.scan_y_loCut    = ' '.join([str(s) for s in [0.00,]])
 
-params.sigScale        = 1.0
-params.bkgScale        = 1.0
+params.sigScale        = 1.0 # * (100 / 59.683) * ()
+params.bkgScale        = 1.0 # * (100 / 59.683)
 
-params.uniquedir       = 'vtx_PART_859_epoch_87_test3_reverse'
-params.tdir            = 'CP_evt'    # 'CP_evt'
-params.histname        = 'leading_vtx_ML1_vs_leading_vtx_ML2'
+params.uniquedir       = 'vtx_PART_1111best_valloss_epoch_test_deltaphi'
+params.tdir            = 'MET400_SP_evt'
+params.histname        = 'leading_vtx_SP_dphiMET_vs_SP_Max_ML_score'
+# params.histname        = 'MET_pt_corr_vs_SP_Max_ML_score'
 
 USER = os.getenv('USER')
 HISTDIR = Path(f'/scratch-cbe/users/{USER}/AN_plots/ParT_hists')
@@ -67,7 +68,8 @@ print('INFO:    Submitting gridsearch with command:')
 
 
 # params.sigtags = [params.sigtags]
-params.sigtags = ['C1N2MLstudy_M400_388_ct20_2018']                                               # <----- REMOVE THIS LINE TO SUBMIT ALL
+# params.sigtags = ['C1N2MLstudy_M400_388_ct20_2018']                                               # <----- REMOVE THIS LINE TO SUBMIT ALL
+# params.sigtags = ['stop_M600_585_ct20_2018']
 
 for sigtag in params.sigtags:
     command_args = []

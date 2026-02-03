@@ -86,6 +86,7 @@ def makeTables(
                   'Z_noncl_A', 'Z_noncl_B', 'Z_noncl_C', 'Z_noncl_D',
                   # 'Z_noncl_plus1s_A', 'Z_noncl_plus1s_B', 'Z_noncl_plus1s_C', 'Z_noncl_plus1s_D',
                   'noncl', 'noncl_unc',
+                  'delta_A', 'delta_A_unc',
                 ]
     tables = dict()
     for name in tableNames:
@@ -114,7 +115,9 @@ def makeTables(
 
             num   = bkg_NB * bkg_NC
             denom = bkg_NA * bkg_ND
-            noncl = np.abs(1- num/denom) if denom.n > 0 else ufloat(0., 1.)
+            noncl = np.abs(1- num/denom) if denom.n > 0 else ufloat(1., 1.) # Check this line!
+
+            delta_A = bkg_NA - (bkg_NB * bkg_NC) / bkg_ND if bkg_ND > 0 else ufloat(float('nan'),float('nan'))
 
             tables['bkg_NA'].loc[x_boundary, y_boundary] = bkg_NA.n
             tables['bkg_NB'].loc[x_boundary, y_boundary] = bkg_NB.n
@@ -128,6 +131,9 @@ def makeTables(
 
             tables['noncl'].loc[x_boundary, y_boundary]     = noncl.n
             tables['noncl_unc'].loc[x_boundary, y_boundary] = noncl.s
+
+            tables['delta_A'].loc[x_boundary, y_boundary]     = delta_A.n
+            tables['delta_A_unc'].loc[x_boundary, y_boundary] = delta_A.s
             
 
             # ------------ Signals --------------
@@ -150,10 +156,10 @@ def makeTables(
             # ------------ Significance --------------
             eps = 5e-1
 
-            Z_A = ROOT.RooStats.AsimovSignificance(max(eps, sig_NA.n), max(eps, bkg_NA.n), calc_unc(max(eps, bkg_NA.n), max(eps, bkg_NA.s), 0.))
-            Z_B = ROOT.RooStats.AsimovSignificance(max(eps, sig_NB.n), max(eps, bkg_NB.n), calc_unc(max(eps, bkg_NB.n), max(eps, bkg_NB.s), 0.))
-            Z_C = ROOT.RooStats.AsimovSignificance(max(eps, sig_NC.n), max(eps, bkg_NC.n), calc_unc(max(eps, bkg_NC.n), max(eps, bkg_NC.s), 0.))
-            Z_D = ROOT.RooStats.AsimovSignificance(max(eps, sig_ND.n), max(eps, bkg_ND.n), calc_unc(max(eps, bkg_ND.n), max(eps, bkg_ND.s), 0.))
+            Z_A = ROOT.RooStats.AsimovSignificance(sig_NA.n, max(eps, bkg_NA.n), calc_unc(max(eps, bkg_NA.n), max(eps, bkg_NA.s), 0.))
+            Z_B = ROOT.RooStats.AsimovSignificance(sig_NB.n, max(eps, bkg_NB.n), calc_unc(max(eps, bkg_NB.n), max(eps, bkg_NB.s), 0.))
+            Z_C = ROOT.RooStats.AsimovSignificance(sig_NC.n, max(eps, bkg_NC.n), calc_unc(max(eps, bkg_NC.n), max(eps, bkg_NC.s), 0.))
+            Z_D = ROOT.RooStats.AsimovSignificance(sig_ND.n, max(eps, bkg_ND.n), calc_unc(max(eps, bkg_ND.n), max(eps, bkg_ND.s), 0.))
 
             
             tables['Z_A'].loc[x_boundary, y_boundary] = Z_A

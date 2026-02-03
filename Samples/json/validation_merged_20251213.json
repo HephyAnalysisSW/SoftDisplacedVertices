@@ -1,0 +1,9 @@
+{
+    "CustomNanoAOD": {
+        "dir": {
+            "val_20251213_sig": "/scratch-cbe/users/alikaan.gueven/ML_KAAN/CustomNanoAOD_GNNAVRIVF_new2_merged/C1N2MLstudy_M400_388_ct20_2018",
+            "val_20251213_val": "/scratch-cbe/users/alikaan.gueven/ML_KAAN/validation_merged_20251213"
+        }, 
+        "dataset": {}
+    }
+}

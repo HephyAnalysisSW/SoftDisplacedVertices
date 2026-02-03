@@ -707,6 +707,16 @@ ROOT::VecOps::RVec<T> Track_getVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTrack
   return tk_vtxVar;
 }
 
+ROOT::RVecB Track_getVtxVarBool(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecB SDVSecVtx_Var, int fillValue=-1.0){
+  ROOT::RVecI tk_vtxVar(nTracks, fillValue);
+  int i = 0;
+  for (auto& idx : SDVIdxLUT_TrackIdx){
+    tk_vtxVar[idx] = SDVSecVtx_Var[SDVIdxLUT_SecVtxIdx[i]];
+    i++;
+  }
+  return tk_vtxVar;
+}
+
 // This function returns a list with the length of nTracks, each element shows the weight of the track in the SV fit
 ROOT::VecOps::RVec<float> Track_WeightInSV(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecF SDVIdxLUT_TrackWeight, int nTracks){
   ROOT::RVecF tkweight(nTracks,-1);
@@ -907,6 +917,23 @@ std::vector<ROOT::VecOps::RVec<T>> get_EEt(const ROOT::VecOps::RVec<T> &pt,
         out[1][i] = static_cast<T>(p4.Et());
     }
 
+    return out;
+}
+
+// ---------- scalar ----------
+template <typename T>
+std::vector<T> get_EEt_scalar(T pt, T eta, T phi, T mass)
+{
+    std::vector<T> out;
+    out.reserve(2);
+    ROOT::Math::PtEtaPhiMVector p4(
+        static_cast<double>(pt),
+        static_cast<double>(eta),
+        static_cast<double>(phi),
+        static_cast<double>(mass)
+    );
+    out[0] = static_cast<T>(p4.E());
+    out[1] = static_cast<T>(p4.Et());
     return out;
 }
 

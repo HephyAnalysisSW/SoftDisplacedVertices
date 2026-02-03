@@ -31,12 +31,13 @@ run_compareK(){
     mv $OUTDIR/*.png            $PNGDIR
 }
 
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_770_epoch_83
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_1065_epoch_18_K0test4
 
 
 # run_compareK sig stop_M600_585_ct20_2018  all_SDVSecVtx_potatoML all_SDVSecVtx_hiML all_SDVSecVtx_genmatch
-run_compareK bkg all_2018 ML80_evt ML88_evt ML93_evt ML95_evt
-run_compareK bkg all_2018 ML80_SDVSecVtx_ML80 ML88_SDVSecVtx_ML88 ML93_SDVSecVtx_ML93 ML95_SDVSecVtx_ML95
-
-run_compareK sig stop_M600_585_ct20_2018 ML80_evt ML88_evt ML93_evt ML95_evt
-run_compareK sig stop_M600_585_ct20_2018 ML80_SDVSecVtx_ML80 ML88_SDVSecVtx_ML88 ML93_SDVSecVtx_ML93 ML95_SDVSecVtx_ML95
+run_compareK bkg all_2018 SP_SDVSecVtx_SP_00 SP_SDVSecVtx_SP_10 SP_SDVSecVtx_SP_30 SP_SDVSecVtx_SP_50 SP_SDVSecVtx_SP_70
+run_compareK bkg all_2018 SP_SDVTrack_SP_00 SP_SDVTrack_SP_10 SP_SDVTrack_SP_30 SP_SDVTrack_SP_50 SP_SDVTrack_SP_70
+# run_compareK bkg all_2018 ML80_SDVSecVtx_ML80 ML88_SDVSecVtx_ML88 ML93_SDVSecVtx_ML93 ML95_SDVSecVtx_ML95
+# 
+# run_compareK sig stop_M600_585_ct20_2018 ML80_evt ML88_evt ML93_evt ML95_evt
+# run_compareK sig stop_M600_585_ct20_2018 ML80_SDVSecVtx_ML80 ML88_SDVSecVtx_ML88 ML93_SDVSecVtx_ML93 ML95_SDVSecVtx_ML95

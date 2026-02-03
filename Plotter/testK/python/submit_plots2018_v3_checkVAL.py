@@ -31,38 +31,18 @@ def print_info():
     print('-' * 80)
     print()
 
-tier = {
-    'sig'  : 'CustomNanoAOD',
-    'bkg'  : 'CustomNanoAOD',
-    'data' : 'CustomNanoAOD'
-}
-
-samples_to_plot = {
-    'sig' : [sample.name for sample in ss.sig_AngML_new],
-    'bkg' : [sample.name for sample in ss.all_bkg_2018],
-    # 'data': [sample.name for sample in ss.met_2018]
-}
-
-# json_db = {
-#     'sig'  : 'MLNano_merged.json',
-#     'bkg'  : 'MLNano_merged.json',
-#     'data' : 'CustomNanoAOD_GNN_data_merged.json'
-# }
-
-json_db = {
-    'sig'  : 'CustomNanoAOD_GNNAVRIVF_new2.json',
-    'bkg'  : 'CustomNanoAOD_GNNAVRIVF_new2.json',
-    # 'data' : 'CustomNanoAOD_GNN_data_merged.json'
-}
+tier = {'data' : 'CustomNanoAOD'}
+samples_to_plot = {'data': [sample.name for sample in ss.validation_merged_20251213]}
+json_db = {'data' : 'validation_merged_20251213.json'}
 
 
 
 year = 2018
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
-config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/vtx_PART_1065_epoch_18_K0test3.yaml"
+config =           "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/2018/validation_merged_20251213.yaml"
 outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
 work_subdir = "ParT_hists"
-unique_dir  = "vtx_PART_1065_epoch_18_K0test4"
+unique_dir  = "validation_merged_20251213"
 files_per_job = 2
 
 
