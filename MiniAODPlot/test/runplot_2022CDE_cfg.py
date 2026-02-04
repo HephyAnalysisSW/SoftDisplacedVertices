@@ -32,7 +32,7 @@ process.trig_filter = hlt.hltHighLevel.clone(
     )
 
 process.noise_filter = hlt.hltHighLevel.clone(
-    TriggerResultsTag = cms.InputTag("TriggerResults","","PAT"),
+    TriggerResultsTag = cms.InputTag("TriggerResults","","MINI"),
     HLTPaths = ['Flag_goodVertices','Flag_globalSuperTightHalo2016Filter','Flag_EcalDeadCellTriggerPrimitiveFilter','Flag_BadPFMuonFilter','Flag_BadPFMuonDzFilter','Flag_hfNoisyHitsFilter','Flag_eeBadScFilter'],
     andOr = False,
     throw = True

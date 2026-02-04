@@ -251,17 +251,57 @@ c1n2_2018 = [
     # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
-met_2022 = [
-    Sample("jetmet_2022c", xsec=-1),
-    Sample("jetmet_2022d", xsec=-1),
-    Sample("jetmet_2022e", xsec=-1),
-    Sample("jetmet_2022f", xsec=-1),
-    Sample("jetmet_2022g", xsec=-1),
-    ]
 
 # 2023
 wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
 
+met_2022Pre = [
+        Sample("jetmet_2022c", xsec=-1),
+        Sample("jetmet_2022d", xsec=-1),
+        ]
+
+met_2022Post = [
+        Sample("jetmet_2022e", xsec=-1),
+        Sample("jetmet_2022f", xsec=-1),
+        Sample("jetmet_2022g", xsec=-1),
+        ]
+
+met_2023Pre = [
+        Sample("jetmet0_2023c1", xsec=-1),
+        Sample("jetmet0_2023c2", xsec=-1),
+        Sample("jetmet0_2023c3", xsec=-1),
+        Sample("jetmet0_2023c4", xsec=-1),
+        Sample("jetmet1_2023c1", xsec=-1),
+        Sample("jetmet1_2023c2", xsec=-1),
+        Sample("jetmet1_2023c3", xsec=-1),
+        Sample("jetmet1_2023c4", xsec=-1),
+        ]
+
+met_2023Post = [
+        Sample("jetmet0_2023d1", xsec=-1),
+        Sample("jetmet0_2023d2", xsec=-1),
+        Sample("jetmet1_2023d1", xsec=-1),
+        Sample("jetmet1_2023d2", xsec=-1),
+        ]
+
+met_2024 = [
+        Sample("jetmet0_2024c", xsec=-1),
+        Sample("jetmet0_2024d", xsec=-1),
+        Sample("jetmet0_2024e", xsec=-1),
+        Sample("jetmet0_2024f", xsec=-1),
+        Sample("jetmet0_2024g", xsec=-1),
+        Sample("jetmet0_2024h", xsec=-1),
+        Sample("jetmet0_2024i1", xsec=-1),
+        Sample("jetmet0_2024i2", xsec=-1),
+        Sample("jetmet1_2024c", xsec=-1),
+        Sample("jetmet1_2024d", xsec=-1),
+        Sample("jetmet1_2024e", xsec=-1),
+        Sample("jetmet1_2024f", xsec=-1),
+        Sample("jetmet1_2024g", xsec=-1),
+        Sample("jetmet1_2024h", xsec=-1),
+        Sample("jetmet1_2024i1", xsec=-1),
+        Sample("jetmet1_2024i2", xsec=-1),
+        ]
 
 all_samples = [
     met_2017,
@@ -277,7 +317,11 @@ all_samples = [
     stop_2018,
     c1n2_2018,
     top_2018,
-    met_2022
+    met_2022Pre,
+    met_2022Post,
+    met_2023Pre,
+    met_2023Post,
+    met_2024,
 ]
 
 all_signals = [
