@@ -118,7 +118,6 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   TransientTrackBuilder const* tt_builder = nullptr;
   tt_builder = &iSetup.getData(transientTrackBuilderToken_);
 
-
   auto vertices = std::make_unique<std::vector<reco::Vertex>>();
   std::vector<float> x,y,z,dlen, dlenSig, pAngle, Lxy, LxySig, chi2, normalizedChi2;
   std::vector<float> mass, energy, pt;
@@ -128,6 +127,9 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   std::vector<int> ngoodTrackVec;
   ////// temporary
   std::vector<float> tk_W; // track weight
+  std::vector<float> tk_vtxdist2d, tk_vtxdist2d_err;
+  std::vector<float> tk_vtxdist3d, tk_vtxdist3d_err;
+
   // std::vector<float> tk_pt_vec; // track weight
   /////////////////
   VertexDistance3D vdist;
@@ -192,7 +194,7 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
         double min3dsig = 999;
 
         if (!sv.hasRefittedTracks()) {
-          std::cout << "SV has no refitted tracks!" << std::endl;
+          //std::cout << "SV has no refitted tracks!" << std::endl;
         }
         else{
           auto rtks = sv.refittedTracks();
@@ -311,6 +313,26 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
               TrackIdx.push_back(&tr - &((*trIn)[0]));
               tk_W.push_back(sv.trackWeight(*v_tk));
 
+              reco::TransientTrack ttk = tt_builder->build(**v_tk);
+              auto dist2d = IPTools::absoluteTransverseImpactParameter(ttk, sv);
+              auto dist3d = IPTools::absoluteImpactParameter3D(ttk, sv);
+              if (dist2d.first) {
+                tk_vtxdist2d.push_back(dist2d.second.value());
+                tk_vtxdist2d_err.push_back(dist2d.second.error());
+              }
+              else {
+                tk_vtxdist2d.push_back(-1);
+                tk_vtxdist2d_err.push_back(-1);
+              }
+              if (dist3d.first) {
+                tk_vtxdist3d.push_back(dist3d.second.value());
+                tk_vtxdist3d_err.push_back(dist3d.second.error());
+              }
+              else {
+                tk_vtxdist3d.push_back(-1);
+                tk_vtxdist3d_err.push_back(-1);
+              }
+
               // Sanity check --- temporary code
               // tk_pt_vec.push_back(tr.pt());
               ////////////////////////////////////
@@ -369,7 +391,6 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   svsTable->addColumn<float>("tk_dist3d_max", tk_dist3d_max, "Max track d3d wrt the vertex", 10);
   svsTable->addColumn<float>("tk_dist3d_min_sig", tk_dist3d_min_sig, "Min track d3d significance wrt the vertex", 10);
   svsTable->addColumn<float>("tk_dist3d_max_sig", tk_dist3d_max_sig, "Max track d3d significance wrt the vertex", 10);
-   
   
   if (debug) {
     std::cout << "SVs " << vertices->size() << std::endl;
@@ -480,6 +501,10 @@ void SVTrackTableProducer::produce(edm::Event& iEvent, const edm::EventSetup& iS
   LUT->addColumn<int16_t>("SecVtxIdx", SecVtxIdx, "Secondary vertex index", 10);
   LUT->addColumn<int16_t>("TrackIdx", TrackIdx, "Track index", 10);
   LUT->addColumn<float>("TrackWeight", tk_W, "Trck weight", -1);
+  LUT->addColumn<float>("TrackVtxdist2d", tk_vtxdist2d, "Track 2d IP wrt vertex", -1);
+  LUT->addColumn<float>("TrackVtxdist2d_err", tk_vtxdist2d_err, "Track 2d IP uncertainty wrt vertex", -1);
+  LUT->addColumn<float>("TrackVtxdist3d", tk_vtxdist3d, "Track 3d IP wrt vertex", -1);
+  LUT->addColumn<float>("TrackVtxdist3d_err", tk_vtxdist3d_err, "Track 3d IP uncertainty wrt vertex", -1);
   // LUT->addColumn<float>("Trackpt", tk_pt_vec, "Secondary vertex index", nanoaod::FlatTable::FloatColumn, -1);
   // ----------------------------------------------------------------------------------------------------
 
