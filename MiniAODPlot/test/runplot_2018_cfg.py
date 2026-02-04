@@ -5,7 +5,16 @@ import HLTrigger.HLTfilters.hltHighLevel_cfi as hlt
 
 process = cms.Process("Histos")
 
+process.options = cms.untracked.PSet(
+)
+
+#Setup FWK for multithreaded
+process.options.numberOfThreads=cms.untracked.uint32(4)
+process.options.numberOfStreams=cms.untracked.uint32(0)
+process.options.numberOfConcurrentLuminosityBlocks=cms.untracked.uint32(1)
+
 process.load("FWCore.MessageService.MessageLogger_cfi")
+process.MessageLogger.cerr.FwkReport.reportEvery = 10000
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 
