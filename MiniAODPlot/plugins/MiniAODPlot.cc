@@ -37,8 +37,15 @@ private:
   const edm::EDGetTokenT<pat::MuonCollection> muons_token;
   const edm::EDGetTokenT<reco::VertexCollection> vtx_token;
 
-  TH1D* h_sv_r;
-  TH2D* h_sv_xy;
+  TH1D* h_sv_r_all;
+  TH2D* h_sv_xy_all;
+  TH2D* h_sv_rz_all;
+  TH1D* h_sv_r_barrel;
+  TH2D* h_sv_xy_barrel;
+  TH2D* h_sv_rz_barrel;
+  TH1D* h_sv_r_endcap;
+  TH2D* h_sv_xy_endcap;
+  TH2D* h_sv_rz_endcap;
 };
 
 MiniAODPlot::MiniAODPlot(const edm::ParameterSet& iConfig)
@@ -75,10 +82,25 @@ void MiniAODPlot::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
     iEvent.getByToken(vtx_token,vertices);
 
     for (const auto& vtx : *vertices) {
-        double sv_r = std::hypot(vtx.x(),vtx.y());
+        double sv_x = vtx.x();
+        double sv_y = vtx.y();
+        double sv_z = vtx.z();
+        double sv_r = std::hypot(sv_x,sv_y);
         if (sv_r>2) {
-            h_sv_r->Fill(std::hypot(vtx.x(),vtx.y()));
-            h_sv_xy->Fill(vtx.x(),vtx.y());
+            h_sv_r_all->Fill(sv_r);
+            h_sv_xy_all->Fill(sv_x,sv_y);
+            h_sv_rz_all->Fill(sv_z,sv_r);
+        }
+        if (fabs(sv_z)<30) {
+            h_sv_r_barrel->Fill(sv_r);
+            h_sv_xy_barrel->Fill(sv_x,sv_y);
+            h_sv_rz_barrel->Fill(sv_z,sv_r);
+        }
+        else {
+            h_sv_r_endcap->Fill(sv_r);
+            h_sv_xy_endcap->Fill(sv_x,sv_y);
+            h_sv_rz_endcap->Fill(sv_z,sv_r);
+        
         }
     }
     return;
@@ -86,8 +108,15 @@ void MiniAODPlot::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetu
 
 void MiniAODPlot::beginJob() {
     edm::Service<TFileService> fs;
-    h_sv_r = fs->make<TH1D>("h_sv_r",";vertex r (cm);A.U.",500,0,50);
-    h_sv_xy = fs->make<TH2D>("h_sv_xy",";vertex x (cm);vertex y (cm)",2000, -50, 50, 2000, -50, 50);
+    h_sv_r_all = fs->make<TH1D>("h_sv_r_all",";all vertex r (cm);A.U.",500,0,50);
+    h_sv_xy_all = fs->make<TH2D>("h_sv_xy_all",";all vertex x (cm);all vertex y (cm)",2000, -50, 50, 2000, -50, 50);
+    h_sv_rz_all = fs->make<TH2D>("h_sv_rz_all",";all vertex z (cm);all vertex r (cm)",2400, -300, 300, 1000, 0, 50);
+    h_sv_r_barrel = fs->make<TH1D>("h_sv_r_barrel",";barrel vertex r (cm);A.U.",500,0,50);
+    h_sv_xy_barrel = fs->make<TH2D>("h_sv_xy_barrel",";barrel vertex x (cm);barrel vertex y (cm)",2000, -50, 50, 2000, -50, 50);
+    h_sv_rz_barrel = fs->make<TH2D>("h_sv_rz_barrel",";barrel vertex z (cm);barrel vertex r (cm)",2400, -300, 300, 1000, 0, 50);
+    h_sv_r_endcap = fs->make<TH1D>("h_sv_r_endcap",";endcap vertex r (cm);A.U.",500,0,50);
+    h_sv_xy_endcap = fs->make<TH2D>("h_sv_xy_endcap",";endcap vertex x (cm);endcap vertex y (cm)",2000, -50, 50, 2000, -50, 50);
+    h_sv_rz_endcap = fs->make<TH2D>("h_sv_rz_endcap",";endcap vertex z (cm);endcap vertex r (cm)",2400, -300, 300, 1000, 0, 50);
 }
 
 DEFINE_FWK_MODULE(MiniAODPlot);
