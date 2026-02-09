@@ -17,6 +17,21 @@ def loadData(samples, json_path, label):
     else:
       print("Sample {} has no records!".format(s.name))
 
+muon_2017 = [
+        Sample("muon2017b", xsec=-1),
+        Sample("muon2017c", xsec=-1),
+        Sample("muon2017d", xsec=-1),
+        Sample("muon2017e", xsec=-1),
+        Sample("muon2017f", xsec=-1),
+        ]
+
+muon_2018 = [
+        Sample("muon2018a", xsec=-1),
+        Sample("muon2018b", xsec=-1),
+        Sample("muon2018c", xsec=-1),
+        Sample("muon2018d", xsec=-1),
+        ]
+
 stop_2017 = [
     Sample("stop_M400_375_ct0p2_2017", xsec=2.15),
     Sample("stop_M400_380_ct0p2_2017", xsec=2.15),
@@ -363,6 +378,34 @@ wlnu_2018 = [
     Sample("wjetstolnuht2500_2018",xsec=2.623e-02),
     ]
 
+c1n2_lowdm_2018 = [
+    Sample("C1N2_M200_190_ct20_2018", xsec=1.807),
+    Sample("C1N2_M200_191_ct20_2018", xsec=1.807),
+    Sample("C1N2_M200_192_ct20_2018", xsec=1.807),
+    Sample("C1N2_M200_193_ct20_2018", xsec=1.807),
+    Sample("C1N2_M200_194_ct20_2018", xsec=1.807),
+    Sample("C1N2_M200_195_ct20_2018", xsec=1.807),
+    ]
+
+c1n2_pycheck_2018 = [
+        Sample("C1N2py_M400_385_ct0p2_2018", xsec=0.121),
+        Sample("C1N2py_M400_385_ct2_2018", xsec=0.121),
+        Sample("C1N2py_M400_385_ct20_2018", xsec=0.121),
+        Sample("C1N2py_M400_385_ct200_2018", xsec=0.121),
+        Sample("C1N2py_M400_375_ct0p2_2018", xsec=0.121),
+        Sample("C1N2py_M400_375_ct2_2018", xsec=0.121),
+        Sample("C1N2py_M400_375_ct20_2018", xsec=0.121),
+        Sample("C1N2py_M400_375_ct200_2018", xsec=0.121),
+        ]
+
+splitSUSY_2018 = [
+        Sample("splitSUSY_M1400_1380_ct0p1_2018", xsec=1e-03),
+        Sample("splitSUSY_M1400_1380_ct1p0_2018", xsec=1e-03),
+        Sample("splitSUSY_M1400_1380_ct10p0_2018", xsec=1e-03),
+        Sample("splitSUSY_M1400_1380_ct100p0_2018", xsec=1e-03),
+        Sample("splitSUSY_M1400_1380_ct1000p0_2018", xsec=1e-03),
+        ]
+
 stop_MLtraining_2018 = [
     Sample("stopML_M400_388_ct0p2_2018", xsec=1e-03),
     Sample("stopML_M400_388_ct2_2018", xsec=1e-03),
@@ -460,26 +503,49 @@ stop_MLtraining_2018 = [
     Sample("stopML_M1400_1375_ct2_2018", xsec=1e-03),
     Sample("stopML_M1400_1375_ct20_2018", xsec=1e-03),
     Sample("stopML_M1400_1375_ct200_2018", xsec=1e-03),
-    Sample("stopML_M600_595_ct0p2_2018", xsec=1e-03),
-    Sample("stopML_M600_595_ct2_2018", xsec=1e-03),
-    Sample("stopML_M600_595_ct20_2018", xsec=1e-03),
-    Sample("stopML_M600_595_ct200_2018", xsec=1e-03),
-    Sample("stopML_M1000_995_ct0p2_2018", xsec=1e-03),
-    Sample("stopML_M1000_995_ct2_2018", xsec=1e-03),
-    Sample("stopML_M1000_995_ct20_2018", xsec=1e-03),
-    Sample("stopML_M1000_995_ct200_2018", xsec=1e-03),
     ]
 
-c1n2_lowdm_2018 = [
-    Sample("C1N2_M200_190_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_191_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_192_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_193_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_194_ct20_2018", xsec=1.807),
-    Sample("C1N2_M200_195_ct20_2018", xsec=1.807),
-    ]
-
+C1N2_MLtraining_2018 = [
+        Sample("C1N2ML_M200_195_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_195_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_195_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_190_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_190_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_190_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_185_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_185_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_185_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_175_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_175_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M200_175_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_495_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_495_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_495_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_490_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_490_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_490_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_485_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_485_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_485_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_475_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_475_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M500_475_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_795_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_795_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_795_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_790_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_790_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_790_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_785_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_785_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_785_ct200_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_775_ct2_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_775_ct20_2018", xsec=1e-03),
+        Sample("C1N2ML_M800_775_ct200_2018", xsec=1e-03),
+        ]
 all_samples = [
+    muon_2017,
+    muon_2018,
     stop_2017,
     c1n2_2017,
     znunu_2018,
@@ -487,7 +553,10 @@ all_samples = [
     stop_2018,
     c1n2_2018,
     stop_MLtraining_2018,
+    C1N2_MLtraining_2018,
     c1n2_lowdm_2018,
+    c1n2_pycheck_2018,
+    splitSUSY_2018,
 ]
 
 for samples in all_samples:

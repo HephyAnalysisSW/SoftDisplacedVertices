@@ -1,0 +1,16 @@
+{
+    "CustomMiniAOD": {
+        "dataset": {
+            "muon2017b" : "/SingleMuon/wuzh-Run2017B_mini_v1-2142cdb35f30b0ac2836fe948825a36c/USER",
+            "muon2017c" : "/SingleMuon/wuzh-Run2017C_mini_v1-2142cdb35f30b0ac2836fe948825a36c/USER",
+            "muon2017d" : "/SingleMuon/wuzh-Run2017D_mini_v1-2142cdb35f30b0ac2836fe948825a36c/USER",
+            "muon2017e" : "/SingleMuon/wuzh-Run2017E_mini_v1-2142cdb35f30b0ac2836fe948825a36c/USER",
+            "muon2017f" : "/SingleMuon/wuzh-Run2017F_mini_v1-2142cdb35f30b0ac2836fe948825a36c/USER",
+
+            "muon2018a" : "/SingleMuon/wuzh-Run2018A_mini_v2-12e57488a984af921fe6952a776db574/USER",
+            "muon2018b" : "/SingleMuon/wuzh-Run2018B_mini_v2-12e57488a984af921fe6952a776db574/USER",
+            "muon2018c" : "/SingleMuon/wuzh-Run2018C_mini_v2-12e57488a984af921fe6952a776db574/USER",
+            "muon2018d" : "/SingleMuon/wuzh-Run2018D_mini_v2-12e57488a984af921fe6952a776db574/USER"
+        }
+    }
+}
