@@ -86,6 +86,43 @@
 
     "CustomNanoAOD": {
         "dataset": {
+            "jetmet_2022c":     "/JetMET/lian-Run2022C_JetMET_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet_2022d":     "/JetMET/lian-Run2022D_JetMET_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet_2022e":     "/JetMET/lian-Run2022E_JetMET_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet_2022f":     "/JetMET/lian-Run2022F_JetMET_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet_2022g":     "/JetMET/lian-Run2022G_JetMET_nano_v2-00000000000000000000000000000000/USER",
+
+            "jetmet0_2023c1":   "/JetMET0/lian-Run2023C1_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet0_2023c2":   "/JetMET0/lian-Run2023C2_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet0_2023c3":   "/JetMET0/lian-Run2023C3_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet0_2023c4":   "/JetMET0/lian-Run2023C4_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet0_2023d1":   "/JetMET0/lian-Run2023D1_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet0_2023d2":   "/JetMET0/lian-Run2023D2_JetMET0_nano_v2-00000000000000000000000000000000/USER",
+
+            "jetmet1_2023c1":   "/JetMET1/lian-Run2023C1_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet1_2023c2":   "/JetMET1/lian-Run2023C2_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet1_2023c3":   "/JetMET1/lian-Run2023C3_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet1_2023c4":   "/JetMET1/lian-Run2023C4_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet1_2023d1":   "/JetMET1/lian-Run2023D1_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+            "jetmet1_2023d2":   "/JetMET1/lian-Run2023D2_JetMET1_nano_v2-00000000000000000000000000000000/USER",
+
+            "jetmet0_2024c":    "/JetMET0/lian-jetmet0_2024c_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024d":    "/JetMET0/lian-jetmet0_2024d_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024e":    "/JetMET0/lian-jetmet0_2024e_nano_v1_supp-00000000000000000000000000000000/USER",
+            "jetmet0_2024f":    "/JetMET0/lian-jetmet0_2024f_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024g":    "/JetMET0/lian-jetmet0_2024g_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024h":    "/JetMET0/lian-jetmet0_2024h_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024i1":   "/JetMET0/lian-jetmet0_2024i1_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet0_2024i2":   "/JetMET0/lian-jetmet0_2024i2_nano_v1-00000000000000000000000000000000/USER",
+
+            "jetmet1_2024c":    "/JetMET1/lian-jetmet1_2024c_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024d":    "/JetMET1/lian-jetmet1_2024d_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024e":    "/JetMET1/lian-jetmet1_2024e_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024f":    "/JetMET1/lian-jetmet1_2024f_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024g":    "/JetMET1/lian-jetmet1_2024g_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024h":    "/JetMET1/lian-jetmet1_2024h_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024i1":   "/JetMET1/lian-jetmet1_2024i1_nano_v1-00000000000000000000000000000000/USER",
+            "jetmet1_2024i2":   "/JetMET1/lian-jetmet1_2024i2_nano_v1-00000000000000000000000000000000/USER"
 
         }
     }
