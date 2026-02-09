@@ -1142,6 +1142,7 @@ stop_2024 = [
 
 
 all_samples = [
+    muon_2017,
     met_2017,
     wlnu_2017,
     znunu_2017,
@@ -1149,6 +1150,7 @@ all_samples = [
     top_2017,
     stop_2017,
     c1n2_2017,
+    muon_2018,
     met_2018,
     znunu_2018,
     wlnu_2018,
