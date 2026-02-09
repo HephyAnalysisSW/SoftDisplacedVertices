@@ -1,6 +1,17 @@
 {
     "CustomNanoAOD": {
         "dataset": {
+            "muon2017b": "/SingleMuon/wuzh-Run2017B_nano_v1-00000000000000000000000000000000/USER",
+            "muon2017c": "/SingleMuon/wuzh-Run2017C_nano_v1-00000000000000000000000000000000/USER",
+            "muon2017d": "/SingleMuon/wuzh-Run2017D_nano_v1-00000000000000000000000000000000/USER",
+            "muon2017e": "/SingleMuon/wuzh-Run2017E_nano_v1-00000000000000000000000000000000/USER",
+            "muon2017f": "/SingleMuon/wuzh-Run2017F_nano_v1-00000000000000000000000000000000/USER",
+
+            "muon2018a": "/SingleMuon/wuzh-Run2018A_nano_v2-00000000000000000000000000000000/USER",
+            "muon2018b": "/SingleMuon/wuzh-Run2018B_nano_v2-00000000000000000000000000000000/USER",
+            "muon2018c": "/SingleMuon/wuzh-Run2018C_nano_v2-00000000000000000000000000000000/USER",
+            "muon2018d": "/SingleMuon/wuzh-Run2018D_nano_v2-00000000000000000000000000000000/USER",
+
             "muon2022prec": "/Muon/wuzh-Run2022C_nano_v1-00000000000000000000000000000000/USER",
             "muon2022pred": "/Muon/wuzh-Run2022D_nano_v1-00000000000000000000000000000000/USER",
             "muon2022poste": "/Muon/wuzh-Run2022E_nano_v1-00000000000000000000000000000000/USER",

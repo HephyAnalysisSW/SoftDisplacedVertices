@@ -69,6 +69,14 @@ def loadData(samples, json_path, label):
     if not setable:
       print("Sample {} has no records!".format(s.name))
 
+muon_2017 = [
+    Sample("muon2017b", xsec=-1),
+    Sample("muon2017c", xsec=-1),
+    Sample("muon2017d", xsec=-1),
+    Sample("muon2017e", xsec=-1),
+    Sample("muon2017f", xsec=-1),
+        ]
+
 met_2017 = [
     Sample("met2017b", xsec=-1),
     Sample("met2017c", xsec=-1),
@@ -118,6 +126,12 @@ top_2017 = [
   Sample("st_tW_t_2017", xsec=39.91),
 ]
 
+muon_2018 = [
+    Sample("muon2018a", xsec=-1),
+    Sample("muon2018b", xsec=-1),
+    Sample("muon2018c", xsec=-1),
+    Sample("muon2018d", xsec=-1),
+    ]
 
 met_2018 = [
     Sample("met2018a", xsec=-1),
