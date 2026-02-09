@@ -227,6 +227,20 @@ float Muon_weight(correction::Correction::Ref sf, ROOT::RVecF pt, ROOT::RVecF et
   return weight;
 }
 
+
+Float_t met_no_mu(Float_t MET_pt, Float_t MET_phi, ROOT::RVecF pt, ROOT::RVecF phi)
+{ 
+  Float_t met_x = MET_pt*std::cos(MET_phi);
+  Float_t met_y = MET_pt*std::sin(MET_phi);
+  for (size_t i=0; i<pt.size(); ++i)
+    {
+      met_x += pt[i] * std::cos(phi[i]);
+      met_y += pt[i] * std::sin(phi[i]);
+    }
+  return std::sqrt( met_x*met_x + met_y*met_y);
+}
+
+
 ROOT::RVecB GetJetID(ROOT::RVecU jetid, ROOT::RVecF eta, ROOT::RVecF neHEF, ROOT::RVecF chEmEF, ROOT::RVecF neEmEF, ROOT::RVecF muEF) {
     ROOT::RVecB jetid_new;
     for (size_t i=0; i<eta.size(); ++i) {
