@@ -251,6 +251,26 @@ c1n2_2018 = [
     # Sample("C1N2_M400_375_ct200_2018", xsec=0.121),
     ]
 
+muon_2022Pre = [
+    Sample("muon2022prec", xsec=-1),
+    Sample("muon2022pred", xsec=-1),
+        ]
+
+muon_2022Post = [
+    Sample("muon2022poste", xsec=-1),
+    Sample("muon2022postf", xsec=-1),
+    Sample("muon2022postg", xsec=-1),
+        ]
+
+muon_2023Pre = [
+    Sample("muon02023prec", xsec=-1),
+    Sample("muon12023prec", xsec=-1),
+        ]
+
+muon_2023Post = [
+    Sample("muon02023postd", xsec=-1),
+    Sample("muon12023postd", xsec=-1),
+        ]
 
 # 2023
 wlnu_2023 = [Sample("wjetstolnu4jets_2023", xsec=0.)]
@@ -317,6 +337,10 @@ all_samples = [
     stop_2018,
     c1n2_2018,
     top_2018,
+    muon_2022Pre,
+    muon_2022Post,
+    muon_2023Pre,
+    muon_2023Post,
     met_2022Pre,
     met_2022Post,
     met_2023Pre,
@@ -327,8 +351,6 @@ all_samples = [
 all_signals = [
     stop_2018,
     c1n2_2018,
-    stop_MLtraining_2018,
-    c1n2_lowdm_2018,
 ]
 
 all_bkg_2018 = [
