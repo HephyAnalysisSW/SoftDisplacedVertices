@@ -274,6 +274,28 @@ stop_2024 = [
     Sample("stop_M1000_988_ct0p2_2024", xsec=0.00683),
         ]
 
+muon_2022Pre = [
+    Sample("muon2022prec", xsec=-1),
+    Sample("muon2022pred", xsec=-1),
+        ]
+
+muon_2022Post = [
+    Sample("muon2022poste", xsec=-1),
+    Sample("muon2022postf", xsec=-1),
+    Sample("muon2022postg", xsec=-1),
+        ]
+
+muon_2023Pre = [
+    Sample("muon02023prec", xsec=-1),
+    Sample("muon12023prec", xsec=-1),
+        ]
+
+muon_2023Post = [
+    Sample("muon02023postd", xsec=-1),
+    Sample("muon12023postd", xsec=-1),
+        ]
+
+
 met_2022Pre = [
         Sample("jetmet_2022c", xsec=-1),
         Sample("jetmet_2022d", xsec=-1),
@@ -338,6 +360,10 @@ all_samples = [
     top_2018,
     c1n2_2024,
     stop_2024,
+    muon_2022Pre,
+    muon_2022Post,
+    muon_2023Pre,
+    muon_2023Post,
     met_2022Pre,
     met_2022Post,
     met_2023Pre,
