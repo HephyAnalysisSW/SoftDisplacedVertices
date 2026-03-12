@@ -303,6 +303,26 @@ class Plotter:
         d = d.Filter('nJet_mapvetoed==0')
         return d
 
+    def addBTag(self,d):
+        d_wp = { #tight, medium ,loose
+                '2017': [0.7476, 0.3040, 0.0532],
+                '2018': [0.7100, 0.2783, 0.0490],
+                '2022Pre': [0.7183, 0.3086, 0.0583],
+                '2022Post': [0.73, 0.3196, 0.0614],
+                '2023Pre': [0.6553, 0.2431, 0.0479],
+                '2023Post': [0.6563, 0.2435, 0.048],
+                '2024': [0.4648, 0.1272, 0.0246],
+                }
+
+        btagvar = "Jet_btagDeepFlavB"
+        if "2024" in self.year:
+            btagvar = "Jet_btagUParTAK4B"
+        d = d.Define("Jet_btag_loose","{0}>{1}".format(btagvar,d_wp[self.year][2]))
+        d = d.Define("Jet_btag_medium","{0}>{1}".format(btagvar,d_wp[self.year][1]))
+        d = d.Define("Jet_btag_tight","{0}>{1}".format(btagvar,d_wp[self.year][0]))
+
+        return d
+
     def AddVars(self,d):
         d = self.ApplyNoiseFilters(d)
         # Add years first
@@ -315,6 +335,7 @@ class Plotter:
             d = self.AddJetID(d)
             if ("corrections" in self.cfg) and ('jetmapveto' in self.cfg['corrections']) and (self.cfg['corrections']['jetmapveto'] is not None) and ('use' in self.cfg['corrections']['jetmapveto']) and (self.cfg['corrections']['jetmapveto']['use']):
                 d = self.applyJvm(d)
+        d = self.addBTag(d)
         # MET xy corrections
         # FIXME: Is this needed for run3?
         if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):

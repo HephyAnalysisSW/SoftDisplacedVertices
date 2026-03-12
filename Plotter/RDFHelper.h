@@ -982,3 +982,20 @@ T SDVTrack_TkVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, T SDVIdxLUT_Var, int nSDVTra
   }
   return output;
 }
+
+std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_ML(ROOT::RVecB Vertex_presel, ROOT::RVecF Vertex_MLScore) {
+
+    float max_mlscore = -1;
+    int leading_idx=-1;
+    for (int i=0; i<Vertex_MLScore.size(); ++i) {
+        if (!Vertex_presel[i]) continue;
+        if (Vertex_MLScore[i]>max_mlscore) {
+            max_mlscore = Vertex_MLScore[i];
+            leading_idx = i;
+        }
+
+    }
+    ROOT::RVecB Vertex_isleading(Vertex_MLScore.size(),false);
+    Vertex_isleading[leading_idx] = true;
+    return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
+}
