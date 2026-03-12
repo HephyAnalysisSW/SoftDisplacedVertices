@@ -1,0 +1,182 @@
+vtx_loosesel: SDVSecVtx_mapveto==0
+vtx_sel_3gt: (SDVSecVtx_nGoodTrack>=3) && (SDVSecVtx_mapveto==0)
+vtx_sel_2gt: (SDVSecVtx_nGoodTrack==2) && (SDVSecVtx_mapveto==0)
+vtx_sel_1gt: (SDVSecVtx_nGoodTrack==1) && (SDVSecVtx_mapveto==0)
+vtx_sel_0gt: (SDVSecVtx_nGoodTrack==0) && (SDVSecVtx_mapveto==0)
+bjetloose: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_loose)
+bjetmedium: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_medium)
+bjettight: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_tight)
+bjetgen: Jet_hadronFlavour>=4 && Jet_hadronFlavour<=5
+muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
+ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
+tau_sel: (Tau_idDeepTau2018v2p5VSmu>0) && (Tau_idDeepTau2018v2p5VSe>0) && (Tau_idDeepTau2018v2p5VSjet>0) && (abs(Tau_eta)<2.5) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
+jet_sel: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20)
+jet_sel_mapveto: (Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)
+
+presel: HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && MET_pt_corr>350 && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+
+corrections:
+    PU:
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22CDSep23-Summer22-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_355100_357900_eraBCD_GoldenJson"
+            mode: "nominal"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_359022_362760_eraEFG_GoldenJson"
+            mode: "nominal"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23CSep23-Summer23-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_366403_369802_eraBC_GoldenJson"
+            mode: "nominal"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_369803_370790_eraD_GoldenJson"
+            mode: "nominal"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/puWeights_BCDEFGHI.json.gz"
+            name: "Collisions24_BCDEFGHI_goldenJSON"
+            mode: "nominal"
+    jetid:
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
+            name: "AK4PUPPI_TightLeptonVeto"
+    jetmapveto:
+        use: True
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22CDSep23-Summer22-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22_23Sep2023_RunCD_V1"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22EE_23Sep2023_RunEFG_V1"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23CSep23-Summer23-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23Prompt23_RunC_V1"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23BPixPrompt23_RunD_V1"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetvetomaps.json.gz"
+            name: "Summer24Prompt24_RunBCDEFGHI_V1"
+    metxy: False
+    JERC: True
+
+mapveto:
+  data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
+
+weights:
+
+new_variables:
+    veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
+    Jet_pt_sel: ['Jet_pt_corr[{0}]',jet_sel]
+    Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
+    Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
+    Jet_chHEF_sel: ['Jet_chHEF[{0}]',jet_sel]
+    Jet_neHEF_sel: ['Jet_neHEF[{0}]',jet_sel]
+    Jet_nConstituents_sel: ['Jet_nConstituents[{0}]',jet_sel]
+    nJet_sel: ['Sum({0})',jet_sel]
+    leadingjet_pt: Jet_pt_sel[0]
+    leadingjet_phi: Jet_phi_sel[0]
+    leadingjet_eta: Jet_eta_sel[0]
+    leadingjet_chHEF: Jet_chHEF_sel[0]
+    leadingjet_neHEF: Jet_neHEF_sel[0]
+    leadingjet_nConstituents: Jet_nConstituents_sel[0]
+    dphi_MET_jet0: acos(cos(leadingjet_phi-MET_phi_corr))
+    JetHT: 'Sum(Jet_pt_sel)'
+    JetHT20: 'Sum(Jet_pt_sel[Jet_pt_sel>20.])'
+    JetHT40: 'Sum(Jet_pt_sel[Jet_pt_sel>40.])'
+    nMuon_sel: ['Sum({0})', muon_sel]
+    nEle_sel: ['Sum({0})', ele_sel]
+    nPhoton_sel: ['Sum({0})', photon_sel]
+    nTau_sel: ['Sum({0})', tau_sel]
+    nbJet_loose: ['Sum({0})',bjetloose]
+    nbJet_medium: ['Sum({0})',bjetmedium]
+    nbJet_tight: ['Sum({0})',bjettight]
+    bJet_eta_loose: ['Jet_eta[{0}]',bjetloose]
+    bJet_phi_loose: ['Jet_phi[{0}]',bjetloose]
+    bJet_eta_medium: ['Jet_eta[{0}]',bjetmedium]
+    bJet_phi_medium: ['Jet_phi[{0}]',bjetmedium]
+    bJet_eta_tight: ['Jet_eta[{0}]',bjettight]
+    bJet_phi_tight: ['Jet_phi[{0}]',bjettight]
+    SDVTrack_isInSV: Track_isInSV(SDVIdxLUT_TrackIdx,nSDVTrack)
+    SDVTrack_qoverp: SDVTrack_charge/SDVTrack_pt
+    SDVTrack_dxySig: abs(SDVTrack_dxy)/SDVTrack_dxyError
+    SDVTrack_dzSig: abs(SDVTrack_dz)/SDVTrack_dzError
+    SDVTrack_ptqual: SDVTrack_ptError/SDVTrack_pt
+    SDVTrack_dphi_jet0: acos(cos(SDVTrack_phi-leadingjet_phi))
+    SDVTrack_deta_jet0: abs(SDVTrack_eta-leadingjet_eta)
+    SDVTrack_dR_jet0: sqrt(SDVTrack_dphi_jet0*SDVTrack_dphi_jet0 + SDVTrack_deta_jet0*SDVTrack_deta_jet0)
+    SDVTrack_dphi_MET: acos(cos(SDVTrack_phi-MET_phi_corr))
+    SDVTrack_dxydzratio: abs(SDVTrack_dxy/SDVTrack_dz)
+    #SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 ) && (SDVTrack_pfRelIso03_all<5)
+    SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && (SDVTrack_pfRelIso03_all<5)
+    SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
+    SDVTrack_isnonPU: ( SDVTrack_dxydzratio>0.25 )
+    SDVSecVtx_nnonPUTrack: SDVSecVtx_nselTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isnonPU,nSDVSecVtx)
+    SDVSecVtx_dphiMET: 'acos(cos(SDVSecVtx_L_phi-MET_phi_corr))'
+    SDVSecVtx_dphijet0: 'acos(cos(SDVSecVtx_L_phi-leadingjet_phi))'
+    SDVSecVtx_Lxy_err: "SDVSecVtx_Lxy/SDVSecVtx_LxySig"
+    SDVSecVtx_dlen_err: "SDVSecVtx_dlen/SDVSecVtx_dlenSig"
+    SDVSecVtx_L_eta_abs: "abs(SDVSecVtx_L_eta)"
+    SDVSecVtx_TkMaxdphi: "SDV_TkMaxdphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_phi)"
+    SDVSecVtx_TkMindphi: "SDV_TkMindphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_phi)"
+    SDVSecVtx_TkMaxdeta: "SDV_TkMaxdphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta)"
+    SDVSecVtx_TkMindeta: "SDV_TkMindphi(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta)"
+    SDVSecVtx_TkMaxdR: "SDV_TkMaxdR(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta, SDVTrack_phi)"
+    SDVSecVtx_TkMindR: "SDV_TkMindR(SDVIdxLUT_TrackIdx, SDVIdxLUT_SecVtxIdx, nSDVSecVtx, SDVTrack_eta, SDVTrack_phi)"
+    SDVSecVtx_mindRdphideta: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,Jet_phi_sel,Jet_eta_sel)"
+    SDVSecVtx_closestJetdR: "SDVSecVtx_mindRdphideta[0]"
+    SDVSecVtx_closestJetdphi: "SDVSecVtx_mindRdphideta[1]"
+    SDVSecVtx_closestJetdeta: "SDVSecVtx_mindRdphideta[2]"
+    SDVSecVtx_mindRdphidetabJet_loose: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_loose,bJet_eta_loose)"
+    SDVSecVtx_closestbJetdRloose: "SDVSecVtx_mindRdphidetabJet_loose[0]"
+    SDVSecVtx_closestbJetdphi_loose: "SDVSecVtx_mindRdphidetabJet_loose[1]"
+    SDVSecVtx_closestbJetdeta_loose: "SDVSecVtx_mindRdphidetabJet_loose[2]"
+    SDVSecVtx_mindRdphidetabJet_medium: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_medium,bJet_eta_medium)"
+    SDVSecVtx_closestbJetdRmedium: "SDVSecVtx_mindRdphidetabJet_medium[0]"
+    SDVSecVtx_closestbJetdphi_medium: "SDVSecVtx_mindRdphidetabJet_medium[1]"
+    SDVSecVtx_closestbJetdeta_medium: "SDVSecVtx_mindRdphidetabJet_medium[2]"
+    SDVSecVtx_mindRdphidetabJet_tight: "Vertex_mindRdetadphi(SDVSecVtx_L_phi,SDVSecVtx_L_eta,bJet_phi_tight,bJet_eta_tight)"
+    SDVSecVtx_closestbJetdRtight: "SDVSecVtx_mindRdphidetabJet_tight[0]"
+    SDVSecVtx_closestbJetdphi_tight: "SDVSecVtx_mindRdphidetabJet_tight[1]"
+    SDVSecVtx_closestbJetdeta_tight: "SDVSecVtx_mindRdphidetabJet_tight[2]"
+    SDVSecVtx_loose_sel: ['{0}', vtx_loosesel]
+    ML_score: vtx_PART_1111best_valloss_epoch
+    ML_score_clone1 : ML_score
+    ML_score_clone2 : ML_score
+    nSDVSecVtx_3gt: ['Sum({0})', vtx_sel_3gt]
+    nSDVSecVtx_2gt: ['Sum({0})', vtx_sel_2gt]
+    nSDVSecVtx_1gt: ['Sum({0})', vtx_sel_1gt]
+    nSDVSecVtx_0gt: ['Sum({0})', vtx_sel_0gt]
+    leadingvtx_info: "Leading_Vtx_Idx_ML(SDVSecVtx_loose_sel, ML_score)"
+    leadingvtx_idx: "leadingvtx_info.first"
+    SDVSecVtx_isLeading: "leadingvtx_info.second"
+    leadingvtx_MLscore: "ML_score[leadingvtx_idx]"
+    leadingvtx_dphiMET: "SDVSecVtx_dphiMET[leadingvtx_idx]"
+    leadingvtx_nGoodTracks: "SDVSecVtx_nGoodTrack[leadingvtx_idx]"
+
+regions:
+  All: 
+  #MET: MET_pt_corr > 200
+event_variables:
+    - MET_pt_corr
+    - MET_phi_corr
+event_2d_plots:
+
+objects:
+    Jet:
+        selections:
+            all:
+        variables:
+        - Jet_pt_corr
+        - Jet_mass_corr
+          
+        2d_plots:
+
+plot_setting:
+    MET_pt_corr: [MET_pt_corr,'MET_corr_pt',100,0,1000]
+    MET_phi_corr: [MET_phi_corr,'MET_corr_phi',128,-3.2,3.2]
+    Jet_pt_corr: [Jet_pt_corr,'Jet_pt_corr',100,0,1000]
+    Jet_mass_corr: [Jet_mass_corr,'Jet_mass_corr',100,0,1000]
