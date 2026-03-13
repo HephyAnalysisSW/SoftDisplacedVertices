@@ -44,11 +44,13 @@ def find_first_unity_crossing(graph):
 
     return None  # no crossing found
 
-def main(eras_list):
+def main(eras_list,var,run):
     #args = parse_args()
 
-    input_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
-    output_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
+    #input_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
+    #output_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
+    input_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso/merged/"
+    output_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso/merged/"
     tag = ""
         
     if not os.path.isdir(input_dir):
@@ -59,13 +61,21 @@ def main(eras_list):
     ratio_dict = {}
     for era in eras_list:
         # Check if current directory path contains "era"
-        fn = input_dir+"ratio_"+era+".root"
+        if var=="nPV":
+            fn = input_dir+"ratio_"+era+"_nPV.root"
+        else:
+            fn = input_dir+"ratio_"+era+".root"
         if os.path.isfile(fn): 
             f = ROOT.TFile.Open(fn, "READ")
             if not f or f.IsZombie():
                 raise RuntimeError(f"Could not open ROOT file: {input_file}")
             ratio_dict[era] = f.Get("ratio")
             f.Close()
+
+    for era in eras_list:
+        print(era)
+        print("what is wrong?")
+        print(era, ratio_dict[era].Print())
 
     bins = array.array(
         'd',
@@ -89,7 +99,12 @@ def main(eras_list):
     c.SetTicks(1, 1)
     c.SetGrid()
 
-    leg = ROOT.TLegend(0.50, 0.20, 0.88, 0.35)
+    if var=="nPV":
+        c.SetLeftMargin(0.18)
+        leg = ROOT.TLegend(0.50-0.2, 0.20, 0.88-0.2, 0.35)
+    else:
+        c.SetLeftMargin(0.12)
+        leg = ROOT.TLegend(0.50, 0.20, 0.88, 0.35+0.1)
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.04)
@@ -97,23 +112,48 @@ def main(eras_list):
     
     for i,era in enumerate(eras_list):
         print(i,era,ratio_dict[era])
-        if i==0:
-            ratio_dict[era].Draw("AL")
-        else:
-            ratio_dict[era].Draw("L,sames")
-        ratio_dict[era].GetXaxis().SetTitleSize(0.045)
-        ratio_dict[era].GetYaxis().SetTitleSize(0.045)
-        ratio_dict[era].GetXaxis().SetLabelSize(0.045)
-        ratio_dict[era].GetYaxis().SetLabelSize(0.045)
-        ratio_dict[era].GetYaxis().SetRangeUser(0.5, 1.05)
-        ratio_dict[era].SetMarkerColor(colors[i])
-        ratio_dict[era].SetMarkerSize(0.0001)
-        ratio_dict[era].SetMarkerStyle(21)
-        ratio_dict[era].SetLineColor(colors[i])
-        ratio_dict[era].SetLineWidth(2)
-        leg.AddEntry(ratio_dict[era], era, "PLE")
+        if var=="nPV":
+            if i==0:
+                ratio_dict[era].Draw("AP")
+            else:
+                ratio_dict[era].Draw("P,sames")
+            ratio_dict[era].GetYaxis().SetTitle("Efficiency L1+HLT")
+            ratio_dict[era].GetXaxis().SetTitleSize(0.045)
+            ratio_dict[era].GetYaxis().SetTitleSize(0.045)
+            ratio_dict[era].GetXaxis().SetLabelSize(0.045)
+            ratio_dict[era].GetYaxis().SetLabelSize(0.045)
+            ratio_dict[era].GetYaxis().SetRangeUser(0.0, 0.02)
+            ratio_dict[era].GetXaxis().SetLimits(0.0, 100.)
+            ratio_dict[era].SetMarkerColor(colors[i])
+            #ratio_dict[era].SetMarkerSize(0.0001)
+            ratio_dict[era].SetMarkerStyle(20)
+            ratio_dict[era].SetLineColor(colors[i])
+            ratio_dict[era].SetLineWidth(2)
+            leg.AddEntry(ratio_dict[era], era, "PE")
 
+        else:
+            if i==0:
+                print("drawing . . ",i,era)
+                ratio_dict[era].Draw("AL")
+            else:
+                print("drawing . . ",i,era)
+                ratio_dict[era].Draw("L,sames")
+            ratio_dict[era].GetXaxis().SetTitleSize(0.045)
+            ratio_dict[era].GetYaxis().SetTitleSize(0.045)
+            ratio_dict[era].GetYaxis().SetTitleOffset(1.1)#?#
+            ratio_dict[era].GetXaxis().SetLabelSize(0.045)
+            ratio_dict[era].GetYaxis().SetLabelSize(0.045)
+            ratio_dict[era].GetYaxis().SetRangeUser(0., 1.05)
+            ratio_dict[era].SetMarkerColor(colors[i])
+            ratio_dict[era].SetMarkerSize(0.0001)
+            ratio_dict[era].SetMarkerStyle(21)
+            ratio_dict[era].SetLineColor(colors[i])
+            ratio_dict[era].SetLineWidth(2)
+            ratio_dict[era].GetYaxis().SetNdivisions(510)
+            leg.AddEntry(ratio_dict[era], era, "PLE")
+            #c.SetLogy(1)
     leg.Draw()
+    print("where is the legend?")
 
     latex = ROOT.TLatex()
     latex.SetNDC()
@@ -124,12 +164,19 @@ def main(eras_list):
     latex.DrawLatex(0.26, 0.94, "Preliminary")
     latex.SetTextFont(42)
     #latex.DrawLatex(0.65, 0.94, "%.1f fb^{-1} (13.6 TeV)"%float(lumi))
-    latex.DrawLatex(0.65, 0.94, "13.6 TeV")
+    latex.DrawLatex(0.65, 0.94, "13.6 TeV" if run=="run3" else "13 TeV")
 
     
-    c.SaveAs(output_dir+"ratio_combined.png")
-    c.SaveAs(output_dir+"ratio_combined.pdf")
-    
+    if var=="nPV":
+        c.SaveAs(output_dir+f"ratio_combined_nPV_{run}.png")
+        c.SaveAs(output_dir+f"ratio_combined_nPV_{run}.pdf")
+    else:
+        c.SaveAs(output_dir+f"ratio_combined_{run}.C")
+        c.SaveAs(output_dir+f"ratio_combined_{run}.png")
+        c.SaveAs(output_dir+f"ratio_combined_{run}.pdf")
     
 if __name__ == "__main__":
-    main(["2022pre","2022post","2023pre","2023post"])
+    main(["2022pre","2022post","2023pre","2023post"],var="nomu",run="run3")
+    main(["2022pre","2022post","2023pre","2023post"],var="nPV",run="run3")
+    main(["2017","2018"],var="nomu",run="run2")
+    main(["2017","2018"],var="nPV",run="run2")

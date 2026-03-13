@@ -7,6 +7,7 @@ import sys
 import array
 import cmsstyle as CMS
 import numpy as np
+import math
 
 ROOT.gROOT.SetBatch(True)
 
@@ -28,6 +29,11 @@ def parse_args():
         "--era",
         required=True,
         help="Data era"
+    )
+    parser.add_argument(
+        "--var",
+        required=True,
+        help="variable"
     )
     parser.add_argument(
         "--lumi",
@@ -80,6 +86,7 @@ def main():
     input_dir = args.inputs
     output_dir = args.outputs
     era = args.era
+    var = args.var
     lumi = args.lumi
     mc = args.mc
     tag = ""
@@ -95,23 +102,63 @@ def main():
 
     os.makedirs(output_dir, exist_ok=True)
 
-    output_file = os.path.join(output_dir, "efficiency"+tag+era+".root")
+    if var=="nPV":
+        output_file = os.path.join(output_dir, "efficiency"+tag+era+"_nPV.root")
+    else:
+        output_file = os.path.join(output_dir, "efficiency"+tag+era+".root")
 
     # Collect ROOT files
     root_files = []
     data_files = []
     mc_files = []
     for root, dirs, files in os.walk(input_dir):
-        # Check if current directory path contains "era"
-        if era in root:
-            for f in files:
-                if f.endswith(".root"):
-                    print(f)
-                    if "SingleMuon" in f:
-                        data_files.append(os.path.join(root, f))
-                    else:
-                        mc_files.append(os.path.join(root, f))
 
+        if era not in root:
+            continue
+
+        for f in files:
+
+            if not f.endswith(".root"):
+                continue
+
+            if var == "nPV":
+                if "_nPV" not in f:
+                    continue
+            else:
+                if "_nPV" in f:
+                    continue
+
+            path = os.path.join(root, f)
+            print(path)
+
+            if "SingleMuon" in f:
+                data_files.append(path)
+            else:
+                mc_files.append(path)
+    
+
+    '''
+    for root, dirs, files in os.walk(input_dir):
+        # Check if current directory path contains "era"
+        if var=="nPV":
+            if (era in root) and (var in root):
+                for f in files:
+                    if f.endswith(".root"):
+                        print(f)
+                        if "SingleMuon" in f:
+                            data_files.append(os.path.join(root, f))
+                        else:
+                            mc_files.append(os.path.join(root, f))
+        else:
+            if (era in root) and ("nPV" not in root):
+                for f in files:
+                    if f.endswith(".root"):
+                        print(f)
+                        if "SingleMuon" in f:
+                            data_files.append(os.path.join(root, f))
+                        else:
+                            mc_files.append(os.path.join(root, f))
+    '''
     if len(mc_files)+len(data_files) == 0:
         print("ERROR: No ROOT files found in input directory")
         sys.exit(1)
@@ -129,7 +176,7 @@ def main():
 
     #mc
     for fn in mc_files:
-        print(fn)
+        print("Reading mc file: ", fn)
         f = ROOT.TFile.Open(fn, "READ")
         if not f or f.IsZombie():
             raise RuntimeError(f"Could not open ROOT file: {input_file}")
@@ -186,7 +233,7 @@ def main():
 
     #data
     for fn in data_files:
-        print(fn)
+        print("Reading data files: ",fn)
         f = ROOT.TFile.Open(fn, "READ")
         if not f or f.IsZombie():
             raise RuntimeError(f"Could not open ROOT file: {input_file}")
@@ -251,14 +298,19 @@ def main():
         [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 240, 250, 260, 280, 300, 400, 500, 700, 1000]
     )
 
+    
     #Less bins?
     #bins = array.array(
     #    'd',
     #    [150, 160, 170, 180, 190, 200, 210, 220, 240, 250, 260, 280, 300, 400, 500, 700, 1000]
     #)
 
-    
-    #bins = np.linspace(0,1000,50)
+    if var=="nPV":
+        #spacing of 5: divide 100 by 5
+        bins = np.linspace(0, 100, 20+1)
+        #spacing of 10: divide 100 by 10
+        bins = np.linspace(0, 100, 10+1)
+        #bins = np.linspace(0,100,100+1)
 
     num_mc_rb = tot_num_mc.Rebin(len(bins)-1, "num_mc_rb", bins)
     den_mc_rb = tot_den_mc.Rebin(len(bins)-1, "den_mc_rb", bins)
@@ -266,19 +318,41 @@ def main():
     num_mc_rb.SetDirectory(0)
     den_mc_rb.SetDirectory(0)
 
+    
     num_data_rb = tot_num_data.Rebin(len(bins)-1, "num_data_rb", bins)
     den_data_rb = tot_den_data.Rebin(len(bins)-1, "den_data_rb", bins)
 
     num_data_rb.SetDirectory(0)
     den_data_rb.SetDirectory(0)
 
-        
+    #clipping for numerical precision
+    eps = 1e-9
+
+    for i in range(0, num_mc_rb.GetNbinsX()+2):
+        num_c = num_mc_rb.GetBinContent(i)
+        den_c = den_mc_rb.GetBinContent(i)
+
+        if num_c > den_c and abs(num_c - den_c) < eps:
+            num_mc_rb.SetBinContent(i, den_c)
+
+    for i in range(0, num_data_rb.GetNbinsX()+2):
+        num_c = num_data_rb.GetBinContent(i)
+        den_c = den_data_rb.GetBinContent(i)
+
+        if num_c > den_c and abs(num_c - den_c) < eps:
+            num_data_rb.SetBinContent(i, den_c)
+
+    
+    print(" Check den mc: ", den_mc_rb.Print())
+    print(" Check num mc: ", num_mc_rb.Print())
+    print("HERE")
+    
     # Safety check
     if not ROOT.TEfficiency.CheckConsistency(num_mc_rb, den_mc_rb):
-        raise RuntimeError("Numerator and denominator histograms are inconsistent")
+        raise RuntimeError("Numerator and denominator mc histograms are inconsistent")
     # Safety check
     if not ROOT.TEfficiency.CheckConsistency(num_data_rb, den_data_rb):
-        raise RuntimeError("Numerator and denominator histograms are inconsistent")
+        raise RuntimeError("Numerator and denominator data histograms are inconsistent")
 
     eff_mc = ROOT.TEfficiency(num_mc_rb, den_mc_rb)
     eff_data = ROOT.TEfficiency(num_data_rb, den_data_rb)
@@ -315,7 +389,10 @@ def main():
     # eff.SetStatisticOption(ROOT.TEfficiency.kFAC)
 
     eff_data.SetName("efficiency_data")
-    eff_data.SetTitle(";E_{T}^{miss} (no #mu) [GeV];Efficiency L1+HLT")
+    if var=="nPV":
+        eff_data.SetTitle(";n. PV;Efficiency L1+HLT")
+    else:
+        eff_data.SetTitle(";E_{T}^{miss} (no #mu) [GeV];Efficiency L1+HLT")
 
     eff_data.SetMarkerStyle(20)
     eff_data.SetMarkerSize(1.2)
@@ -359,22 +436,36 @@ def main():
 
     c = ROOT.TCanvas("c", "Efficiency", 800, 700)
 
-    pad1 = ROOT.TPad("pad1", "top pad", 0, 0.30, 1, 1.0)
-    pad2 = ROOT.TPad("pad2", "bottom pad", 0, 0.0, 1, 0.30)
+    if var!="nPV":
+        pad1 = ROOT.TPad("pad1", "top pad", 0, 0.30, 1, 1.0)
+        pad2 = ROOT.TPad("pad2", "bottom pad", 0, 0.0, 1, 0.30)
+        pad1.SetLeftMargin(0.12)
+        pad1.SetBottomMargin(0.02)
+        pad2.SetTopMargin(0.05)
+        pad2.SetBottomMargin(0.30)
+        pad2.SetLeftMargin(0.12)
 
-    pad1.SetBottomMargin(0.02)
-    pad2.SetTopMargin(0.05)
-    pad2.SetBottomMargin(0.30)
+        pad1.Draw()
+        pad2.Draw()
 
-    pad1.Draw()
-    pad2.Draw()
+        pad1.cd()
+        pad1.SetTicks(1, 1)
+        pad1.SetGrid()
 
-    pad1.cd()
-    pad1.SetTicks(1, 1)
-    pad1.SetGrid()
-
-    eff_mc.Draw("AL")
-    eff_data.Draw("P,sames")
+    else:
+        c.SetLeftMargin(0.15)
+        c.SetBottomMargin(0.15)
+        c.cd()
+        c.SetGrid()
+        
+    if var=="nPV":
+        eff_data.SetLineWidth(2)
+        eff_data.Draw("AP")
+        x95_mc = None
+        x99_mc = None
+    else:
+        eff_mc.Draw("AL")
+        eff_data.Draw("P,sames")
 
     if x95_mc is not None:
         line95_mc = ROOT.TLine(x95_mc, 0, x95_mc, 1)
@@ -434,20 +525,31 @@ def main():
 
         
     ROOT.gPad.Update()
-    
-    eff_mc.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
-    eff_mc.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
-    eff_mc.GetPaintedGraph().GetYaxis().SetRangeUser(0.0, 1.05)
-    eff_data.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
-    eff_data.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
-    eff_data.GetPaintedGraph().GetYaxis().SetRangeUser(0.0, 1.05)
 
-    
-    leg = ROOT.TLegend(0.50, 0.20, 0.88, 0.35)
+    if var!="nPV":
+        eff_mc.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+        eff_mc.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
+        eff_mc.GetPaintedGraph().GetYaxis().SetRangeUser(0.0, 1.05)
+        eff_data.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+        eff_data.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
+        eff_data.GetPaintedGraph().GetYaxis().SetRangeUser(0.0, 1.05)
+    else:
+        eff_data.GetPaintedGraph().GetXaxis().SetTitleSize(0.045)
+        eff_data.GetPaintedGraph().GetYaxis().SetTitleSize(0.045)
+        eff_data.GetPaintedGraph().GetYaxis().SetRangeUser(0.0, 0.01)
+        eff_data.GetPaintedGraph().GetXaxis().SetLimits(0.0, 100.)
+
+    ROOT.gPad.Update()
+
+    if var!="nPV":
+        leg = ROOT.TLegend(0.50, 0.20, 0.88, 0.35)
+    else:
+        leg = ROOT.TLegend(0.50-0.2, 0.20, 0.88-0.2, 0.35)
     leg.SetBorderSize(0)
     leg.SetFillStyle(0)
     leg.SetTextSize(0.04)
-    leg.AddEntry(eff_mc, "MC WJetsToLNu "+str(era), "PLE")
+    if var!="nPV":
+        leg.AddEntry(eff_mc, "MC WJetsToLNu "+str(era), "PLE")
     leg.AddEntry(eff_data, "DATA SingleMuon "+str(era), "PE")
     leg.Draw()
 
@@ -460,105 +562,153 @@ def main():
     latex.DrawLatex(0.26, 0.94, "Preliminary")
     latex.SetTextFont(42)
     #latex.DrawLatex(0.65, 0.94, "%.1f fb^{-1} (13.6 TeV)"%float(lumi))
-    latex.DrawLatex(0.65, 0.94, "13.6 TeV")
+    if "2022" in era or "2023" in era:
+        s = "13.6"
+    else:
+        s = "13"
+    latex.DrawLatex(0.65, 0.94, s+" TeV")
 
-    pad1.Update()  # Important so graphs exist
-    g_mc = eff_mc.GetPaintedGraph()
+    if var!="nPV":
+        pad1.Update()  # Important so graphs exist
+        g_mc = eff_mc.GetPaintedGraph()
+    else:
+        c.Update()
     g_data = eff_data.GetPaintedGraph()
 
-    g_mc.GetXaxis().SetLabelSize(0)   # removes numbers
-    g_mc.GetXaxis().SetTitleSize(0)   # removes axis title
-    g_mc.GetXaxis().SetTickLength(0)  # optional: removes tick marks
-    g_data.GetXaxis().SetLabelSize(0)   # removes numbers
-    g_data.GetXaxis().SetTitleSize(0)   # removes axis title
+    if var!="nPV":
+        g_mc.GetXaxis().SetLabelSize(0)   # removes numbers
+        g_mc.GetXaxis().SetTitleSize(0)   # removes axis title
+        g_mc.GetXaxis().SetTickLength(0)  # optional: removes tick marks
+        g_data.GetXaxis().SetTitleSize(0)   # removes axis title
+        g_data.GetXaxis().SetLabelSize(0)   # removes numbers
     #g_data.GetXaxis().SetTickLength(0)  # optional: removes tick marks
-    ratio = ROOT.TGraphAsymmErrors(g_mc.GetN())
 
-    for i in range(g_mc.GetN()):
+    if var!="nPV":
+        ratio = ROOT.TGraphAsymmErrors(g_mc.GetN())
+        for i in range(g_mc.GetN()):
 
-        x = g_mc.GetPointX(i)
-        y_mc = g_mc.GetPointY(i)
-        y_data = g_data.GetPointY(i)
+            x = g_mc.GetPointX(i)
+            y_mc = g_mc.GetPointY(i)
+            y_data = g_data.GetPointY(i)
 
-        if y_mc > 0:
-            r = y_data / y_mc
-            ratio.SetPoint(i, x, r)
+            if y_mc > 0:
+                r = y_data / y_mc
+                if math.isnan(r) or math.isinf(r):
+                    continue
+                print(i,x,r)
+                if x>=150:
+                    ratio.SetPoint(i, x, r)
 
-            # Propagate asymmetric errors approximately
-            err_mc_up = g_mc.GetErrorYhigh(i)
-            err_mc_dn = g_mc.GetErrorYlow(i)
-            err_data_up = g_data.GetErrorYhigh(i)
-            err_data_dn = g_data.GetErrorYlow(i)
+                    # Propagate asymmetric errors approximately
+                    err_mc_up = g_mc.GetErrorYhigh(i)
+                    err_mc_dn = g_mc.GetErrorYlow(i)
+                    err_data_up = g_data.GetErrorYhigh(i)
+                    err_data_dn = g_data.GetErrorYlow(i)
 
-            err_up = r * ((err_data_up/y_data)**2 + (err_mc_dn/y_mc)**2)**0.5
-            err_dn = r * ((err_data_dn/y_data)**2 + (err_mc_up/y_mc)**2)**0.5
+                    err_up = r * ((err_data_up/y_data)**2 + (err_mc_dn/y_mc)**2)**0.5
+                    err_dn = r * ((err_data_dn/y_data)**2 + (err_mc_up/y_mc)**2)**0.5
 
-            ratio.SetPointError(i,
-                                g_mc.GetErrorXlow(i),
-                                g_mc.GetErrorXhigh(i),
-                                err_dn,
-                                err_up)
+                    if not math.isnan(err_up) and not math.isnan(err_dn):
+                        ratio.SetPointError(
+                            i,
+                            g_mc.GetErrorXlow(i),
+                            g_mc.GetErrorXhigh(i),
+                            err_dn,
+                            err_up
+                        )
+                    else:
+                        ratio.SetPointError(
+                            i,
+                            g_mc.GetErrorXlow(i),
+                            g_mc.GetErrorXhigh(i),
+                            0,
+                            0
+                        )
+                
+                
+                #ratio.SetPointError(i,
+                #                    g_mc.GetErrorXlow(i),
+                #                    g_mc.GetErrorXhigh(i),
+                #                    err_dn,
+                #                    err_up)
 
+                else:
+                    ratio.SetPoint(i, x, 0)
     
-    #for i in range(g_mc.GetN()):
-    #    x = ROOT.Double()
-    pad2.cd()
-    pad2.SetGrid()
-    pad2.SetTicks(1, 1)
+        pad2.cd()
+        pad2.SetGrid()
+        pad2.SetTicks(1, 1)
 
-    ratio.SetTitle("")
-    ratio.GetYaxis().SetTitle("Data / MC")
-    ratio.GetXaxis().SetTitle(eff_mc.GetPaintedGraph().GetXaxis().GetTitle())
+        ratio.SetTitle("")
+        ratio.GetYaxis().SetTitle("Data / MC")
+        ratio.GetXaxis().SetTitle(eff_mc.GetPaintedGraph().GetXaxis().GetTitle())
 
-    ratio.GetYaxis().SetNdivisions(505)
-    ratio.GetYaxis().SetTitleSize(0.10)
-    ratio.GetYaxis().SetTitleOffset(0.45)
-    ratio.GetYaxis().SetLabelSize(0.08)
+        ratio.GetYaxis().SetNdivisions(505)
+        ratio.GetYaxis().SetTitleSize(0.10)
+        ratio.GetYaxis().SetTitleOffset(0.45)
+        ratio.GetYaxis().SetLabelSize(0.08)
+        
+        ratio.GetXaxis().SetTitleSize(0.12)
+        ratio.GetXaxis().SetLabelSize(0.10)
 
-    ratio.GetXaxis().SetTitleSize(0.12)
-    ratio.GetXaxis().SetLabelSize(0.10)
+        ratio.SetMarkerStyle(21)
+        ratio.SetMarkerSize(1.)
+        ratio.SetLineWidth(1)
+        ratio.SetMarkerColor(4)
+        ratio.SetLineColor(4)
+        ratio.Draw("AP")
 
-    ratio.SetMarkerStyle(21)
-    ratio.SetMarkerSize(1.)
-    ratio.SetLineWidth(1)
-    ratio.SetMarkerColor(4)
-    ratio.SetLineColor(4)
-    ratio.Draw("AP")
+        print(ratio.Print())
+        
+        xeff = find_first_unity_crossing(ratio)
+        if xeff==None:
+            xeff = 0
+        line = ROOT.TLine(xeff, 0, xeff,1)
+        line.SetLineColor(2)
+        line.SetLineStyle(2)
+        line.SetLineWidth(2)
+        #line.Draw("same")
 
-    xeff = find_first_unity_crossing(ratio)
-    if xeff==None:
-        xeff = 0
-    line = ROOT.TLine(xeff, 0, xeff,1)
-    line.SetLineColor(2)
-    line.SetLineStyle(2)
-    line.SetLineWidth(2)
-    #line.Draw("same")
-
-    latex = ROOT.TLatex()
-    latex.SetTextColor(2)
-    latex.SetTextSize(0.035)
-    latex.SetTextAlign(21)  # center horizontally, bottom vertically
-    latex.SetTextAngle(90)   # rotate text 90 degrees
-    #latex.DrawLatex(xeff, 0.65, f"r=1 @ {xeff:.0f} GeV")
+        latex = ROOT.TLatex()
+        latex.SetTextColor(2)
+        latex.SetTextSize(0.035)
+        latex.SetTextAlign(21)  # center horizontally, bottom vertically
+        latex.SetTextAngle(90)   # rotate text 90 degrees
+        #latex.DrawLatex(xeff, 0.65, f"r=1 @ {xeff:.0f} GeV")
 
 
-    #line = ROOT.TLine(
-    #    ratio.GetXaxis().GetXmin(), 1.0,
-    #    ratio.GetXaxis().GetXmax(), 1.0
-    #)
-    #line.SetLineStyle(2)
-    #line.Draw()
+        #line = ROOT.TLine(
+        #    ratio.GetXaxis().GetXmin(), 1.0,
+        #    ratio.GetXaxis().GetXmax(), 1.0
+        #)
+        #line.SetLineStyle(2)
+        #line.Draw()
+
+    #else:
+    #    #if var is nPV, save ratio as data
+    #    ratio = ROOT.TGraphAsymmErrors(g_data.GetN())
+    #    ratio.SetTitle("")
+    #    print(ratio.Print())
     
-    c.SaveAs(output_dir+"efficiency_"+era+".png")
-    c.SaveAs(output_dir+"efficiency_"+era+".pdf")
-    
+
+    if var=="nPV":
+        c.SaveAs(output_dir+"efficiency_"+era+"_nPV.png")
+        c.SaveAs(output_dir+"efficiency_"+era+"_nPV.pdf")
+        fout = ROOT.TFile(output_dir+"ratio_"+era+"_nPV.root", "RECREATE")
+        fout.cd()
+        g_data.Write("ratio")
+        fout.Close()
+
+    else:
+        c.SaveAs(output_dir+"efficiency_"+era+".png")
+        c.SaveAs(output_dir+"efficiency_"+era+".pdf")
+        fout = ROOT.TFile(output_dir+"ratio_"+era+".root", "RECREATE")
+        fout.cd()
+        ratio.Write("ratio")
+        fout.Close()
+
+
     print(f"Output written to: {output_file}")
-
-    fout = ROOT.TFile(output_dir+"ratio_"+era+".root", "RECREATE")
-    fout.cd()
-    ratio.Write("ratio")
-    fout.Close()
-
 
 
     

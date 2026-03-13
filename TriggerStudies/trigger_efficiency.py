@@ -57,6 +57,10 @@ def find_x_at_efficiency(eff, target):
             return x
     return None
 
+var = "MET_pt_nomu"
+#var = "Muon_pt_sel"
+#var = "MET_pt_corr"
+
 def main():
     args = parse_args()
 
@@ -111,14 +115,14 @@ def main():
             raise KeyError("Directory 'All_evt' not found in ROOT file")
 
         # Get histogram "X"
-        hden = den_dir.Get("MET_pt_nomu")
+        hden = den_dir.Get(var)
         if not hden:
-            raise KeyError("Histogram 'MET_pt_nomu' not found in directory 'All_evt'")
+            raise KeyError("Histogram '"+var+"' not found in directory 'All_evt'")
 
         # Type check
         if not hden.InheritsFrom("TH1D"):
             raise TypeError(
-                f"Object 'All_evt/MET_pt_nomu' exists but is not a TH1D (found {hden.ClassName()})"
+                f"Object 'All_evt/'"+var+" exists but is not a TH1D (found {hden.ClassName()})"
             )
 
         # Detach from file so it survives file closing
@@ -141,14 +145,14 @@ def main():
             raise KeyError("Directory 'num_evt' not found in ROOT file")
 
         # Get histogram "X"
-        hnum = num_dir.Get("MET_pt_nomu")
+        hnum = num_dir.Get(var)
         if not hnum:
-            raise KeyError("Histogram 'MET_pt_nomu' not found in directory 'num_evt'")
+            raise KeyError("Histogram '"+var+"' not found in directory 'num_evt'")
 
         # Type check
         if not hnum.InheritsFrom("TH1D"):
             raise TypeError(
-                f"Object 'num_evt/MET_pt_nomu' exists but is not a TH1D (found {hnum.ClassName()})"
+                f"Object 'num_evt/"+var+"' exists but is not a TH1D (found {hnum.ClassName()})"
             )
 
         # Detach from file so it survives file closing
@@ -183,6 +187,15 @@ def main():
     num_rb.SetDirectory(0)
     den_rb.SetDirectory(0)
 
+    #clipping for numerical precision
+    eps = 1e-9
+
+    for i in range(1, num_rb.GetNbinsX()+1):
+        num_c = num_rb.GetBinContent(i)
+        den_c = den_rb.GetBinContent(i)
+
+        if num_c > den_c and abs(num_c - den_c) < eps:
+            num_rb.SetBinContent(i, den_c)
         
     # Safety check
     if not ROOT.TEfficiency.CheckConsistency(num_rb, den_rb):
