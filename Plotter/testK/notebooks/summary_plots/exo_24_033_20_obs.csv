@@ -1,0 +1,17 @@
+#: table_doi: 10.17182/hepdata.166009.v1/t13
+#: name: Figure 11c (lower left), exclusion curves
+#: description: Observed 95% CL upper limits on the production cross section for the bino-wino NLSP model, as functions of the $m_{	ext{LLP}}$ and $c\tau$, for $\Delta m$ of 20 GeV. The observed (solid black) and expected (dashed red) exclusion curves are overlaid on the plots. The search excludes the region to the left of the exclusion curves.
+#: data_file: figure_11c_(lower_left),_exclusion_curves.yaml
+#: keyword observables: $c\tau$ | $m$ | limit
+#: keyword cmenergies: 13000.0
+$c\tau$ [mm],Observed $m$ excluded at 95%% CL [GeV]
+0.2,270.0
+0.5,380.0
+1.0,450.0
+2.0,490.0
+5.0,520.0
+10.0,520.0
+20.0,520.0
+50.0,480.0
+100.0,430.0
+200.0,350.0

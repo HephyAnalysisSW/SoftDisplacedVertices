@@ -1,0 +1,12 @@
+#: table_doi: 10.17182/hepdata.166009.v1/t7
+#: name: Figure 10c (lower), exclusion curves
+#: description: Observed 95% CL upper limits on the $\tilde{t}$ production cross section, as functions of $m_{\tilde{t}}$ and $\Delta m$, for $\mathcal{B}(\tilde{t} \to bf\overline{f}'\tilde{\chi}^{0}_{1})$ of 100%. The observed (solid black) and expected (dashed red) exclusion curves are overlaid on the plots. The search excludes the region to the left of the exclusion curves.
+#: data_file: figure_10c_(lower),_exclusion_curves.yaml
+#: keyword observables: $\Delta m$ | $m$ | limit
+#: keyword cmenergies: 13000.0
+$\Delta m$ [GeV],Median expected $m$ excluded at 95%% CL [GeV],$1 \sigma_\mathrm{exp}$ +,$1 \sigma_\mathrm{exp}$ -
+12.0,790.0,30.0,-50.0
+15.0,980.0,50.0,-40.0
+20.0,1000.0,70.0,-50.0
+25.0,840.0,60.0,-70.0
+
