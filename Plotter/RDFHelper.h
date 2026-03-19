@@ -1013,3 +1013,100 @@ std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_ML(ROOT::RVecB Vertex_presel, ROOT::R
     Vertex_isleading[leading_idx] = true;
     return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
 }
+
+
+ROOT::RVecI GetJetnTracks(ROOT::RVecF Track_pt, ROOT::RVecF Track_phi, ROOT::RVecF Track_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta, float dRThreshold, float ptCut=0) {
+  size_t nTrack = Track_phi.size();
+  size_t nJet   =   Jet_phi.size();
+  float dphi = 999;
+  float deta = 999;
+  float dR   = 999;
+  ROOT::RVecI Jet_nTracks(nJet, 0);
+
+  for (size_t i=0; i<nJet; ++i) {
+    for (size_t j=0; j<nTrack; ++j) {
+      dphi = TMath::Abs(ROOT::VecOps::DeltaPhi(Jet_phi[i], Track_phi[j]));
+      deta = TMath::Abs(Jet_eta[i]-Track_eta[j]);
+      dR   = TMath::Hypot(dphi,deta);
+      if ((dR <= dRThreshold) && (Track_pt[j] >= ptCut)){
+        Jet_nTracks[i] += 1;
+      }
+    }
+  }
+  return Jet_nTracks;
+}
+
+std::vector<ROOT::RVecF> SDV_TkMinMaxdxy(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDV, ROOT::RVecF SDVTrack_dxy)
+{
+    ROOT::RVecF SDVSecVtx_maxdxy(nSDV, -1);
+    ROOT::RVecF SDVSecVtx_mindxy(nSDV, -1);
+    for (size_t iSDV=0; iSDV<nSDV; ++iSDV){
+        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
+        ROOT::RVecF dxys;
+        for (size_t i=0; i<tkIdx.size(); ++i){
+                dxys.push_back(abs(SDVTrack_dxy[i]));
+        }
+        SDVSecVtx_mindxy[iSDV] = ROOT::VecOps::Min(dxys);
+        SDVSecVtx_maxdxy[iSDV] = ROOT::VecOps::Max(dxys);
+    }
+
+    std::vector<ROOT::RVecF> minmaxdxy = {SDVSecVtx_mindxy, SDVSecVtx_maxdxy};
+    return minmaxdxy;
+}
+
+ROOT::RVecI vtx_jetidx_at_mindR(ROOT::RVecF Vertex_phi, ROOT::RVecF Vertex_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta) {
+  bool debug = false;
+
+  size_t nVertex = Vertex_phi.size();
+  ROOT::RVecF minJetdR(nVertex,999);
+  ROOT::RVecF minJetdphi(nVertex,999);
+  ROOT::RVecF minJetdeta(nVertex,999);
+  ROOT::RVecI jetidx_at_minJetdR(nVertex,999);
+  if(debug){
+    std::cout << "--------------------------------------------------------" << std::endl;
+    std::cout << "Jet_phi.size(): " << Jet_phi.size() << std::endl;
+  }
+  if (Jet_phi.size()>0){
+      for (size_t i=0; i<nVertex; ++i) {
+        ROOT::RVecF jet_dphi = ROOT::VecOps::abs(ROOT::VecOps::DeltaPhi(Jet_phi,Vertex_phi[i]));
+        ROOT::RVecF jet_deta = ROOT::VecOps::abs(Jet_eta-Vertex_eta[i]);
+        ROOT::RVecF jet_dR   = ROOT::VecOps::hypot(jet_dphi,jet_deta);
+    
+        size_t jetidx = ROOT::VecOps::ArgMin(jet_dR);
+        if(debug){
+          std::cout << "vtx: " << i<< std::endl;
+          std::cout << "jetidx: " << jetidx<< std::endl;
+        }
+        jetidx_at_minJetdR[i] = jetidx;
+        minJetdR[i]   = jet_dR[jetidx];
+        minJetdphi[i] = jet_dphi[jetidx];
+        minJetdeta[i] = jet_deta[jetidx];
+      }
+  }
+  if(debug){
+    std::cout << "--------------------------------------------------------" << std::endl;
+  }
+  return jetidx_at_minJetdR;
+}
+
+// This function returns a list with the length of nTracks, each element labels whether the track is included in a SV or not
+template<typename T>
+ROOT::VecOps::RVec<T> Track_getVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::VecOps::RVec<T> SDVSecVtx_Var, T fillValue=-1.0){
+  ROOT::VecOps::RVec<T> tk_vtxVar(nTracks, fillValue);
+  int i = 0;
+  for (auto& idx : SDVIdxLUT_TrackIdx){
+    tk_vtxVar[idx] = SDVSecVtx_Var[SDVIdxLUT_SecVtxIdx[i]];
+    i++;
+  }
+  return tk_vtxVar;
+}
+
+ROOT::RVecB Track_getVtxVarBool(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecB SDVSecVtx_Var, int fillValue=-1.0){
+  ROOT::RVecI tk_vtxVar(nTracks, fillValue);
+  int i = 0;
+  for (auto& idx : SDVIdxLUT_TrackIdx){
+    tk_vtxVar[idx] = SDVSecVtx_Var[SDVIdxLUT_SecVtxIdx[i]];
+    i++;
+  }
+  return tk_vtxVar;
+}

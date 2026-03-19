@@ -115,3 +115,21 @@ python3 printNevt2D.py --input /eos/vbc/group/cms/ang.li/DataHistos_VRCRVRdPhire
 ```
 
 Two different sets of scripts are provided, `printNevt` and `getNevt`, basically they do the same thing. But the printouts are formatted differently.
+
+
+
+
+
+# Integration with Combine
+
+```
+cmssw-el9
+cmsrel CMSSW_15_0_5
+cd CMSSW_15_0_5/src
+cmsenv
+git -c advice.detachedHead=false clone --depth 1 --branch v10.5.1 https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
+cd HiggsAnalysis/CombinedLimit
+scramv1 b clean; scramv1 b -j$(nproc --ignore=2) # always make a clean build, with n - 2 cores on the system
+```
+
+Ref: https://cms-analysis.github.io/HiggsAnalysis-CombinedLimit/latest/#within-cmssw-recommended-for-cms-users

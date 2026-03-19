@@ -364,6 +364,37 @@ top_2023Post = [
     Sample("tttolnu2q_2023post",xsec=762.1),
         ]
 
+# Samples 2024
+# ------------------------------------------------------------------
+
+wlnu_2024  = [Sample("wjetstolnu4jetsb1j_2024", xsec=0),
+              Sample("wjetstolnu4jetsb2j_2024", xsec=0),
+              Sample("wjetstolnu4jetsb3j_2024", xsec=0),
+              Sample("wjetstolnu4jetsb4j_2024", xsec=0)]
+znunu_2024 = [Sample("zto2nu4jetsht0100_2024", xsec=0),
+              Sample("zto2nu4jetsht0200_2024", xsec=0),
+              Sample("zto2nu4jetsht0400_2024", xsec=0),
+              Sample("zto2nu4jetsht0800_2024", xsec=0),
+              Sample("zto2nu4jetsht1500_2024", xsec=0),
+              Sample("zto2nu4jetsht2500_2024", xsec=0)
+              ]
+qcd_2024 =   [Sample("qcd4jetsht0040_2024", xsec=0),
+              Sample("qcd4jetsht0070_2024", xsec=0),
+              Sample("qcd4jetsht0100_2024", xsec=0),
+              Sample("qcd4jetsht0200_2024", xsec=0),
+              Sample("qcd4jetsht0400_2024", xsec=0),
+              Sample("qcd4jetsht0600_2024", xsec=0),
+              Sample("qcd4jetsht0800_2024", xsec=0),
+              Sample("qcd4jetsht1000_2024", xsec=0),
+              Sample("qcd4jetsht1200_2024", xsec=0),
+              Sample("qcd4jetsht1500_2024", xsec=0),
+              Sample("qcd4jetsht2000_2024", xsec=0),
+              ]
+top_2024 =   [Sample("ttto4q_2024"   , xsec=0),
+              Sample("ttto2l2nu_2024", xsec=0),
+              Sample("tttolnu2q_2024", xsec=0)
+             ]
+
 met_2024 = [
         Sample("jetmet0_2024c", xsec=-1),
         Sample("jetmet0_2024d", xsec=-1),
@@ -709,6 +740,65 @@ c1n2_2018 = [
     Sample("C1N2_M600_588_ct20_2018", xsec=0.02014),
     Sample("C1N2_M600_588_ct2_2018", xsec=0.02014),
     ]
+
+sig_ABCD_study = [
+  Sample("C1N2ML_M200_175_ct2_2018",     xsec=1.807),
+  Sample("C1N2ML_M200_175_ct20_2018",    xsec=1.807),
+  Sample("C1N2ML_M200_175_ct200_2018" ,  xsec=1.807),
+  Sample("C1N2ML_M200_185_ct2_2018",     xsec=1.807),
+  Sample("C1N2ML_M200_185_ct20_2018",    xsec=1.807),
+  Sample("C1N2ML_M200_185_ct200_2018" ,  xsec=1.807),
+  Sample("C1N2ML_M200_190_ct2_2018",     xsec=1.807),
+  Sample("C1N2ML_M200_190_ct20_2018",    xsec=1.807),
+  Sample("C1N2ML_M200_190_ct200_2018" ,  xsec=1.807),
+  Sample("C1N2ML_M200_195_ct2_2018",     xsec=1.807),
+  Sample("C1N2ML_M200_195_ct20_2018",    xsec=1.807),
+  Sample("C1N2ML_M200_195_ct200_2018" ,  xsec=1.807),
+  Sample("C1N2ML_M500_475_ct2_2018",     xsec=0.046),
+  Sample("C1N2ML_M500_475_ct20_2018",    xsec=0.046),
+  Sample("C1N2ML_M500_475_ct200_2018" ,  xsec=0.046),
+  Sample("C1N2ML_M500_485_ct2_2018",     xsec=0.046),
+  Sample("C1N2ML_M500_485_ct20_2018",    xsec=0.046),
+  Sample("C1N2ML_M500_485_ct200_2018" ,  xsec=0.046),
+  Sample("C1N2ML_M500_490_ct2_2018",     xsec=0.046),
+  Sample("C1N2ML_M500_490_ct20_2018",    xsec=0.046),
+  Sample("C1N2ML_M500_490_ct200_2018" ,  xsec=0.046),
+  Sample("C1N2ML_M500_495_ct2_2018",     xsec=0.046),
+  Sample("C1N2ML_M500_495_ct20_2018",    xsec=0.046),
+  Sample("C1N2ML_M500_495_ct200_2018" ,  xsec=0.046),
+  Sample("stopML_M1000_975_ct0p2_2018",  xsec=0.007395),
+  Sample("stopML_M1000_975_ct2_2018",    xsec=0.007395),
+  Sample("stopML_M1000_975_ct20_2018" ,  xsec=0.007395),
+  Sample("stopML_M1000_975_ct200_2018",  xsec=0.007395),
+  Sample("stopML_M1000_980_ct0p2_2018",  xsec=0.007395),
+  Sample("stopML_M1000_980_ct2_2018",    xsec=0.007395),
+  Sample("stopML_M1000_980_ct20_2018" ,  xsec=0.007395),
+  Sample("stopML_M1000_980_ct200_2018",  xsec=0.007395),
+  Sample("stopML_M1000_985_ct0p2_2018",  xsec=0.007395),
+  Sample("stopML_M1000_985_ct2_2018",    xsec=0.007395),
+  Sample("stopML_M1000_985_ct20_2018" ,  xsec=0.007395),
+  Sample("stopML_M1000_985_ct200_2018",  xsec=0.007395),
+  Sample("stopML_M1000_988_ct0p2_2018",  xsec=0.007395),
+  Sample("stopML_M1000_988_ct2_2018",    xsec=0.007395),
+  Sample("stopML_M1000_988_ct20_2018" ,  xsec=0.007395),
+  Sample("stopML_M1000_988_ct200_2018",  xsec=0.007395),
+  Sample("stopML_M1200_1175_ct0p2_2018", xsec=0.001876),
+  Sample("stopML_M1200_1175_ct2_2018" ,  xsec=0.001876),
+  Sample("stopML_M1200_1175_ct20_2018",  xsec=0.001876),
+  Sample("stopML_M1200_1175_ct200_2018", xsec=0.001876),
+  Sample("stopML_M1200_1180_ct0p2_2018", xsec=0.001876),
+  Sample("stopML_M1200_1180_ct2_2018" ,  xsec=0.001876),
+  Sample("stopML_M1200_1180_ct20_2018",  xsec=0.001876),
+  Sample("stopML_M1200_1180_ct200_2018", xsec=0.001876),
+  Sample("stopML_M1200_1185_ct0p2_2018", xsec=0.001876),
+  Sample("stopML_M1200_1185_ct2_2018" ,  xsec=0.001876),
+  Sample("stopML_M1200_1185_ct20_2018",  xsec=0.001876),
+  Sample("stopML_M1200_1185_ct200_2018", xsec=0.001876),
+  Sample("stopML_M1200_1188_ct0p2_2018", xsec=0.001876),
+  Sample("stopML_M1200_1188_ct2_2018" ,  xsec=0.001876),
+  Sample("stopML_M1200_1188_ct20_2018",  xsec=0.001876),
+  Sample("stopML_M1200_1188_ct200_2018", xsec=0.001876),
+]
 
 c1n2_reweight = [
 Sample("C1N2_M200_188_ct0p5_2017", xsec=1.807),
@@ -1156,13 +1246,14 @@ all_samples = [
     wlnu_2018,
     qcd_2018,
     stop_2018,
-    c1n2_2018,
+    # c1n2_2018,
     top_2018,
-    c1n2_reweight,
-    c1n2_lowdm_2018,
-    stop_MLtraining_2018,
-    C1N2_MLtraining_2018,
-    MLstudy_2018,
+    # c1n2_reweight,
+    # c1n2_lowdm_2018,
+    # stop_MLtraining_2018,
+    # C1N2_MLtraining_2018,
+    # MLstudy_2018,
+    sig_ABCD_study,
     c1n2_2024,
     stop_2024,
     met_2022Pre,
@@ -1204,6 +1295,20 @@ all_signals = [
     MLstudy_2018,
     c1n2_2024,
     stop_2024,
+]
+
+all_bkg_2018 = [
+  *znunu_2018,
+  *wlnu_2018,
+  *qcd_2018,
+  *top_2018
+]
+
+all_bkg_2024 = [
+  *wlnu_2024,
+  *znunu_2024,
+  *qcd_2024,
+  *top_2024
 ]
 
 for samples in all_samples:
