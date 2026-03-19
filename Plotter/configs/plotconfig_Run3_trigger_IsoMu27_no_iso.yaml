@@ -1,11 +1,13 @@
-muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
-ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
-photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
-tau_sel: (Tau_idDeepTau2018v2p5VSmu>0) && (Tau_idDeepTau2018v2p5VSe>0) && (Tau_idDeepTau2018v2p5VSjet>0) && (abs(Tau_eta)<2.5) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
+muon_sel: (Muon_looseId>0) && (Muon_eta<2.4) && (Muon_pt>10)
+muon_tight_sel: (Muon_tightId>0) && abs(Muon_eta)<2.4 && (Muon_pt>30)
+ele_sel: (Electron_cutBased>=1) && (Electron_eta<2.5) && (Electron_pt>10)
+photon_sel: (Photon_cutBased>=1) && (Photon_eta<2.5) && (Photon_pt>15)
+tau_sel: (Tau_idDecayModeOldDMs>=1) && (Tau_eta<2.3) && (Tau_pt>18)
 jet_sel: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20)
 jet_sel_mapveto: (Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)
+#met_hlt : (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight==1)
 
-presel: HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && MET_pt_corr>200 && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+presel: MET_pt>0 && veto_jet_sel_ecalBadCalib==0 && nMuon_tight_sel==1 && HLT_IsoMu27==1
 
 corrections:
     PU:
@@ -29,6 +31,11 @@ corrections:
             path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/puWeights_BCDEFGHI.json.gz"
             name: "Collisions24_BCDEFGHI_goldenJSON"
             mode: "nominal"
+    #PU:
+    #    "2018":
+    #        path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
+    #        name: "Collisions18_UltraLegacy_goldenJSON"
+    #        mode: "nominal"
     jetid:
         "2024":
             path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
@@ -55,45 +62,67 @@ corrections:
 
 new_variables:
     veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
-    Jet_pt_sel: ['Jet_pt_corr[{0}]',jet_sel]
-    Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
-    Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
-    Jet_chHEF_sel: ['Jet_chHEF[{0}]',jet_sel]
-    Jet_neHEF_sel: ['Jet_neHEF[{0}]',jet_sel]
-    Jet_nConstituents_sel: ['Jet_nConstituents[{0}]',jet_sel]
-    nJet_sel: ['Sum({0})',jet_sel]
-    leadingjet_pt: Jet_pt_sel[0]
-    leadingjet_phi: Jet_phi_sel[0]
-    leadingjet_eta: Jet_eta_sel[0]
-    leadingjet_chHEF: Jet_chHEF_sel[0]
-    leadingjet_neHEF: Jet_neHEF_sel[0]
-    leadingjet_nConstituents: Jet_nConstituents_sel[0]
-    dphi_MET_jet0: acos(cos(leadingjet_phi-MET_phi_corr))
-    nMuon_sel: ['Sum({0})', muon_sel]
-    nEle_sel: ['Sum({0})', ele_sel]
-    nPhoton_sel: ['Sum({0})', photon_sel]
-    nTau_sel: ['Sum({0})', tau_sel]
+    Muon_pt_sel: ['Muon_pt[{0}]',muon_tight_sel]
+    Muon_phi_sel: ['Muon_phi[{0}]',muon_tight_sel]
+    MET_pt_nomu : "met_no_mu(MET_pt_corr, MET_phi_corr, Muon_pt_sel, Muon_phi_sel)"
+    nMuon_sel: ['Sum({0})',muon_sel]
+    nMuon_tight_sel: ['Sum({0})',muon_tight_sel]
 
 regions:
   All: 
   #MET: MET_pt_corr > 200
+  num: (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight==1)
+
 event_variables:
     - MET_pt_corr
     - MET_phi_corr
+    - MET_pt_nomu
+    - nMuon_sel
+    - nMuon_tight_sel
+    - HLT_PFMETNoMu120_PFMHTNoMu120_IDTight
+    - run
+    - PV_npvs
+    - PV_npvsGood
 event_2d_plots:
+    - [MET_phi_corr,MET_pt_corr]
+    - [MET_phi_corr,MET_pt_nomu]
+    - [PV_npvs,MET_pt_nomu]
+    - [PV_npvsGood,MET_pt_nomu]
 
 objects:
-    Jet:
+    #Jet:
+    #    selections:
+    #        all:
+    #    variables:
+    #    - Jet_pt_corr
+    #    - Jet_mass_corr
+    #    2d_plots:
+    Muon:
         selections:
-            all:
+            #all:
+            tight_sel: (Muon_tightId>0) && abs(Muon_eta)<2.4 && (Muon_pt>30)
         variables:
-        - Jet_pt_corr
-        - Jet_mass_corr
-          
+        - Muon_pt
+        - Muon_eta
+        - Muon_phi
         2d_plots:
+        - [Muon_phi,Muon_eta]
+
 
 plot_setting:
-    MET_pt_corr: [MET_pt_corr,'MET_corr_pt',100,0,1000]
-    MET_phi_corr: [MET_phi_corr,'MET_corr_phi',128,-3.2,3.2]
-    Jet_pt_corr: [Jet_pt_corr,'Jet_pt_corr',100,0,1000]
-    Jet_mass_corr: [Jet_mass_corr,'Jet_mass_corr',100,0,1000]
+    MET_pt_corr: [MET_pt_corr,'MET_pt_corr',100,0,1000]
+    MET_phi_corr: [MET_phi_corr,'MET_phi_corr',128,-3.2,3.2]
+    MET_pt_nomu: [MET_pt_nomu,'MET_pt_nomu',100,0,1000]
+    Muon_pt: [Muon_pt,'Muon_pt',100,0,1000]
+    Muon_eta: [Muon_eta,'Muon_eta',100,-3.2,3.2]
+    Muon_phi: [Muon_phi,'Muon_phi',100,-3.2,3.2]
+    Muon_pt_sel: [Muon_pt_sel,'Muon_pt_sel',100,0,1000]
+    nMuon_sel: [nMuon_sel,';nMuons;A.U.',10,0,10]
+    nMuon_tight_sel: [nMuon_tight_sel,';nMuons tight;A.U.',10,0,10]
+    run: [run,'run',143,305040,306462]
+    HLT_PFMETNoMu120_PFMHTNoMu120_IDTight: [HLT_PFMETNoMu120_PFMHTNoMu120_IDTight, ';HLT path fired;A.U.',2,0,2]
+    #HLT_PFMETNoMu130_PFMHTNoMu130_IDTight: [HLT_PFMETNoMu130_PFMHTNoMu130_IDTight, ';HLT path fired;A.U.',2,0,2]
+    #HLT_PFMETNoMu140_PFMHTNoMu140_IDTight: [HLT_PFMETNoMu140_PFMHTNoMu140_IDTight, ';HLT path fired;A.U.',2,0,2]
+    #HT_sel: [HT_sel,'HT_sel',200,0,2000]
+    PV_npvs: [PV_npvs,'PV_npvs',100,0,100]
+    PV_npvsGood: [PV_npvsGood,'PV_npvsGood',100,0,100]
