@@ -27,6 +27,13 @@ def get_hist(HISTDIR, SAMPLENAME, METCUT, PLANE, sample_type):
         'SP3': 'MET350SP3_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
     }
 
+    # plane_map = {
+    # 'SP0': 'MET350SP0_evt/leading_vtx_SP0_dphiMET_vs_SP0_Max_ML_score',
+    # 'SP1': 'MET350SP1_evt/leading_vtx_SP1_dphiMET_vs_SP1_Max_ML_score',
+    # 'SP2': 'MET350SP2_evt/leading_vtx_SP2_dphiMET_vs_SP2_Max_ML_score',
+    # 'SP3': 'MET350SP3_evt/leading_vtx_SP3_dphiMET_vs_SP3_Max_ML_score',
+    # }
+
     f = ROOT.TFile.Open(str(file_path))
     h = f.Get(plane_map[PLANE])
     h.SetDirectory(0)
@@ -330,8 +337,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first')
-    base_dir = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first")
-    datacard_dir = base_dir / "datacards"
+    # HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first')
+    datacard_dir = HISTDIR / "datacards"
     datacard_dir.mkdir(parents=True, exist_ok=True)
 
 

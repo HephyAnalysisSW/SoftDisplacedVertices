@@ -7,8 +7,13 @@ import os
 import pandas as pd
 import numpy as np
 
-limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limits'
-limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limit_tables'
+# limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limits'
+# limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limit_tables/Run2'
+
+limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first/limits/Run2'
+limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first/limit_tables/Run2'
+
+
 os.makedirs(limit_tables_dir, exist_ok=True)
 
 store = pd.HDFStore(os.path.join(limit_tables_dir, 'limit_table_store.h5'))

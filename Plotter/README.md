@@ -117,8 +117,20 @@ python3 printNevt2D.py --input /eos/vbc/group/cms/ang.li/DataHistos_VRCRVRdPhire
 Two different sets of scripts are provided, `printNevt` and `getNevt`, basically they do the same thing. But the printouts are formatted differently.
 
 
+# Updated getMCInfo
 
+Steps:
+- Submit the jobs
+- Resubmit until there are no failed jobs
+- Merge the job outputs
 
+```
+python3 getMCInfo_submission.py --json .../MC_Run3Summer24.json --outDir ... --files-per-job 30 --submit-script .../CMSSW_15_0_5/src/SoftDisplacedVertices/Plotter/testK/sh/submit_to_cpu1.sh --worker .../CMSSW_15_0_5/src/SoftDisplacedVertices/Plotter/getMCInfo_job.py --dryrun
+
+python3 ../getMCInfo_resubmission.py --uniquedir MC24 -S 2026-03-19
+
+python3 getMCInfo_merge.py --input-dir ... --output .../metadata.json
+```
 
 # Integration with Combine
 

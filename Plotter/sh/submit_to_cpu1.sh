@@ -3,7 +3,7 @@
 # Usage: sbatch submit_to_cpu.sh "python3 autoplotter.py  --sample wjetstolnuht0100_2018  --output /scratch-cbe/users/alikaan.gueven/2018_limits --config configs/calc_limits.yaml --lumi 59800 --json CustomNanoAOD_v3_bkg.json --datalabel CustomNanoAOD"
 
 
-#SBATCH --job-name=autoplotter
+#SBATCH --job-name=Plotter_run3
 #SBATCH --output=/scratch-cbe/users/alikaan.gueven/job_outs/job_%j.out 
 #SBATCH --ntasks 1 
 #SBATCH --cpus-per-task=1
@@ -12,7 +12,9 @@
 #SBATCH --partition=c 
 #SBATCH --qos=short
 #SBATCH --time=08:00:00 
-cd /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Plotter/
+PLOTTER_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )/.." &> /dev/null && pwd )
+echo "cd into $PLOTTER_DIR..."
+cd "$PLOTTER_DIR"
 cmssw-el9<<EOF
 cmsenv
 echo ----------------------------------------------- 
