@@ -1,8 +1,0 @@
-{
-    "CustomNanoAODv0_IVF_sharetk": {
-        "dir": {
-            "stop_M600_585_ct20": "/scratch-cbe/users/ang.li/SoftDV/NanoAOD_CustomNanoAODv0_IVF_sharetk/stop_M600_585_ct20/output"
-        }, 
-        "dataset": {}
-    }
-}
