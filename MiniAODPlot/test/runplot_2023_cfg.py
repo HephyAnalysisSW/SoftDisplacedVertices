@@ -21,7 +21,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 # configures the source that reads the input files
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
-    '/store/user/wuzh/SingleMuon/Run2018A_mini_v2/251223_130751/0002/MiniAOD_1-2869.root'
+    '/store/user/wuzh/Muon0/Run2023D0_mini_v1/251214_134554/0000/MiniAOD_2-4.root'
   )
 )
 
@@ -32,7 +32,7 @@ process.trig_filter = hlt.hltHighLevel.clone(
     )
 
 process.noise_filter = hlt.hltHighLevel.clone(
-    TriggerResultsTag = cms.InputTag("TriggerResults","","PAT"),
+    TriggerResultsTag = cms.InputTag("TriggerResults","","MINI"),
     HLTPaths = ['Flag_goodVertices','Flag_globalSuperTightHalo2016Filter','Flag_EcalDeadCellTriggerPrimitiveFilter','Flag_BadPFMuonFilter','Flag_BadPFMuonDzFilter','Flag_hfNoisyHitsFilter','Flag_eeBadScFilter'],
     andOr = False,
     throw = True
@@ -76,4 +76,5 @@ process.MiniAODPlot = cms.EDAnalyzer("MiniAODPlot",
         vtx_token = cms.untracked.InputTag("IVFSecondaryVerticesSoftDV"),
         )
 
-process.p = cms.Path(process.ecalBadCalibReducedMINIAODFilter + process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)
+#process.p = cms.Path(process.ecalBadCalibReducedMINIAODFilter + process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)
+process.p = cms.Path(process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)

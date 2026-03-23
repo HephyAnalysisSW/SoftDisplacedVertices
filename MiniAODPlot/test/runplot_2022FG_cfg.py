@@ -21,7 +21,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
 # configures the source that reads the input files
 process.source = cms.Source("PoolSource",
   fileNames = cms.untracked.vstring(
-    '/store/user/wuzh/SingleMuon/Run2018A_mini_v2/251223_130751/0002/MiniAOD_1-2869.root'
+    '/store/user/wuzh/Muon/Run2022F_mini_v2/251118_145400/0000/MiniAOD_1-10.root'
   )
 )
 
@@ -76,4 +76,5 @@ process.MiniAODPlot = cms.EDAnalyzer("MiniAODPlot",
         vtx_token = cms.untracked.InputTag("IVFSecondaryVerticesSoftDV"),
         )
 
-process.p = cms.Path(process.ecalBadCalibReducedMINIAODFilter + process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)
+#process.p = cms.Path(process.ecalBadCalibReducedMINIAODFilter + process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)
+process.p = cms.Path(process.trig_filter + process.noise_filter + process.vtxReco + process.MiniAODPlot)
