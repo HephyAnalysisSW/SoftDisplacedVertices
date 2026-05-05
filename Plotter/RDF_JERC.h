@@ -17,7 +17,7 @@ inline bool hasPhiDependentL2(const std::string& year) {
     return (year == "2023Post" || year == "2024" || year == "2025");
 }
 inline bool requiresRunBasedResidual(const std::string& year) {
-    return (year == "2023Pre" || year == "2023Post" || year == "2024" || year == "2025");
+    return (year == "2022Pre" || year == "2022Post" || year == "2023Pre" || year == "2023Post" || year == "2024" || year == "2025");
 }
 
 //inline double dummyRunNumber(const int& run, const std::string& year) {
@@ -32,13 +32,20 @@ std::pair<std::string,std::string> getEra(double run_number) {
     std::vector<int> runs({352319, 355065, 355794, 357487, 359022, 360332, 362350, 367080, 369803, 378981});
     //std::vector<std::string> eras({"2022A","2022B","2022C","2022D","2022E","2022F","2022G","2023C","2023D","2024"});
     std::vector<std::pair<std::string,std::string>> eras = {
-        {"2022Pre","Era2022A"}, //352319
-        {"2022Pre","Era2022B"}, //355065
-        {"2022Pre","Era2022C"}, //355794
-        {"2022Pre","Era2022D"}, //357487
-        {"2022Post","Era2022E"}, //359022
-        {"2022Post","Era2022F"}, //360332
-        {"2022Post","Era2022G"}, //362350
+        //{"2022Pre","Era2022A"}, //352319
+        //{"2022Pre","Era2022B"}, //355065
+        //{"2022Pre","Era2022C"}, //355794
+        //{"2022Pre","Era2022D"}, //357487
+        //{"2022Post","Era2022E"}, //359022
+        //{"2022Post","Era2022F"}, //360332
+        //{"2022Post","Era2022G"}, //362350
+        {"2022Pre","Era2022PreAll"}, //352319
+        {"2022Pre","Era2022PreAll"}, //355065
+        {"2022Pre","Era2022PreAll"}, //355794
+        {"2022Pre","Era2022PreAll"}, //357487
+        {"2022Post","Era2022PostAll"}, //359022
+        {"2022Post","Era2022PostAll"}, //360332
+        {"2022Post","Era2022PostAll"}, //362350
         {"2023Pre","Era2023PreAll"}, //367080
         {"2023Post","Era2023PostAll"}, //369803
         {"2024","Era2024All"} //378981
