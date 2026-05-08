@@ -225,7 +225,7 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     CMS.SetExtraText("Preliminary")
   else:
     CMS.SetExtraText("Simulation Preliminary")
-  CMS.SetLumi("100.3")
+  CMS.SetLumi("100")
   square=CMS.kSquare
   iPos=0
   

@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 
 from subprocess import run
+from pathlib import Path
 import json
 import re
 import os
 
-base = "/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first"
+base = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run3_check_inclusive")
+subdirs = sorted(path for path in base.iterdir() if path.is_dir())
+json_files = []
+for subdir in subdirs:
+    json_files.append(base / subdir / "job_ids.json")
 
-json_files = [
-    os.path.join(base, "sig",  "job_ids2018.json"),
-    os.path.join(base, "bkg",  "job_ids2018.json"),
-    os.path.join(base, "data", "job_ids2018.json"),
-]
+# json_files = [
+#     # os.path.join(base, "sig_18",    "job_ids.json"),
+#     os.path.join(base, "bkg",   "job_ids.json"),
+#     os.path.join(base, "data", "job_ids.json"),
+# ]
 
 for json_path in json_files:
     with open(json_path) as f:
@@ -35,6 +40,6 @@ for json_path in json_files:
         info["stdout"] = result.stdout.strip()
 
         print(result.stdout.strip())
-
+    
     with open(json_path, "w") as f:
         json.dump(job_dict, f, indent=2)

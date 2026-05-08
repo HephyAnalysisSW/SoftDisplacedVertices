@@ -1,6 +1,6 @@
 import re
 import json
-import os
+from pathlib import Path
 import argparse
 from subprocess import run
 
@@ -15,19 +15,17 @@ parser.add_argument('--uniquedir', type=str, required=True, help='e.g. vtx_PART_
 
 args = parser.parse_args()
 
+work_dir = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists")
 
 if __name__=="__main__":
-    outDir_base = "/scratch-cbe/users/alikaan.gueven/AN_plots/"
-    work_subdir = "ParT_hists"
     unique_dir  = args.uniquedir # "vtx_PART_859_epoch_87_test3_reverse"
+    outBaseDir = work_dir / unique_dir
 
-    work_dir = os.path.join(outDir_base, work_subdir)
-    outBaseDir = os.path.join(work_dir,str(unique_dir))
+    subdirs = [p for p in outBaseDir.iterdir() if p.is_dir()]
+    file_paths = {}
+    for subdir in subdirs:
+        file_paths[subdir] = outBaseDir / subdir / "job_ids.json"
     
-    file_paths = {'sig':  os.path.join(outBaseDir,   'sig/job_ids2018.json'),
-                  'bkg':  os.path.join(outBaseDir,   'bkg/job_ids2018.json'),
-                  'data': os.path.join(outBaseDir,  'data/job_ids2018.json'),
-                }
     
     for key, file_path in file_paths.items():
         print('INFO:    Sample type:',  key)

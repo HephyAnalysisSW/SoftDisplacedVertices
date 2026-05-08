@@ -220,10 +220,12 @@ qcd_2022Pre = [
         ]
 
 top_2022Pre = [
-    Sample("ttto4q_2022pre",xsec=762.1),
-    Sample("ttto2l2nu_2022pre",xsec=762.1),
-    Sample("tttolnu2q_2022pre",xsec=762.1),
+    Sample("ttto4q_2022pre",xsec=422.1),
+    Sample("ttto2l2nu_2022pre",xsec=404.6),
+    Sample("tttolnu2q_2022pre",xsec=96.978),
         ]
+
+
 
 met_2022Post = [
         Sample("jetmet_2022e", xsec=-1),
@@ -265,9 +267,9 @@ qcd_2022Post = [
         ]
 
 top_2022Post = [
-    Sample("ttto4q_2022post",xsec=762.1),
-    Sample("ttto2l2nu_2022post",xsec=762.1),
-    Sample("tttolnu2q_2022post",xsec=762.1),
+    Sample("ttto4q_2022post",xsec=422.1),
+    Sample("ttto2l2nu_2022post",xsec=404.6),
+    Sample("tttolnu2q_2022post",xsec=96.978),
         ]
 
 met_2023Pre = [
@@ -314,9 +316,9 @@ qcd_2023Pre = [
         ]
 
 top_2023Pre = [
-    Sample("ttto4q_2023pre",xsec=762.1),
-    Sample("ttto2l2nu_2023pre",xsec=762.1),
-    Sample("tttolnu2q_2023pre",xsec=762.1),
+    Sample("ttto4q_2023pre",xsec=422.1),
+    Sample("ttto2l2nu_2023pre",xsec=404.6),
+    Sample("tttolnu2q_2023pre",xsec=96.978),
         ]
 
 met_2023Post = [
@@ -359,40 +361,40 @@ qcd_2023Post = [
         ]
 
 top_2023Post = [
-    Sample("ttto4q_2023post",xsec=762.1),
-    Sample("ttto2l2nu_2023post",xsec=762.1),
-    Sample("tttolnu2q_2023post",xsec=762.1),
+    Sample("ttto4q_2023post",xsec=422.1),
+    Sample("ttto2l2nu_2023post",xsec=404.6),
+    Sample("tttolnu2q_2023post",xsec=96.978),
         ]
 
 # Samples 2024
 # ------------------------------------------------------------------
 
-wlnu_2024  = [Sample("wjetstolnu4jetsb1j_2024", xsec=0),
-              Sample("wjetstolnu4jetsb2j_2024", xsec=0),
-              Sample("wjetstolnu4jetsb3j_2024", xsec=0),
-              Sample("wjetstolnu4jetsb4j_2024", xsec=0)]
-znunu_2024 = [Sample("zto2nu4jetsht0100_2024", xsec=0),
-              Sample("zto2nu4jetsht0200_2024", xsec=0),
-              Sample("zto2nu4jetsht0400_2024", xsec=0),
-              Sample("zto2nu4jetsht0800_2024", xsec=0),
-              Sample("zto2nu4jetsht1500_2024", xsec=0),
-              Sample("zto2nu4jetsht2500_2024", xsec=0)
+wlnu_2024  = [Sample("wjetstolnu4jetsb1j_2024", xsec=9141),
+              Sample("wjetstolnu4jetsb2j_2024", xsec=2931),
+              Sample("wjetstolnu4jetsb3j_2024", xsec=864.6),
+              Sample("wjetstolnu4jetsb4j_2024", xsec=417.8)]
+znunu_2024 = [Sample("zto2nu4jetsht0100_2024", xsec=272.8),
+              Sample("zto2nu4jetsht0200_2024", xsec=75.66),
+              Sample("zto2nu4jetsht0400_2024", xsec=13.08),
+              Sample("zto2nu4jetsht0800_2024", xsec=1.362),
+              Sample("zto2nu4jetsht1500_2024", xsec=0.09793),
+              Sample("zto2nu4jetsht2500_2024", xsec=0.006665)
               ]
-qcd_2024 =   [Sample("qcd4jetsht0040_2024", xsec=0),
-              Sample("qcd4jetsht0070_2024", xsec=0),
-              Sample("qcd4jetsht0100_2024", xsec=0),
-              Sample("qcd4jetsht0200_2024", xsec=0),
-              Sample("qcd4jetsht0400_2024", xsec=0),
-              Sample("qcd4jetsht0600_2024", xsec=0),
-              Sample("qcd4jetsht0800_2024", xsec=0),
-              Sample("qcd4jetsht1000_2024", xsec=0),
-              Sample("qcd4jetsht1200_2024", xsec=0),
-              Sample("qcd4jetsht1500_2024", xsec=0),
-              Sample("qcd4jetsht2000_2024", xsec=0),
+qcd_2024 =   [Sample("qcd4jetsht0040_2024", xsec=312300000),
+              Sample("qcd4jetsht0070_2024", xsec=58470000),
+              Sample("qcd4jetsht0100_2024", xsec=25310000),
+              Sample("qcd4jetsht0200_2024", xsec=1960000),
+              Sample("qcd4jetsht0400_2024", xsec=97400),
+              Sample("qcd4jetsht0600_2024", xsec=13560),
+              Sample("qcd4jetsht0800_2024", xsec=3010),
+              Sample("qcd4jetsht1000_2024", xsec=890.3),
+              Sample("qcd4jetsht1200_2024", xsec=384.8),
+              Sample("qcd4jetsht1500_2024", xsec=127.3),
+              Sample("qcd4jetsht2000_2024", xsec=26.26),
               ]
-top_2024 =   [Sample("ttto4q_2024"   , xsec=0),
-              Sample("ttto2l2nu_2024", xsec=0),
-              Sample("tttolnu2q_2024", xsec=0)
+top_2024 =   [Sample("ttto4q_2024"   , xsec=422.1),
+              Sample("ttto2l2nu_2024", xsec=404.6),
+              Sample("tttolnu2q_2024", xsec=96.978)
              ]
 
 met_2024 = [
@@ -741,7 +743,10 @@ c1n2_2018 = [
     Sample("C1N2_M600_588_ct2_2018", xsec=0.02014),
     ]
 
-sig_ABCD_study = [
+old_central_sig17 = [*stop_2017, *c1n2_2017]
+old_central_sig18 = [*stop_2018, *c1n2_2018]
+
+private_sig18 = [
   Sample("C1N2ML_M200_175_ct2_2018",     xsec=1.807),
   Sample("C1N2ML_M200_175_ct20_2018",    xsec=1.807),
   Sample("C1N2ML_M200_175_ct200_2018" ,  xsec=1.807),
@@ -1253,7 +1258,9 @@ all_samples = [
     # stop_MLtraining_2018,
     # C1N2_MLtraining_2018,
     # MLstudy_2018,
-    sig_ABCD_study,
+    private_sig18,
+    old_central_sig17,
+    old_central_sig18,
     c1n2_2024,
     stop_2024,
     met_2022Pre,
@@ -1281,6 +1288,10 @@ all_samples = [
     qcd_2023Post,
     top_2023Post,
     met_2024,
+    wlnu_2024,
+    znunu_2024,
+    qcd_2024,
+    top_2024
 ]
 
 all_signals = [
@@ -1295,6 +1306,15 @@ all_signals = [
     MLstudy_2018,
     c1n2_2024,
     stop_2024,
+    old_central_sig17,
+    old_central_sig18
+]
+
+all_bkg_2017 = [
+  *znunu_2017,
+  *wlnu_2017,
+  *qcd_2017,
+  *top_2017
 ]
 
 all_bkg_2018 = [
@@ -1302,6 +1322,34 @@ all_bkg_2018 = [
   *wlnu_2018,
   *qcd_2018,
   *top_2018
+]
+
+bkg_2022Pre = [
+   *wlnu_2022Pre,
+   *znunu_2022Pre,
+   *qcd_2022Pre,
+   *top_2022Pre
+]
+
+bkg_2022Post = [
+   *wlnu_2022Post,
+   *znunu_2022Post,
+   *qcd_2022Post,
+   *top_2022Post
+]
+
+bkg_2023Pre = [
+   *wlnu_2023Pre,
+   *znunu_2023Pre,
+   *qcd_2023Pre,
+   *top_2023Pre
+]
+
+bkg_2023Post = [
+   *wlnu_2023Post,
+   *znunu_2023Post,
+   *qcd_2023Post,
+   *top_2023Post
 ]
 
 all_bkg_2024 = [

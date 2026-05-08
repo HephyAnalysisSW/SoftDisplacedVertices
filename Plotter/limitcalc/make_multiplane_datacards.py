@@ -14,25 +14,25 @@ import pandas as pd
 import SoftDisplacedVertices.Samples.Samples as ss
 
 
-def get_hist(HISTDIR, SAMPLENAME, METCUT, PLANE, sample_type):
+def get_hist(HISTDIR, SAMPLENAME, METCUT, PLANE, sample_type,year=None):
     if sample_type == 'sig':
-        file_path = HISTDIR / f'sig/{SAMPLENAME}_hist.root'
+        file_path = HISTDIR / f'sig{year[-2:]}/{SAMPLENAME}_hist.root'
     else:
-        file_path = HISTDIR / 'bkg/all_2018_hist.root'
-
-    plane_map = {
-        'SP0': 'MET350SP0_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
-        'SP1': 'MET350SP1_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
-        'SP2': 'MET350SP2_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
-        'SP3': 'MET350SP3_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
-    }
+        file_path = HISTDIR / f'bkg{year[-2:]}/all_{year}_hist.root'
 
     # plane_map = {
-    # 'SP0': 'MET350SP0_evt/leading_vtx_SP0_dphiMET_vs_SP0_Max_ML_score',
-    # 'SP1': 'MET350SP1_evt/leading_vtx_SP1_dphiMET_vs_SP1_Max_ML_score',
-    # 'SP2': 'MET350SP2_evt/leading_vtx_SP2_dphiMET_vs_SP2_Max_ML_score',
-    # 'SP3': 'MET350SP3_evt/leading_vtx_SP3_dphiMET_vs_SP3_Max_ML_score',
+    #     'SP0': 'MET350SP0_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
+    #     'SP1': 'MET350SP1_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
+    #     'SP2': 'MET350SP2_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
+    #     'SP3': 'MET350SP3_evt/leading_vtx_dphiMET_vs_leading_vtx_MLscore',
     # }
+
+    plane_map = {
+    'SP0': 'MET350SP0_evt/leading_vtx_SP0_dphiMET_vs_SP0_Max_ML_score',
+    'SP1': 'MET350SP1_evt/leading_vtx_SP1_dphiMET_vs_SP1_Max_ML_score',
+    'SP2': 'MET350SP2_evt/leading_vtx_SP2_dphiMET_vs_SP2_Max_ML_score',
+    'SP3': 'MET350SP3_evt/leading_vtx_SP3_dphiMET_vs_SP3_Max_ML_score',
+    }
 
     f = ROOT.TFile.Open(str(file_path))
     h = f.Get(plane_map[PLANE])
@@ -82,7 +82,7 @@ def get_region_yields(hist, xcut, ycut, ylo, verbose=False):
 # ----------------------------------------------------------------------
 def make_datacard(HISTDIR, SAMPLENAME, METCUT,
                   xcut, ycut, ylo, scale, outfile,
-                  mode='observation', noncl_sys=None):
+                  mode='observation', noncl_sys=None, year=None):
     """
     mode = 'Asimov' or 'observation'
     """
@@ -100,13 +100,15 @@ def make_datacard(HISTDIR, SAMPLENAME, METCUT,
                             SAMPLENAME=SAMPLENAME,
                             METCUT=METCUT,
                             PLANE=PLANE,
-                            sample_type='sig')
+                            sample_type='sig',
+                            year=year)
 
         bkg_hist = get_hist(HISTDIR=HISTDIR,
                             SAMPLENAME=SAMPLENAME,
                             METCUT=METCUT,
                             PLANE=PLANE,
-                            sample_type='bkg')
+                            sample_type='bkg',
+                            year=year)
 
         sig_table = get_region_yields(sig_hist, xcut=xcut, ycut=ycut, ylo=ylo)
         bkg_table = get_region_yields(bkg_hist, xcut=xcut, ycut=ycut, ylo=ylo)
@@ -263,7 +265,7 @@ def make_datacard(HISTDIR, SAMPLENAME, METCUT,
 # ----------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------
-def main(HISTDIR, SAMPLENAME, METCUT, xcut, ycut, ylo, scale, outfile, noncl_sys, mode):
+def main(HISTDIR, SAMPLENAME, METCUT, xcut, ycut, ylo, scale, outfile, noncl_sys, mode, year):
 
     make_datacard(
         HISTDIR=HISTDIR,
@@ -276,6 +278,7 @@ def main(HISTDIR, SAMPLENAME, METCUT, xcut, ycut, ylo, scale, outfile, noncl_sys
         outfile=outfile,
         noncl_sys=noncl_sys,
         mode=mode,
+        year=year
     )
 
 
@@ -323,6 +326,11 @@ if __name__ == "__main__":
         help="Relative non-closure uncertainty on region A background (e.g. 0.20 for 20%%).",
     )
     parser.add_argument(
+        "--year",
+        type=str,
+        help="year, e.g. 2017",
+    )
+    parser.add_argument(
         "--mode",
         default='observation',
         help="Should set observation to 'observation' or 'Asimov' predicted?",
@@ -336,15 +344,15 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first')
-    # HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first')
+    # HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first')
+    HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first_v2')
     datacard_dir = HISTDIR / "datacards"
     datacard_dir.mkdir(parents=True, exist_ok=True)
 
 
     METCUT = 350
     
-    SAMPLES = ss.sig_ABCD_study
+    SAMPLES = ss.private_sig18
     if not isinstance(SAMPLES, list):
         SAMPLES = list(SAMPLES)
 
@@ -353,7 +361,7 @@ if __name__ == "__main__":
         if args.output is None:
             outfile = datacard_dir / f"{SAMPLENAME}.txt"
         else:
-            outfile = Path(args.output) / SAMPLENAME
+            outfile = Path(args.output) / f"{SAMPLENAME[:-5]}_{args.year}.txt"
 
         main(HISTDIR=HISTDIR,
             SAMPLENAME=SAMPLENAME,
@@ -364,5 +372,6 @@ if __name__ == "__main__":
             scale=args.scale,
             outfile=outfile,
             noncl_sys=args.noncl_sys,
-            mode=args.mode
+            mode=args.mode,
+            year=args.year
             )

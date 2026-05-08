@@ -10,6 +10,9 @@
 #include <string>
 #include "correction.h"
 
+#include <cmath>
+#include "TVector2.h"
+
 
 float dPhi(float phi1, float phi2) {
   float x = phi1-phi2;
@@ -1109,4 +1112,165 @@ ROOT::RVecB Track_getVtxVarBool(ROOT::RVecI SDVIdxLUT_TrackIdx, int nTracks, ROO
     i++;
   }
   return tk_vtxVar;
+}
+
+
+using ROOT::VecOps::RVec;
+using RVecF = ROOT::VecOps::RVec<float>;
+
+struct PairwiseLVFeatures {
+    RVecF lnkt;
+    RVecF lnz;
+    RVecF lndelta;
+    RVecF lnm2;
+};
+
+PairwiseLVFeatures make_pairwise_lv_fts(
+    const RVecF& SDVTrack_pt,
+    const RVecF& SDVTrack_eta,
+    const RVecF& SDVTrack_phi,
+    const float eps = 1e-8
+) {
+    constexpr double pion_mass = 0.13957039; // GeV
+
+    PairwiseLVFeatures out;
+
+    const std::size_t n = SDVTrack_pt.size();
+
+    for (std::size_t i = 0; i < n; ++i) {
+        ROOT::Math::PtEtaPhiMVector p4i(
+            SDVTrack_pt[i],
+            SDVTrack_eta[i],
+            SDVTrack_phi[i],
+            pion_mass
+        );
+
+        const double pti = SDVTrack_pt[i];
+        const double yi  = p4i.Rapidity();
+        const double phii = SDVTrack_phi[i];
+
+        for (std::size_t j = i + 1; j < n; ++j) {
+            ROOT::Math::PtEtaPhiMVector p4j(
+                SDVTrack_pt[j],
+                SDVTrack_eta[j],
+                SDVTrack_phi[j],
+                pion_mass
+            );
+
+            const double ptj = SDVTrack_pt[j];
+            const double yj  = p4j.Rapidity();
+            const double phij = SDVTrack_phi[j];
+
+            const double dphi = TVector2::Phi_mpi_pi(phii - phij);
+            const double dy = yi - yj;
+            const double delta = std::sqrt(dy * dy + dphi * dphi);
+
+            const double ptmin = std::min(pti, ptj);
+
+            out.lndelta.emplace_back(std::log(std::max(delta, double(eps))));
+            out.lnkt.emplace_back(std::log(std::max(ptmin * delta, double(eps))));
+            out.lnz.emplace_back(
+                std::log(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)))
+            );
+
+            const double m2 = (p4i + p4j).M2();
+            out.lnm2.emplace_back(std::log(std::max(m2, double(eps))));
+        }
+    }
+
+    return out;
+}
+
+PairwiseLVFeatures make_pairwise_lv_fts_same_vtx(
+  const RVecF& SDVTrack_pt,
+  const RVecF& SDVTrack_eta,
+  const RVecF& SDVTrack_phi,
+  const ROOT::RVecI& SDVIdxLUT_SecVtxIdx,
+  const ROOT::RVecI& SDVIdxLUT_TrackIdx,
+  const int nSDVSecVtx,
+  const float eps = 1e-8
+) {
+  constexpr double pion_mass = 0.13957039; // GeV
+
+  PairwiseLVFeatures out;
+
+  for (int ivtx = 0; ivtx < nSDVSecVtx; ++ivtx) {
+      const auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx == ivtx];
+
+      for (std::size_t a = 0; a < tkIdx.size(); ++a) {
+          const int i = tkIdx[a];
+
+          if (i < 0 || i >= int(SDVTrack_pt.size())) continue;
+
+          ROOT::Math::PtEtaPhiMVector p4i(
+              SDVTrack_pt[i],
+              SDVTrack_eta[i],
+              SDVTrack_phi[i],
+              pion_mass
+          );
+
+          const double pti = SDVTrack_pt[i];
+          const double yi = p4i.Rapidity();
+          const double phii = SDVTrack_phi[i];
+
+          // For each track pair, store the vertex variable once.
+          for (std::size_t b = a + 1; b < tkIdx.size(); ++b) {
+              const int j = tkIdx[b];
+
+              if (j < 0 || j >= int(SDVTrack_pt.size())) continue;
+
+              ROOT::Math::PtEtaPhiMVector p4j(
+                  SDVTrack_pt[j],
+                  SDVTrack_eta[j],
+                  SDVTrack_phi[j],
+                  pion_mass
+              );
+
+              const double ptj = SDVTrack_pt[j];
+              const double yj = p4j.Rapidity();
+              const double phij = SDVTrack_phi[j];
+
+              const double dphi = TVector2::Phi_mpi_pi(phii - phij);
+              const double dy = yi - yj;
+              const double delta = std::sqrt(dy * dy + dphi * dphi);
+
+              const double ptmin = std::min(pti, ptj);
+
+              out.lndelta.emplace_back(std::log(std::max(delta, double(eps))));
+              out.lnkt.emplace_back(std::log(std::max(ptmin * delta, double(eps))));
+              out.lnz.emplace_back(
+                  std::log(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)))
+              );
+
+              const double m2 = (p4i + p4j).M2();
+              out.lnm2.emplace_back(std::log(std::max(m2, double(eps))));
+          }
+      }
+  }
+
+  return out;
+}
+
+
+template <typename T>
+ROOT::VecOps::RVec<T> broadcast_vtx_var_to_track_pairs(
+    const ROOT::RVecI& SDVIdxLUT_SecVtxIdx,
+    const ROOT::RVecI& SDVIdxLUT_TrackIdx,
+    const int nSDVSecVtx,
+    const ROOT::VecOps::RVec<T>& SDVSecVtx_var
+) {
+    ROOT::VecOps::RVec<T> out;
+
+    for (int ivtx = 0; ivtx < nSDVSecVtx; ++ivtx) {
+        const auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx == ivtx];
+
+        // For each track pair, store the vertex variable once.
+        for (std::size_t a = 0; a < tkIdx.size(); ++a) {
+            for (std::size_t b = a + 1; b < tkIdx.size(); ++b) {
+                out.emplace_back(SDVSecVtx_var[ivtx]);
+            }
+        }
+    }
+
+    return out;
 }

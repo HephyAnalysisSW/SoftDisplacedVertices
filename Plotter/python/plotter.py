@@ -234,6 +234,7 @@ class Plotter:
       nevt = self.s.getNEvents(self.datalabel)
       if nevt != -1:
         return nevt
+      print(self.info_path)
       with open(self.info_path,'r') as f_sample_info:
         sample_info = yaml.safe_load(f_sample_info)
       for i in sample_info:

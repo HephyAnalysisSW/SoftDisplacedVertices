@@ -1,0 +1,55 @@
+{
+    "CustomNanoAOD": {
+        "dir": {
+            "met2017b" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_17/met2017b",
+            "met2017c" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_17/met2017c",
+            "met2017d" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_17/met2017d",
+            "met2017e" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_17/met2017e",
+            "met2017f" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_17/met2017f",
+
+            "met2018a" :      "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_18/met2018a",
+            "met2018b" :      "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_18/met2018b",
+            "met2018c" :      "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_18/met2018c",
+            "met2018d" :      "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_18/met2018d",
+            "met2018d_rest" : "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_18/met2018d_rest",
+
+            "jetmet_2022c":     "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_22/jetmet_2022c",
+            "jetmet_2022d":     "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_22/jetmet_2022d",
+            "jetmet_2022e":     "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_22/jetmet_2022e",
+            "jetmet_2022f":     "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_22/jetmet_2022f",
+            "jetmet_2022g":     "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_22/jetmet_2022g",
+
+            "jetmet0_2023c1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023c1",
+            "jetmet0_2023c2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023c2",
+            "jetmet0_2023c3":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023c3",
+            "jetmet0_2023c4":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023c4",
+            "jetmet0_2023d1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023d1",
+            "jetmet0_2023d2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet0_2023d2",
+
+            "jetmet1_2023c1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023c1",
+            "jetmet1_2023c2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023c2",
+            "jetmet1_2023c3":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023c3",
+            "jetmet1_2023c4":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023c4",
+            "jetmet1_2023d1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023d1",
+            "jetmet1_2023d2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_23/jetmet1_2023d2",
+
+            "jetmet0_2024c":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024c",
+            "jetmet0_2024d":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024d",
+            "jetmet0_2024e":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024e",
+            "jetmet0_2024f":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024f",
+            "jetmet0_2024g":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024g",
+            "jetmet0_2024h":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024h",
+            "jetmet0_2024i1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024i1",
+            "jetmet0_2024i2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet0_2024i2",
+
+            "jetmet1_2024c":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024c",
+            "jetmet1_2024d":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024d",
+            "jetmet1_2024e":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024e",
+            "jetmet1_2024f":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024f",
+            "jetmet1_2024g":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024g",
+            "jetmet1_2024h":    "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024h",
+            "jetmet1_2024i1":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024i1",
+            "jetmet1_2024i2":   "/eos/vbc/experiments/cms/store/user/aguven/scratch_backup/data_24/jetmet1_2024i2"
+        }
+    }
+}

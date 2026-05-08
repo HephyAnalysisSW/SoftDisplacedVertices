@@ -53,6 +53,16 @@ std::pair<std::string,std::string> getEra(double run_number) {
     return eras[pos];
 }
 
+inline void validateYearEraMatch(const std::string& requested_year, const int& run, const std::pair<std::string,std::string>& era) {
+    if (requested_year != era.first) {
+        throw std::runtime_error(
+            "JERC year/era mismatch: requested year '" + requested_year +
+            "' but run " + std::to_string(run) + " belongs to '" + era.first +
+            "' (" + era.second + "). Check that the input files match the --year setting."
+        );
+    }
+}
+
 // Returns std::pair: first -- new jet pt, second -- new jet mass
 std::pair<ROOT::RVecF,ROOT::RVecF> JEC_jet(const std::vector<correction::Correction::Ref>& jes, const std::string& year, const bool& isData, const int& run, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const ROOT::RVecF& jet_rawFactor, const float& rho) {
     //std::cout << "JEC year " << year << " run " << run << std::endl;
@@ -178,7 +188,7 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_data(const std::map<std::string,corr
     // For Data
     // Determine the data-taking era
     auto era = getEra(run);
-    assert(year==era.first);
+    validateYearEraMatch(year, run, era);
     std::vector<std::string> corrs_names = {"L1","L2","L2L3"};
     std::vector<correction::Correction::Ref> jes_refs = {};
     for (auto& n : corrs_names) {
@@ -265,7 +275,7 @@ std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correctio
     std::vector<correction::Correction::Ref> jer = {};
     if (isData) {
         auto era = getEra(run);
-        assert(year==era.first);
+        validateYearEraMatch(year, run, era);
         std::vector<std::string> corrs_names = {"L1","L2","L2L3"};
         for (auto& n : corrs_names) {
             auto jerc_iter = jerc.find("data_jes_"+n+"_"+era.second);

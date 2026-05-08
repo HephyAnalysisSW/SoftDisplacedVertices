@@ -1,153 +1,161 @@
-import os
 import argparse
 import ctypes
-import math
+from pathlib import Path
+
 import ROOT
-from uncertainties import ufloat
+from uncertainties import nominal_value, ufloat
 
 
-def getEvts(file, hist2d, xBounds, yBounds):
-    """
-    Read ROOT file `file` and extract integrals with uncertainties for each named histogram in `hist2d`.
-    Returns a dict mapping region_key -> dict of subregions 'A','B','C','D' -> ufloat(count, error).
-    """
-    print('DEBUG: ', file)
-    f = ROOT.TFile.Open(file)
-    out_d = {}
+REGIONS = ("A", "B", "C", "D")
 
-    # assume 2D histograms with x-axis=MET, y-axis=LxySig
-    for key, hist_name in hist2d.items():
-        hist = f.Get(hist_name)
-        if not hist:
-            raise ValueError(f"Histogram '{hist_name}' not found in file {file}")
+HISTOGRAMS = {
+    "MET350SP0_evt": "MET350SP0_evt/leading_vtx_SP0_dphiMET_vs_SP0_Max_ML_score",
+    "MET350SP1_evt": "MET350SP1_evt/leading_vtx_SP1_dphiMET_vs_SP1_Max_ML_score",
+    "MET350SP2_evt": "MET350SP2_evt/leading_vtx_SP2_dphiMET_vs_SP2_Max_ML_score",
+    "MET350SP3_evt": "MET350SP3_evt/leading_vtx_SP3_dphiMET_vs_SP3_Max_ML_score",
+}
 
-        nbins_x = hist.GetXaxis().GetNbins()
-        nbins_y = hist.GetXaxis().GetNbins()
-        
-        xcut = hist.GetXaxis().FindBin(xBounds)
-        ycut = hist.GetYaxis().FindBin(yBounds)
+TABLE_ROWS = (
+    ("MET350SP0_evt", r"SP0 ($\ngoodtrack = 0$)"),
+    ("MET350SP1_evt", r"SP1 ($\ngoodtrack = 1$)"),
+    ("MET350SP2_evt", r"SP2 ($\ngoodtrack = 2$)"),
+    ("MET350SP3_evt", r"SP3 ($\ngoodtrack \geq 3$)"),
+)
 
-
-        subregions = {}
-        # for i, xBound in enumerate(xBounds):
-        #     for j, yBound in enumerate(yBounds):
-        #         xcut = hist.GetXaxis().FindBin(xBound)
-        #         ycut = hist.GetYaxis().FindBin(yBound)
-
-        #         # Handle edge cases
-        #         x_lo = 1 if i == 0 else hist.GetXaxis().FindBin(xBounds[i-1]) + 1
-        #         y_lo = 1 if i == 0 else hist.GetYaxis().FindBin(yBounds[j-1]) + 1
-
-        #         x_hi = nbins_x + 1 if i == len(xBounds) - 1 else hist.GetXaxis().FindBin(xBounds[i])
-        #         y_hi = nbins_y + 1 if j == len(yBounds) - 1 else hist.GetYaxis().FindBin(yBounds[j])
-
-        #         subregions[f'{i}_{j}'] = (x_lo, x_hi, y_lo, y_hi)
-
-        # define subregions in terms of axis ranges
-        subregions = {
-            'A': (xcut, nbins_x+1, ycut, nbins_x),   # high MET, high Sig
-            'B': (1, xcut-1, ycut, nbins_x+1),       # low MET, high Sig
-            'C': (xcut, nbins_x+1, 1, ycut-1),       # high MET, low Sig
-            'D': (1, xcut-1, 1, ycut-1),             # low MET, low Sig
-        }
-        nevt = {}
-        for sub, (xmin, xmax, ymin, ymax) in subregions.items():
-            err = ctypes.c_double(0)
-            cnt = hist.IntegralAndError(xmin, xmax, ymin, ymax, err)
-            nevt[sub] = ufloat(cnt, err.value)
-
-        out_d[key] = nevt
-    return out_d
+INPUT_FILES = (
+    # "data17/met_2017_hist.root",
+    # "data18/met_2018_hist.root",
+    # "data22_pre/met_2022_hist.root",
+    # "data22_post/met_2022_hist.root",
+    # "data23_pre/met_2023_hist.root",
+    # "data23_post/met_2023_hist.root",
+    # "data24/met_2024_hist.root",
+    "bkg17/all_2017_hist.root",
+    "sig17/stop_M1000_980_ct200_2018_hist.root",
+)
 
 
-# def predict(devt, plane, region):
-#     """
-#     Compute predicted yield for `plane` in subregion `region`.
-#     Uses LP_evt -> CP_evt transfer factors, with special formula for TP_evt.
-#     """
-#     # choose transfer factor f from loose vs control
-#     if region in ['C', 'D']:
-#         f = devt['LP_evt']['D'] / devt['CP_evt']['D']
-#     else:
-#         f = devt['LP_evt']['B'] / devt['CP_evt']['B']
+def get_region_bins(hist, x_cut, y_cut):
+    x_axis = hist.GetXaxis()
+    y_axis = hist.GetYaxis()
+    x_bin = x_axis.FindBin(x_cut)
+    y_bin = y_axis.FindBin(y_cut)
+    last_x_bin = x_axis.GetNbins() + 1
+    last_y_bin = y_axis.GetNbins() + 1
 
-    
-#     if plane == 'TP_evt':
-#         f = f * f * f / (1 - f)
-#     elif plane == 'MP_evt':
-#         f = f * f
+    return {
+        "A": (1, x_bin - 1, y_bin, last_y_bin),
+        "B": (x_bin, last_x_bin, y_bin, last_y_bin),
+        "C": (1, x_bin - 1, 1, y_bin - 1),
+        "D": (x_bin, last_x_bin, 1, y_bin - 1),
+    }
 
-#     return devt['CP_evt'][region] * f
+
+def get_events(filepath, histograms, x_cut, y_cut):
+    root_file = ROOT.TFile.Open(str(filepath))
+    if not root_file or root_file.IsZombie():
+        raise OSError(f"Could not open ROOT file: {filepath}")
+
+    try:
+        events = {}
+        for key, hist_name in histograms.items():
+            hist = root_file.Get(hist_name)
+            if not hist:
+                raise ValueError(f"Histogram '{hist_name}' not found in {filepath}")
+
+            events[key] = {}
+            for region, bins in get_region_bins(hist, x_cut, y_cut).items():
+                err = ctypes.c_double(0)
+                count = hist.IntegralAndError(*bins, err)
+                events[key][region] = ufloat(count, err.value)
+
+        return events
+    finally:
+        root_file.Close()
+
+
+def predict_a(counts):
+    if nominal_value(counts["D"]) == 0:
+        return None
+    return counts["B"] * counts["C"] / counts["D"]
+
+
+def format_count(count):
+    if count is None:
+        return r"$--$"
+    return f"${count:.2fL}$"
+
+
+def latex_escape(text):
+    return str(text).replace("_", r"\_")
+
+
+def caption_from_path(filepath):
+    path = Path(filepath)
+    return latex_escape(f"{path.parent.name}/{path.stem}")
+
+
+def label_from_path(filepath):
+    path = Path(filepath)
+    return f"{path.parent.name}_{path.stem}"
+
+
+def print_latex_table(filepath, events):
+    print(r"\begin{table}[htbp!]")
+    print(r"    \centering")
+    print(r"    \begin{tabular}{l c c c c c}")
+    print(r"    \hline")
+    print(r"Search plane & A & A pred. & B & C & D \\")
+    print(r"    \hline")
+
+    for key, label in TABLE_ROWS:
+        counts = events[key]
+        values = [
+            counts["A"],
+            predict_a(counts),
+            *(counts[region] for region in REGIONS[1:]),
+        ]
+        row_values = " & ".join(format_count(value) for value in values)
+        print(f"{label} & {row_values} \\\\")
+
+    print(r"    \hline")
+    print(r"    \end{tabular}")
+    print(fr"    \caption{{{caption_from_path(filepath)}}}")
+    print(fr"    \label{{tab:evt_yield_{label_from_path(filepath)}}}")
+    print(r"\end{table}")
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Print ABCD yields from 2D ROOT histograms.")
+    parser.add_argument("--input_dir", required=True, help="Directory containing .root files")
+    parser.add_argument(
+        "--xBounds",
+        "--x-cut",
+        dest="x_cut",
+        type=float,
+        default=1.5,
+        help="x cut value (default: 700)",
+    )
+    parser.add_argument(
+        "--yBounds",
+        "--y-cut",
+        dest="y_cut",
+        type=float,
+        default=0.999,
+        help="y cut value (default: 700)",
+    )
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    input_dir = Path(args.input_dir)
+
+    for relative_path in INPUT_FILES:
+        filepath = input_dir / relative_path
+        events = get_events(filepath, HISTOGRAMS, args.x_cut, args.y_cut)
+        print_latex_table(filepath, events)
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Process ROOT histograms in a directory")
-    parser.add_argument('--input_dir', required=True,
-                        help='Directory containing .root files')
-    parser.add_argument('--xBounds', type=float, default=700,
-                        help='MET cut value (default: 700)')
-    parser.add_argument('--yBounds', type=float, default=700,
-                        help='MET cut value (default: 700)')
-    args = parser.parse_args()
-
-    # Map our region keys to the actual histogram names in the ROOT files
-    hist2d = {
-        'SP1_evt': 'SP1_evt/leading_vtx_ML1_vs_leading_vtx_ML2',
-        # 'MP_evt': 'MP_evt/MET_pt_corr_vs_MP_MaxLxySig',
-        # 'LP_evt': 'LP_evt/MET_pt_corr_vs_LP_MaxLxySig',
-        # 'CP_evt': 'CP_evt/MET_pt_corr_vs_CP_MaxLxySig',
-    }
-
-    filenames = [
-        'bkg/all_2018_hist.root',
-        'sig/stop_M600_585_ct20_2018_hist.root',
-    ]
-    files = [os.path.join(args.input_dir, file) for file in filenames]
-    # Loop over all root files in the input directory
-    for filepath in files:
-        assert filepath.endswith('.root'), "File is not a .root file"
-        devts = getEvts(filepath, hist2d, args.xBounds, args.yBounds)
-
-        # for the eye
-        # ------------------------------------------------------------------------
-        print("="*40)
-        print(f"File: {filepath}")
-        print("Raw counts:")
-        for plane, counts in devts.items():
-            print(f" {plane}: " + ", ".join(f"{sub}={counts[sub]:.02fL}" for sub in ['A','B','C','D']))
-
-        # print("\nPredictions:")
-        # for plane in ['TP_evt', 'MP_evt', 'LP_evt']:
-            # preds = {sub: predict(devts, plane, sub) for sub in ['A','B','C','D']}
-            # print(f" {plane}: " + ", ".join(f"{sub}={preds[sub]:.02fL}" for sub in ['A','B','C','D']))
-        # print('\n\n')
-        # print('='*80)
-
-        # LaTeX print
-        # ------------------------------------------------------------------------
-        print(r"\begin{table}[htbp!]")
-        print(r"    \centering")
-        print(r"    \begin{tabular}{l c c c c}")
-        print(r"    \hline")
-        print(r"Search plane  & A & B & C & D   \\")
-        print(r"    \hline")
-
-        rows = [
-            ('SP1_evt', r"SP1 ($\ngoodtrack \geq 1$)", False),
-        ]
-
-        for key, label, is_pred in rows:
-            if is_pred:
-                pass
-                # counts = {sub: predict(devts, key, sub) for sub in ['A','B','C','D']}
-            else:
-                counts = devts[key]
-            row_vals = [f"${counts[sub]:.2fL}$" for sub in ['A','B','C','D']]
-            print(f"{label} & {' & '.join(row_vals)} \\\\")
-
-        print(r"    \hline")
-        print(r"    \end{tabular}")
-        print(r"    \caption{Event yield of data in the nominal search planes.}")
-        print(r"    \label{tab:evt_yield}")
-        print(r"\end{table}")
-
+    main()
