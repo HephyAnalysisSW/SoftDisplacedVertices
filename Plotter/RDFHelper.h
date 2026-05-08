@@ -506,7 +506,7 @@ ROOT::VecOps::RVec<float> Track_pz(ROOT::RVecF Track_pt, ROOT::RVecF Track_eta, 
     vec.SetEta(Track_eta[i]);
     vec.SetPhi(Track_phi[i]);
     vec.SetM(0.13957018);
-    Track_pz.push_back(vec.E());
+    Track_pz.push_back(vec.Pz());
   }
   return Track_pz;
 }
@@ -697,6 +697,14 @@ ROOT::VecOps::RVec<int> GetTracksinSDVs(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::R
     return alltks;
 }
 
+ROOT::RVecF SDVSecVtx_dRjet(ROOT::RVecF Vtx_eta, float Jet_eta, ROOT::RVecF Vtx_phi,  float Jet_phi) {
+    ROOT::RVecF output;
+    for (int i=0; i<Vtx_eta.size(); ++i) {
+        output.push_back(dR(Vtx_phi[i],Jet_phi,Vtx_eta[i],Jet_eta));
+    }
+    return output;
+}
+
 //This function returns the number of good tracks in SDV
 //It requires the input of SDVTrack_isGoodTrack, which is an array of 0 or 1 that indicates whether a track is good or not
 ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
@@ -709,6 +717,93 @@ ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, RO
         nGoodTracks.push_back(SDVTrack_isGoodTrack_GoodTrack.size());
     }
     return nGoodTracks;
+}
+
+ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrackW(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecF SDVIdxLUT_TrackWeight, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
+{
+    ROOT::VecOps::RVec<int> nGoodTracks;
+    for (int i=0; i<nSDV; ++i){
+        auto tkIdx = SDVIdxLUT_TrackIdx[(SDVIdxLUT_SecVtxIdx==i) & (SDVIdxLUT_TrackWeight>0.5)];
+        auto SDVTrack_isGoodTrack_filtered = ROOT::VecOps::Take(SDVTrack_isGoodTrack,tkIdx);
+        auto SDVTrack_isGoodTrack_GoodTrack = SDVTrack_isGoodTrack_filtered[SDVTrack_isGoodTrack_filtered==1];
+        nGoodTracks.push_back(SDVTrack_isGoodTrack_GoodTrack.size());
+    }
+    return nGoodTracks;
+}
+
+ROOT::VecOps::RVec<int> SDVSecVtx_nGoodPhysTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_isGoodTrack, ROOT::RVecF SDVTrack_pt, ROOT::RVecF SDVTrack_eta, ROOT::RVecF SDVTrack_phi, ROOT::RVecF SDVSecVtx_dx, ROOT::RVecF SDVSecVtx_dy, ROOT::RVecF SDVSecVtx_dz)
+{
+    ROOT::VecOps::RVec<int> nGoodTracks;
+    int nSDV = SDVSecVtx_dx.size();
+    for (int iSDV=0; iSDV<nSDV; ++iSDV){
+        double vtx_dx = SDVSecVtx_dx[iSDV];
+        double vtx_dy = SDVSecVtx_dy[iSDV];
+        double vtx_dz = SDVSecVtx_dz[iSDV];
+        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
+        int ntk = 0;
+        for (size_t i=0; i<tkIdx.size(); ++i) { 
+            if (SDVTrack_isGoodTrack[tkIdx[i]] != 1) {
+                continue;
+            }
+            double tk_pt = SDVTrack_pt[tkIdx[i]];
+            double tk_eta = SDVTrack_eta[tkIdx[i]];
+            double tk_phi = SDVTrack_phi[tkIdx[i]];
+            ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+            vec.SetPt(tk_pt);
+            vec.SetEta(tk_eta);
+            vec.SetPhi(tk_phi);
+            vec.SetM(0.13957018);
+            double tk_px = vec.Px();
+            double tk_py = vec.Py();
+            double tk_pz = vec.Pz();
+            double pdotv = (vtx_dx*tk_px + vtx_dy*tk_py + vtx_dz*tk_pz)/sqrt(vec.P2())/sqrt(vtx_dx*vtx_dx+vtx_dy*vtx_dy+vtx_dz*vtx_dz);
+            if (pdotv>=0) {
+                ++ntk;
+            }
+        }
+        nGoodTracks.push_back(ntk);
+    }
+    return nGoodTracks;
+}
+
+ROOT::VecOps::RVec<float> SDVSecVtx_PhyspAngle(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecF SDVIdxLUT_TrackWeight, ROOT::RVecI RefitTrack_svIdx, ROOT::RVecI RefitTrack_tkIdx, ROOT::RVecF RefitTrack_pt, ROOT::RVecF RefitTrack_eta, ROOT::RVecF RefitTrack_phi, ROOT::RVecF SDVSecVtx_dx, ROOT::RVecF SDVSecVtx_dy, ROOT::RVecF SDVSecVtx_dz)
+{
+    ROOT::VecOps::RVec<float> pAngle;
+    int nSDV = SDVSecVtx_dx.size();
+    for (int iSDV=0; iSDV<nSDV; ++iSDV){
+        double vtx_dx = SDVSecVtx_dx[iSDV];
+        double vtx_dy = SDVSecVtx_dy[iSDV];
+        double vtx_dz = SDVSecVtx_dz[iSDV];
+        //auto tkIdx = SDVIdxLUT_TrackIdx[(SDVIdxLUT_SecVtxIdx==iSDV) & (SDVIdxLUT_TrackWeight>0.5)];
+        ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vtx_p4;
+        for (size_t i=0; i<RefitTrack_svIdx.size(); ++i) { 
+            if (RefitTrack_svIdx[i] != iSDV) continue;
+            ROOT::RVecF tk_ws = SDVIdxLUT_TrackWeight[(SDVIdxLUT_SecVtxIdx==iSDV) & (SDVIdxLUT_TrackIdx==RefitTrack_tkIdx[i])];
+            if (tk_ws.size()==0) {
+                std::cout << "No weight found for track " << RefitTrack_tkIdx[i] << " in SDV " << iSDV << std::endl;
+                continue;
+            }
+            if (tk_ws[0]<0.5) continue;
+            double tk_pt = RefitTrack_pt[i];
+            double tk_eta = RefitTrack_eta[i];
+            double tk_phi = RefitTrack_phi[i];
+            ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+            vec.SetPt(tk_pt);
+            vec.SetEta(tk_eta);
+            vec.SetPhi(tk_phi);
+            vec.SetM(0.13957018);
+            double tk_px = vec.Px();
+            double tk_py = vec.Py();
+            double tk_pz = vec.Pz();
+            double pdotv = (vtx_dx*tk_px + vtx_dy*tk_py + vtx_dz*tk_pz)/sqrt(vec.P2())/sqrt(vtx_dx*vtx_dx+vtx_dy*vtx_dy+vtx_dz*vtx_dz);
+            if (pdotv>=0) {
+                vtx_p4 += vec;
+            }
+        }
+        double vtx_pdotv = (vtx_dx*vtx_p4.Px() + vtx_dy*vtx_p4.Py() + vtx_dz*vtx_p4.Pz()) / sqrt(vtx_p4.P2()) / sqrt(vtx_dx*vtx_dx+vtx_dy*vtx_dy+vtx_dz*vtx_dz);
+        pAngle.push_back(std::acos(vtx_pdotv));
+    }
+    return pAngle;
 }
 
 //This function returns the number of good tracks in SDV
@@ -879,6 +974,35 @@ ROOT::RVecF LLP_GenTkMaxpT(ROOT::RVecI SDVGenPart_isGentk, ROOT::RVecI SDVGenPar
     return LLP_gtkpTmax;
 }
 
+ROOT::RVecF SDV_ntk_phys(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecF SDVTrack_pt, ROOT::RVecF SDVTrack_eta, ROOT::RVecF SDVTrack_phi, ROOT::RVecF SDVSecVtx_dx, ROOT::RVecF SDVSecVtx_dy, ROOT::RVecF SDVSecVtx_dz) {
+    ROOT::RVecF SDVSecVtx_ntk_phys(SDVSecVtx_dx.size(),0);
+    for (size_t iSDV=0; iSDV<SDVSecVtx_dx.size(); ++iSDV) {
+        double vtx_dx = SDVSecVtx_dx[iSDV];
+        double vtx_dy = SDVSecVtx_dy[iSDV];
+        double vtx_dz = SDVSecVtx_dz[iSDV];
+        auto tkIdx = SDVIdxLUT_TrackIdx[SDVIdxLUT_SecVtxIdx==iSDV];
+        int ntk = 0;
+        for (size_t i=0; i<tkIdx.size(); ++i) { 
+            double tk_pt = SDVTrack_pt[tkIdx[i]];
+            double tk_eta = SDVTrack_eta[tkIdx[i]];
+            double tk_phi = SDVTrack_phi[tkIdx[i]];
+            ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vec;
+            vec.SetPt(tk_pt);
+            vec.SetEta(tk_eta);
+            vec.SetPhi(tk_phi);
+            vec.SetM(0.13957018);
+            double tk_px = vec.Px();
+            double tk_py = vec.Py();
+            double tk_pz = vec.Pz();
+            double pdotv = (vtx_dx*tk_px + vtx_dy*tk_py + vtx_dz*tk_pz)/sqrt(vec.P2())/sqrt(vtx_dx*vtx_dx+vtx_dy*vtx_dy+vtx_dz*vtx_dz);
+            if (pdotv>=0) {
+                ++ntk;
+            }
+        }
+        SDVSecVtx_ntk_phys[iSDV] = ntk;
+    }
+    return SDVSecVtx_ntk_phys;
+}
 
 ROOT::RVecF SDV_TkMaxdphi(ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVIdxLUT_SecVtxIdx, int nSDV, ROOT::RVecF SDVTrack_phi)
 {
@@ -1017,6 +1141,30 @@ std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_ML(ROOT::RVecB Vertex_presel, ROOT::R
     return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
 }
 
+std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_NtkML(ROOT::RVecB Vertex_presel, ROOT::RVecF Vertex_ngoodtk, ROOT::RVecF Vertex_MLScore) {
+
+  float max_ml = -1;
+  int leading_idx = -1;
+  int max_nGoodTracks = ROOT::VecOps::Max(Vertex_ngoodtk[Vertex_presel]);
+  for (int i=0; i<Vertex_ngoodtk.size(); ++i) {
+    if (!Vertex_presel[i]) continue;
+    if (max_nGoodTracks>=3){
+      if ((Vertex_ngoodtk[i]>=3) && (Vertex_MLScore[i]>max_ml) ){
+        max_ml = Vertex_MLScore[i];
+        leading_idx = i;
+      }
+    }
+    else {
+      if ((Vertex_ngoodtk[i]==max_nGoodTracks) && (Vertex_MLScore[i]>max_ml) ){
+        max_ml = Vertex_MLScore[i];
+        leading_idx = i;
+      }
+    }
+  }
+  ROOT::RVecB Vertex_isleading(Vertex_MLScore.size(),false);
+  Vertex_isleading[leading_idx] = true;
+  return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
+}
 
 ROOT::RVecI GetJetnTracks(ROOT::RVecF Track_pt, ROOT::RVecF Track_phi, ROOT::RVecF Track_eta, ROOT::RVecF Jet_phi, ROOT::RVecF Jet_eta, float dRThreshold, float ptCut=0) {
   size_t nTrack = Track_phi.size();

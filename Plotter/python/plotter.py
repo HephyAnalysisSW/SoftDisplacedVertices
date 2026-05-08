@@ -79,9 +79,15 @@ class Plotter:
             if self.isData:
                 assert 'data_path' in self.cfg['mapveto'], "data_path not available in config!"
                 mappath = self.cfg['mapveto']['data_path']
+                if type(mappath)==dict:
+                    assert self.year in mappath, "Material map (data) of year {} not available in config!".format(self.year)
+                    mappath = self.cfg['mapveto']['data_path'][self.year]
             else:
                 assert 'mc_path' in self.cfg['mapveto'], "mc_path not available in config!"
                 mappath = self.cfg['mapveto']['mc_path']
+                if type(mappath)==dict:
+                    assert self.year in mappath, "Material map (MC) of year {} not available in config!".format(self.year)
+                    mappath = self.cfg['mapveto']['mc_path'][self.year]
             self.f1 = ROOT.TFile.Open(mappath)
             ROOT.gInterpreter.ProcessLine("auto h_mm = material_map; h_mm->SetDirectory(0);")
             self.f1.Close()
@@ -558,9 +564,11 @@ class Plotter:
         d_pkl = {}
 
         for sr in self.cfg['regions']:
+          print("Plotting region {}".format(sr))
           d_sr = d
           if self.cfg['regions'][sr] is not None:
             d_sr = d_sr.Filter(self.cfg['regions'][sr])
+          #ROOT.RDF.Experimental.AddProgressBar(d_sr)
 
           # Prepare data to pickle file
           d_pkl[sr] = self.getpklData(d_sr)
