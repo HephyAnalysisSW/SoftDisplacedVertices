@@ -113,7 +113,7 @@ parser.add_argument('--datamc', action='store_true', default=False,
 args = parser.parse_args()
 
 #colors_global = [ROOT.kBlue,ROOT.kRed+1,ROOT.kGreen+1,ROOT.kYellow+1,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
-colors_global = [ROOT.kRed,ROOT.kGreen,ROOT.kYellow+1,ROOT.kBlack,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
+colors_global = [ROOT.kBlue,ROOT.kRed,ROOT.kGreen,ROOT.kYellow+1,ROOT.kBlack,ROOT.kMagenta+1,ROOT.kCyan+1,ROOT.kOrange+1]
 
 def AddHists(hs,ws):
   assert len(hs)==len(ws)

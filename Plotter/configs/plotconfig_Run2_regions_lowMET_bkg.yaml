@@ -1,8 +1,8 @@
-vtx_loosesel: SDVSecVtx_mapveto==0
-vtx_sel_3gt: (SDVSecVtx_nGoodTrack>=3) && (SDVSecVtx_mapveto==0)
-vtx_sel_2gt: (SDVSecVtx_nGoodTrack==2) && (SDVSecVtx_mapveto==0)
-vtx_sel_1gt: (SDVSecVtx_nGoodTrack==1) && (SDVSecVtx_mapveto==0)
-vtx_sel_0gt: (SDVSecVtx_nGoodTrack==0) && (SDVSecVtx_mapveto==0)
+vtx_loosesel: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dRjet0>0.4)
+vtx_sel_3gt: (SDVSecVtx_nGoodTrack>=3) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_dRjet0>0.4)
+vtx_sel_2gt: (SDVSecVtx_nGoodTrack==2) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_dRjet0>0.4)
+vtx_sel_1gt: (SDVSecVtx_nGoodTrack==1) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_dRjet0>0.4)
+vtx_sel_0gt: (SDVSecVtx_nGoodTrack==0) && (SDVSecVtx_mapveto==0) && (SDVSecVtx_dRjet0>0.4)
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 jet_selHEM: (Jet_jetId==6) 
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
@@ -92,6 +92,7 @@ new_variables:
   SDVSecVtx_nnonPUTrack: SDVSecVtx_nselTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isnonPU,nSDVSecVtx)
   SDVSecVtx_dphiMET: 'acos(cos(SDVSecVtx_L_phi-MET_phi_corr))'
   SDVSecVtx_dphijet0: 'acos(cos(SDVSecVtx_L_phi-leadingjet_phi))'
+  SDVSecVtx_dRjet0: "SDVSecVtx_dRjet(SDVSecVtx_L_eta,leadingjet_eta,SDVSecVtx_L_phi,leadingjet_phi)"
   SDVSecVtx_Lxy_err: "SDVSecVtx_Lxy/SDVSecVtx_LxySig"
   SDVSecVtx_dlen_err: "SDVSecVtx_dlen/SDVSecVtx_dlenSig"
   SDVSecVtx_L_eta_abs: "abs(SDVSecVtx_L_eta)"
@@ -205,6 +206,7 @@ objects:
     - SDVSecVtx_mass
     - SDVSecVtx_dphiMET
     - SDVSecVtx_dphijet0
+    - SDVSecVtx_dRjet0
     - SDVSecVtx_TkMaxdphi
     - SDVSecVtx_TkMindphi
     - SDVSecVtx_TkMaxdeta
@@ -328,6 +330,7 @@ plot_setting:
   SDVSecVtx_dlen_err: [SDVSecVtx_dlen_err, ';vertex #sigmadlen (cm);A.U.', 100, 0, 0.5]
   SDVSecVtx_dphiMET: [SDVSecVtx_dphiMET, ';#Delta#phi(Lxy,MET)', 64, 0, 3.2]
   SDVSecVtx_dphijet0: [SDVSecVtx_dphijet0, ';#Delta#phi(Lxy,jet0)', 64, 0, 3.2]
+  SDVSecVtx_dRjet0: [SDVSecVtx_dRjet0, ';#DeltaR(Lxy,jet0)',100,0,5]
   SDVSecVtx_matchedLLPIdx_bydau: [SDVSecVtx_matchedLLPIdx_bydau, ';vertex matched LLP idx;A.U.', 5, -1, 4]
   SDVSecVtx_matchedLLPnDau_bydau: [SDVSecVtx_matchedLLPnDau_bydau, ';vertex number of tracks matched with LLP;A.U.', 10, 0, 10]
   SDVSecVtx_nGoodTrack: [SDVSecVtx_nGoodTrack, ';vertex ngoodTrack;A.U.', 20, 0, 20]

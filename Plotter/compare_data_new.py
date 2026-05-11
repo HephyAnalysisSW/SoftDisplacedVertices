@@ -255,6 +255,10 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
   if data is not None:
     leg.AddEntry(data, "Data", "pe")
   if bkg_mc is not None:
+    #objs = []
+    #for ibkg in d_bkg:
+    #    objs.append([d_bkg[ibkg],ibkg,'f'])
+    #CMS.buildAndDrawTHStack(objs,leg)
     stack = ROOT.THStack("stack", "Stacked")
     CMS.cmsDrawStack(stack, leg, d_bkg)
     h_err = bkg_mc.Clone("h_err")

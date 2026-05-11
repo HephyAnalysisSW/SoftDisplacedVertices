@@ -1,6 +1,6 @@
-vtx_loosesel: (SDVSecVtx_mapveto==0) 
-vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
-vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
+vtx_loosesel: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>1)
+vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>1) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
+vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>1) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
 vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
 vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 
 vtx_sel_1gt: (SDVSecVtx_ngoodtrack==1) && (SDVSecVtx_mapveto==0) 
@@ -117,13 +117,15 @@ new_variables:
   SDVSecVtx_dx: "SDVSecVtx_x-PV_x"
   SDVSecVtx_dy: "SDVSecVtx_y-PV_y"
   SDVSecVtx_dz: "SDVSecVtx_z-PV_z"
-  SDVSecVtx_ngoodtrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
-  SDVSecVtx_ngoodtrack_highdphi: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack_highdphi,nSDVSecVtx)
-  #SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrackW(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVTrack_isGoodTrack,nSDVSecVtx)
+  #SDVSecVtx_ngoodtrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
+  #SDVSecVtx_ngoodtrack_highdphi: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack_highdphi,nSDVSecVtx)
+  SDVSecVtx_ngoodtrack: SDVSecVtx_nGoodTrackW(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVTrack_isGoodTrack,nSDVSecVtx)
+  SDVSecVtx_ngoodtrack_highdphi: SDVSecVtx_nGoodTrackW(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVTrack_isGoodTrack_highdphi,nSDVSecVtx)
   SDVSecVtx_pAngle_phys: SDVSecVtx_PhyspAngle(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVRefitTrack_svIdx,SDVRefitTrack_tkIdx,SDVRefitTrack_pt,SDVRefitTrack_eta,SDVRefitTrack_phi,SDVSecVtx_dx,SDVSecVtx_dy,SDVSecVtx_dz)
   #SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodPhysTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,SDVTrack_pt,SDVTrack_eta,SDVTrack_phi,SDVSecVtx_dx,SDVSecVtx_dy,SDVSecVtx_dz)
   SDVTrack_isnonPU: ( SDVTrack_dxydzratio>0.25 )
-  SDVSecVtx_nnonPUTrack: SDVSecVtx_nselTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isnonPU,nSDVSecVtx)
+  #SDVSecVtx_nnonPUTrack: SDVSecVtx_nselTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isnonPU,nSDVSecVtx)
+  SDVSecVtx_nnonPUTrack: SDVSecVtx_nGoodTrackW(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVTrack_isnonPU,nSDVSecVtx)
   SDVSecVtx_dphiMET: 'acos(cos(SDVSecVtx_L_phi-MET_phi_corr))'
   SDVSecVtx_dphijet0: 'acos(cos(SDVSecVtx_L_phi-leadingjet_phi))'
   SDVSecVtx_dRjet0: "SDVSecVtx_dRjet(SDVSecVtx_L_eta,leadingjet_eta,SDVSecVtx_L_phi,leadingjet_phi)"

@@ -1,0 +1,55 @@
+{
+    "CustomNanoAOD": {
+        "dir": {
+            "met2017b" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017b",
+            "met2017c" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017c",
+            "met2017d" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017d",
+            "met2017e" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017e",
+            "met2017f" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017f",
+
+            "met2018a" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018a",
+            "met2018b" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018b",
+            "met2018c" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018c",
+            "met2018d" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018d",
+            "met2018d_rest" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018d_rest",
+
+            "jetmet_2022c":     "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_22/jetmet_2022c",
+            "jetmet_2022d":     "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_22/jetmet_2022d",
+            "jetmet_2022e":     "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_22/jetmet_2022e",
+            "jetmet_2022f":     "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_22/jetmet_2022f",
+            "jetmet_2022g":     "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_22/jetmet_2022g",
+
+            "jetmet0_2023c1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023c1",
+            "jetmet0_2023c2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023c2",
+            "jetmet0_2023c3":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023c3",
+            "jetmet0_2023c4":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023c4",
+            "jetmet0_2023d1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023d1",
+            "jetmet0_2023d2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet0_2023d2",
+
+            "jetmet1_2023c1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023c1",
+            "jetmet1_2023c2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023c2",
+            "jetmet1_2023c3":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023c3",
+            "jetmet1_2023c4":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023c4",
+            "jetmet1_2023d1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023d1",
+            "jetmet1_2023d2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_23/jetmet1_2023d2",
+
+            "jetmet0_2024c":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024c",
+            "jetmet0_2024d":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024d",
+            "jetmet0_2024e":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024e",
+            "jetmet0_2024f":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024f",
+            "jetmet0_2024g":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024g",
+            "jetmet0_2024h":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024h",
+            "jetmet0_2024i1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024i1",
+            "jetmet0_2024i2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet0_2024i2",
+
+            "jetmet1_2024c":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024c",
+            "jetmet1_2024d":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024d",
+            "jetmet1_2024e":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024e",
+            "jetmet1_2024f":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024f",
+            "jetmet1_2024g":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024g",
+            "jetmet1_2024h":    "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024h",
+            "jetmet1_2024i1":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024i1",
+            "jetmet1_2024i2":   "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_24/jetmet1_2024i2"
+        }
+    }
+}

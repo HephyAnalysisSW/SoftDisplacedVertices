@@ -721,6 +721,10 @@ ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, RO
 
 ROOT::VecOps::RVec<int> SDVSecVtx_nGoodTrackW(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecF SDVIdxLUT_TrackWeight, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
 {
+    assert(SDVIdxLUT_SecVtxIdx.size()==SDVIdxLUT_TrackIdx.size() && "Sizes of SDVIdxLUT_SecVtxIdx and SDVIdxLUT_TrackIdx do not match!");
+    assert(SDVIdxLUT_SecVtxIdx.size()==SDVIdxLUT_TrackWeight.size() && "Sizes of SDVIdxLUT_SecVtxIdx and SDVIdxLUT_TrackIdx do not match!");
+    assert(ROOT::VecOps::Max(SDVIdxLUT_TrackIdx)<SDVTrack_isGoodTrack.size() && "Idx in SDVIdxLUT_TrackIdx out of range of SDVTrack_isGoodTrack!");
+    assert(ROOT::VecOps::Max(SDVIdxLUT_SecVtxIdx)<nSDV && "Idx in SDVIdxLUT_SecVtxIdx out of range of nSDV!");
     ROOT::VecOps::RVec<int> nGoodTracks;
     for (int i=0; i<nSDV; ++i){
         auto tkIdx = SDVIdxLUT_TrackIdx[(SDVIdxLUT_SecVtxIdx==i) & (SDVIdxLUT_TrackWeight>0.5)];
@@ -1126,6 +1130,8 @@ T SDVTrack_TkVtxVar(ROOT::RVecI SDVIdxLUT_TrackIdx, T SDVIdxLUT_Var, int nSDVTra
 
 std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_ML(ROOT::RVecB Vertex_presel, ROOT::RVecF Vertex_MLScore) {
 
+    assert(Vertex_presel.size()==Vertex_MLScore.size() && "Sizes of Vertex_presel and Vertex_MLScore do not match!");
+
     float max_mlscore = -1;
     int leading_idx=-1;
     for (int i=0; i<Vertex_MLScore.size(); ++i) {
@@ -1137,15 +1143,22 @@ std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_ML(ROOT::RVecB Vertex_presel, ROOT::R
 
     }
     ROOT::RVecB Vertex_isleading(Vertex_MLScore.size(),false);
-    Vertex_isleading[leading_idx] = true;
+    if (leading_idx>=0){
+        Vertex_isleading[leading_idx] = true;
+    }
     return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
 }
 
 std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_NtkML(ROOT::RVecB Vertex_presel, ROOT::RVecF Vertex_ngoodtk, ROOT::RVecF Vertex_MLScore) {
 
+  assert(Vertex_presel.size()==Vertex_ngoodtk.size() && "Sizes of Vertex_presel and Vertex_ngoodtk do not match!");
+  assert(Vertex_presel.size()==Vertex_MLScore.size() && "Sizes of Vertex_presel and Vertex_MLScore do not match!");
   float max_ml = -1;
   int leading_idx = -1;
-  int max_nGoodTracks = ROOT::VecOps::Max(Vertex_ngoodtk[Vertex_presel]);
+  //int max_nGoodTracks = ROOT::VecOps::Max(Vertex_ngoodtk[Vertex_presel]);
+  auto presel_ntk = Vertex_ngoodtk[Vertex_presel];
+  if (presel_ntk.empty()) return {-1, ROOT::RVecB(Vertex_MLScore.size(), false)};
+  int max_nGoodTracks = ROOT::VecOps::Max(presel_ntk);
   for (int i=0; i<Vertex_ngoodtk.size(); ++i) {
     if (!Vertex_presel[i]) continue;
     if (max_nGoodTracks>=3){
@@ -1162,7 +1175,9 @@ std::pair<int,ROOT::RVecB> Leading_Vtx_Idx_NtkML(ROOT::RVecB Vertex_presel, ROOT
     }
   }
   ROOT::RVecB Vertex_isleading(Vertex_MLScore.size(),false);
-  Vertex_isleading[leading_idx] = true;
+  if (leading_idx>=0){
+    Vertex_isleading[leading_idx] = true;
+  }
   return std::pair<int,ROOT::RVecB>{leading_idx,Vertex_isleading};
 }
 

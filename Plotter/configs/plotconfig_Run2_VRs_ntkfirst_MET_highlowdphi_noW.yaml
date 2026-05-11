@@ -1,5 +1,5 @@
 vtx_loosesel: (SDVSecVtx_mapveto==0) 
-vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
+vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5)
 vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
 vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
 vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 
@@ -33,12 +33,8 @@ corrections:
   JERC: False
 
 mapveto:
-  data_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
-  mc_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+  data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
 
 weights:
 

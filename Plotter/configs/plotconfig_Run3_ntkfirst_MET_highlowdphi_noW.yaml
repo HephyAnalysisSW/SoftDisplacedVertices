@@ -1,5 +1,5 @@
 vtx_loosesel: (SDVSecVtx_mapveto==0) 
-vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5)
+vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
 vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
 vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
 vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 

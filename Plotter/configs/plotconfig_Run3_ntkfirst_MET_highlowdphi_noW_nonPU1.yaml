@@ -1,51 +1,87 @@
-vtx_loosesel: (SDVSecVtx_mapveto==0) 
-vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
-vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
+vtx_loosesel: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0)
+vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
+vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
 vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
 vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 
 vtx_sel_1gt: (SDVSecVtx_ngoodtrack==1) && (SDVSecVtx_mapveto==0) 
 vtx_sel_0gt: (SDVSecVtx_ngoodtrack==0) && (SDVSecVtx_mapveto==0) 
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 jet_selHEM: (Jet_jetId==6) 
-bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
-bjetmedium: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.2783)
-bjettight: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.7100)
+bjetloose: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_loose)
+bjetmedium: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_medium)
+bjettight: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt_corr>20) && (Jet_btag_tight)
 bjetgen: Jet_hadronFlavour>=4 && Jet_hadronFlavour<=5
 muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
-tau_sel: (Tau_idDeepTau2017v2p1VSmu>0) && (Tau_idDeepTau2017v2p1VSe>0) && (Tau_idDeepTau2017v2p1VSjet>0) && (abs(Tau_eta)<2.3) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
-presel: MET_pt_corr>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+tau_sel: (Tau_idDeepTau2018v2p5VSmu>0) && (Tau_idDeepTau2018v2p5VSe>0) && (Tau_idDeepTau2018v2p5VSjet>0) && (abs(Tau_eta)<2.5) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
+presel: MET_pt_corr>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 
 corrections:
-  PU:
-    "2017":
-      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2017_UL/puWeights.json.gz"
-      name: "Collisions17_UltraLegacy_goldenJSON"
-      mode: "nominal"
-    "2018":
-      path: "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/LUM/2018_UL/puWeights.json.gz"
-      name: "Collisions18_UltraLegacy_goldenJSON"
-      mode: "nominal"
-  met:
-    mode: "nominal"
-  metxy: True
-  JERC: False
+    PU:
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22CDSep23-Summer22-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_355100_357900_eraBCD_GoldenJson"
+            mode: "nominal"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2022_359022_362760_eraEFG_GoldenJson"
+            mode: "nominal"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23CSep23-Summer23-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_366403_369802_eraBC_GoldenJson"
+            mode: "nominal"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/puWeights.json.gz"
+            name: "Collisions2023_369803_370790_eraD_GoldenJson"
+            mode: "nominal"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/LUM/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/2025-12-02/puWeights_BCDEFGHI.json.gz"
+            name: "Collisions24_BCDEFGHI_goldenJSON"
+            mode: "nominal"
+    jetid:
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
+            name: "AK4PUPPI_TightLeptonVeto"
+    jetmapveto:
+        use: True
+        "2022Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22CDSep23-Summer22-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22_23Sep2023_RunCD_V1"
+        "2022Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-22EFGSep23-Summer22EE-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer22EE_23Sep2023_RunEFG_V1"
+        "2023Pre":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23CSep23-Summer23-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23Prompt23_RunC_V1"
+        "2023Post":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-23DSep23-Summer23BPix-NanoAODv12/latest/jetvetomaps.json.gz"
+            name: "Summer23BPixPrompt23_RunD_V1"
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetvetomaps.json.gz"
+            name: "Summer24Prompt24_RunBCDEFGHI_V1"
+    metxy: False
+    JERC: True
 
 mapveto:
   data_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
+    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
+    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
+    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
   mc_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
+    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
+    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
+    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
 
 weights:
 
 mcweights:
-  - L1PreFiringWeight_Nom
+    #  - L1PreFiringWeight_Nom
 
 new_variables:
+  veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
   Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
   Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
   Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]

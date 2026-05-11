@@ -1,10 +1,8 @@
 vtx_loosesel: (SDVSecVtx_mapveto==0) 
-vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
-vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
-vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
-vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 
-vtx_sel_1gt: (SDVSecVtx_ngoodtrack==1) && (SDVSecVtx_mapveto==0) 
-vtx_sel_0gt: (SDVSecVtx_ngoodtrack==0) && (SDVSecVtx_mapveto==0) 
+vtx_sel_3gt: (SDVSecVtx_nGoodTrack>=3) && (SDVSecVtx_mapveto==0) 
+vtx_sel_2gt: (SDVSecVtx_nGoodTrack==2) && (SDVSecVtx_mapveto==0) 
+vtx_sel_1gt: (SDVSecVtx_nGoodTrack==1) && (SDVSecVtx_mapveto==0) 
+vtx_sel_0gt: (SDVSecVtx_nGoodTrack==0) && (SDVSecVtx_mapveto==0) 
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
 jet_selHEM: (Jet_jetId==6) 
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
@@ -33,12 +31,8 @@ corrections:
   JERC: False
 
 mapveto:
-  data_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
-  mc_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+  data_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_2tk_loose.root"
+  mc_path: "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_map/material_map_MC_2tk_loose.root"
 
 weights:
 
@@ -97,9 +91,8 @@ new_variables:
   SDVTrack_dphi_MET: acos(cos(SDVTrack_phi-MET_phi_corr))
   SDVTrack_dxydzratio: abs(SDVTrack_dxy/SDVTrack_dz)
 
-  SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 ) && (SDVTrack_pfRelIso03_all<5)
-  SDVTrack_isGoodTrack_highdphi: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( SDVTrack_dphi_jet0>0.4 ) && ( SDVTrack_dphi_MET>1.5 ) && (SDVTrack_pfRelIso03_all<5)
-  #SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && (SDVTrack_pfRelIso03_all<5)
+  #SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && ( SDVTrack_dphi_jet0>1 ) && ( SDVTrack_dphi_MET<1.5 ) && (SDVTrack_pfRelIso03_all<5)
+  SDVTrack_isGoodTrack: ( (abs(SDVTrack_dxy)/SDVTrack_dxyError)>4 ) && (SDVTrack_normalizedChi2 < 5) && (SDVTrack_numberOfValidHits>13) && ( (SDVTrack_ptError/SDVTrack_pt)<0.015 ) && ( SDVTrack_dxydzratio>0.25 ) && (SDVTrack_pfRelIso03_all<5)
   SDVTrack_mindRdphideta: "Vertex_mindRdetadphi(SDVTrack_phi,SDVTrack_eta,Jet_phi_sel,Jet_eta_sel)"
   SDVTrack_isinJet: "SDVTrack_mindRdphideta[0]<0.4"
   nSDVTrack_lowdphi: "Sum(SDVTrack_dphi_MET<1.5)"
@@ -117,8 +110,7 @@ new_variables:
   SDVSecVtx_dx: "SDVSecVtx_x-PV_x"
   SDVSecVtx_dy: "SDVSecVtx_y-PV_y"
   SDVSecVtx_dz: "SDVSecVtx_z-PV_z"
-  SDVSecVtx_ngoodtrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
-  SDVSecVtx_ngoodtrack_highdphi: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack_highdphi,nSDVSecVtx)
+  SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,nSDVSecVtx)
   #SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodTrackW(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVTrack_isGoodTrack,nSDVSecVtx)
   SDVSecVtx_pAngle_phys: SDVSecVtx_PhyspAngle(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVIdxLUT_TrackWeight,SDVRefitTrack_svIdx,SDVRefitTrack_tkIdx,SDVRefitTrack_pt,SDVRefitTrack_eta,SDVRefitTrack_phi,SDVSecVtx_dx,SDVSecVtx_dy,SDVSecVtx_dz)
   #SDVSecVtx_nGoodTrack: SDVSecVtx_nGoodPhysTrack(SDVIdxLUT_SecVtxIdx,SDVIdxLUT_TrackIdx,SDVTrack_isGoodTrack,SDVTrack_pt,SDVTrack_eta,SDVTrack_phi,SDVSecVtx_dx,SDVSecVtx_dy,SDVSecVtx_dz)
@@ -156,8 +148,6 @@ new_variables:
   SDVSecVtx_closestbJetdphi_tight: "SDVSecVtx_mindRdphidetabJet_tight[1]"
   SDVSecVtx_closestbJetdeta_tight: "SDVSecVtx_mindRdphidetabJet_tight[2]"
   SDVSecVtx_loose_sel: ['{0}', vtx_loosesel]
-  SDVSecVtx_loose_sel_lowdphi: ['{0}', vtx_loosesel_lowdphi]
-  SDVSecVtx_loose_sel_highdphi: ['{0}', vtx_loosesel_highdphi]
   ML_score: vtx_PART_1111best_valloss_epoch
   ML_score_clone1 : ML_score
   ML_score_clone2 : ML_score
@@ -166,20 +156,12 @@ new_variables:
   nSDVSecVtx_1gt: ['Sum({0})', vtx_sel_1gt]
   nSDVSecVtx_0gt: ['Sum({0})', vtx_sel_0gt]
   #leadingvtx_info: "Leading_Vtx_Idx_ML(SDVSecVtx_loose_sel, ML_score)"
-  leadingvtx_info: "Leading_Vtx_Idx_NtkML(SDVSecVtx_loose_sel_lowdphi, SDVSecVtx_ngoodtrack, ML_score)"
+  leadingvtx_info: "Leading_Vtx_Idx_NtkML(SDVSecVtx_loose_sel, SDVSecVtx_nGoodTrack, ML_score)"
   leadingvtx_idx: "leadingvtx_info.first"
   SDVSecVtx_isLeading: "leadingvtx_info.second"
   leadingvtx_MLscore: "ML_score[leadingvtx_idx]"
   leadingvtx_dphiMET: "SDVSecVtx_dphiMET[leadingvtx_idx]"
-  leadingvtx_nGoodTracks: "SDVSecVtx_ngoodtrack[leadingvtx_idx]"
-  isinSR: "leadingvtx_idx>=0 && leadingvtx_dphiMET<1.5 && leadingvtx_MLscore>0.8"
-  leadingvtx_info_highdphi: "Leading_Vtx_Idx_NtkML(SDVSecVtx_loose_sel_highdphi, SDVSecVtx_ngoodtrack_highdphi, ML_score)"
-  leadingvtx_idx_highdphi: "leadingvtx_info_highdphi.first"
-  leadingvtx_MLscore_highdphi: "ML_score[leadingvtx_idx_highdphi]"
-  leadingvtx_dphiMET_highdphi: "SDVSecVtx_dphiMET[leadingvtx_idx_highdphi]"
-  leadingvtx_dphijet0_highdphi: "SDVSecVtx_dphijet0[leadingvtx_idx_highdphi]"
-  leadingvtx_nGoodTracks_highdphi: "SDVSecVtx_ngoodtrack_highdphi[leadingvtx_idx_highdphi]"
-
+  leadingvtx_nGoodTracks: "SDVSecVtx_nGoodTrack[leadingvtx_idx]"
 
 new_variables_mc:
   nbJet_gen: ['Sum({0})',bjetgen]
@@ -192,15 +174,86 @@ new_variables_mc:
 
 regions:
     #All: 
-    GT0lowdphi:  leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_dphiMET<1.5
-    GT1lowdphi:  leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_dphiMET<1.5
-    GT2lowdphi:  leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_dphiMET<1.5
-    GTgt3lowdphi:  leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_dphiMET<1.5
-
-    GT0highdphi:    isinSR==0 && leadingvtx_idx_highdphi>=0 && leadingvtx_nGoodTracks_highdphi==0 && leadingvtx_dphiMET_highdphi>1.5 && leadingvtx_dphijet0_highdphi>0.4
-    GT1highdphi:    isinSR==0 && leadingvtx_idx_highdphi>=0 && leadingvtx_nGoodTracks_highdphi==1 && leadingvtx_dphiMET_highdphi>1.5 && leadingvtx_dphijet0_highdphi>0.4
-    GT2highdphi:    isinSR==0 && leadingvtx_idx_highdphi>=0 && leadingvtx_nGoodTracks_highdphi==2 && leadingvtx_dphiMET_highdphi>1.5 && leadingvtx_dphijet0_highdphi>0.4
-    GTgt3highdphi:  isinSR==0 && leadingvtx_idx_highdphi>=0 && leadingvtx_nGoodTracks_highdphi>2  && leadingvtx_dphiMET_highdphi>1.5 && leadingvtx_dphijet0_highdphi>0.4
+    GT0A:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    GT0B:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    GT0C:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    GT0D:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    GT1A:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    GT1B:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    GT1C:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    GT1D:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    GT2A:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    GT2B:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    GT2C:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    GT2D:  MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    GTgt3A: MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    GTgt3B: MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    GTgt3C: MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    GTgt3D: MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET200GT0A:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET200GT0B:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET200GT0C:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET200GT0D:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET200GT1A:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET200GT1B:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET200GT1C:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET200GT1D:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET200GT2A:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET200GT2B:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET200GT2C:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET200GT2D:   MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET200GTgt3A: MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET200GTgt3B: MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET200GTgt3C: MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET200GTgt3D: MET_pt_corr>200 && MET_pt_corr<250 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET250GT0A:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET250GT0B:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET250GT0C:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET250GT0D:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET250GT1A:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET250GT1B:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET250GT1C:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET250GT1D:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET250GT2A:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET250GT2B:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET250GT2C:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET250GT2D:   MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET250GTgt3A: MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET250GTgt3B: MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET250GTgt3C: MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET250GTgt3D: MET_pt_corr>250 && MET_pt_corr<300 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET300GT0A:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET300GT0B:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET300GT0C:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET300GT0D:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET300GT1A:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET300GT1B:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET300GT1C:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET300GT1D:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET300GT2A:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET300GT2B:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET300GT2C:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET300GT2D:   MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET300GTgt3A: MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET300GTgt3B: MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET300GTgt3C: MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET300GTgt3D: MET_pt_corr>300 && MET_pt_corr<350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET350GT0A:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET350GT0B:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET350GT0C:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET350GT0D:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==0 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET350GT1A:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET350GT1B:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET350GT1C:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET350GT1D:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==1 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET350GT2A:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET350GT2B:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET350GT2C:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET350GT2D:   MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks==2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
+    MET350GTgt3A: MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET<1.5
+    MET350GTgt3B: MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore>0.99 && leadingvtx_MLscore<0.995 && leadingvtx_dphiMET>1.5
+    MET350GTgt3C: MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET<1.5
+    MET350GTgt3D: MET_pt_corr>350 && leadingvtx_idx>=0 && leadingvtx_nGoodTracks>2 && leadingvtx_MLscore<0.99 && leadingvtx_MLscore>0.8 && leadingvtx_dphiMET>1.5
     
 event_variables:
 - PV_npvs
@@ -239,16 +292,35 @@ event_variables:
 - leadingvtx_MLscore
 - leadingvtx_dphiMET
 - leadingvtx_nGoodTracks
-- leadingvtx_MLscore_highdphi
-- leadingvtx_dphiMET_highdphi
-- leadingvtx_nGoodTracks_highdphi
 
 event_variables_mc:
     
 event_2d_plots:
     - [leadingvtx_dphiMET,leadingvtx_MLscore]
-    - [MET_pt_corr,leadingvtx_MLscore]
-    - [MET_pt_corr,leadingvtx_MLscore_highdphi]
+    - [nSDVTrack_lowdphi,           nJet_sel_lowdphi]
+    - [nSDVTrack_highdphi,          nJet_sel_highdphi]
+    - [nGoodTrack_lowdphi,          nJet_sel_lowdphi]
+    - [nGoodTrack_highdphi,         nJet_sel_highdphi]
+    - [nSDVTrack_outjet_lowdphi,    nJet_sel_lowdphi]
+    - [nSDVTrack_outjet_highdphi,   nJet_sel_highdphi]
+    - [nGoodTrack_outjet_lowdphi,   nJet_sel_lowdphi]
+    - [nGoodTrack_outjet_highdphi,  nJet_sel_highdphi]
+    - [nSDVTrack_outjet0_lowdphi,   nJet_sel_lowdphi]
+    - [nSDVTrack_outjet0_highdphi,  nJet_sel_highdphi]
+    - [nGoodTrack_outjet0_lowdphi,  nJet_sel_lowdphi]
+    - [nGoodTrack_outjet0_highdphi, nJet_sel_highdphi]
+    - [nSDVTrack_lowdphi,           nJet_sel_lowdphi_noleading]
+    - [nSDVTrack_highdphi,          nJet_sel_highdphi_noleading]
+    - [nGoodTrack_lowdphi,          nJet_sel_lowdphi_noleading]
+    - [nGoodTrack_highdphi,         nJet_sel_highdphi_noleading]
+    - [nSDVTrack_outjet_lowdphi,    nJet_sel_lowdphi_noleading]
+    - [nSDVTrack_outjet_highdphi,   nJet_sel_highdphi_noleading]
+    - [nGoodTrack_outjet_lowdphi,   nJet_sel_lowdphi_noleading]
+    - [nGoodTrack_outjet_highdphi,  nJet_sel_highdphi_noleading]
+    - [nSDVTrack_outjet0_lowdphi,   nJet_sel_lowdphi_noleading]
+    - [nSDVTrack_outjet0_highdphi,  nJet_sel_highdphi_noleading]
+    - [nGoodTrack_outjet0_lowdphi,  nJet_sel_lowdphi_noleading]
+    - [nGoodTrack_outjet0_highdphi, nJet_sel_highdphi_noleading]
 
 objects:
     #SDVSecVtx:
@@ -287,7 +359,7 @@ objects:
     #  - SDVSecVtx_nTracks
     #  - SDVSecVtx_pAngle
     #  - SDVSecVtx_pAngle_phys
-    #  - SDVSecVtx_ngoodtrack
+    #  - SDVSecVtx_nGoodTrack
     #  - SDVSecVtx_nnonPUTrack
     #  - SDVSecVtx_dlen
     #  - SDVSecVtx_dlenSig
@@ -430,7 +502,7 @@ plot_setting:
   SDVSecVtx_dRjet0: [SDVSecVtx_dRjet0, ';#DeltaR(Lxy,jet0)',100,0,5]
   SDVSecVtx_matchedLLPIdx_bydau: [SDVSecVtx_matchedLLPIdx_bydau, ';vertex matched LLP idx;A.U.', 5, -1, 4]
   SDVSecVtx_matchedLLPnDau_bydau: [SDVSecVtx_matchedLLPnDau_bydau, ';vertex number of tracks matched with LLP;A.U.', 10, 0, 10]
-  SDVSecVtx_ngoodtrack: [SDVSecVtx_ngoodtrack, ';vertex ngoodTrack;A.U.', 20, 0, 20]
+  SDVSecVtx_nGoodTrack: [SDVSecVtx_nGoodTrack, ';vertex ngoodTrack;A.U.', 20, 0, 20]
   SDVSecVtx_nnonPUTrack: [SDVSecVtx_nnonPUTrack, ';vertex n nonPU Track;A.U.', 20, 0, 20]
   SDVSecVtx_nGoodRefitTrack: [SDVSecVtx_nGoodRefitTrack, ';vertex ngoodRefitTrack;A.U.', 20, 0, 20]
   SDVSecVtx_nTracks: [SDVSecVtx_nTracks, ';vertex nTracks;A.U.', 20, 0, 20]
@@ -486,9 +558,6 @@ plot_setting:
   leadingjet_nConstituents: [leadingjet_nConstituents,';nCons jet0;A.U.',100,0,100]
   allJet_nConstituents: [allJet_nConstituents,';nCons all jets (selected);A.U.',100,0,500]
   leadingvtx_MLscore: [leadingvtx_MLscore,';leading vtx ML score; A.U.',5000,0,1]
-  leadingvtx_dphiMET_highdphi: [leadingvtx_dphiMET_highdphi,';leading vtx dphi(vtx,MET);A.U.',128,0,3.2]
-  leadingvtx_nGoodTracks_highdphi: [leadingvtx_nGoodTracks_highdphi,';leading vtx nGoodTracks;A.U.',20,0,20]
-  leadingvtx_MLscore_highdphi: [leadingvtx_MLscore_highdphi,';leading vtx ML score; A.U.',5000,0,1]
   leadingvtx_dphiMET: [leadingvtx_dphiMET,';leading vtx dphi(vtx,MET);A.U.',128,0,3.2]
   leadingvtx_nGoodTracks: [leadingvtx_nGoodTracks,';leading vtx nGoodTracks;A.U.',20,0,20]
 

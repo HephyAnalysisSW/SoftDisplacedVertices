@@ -1,6 +1,11 @@
 {
     "CustomNanoAOD": {
         "dir": {
+            "met2017b" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017b",
+            "met2017c" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017c",
+            "met2017d" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017d",
+            "met2017e" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017e",
+            "met2017f" : "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_17/met2017f",
             "met2018a" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018a",
             "met2018b" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018b",
             "met2018c" :      "/scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/data_18/met2018c",
