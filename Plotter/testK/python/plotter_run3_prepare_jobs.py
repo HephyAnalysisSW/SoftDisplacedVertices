@@ -35,41 +35,45 @@ def print_info():
 tier = "CustomNanoAOD"
 
 samples_to_plot = {
-    # 'sig17':            [sample.name for sample in ss.private_sig18],
-    # 'sig18':            [sample.name for sample in ss.private_sig18],
-    'sig17':            [sample.name for sample in ss.old_central_sig17],
-    'sig18':            [sample.name for sample in ss.old_central_sig18],
-    # 'sig22_pre':        [sample.name for sample in ss.private_sig18],
-    # 'sig22_post':       [sample.name for sample in ss.private_sig18],
-    # 'sig23_pre':        [sample.name for sample in ss.private_sig18],
-    # 'sig23_post':       [sample.name for sample in ss.private_sig18],
-    # 'sig24':            [sample.name for sample in ss.private_sig18],
+    # 'sig17':            [sample.name for sample in ss.old_central_sig17],
+    # 'sig18':            [sample.name for sample in ss.old_central_sig18],
+
+    'sig17':            [sample.name for sample in ss.private_sig18],
+    'sig18':            [sample.name for sample in ss.private_sig18],
+    'sig22_pre':        [sample.name for sample in ss.private_sig18],
+    'sig22_post':       [sample.name for sample in ss.private_sig18],
+    'sig23_pre':        [sample.name for sample in ss.private_sig18],
+    'sig23_post':       [sample.name for sample in ss.private_sig18],
+    'sig24':            [sample.name for sample in ss.private_sig18],
+
     'bkg17':            [sample.name for sample in ss.all_bkg_2017],
     'bkg18':            [sample.name for sample in ss.all_bkg_2018],
-    # 'bkg22_pre':        [sample.name for sample in ss.bkg_2022Pre],
-    # 'bkg22_post':       [sample.name for sample in ss.bkg_2022Post],
-    # 'bkg23_pre':        [sample.name for sample in ss.bkg_2023Pre],
-    # 'bkg23_post':       [sample.name for sample in ss.bkg_2023Post],
-    # 'bkg24':            [sample.name for sample in ss.all_bkg_2024],
+    'bkg22_pre':        [sample.name for sample in ss.bkg_2022Pre],
+    'bkg22_post':       [sample.name for sample in ss.bkg_2022Post],
+    'bkg23_pre':        [sample.name for sample in ss.bkg_2023Pre],
+    'bkg23_post':       [sample.name for sample in ss.bkg_2023Post],
+    'bkg24':            [sample.name for sample in ss.all_bkg_2024],
+
     'data17':           [sample.name for sample in ss.met_2017],
     'data18':           [sample.name for sample in ss.met_2018],
-    # 'data22_pre':       [sample.name for sample in ss.met_2022Pre],
-    # 'data22_post':      [sample.name for sample in ss.met_2022Post],
-    # 'data23_pre':       [sample.name for sample in ss.met_2023Pre],
-    # 'data23_post':      [sample.name for sample in ss.met_2023Post]
-    # 'data24':           [sample.name for sample in ss.met_2024],
+    'data22_pre':       [sample.name for sample in ss.met_2022Pre],
+    'data22_post':      [sample.name for sample in ss.met_2022Post],
+    'data23_pre':       [sample.name for sample in ss.met_2023Pre],
+    'data23_post':      [sample.name for sample in ss.met_2023Post],
+    'data24':           [sample.name for sample in ss.met_2024],
 }
 
 json_db = {  
-    # 'sig17':            'scratch_MC.json',
-    # 'sig18':            'scratch_MC.json',
-    'sig17':            'scratch_CustomNanoAOD_v3_centralprod.json',
-    'sig18':            'scratch_CustomNanoAOD_v3_centralprod.json',
+    # 'sig17':            'scratch_CustomNanoAOD_v3_centralprod.json',
+    # 'sig18':            'scratch_CustomNanoAOD_v3_centralprod.json',
+    'sig17':            'scratch_MC.json',
+    'sig18':            'scratch_MC.json',
     'sig22_pre':        'scratch_MC.json',
     'sig22_post':       'scratch_MC.json',
     'sig23_pre':        'scratch_MC.json',
     'sig23_post':       'scratch_MC.json',
     'sig24':            'scratch_MC.json',
+
     'bkg17':            'scratch_MC.json',
     'bkg18':            'scratch_MC.json',
     'bkg22_pre':        'scratch_MC.json',
@@ -77,6 +81,7 @@ json_db = {
     'bkg23_pre':        'scratch_MC.json',
     'bkg23_post':       'scratch_MC.json',
     'bkg24':            'scratch_MC.json',
+
     'data17':           'scratch_data.json',
     'data18':           'scratch_data.json',
     'data22_pre':       'scratch_data.json',
@@ -106,13 +111,13 @@ lumi = {
 }
 
 year = {
-    'sig17':            '2017',
+    'sig17':            '2018',
     'sig18':            '2018',
-    'sig22_pre':        '2022Pre',
-    'sig22_post':       '2022Post',
-    'sig23_pre':        '2023Pre',
-    'sig23_post':       '2023Post',
-    'sig24':            '2024',
+    'sig22_pre':        '2018',
+    'sig22_post':       '2018',
+    'sig23_pre':        '2018',
+    'sig23_post':       '2018',
+    'sig24':            '2018',
 
     'bkg17':            '2017',
     'bkg18':            '2018',
@@ -121,6 +126,7 @@ year = {
     'bkg23_pre':        '2023Pre',
     'bkg23_post':       '2023Post',
     'bkg24':            '2024',
+
     'data17':           '2017',
     'data18':           '2018',
     'data22_pre':       '2022Pre',
@@ -131,37 +137,37 @@ year = {
 }
 
 config = {
-    'sig17':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_17_data.yaml',
-    'sig18':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_18_data.yaml',
     # 'sig17':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_17.yaml',
     # 'sig18':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_18.yaml',
-    'sig22_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run2.yaml',
-    'sig22_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run2.yaml',
-    'sig23_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run2.yaml',
-    'sig23_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run2.yaml',
-    'sig24':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run2.yaml',
+    'sig17':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig18':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig22_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig22_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig23_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig23_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'sig24':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
 
-    'bkg17':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_17_data.yaml',
-    'bkg18':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_18_data.yaml',
-    'bkg22_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'bkg22_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'bkg23_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'bkg23_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'bkg24':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
+    'bkg17':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_17.yaml',
+    'bkg18':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'bkg22_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_22.yaml',
+    'bkg22_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_22.yaml',
+    'bkg23_pre':        '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_23.yaml',
+    'bkg23_post':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_23.yaml',
+    'bkg24':            '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_24.yaml',
 
-    'data17':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_17_data.yaml',
-    'data18':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/effcheck_Run2_newmapveto_18_data.yaml',
-    'data22_pre':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'data22_post':      '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'data23_pre':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'data23_post':      '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
-    'data24':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/limitcalc_Run3.yaml',
+    'data17':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_17.yaml',
+    'data18':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_18.yaml',
+    'data22_pre':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_22.yaml',
+    'data22_post':      '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_22.yaml',
+    'data23_pre':       '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_23.yaml',
+    'data23_post':      '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_23.yaml',
+    'data24':           '$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/configs/AN-25-092_limitcalc_24.yaml',
 }
 
 autoplotter_path = "$CMSSW_BASE/src/SoftDisplacedVertices/Plotter/autoplotter.py"
 outDir_base = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/")
 work_subdir = "ParT_hists"
-unique_dir  = "AN-25-092_ML_plots3_data"
+unique_dir  = "AN-25-092_ML_plots_limitcalc_v2"
 files_per_job = 2
 
 outBaseDir   = outDir_base / work_subdir / unique_dir
@@ -197,12 +203,16 @@ for s_type in samples_to_plot.keys():
         # all about getting file_paths to text file.
         # ------------------------------------------------------------
         sample_obj = getattr(ss, sample)
-        ss.loadData(
-            [sample_obj],
-            os.path.join(f'{os.environ["CMSSW_BASE"]}/src/SoftDisplacedVertices/Samples/json', json_db[s_type]),
-            tier
-        )
+
+        if tier not in sample_obj.nevents:
+            ss.loadData(
+                [sample_obj],
+                os.path.join(f'{os.environ["CMSSW_BASE"]}/src/SoftDisplacedVertices/Samples/json', json_db[s_type]),
+                tier
+            )
+
         files = sample_obj.getFileList(tier, '')
+
         len_files = len(files)
         chunks = [files[i:i+files_per_job] for i in range(0, len(files), files_per_job)]
 

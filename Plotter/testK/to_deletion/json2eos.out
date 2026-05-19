@@ -1,0 +1,32 @@
+nohup: ignoring input
+Using JSON: /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC24.json
+Using EOS mount: /eos/vbc/experiments/cms/store/user/aguven/scratch_backup
+Using logical directory: /store/user/aguven/scratch_backup
+Using EOS redirector: root://eos.grid.vbc.ac.at/
+Remote destination base: root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup
+Found 24 entries in /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC24.json
+Skipping wjetstolnu4jetsb1j_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb1j_2024
+Skipping wjetstolnu4jetsb2j_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb2j_2024
+Skipping wjetstolnu4jetsb3j_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb3j_2024
+Skipping wjetstolnu4jetsb4j_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb4j_2024
+Skipping zto2nu4jetsht0100_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0100_2024
+Skipping zto2nu4jetsht0200_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0200_2024
+Skipping zto2nu4jetsht0400_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0400_2024
+Skipping zto2nu4jetsht0800_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0800_2024
+Skipping zto2nu4jetsht1500_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht1500_2024
+Skipping zto2nu4jetsht2500_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht2500_2024
+Skipping qcd4jetsht0040_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0040_2024
+Skipping qcd4jetsht0070_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0070_2024
+Skipping qcd4jetsht0100_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0100_2024
+Skipping qcd4jetsht0200_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0200_2024
+Skipping qcd4jetsht0400_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0400_2024
+Skipping qcd4jetsht0600_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0600_2024
+Skipping qcd4jetsht0800_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht0800_2024
+Skipping qcd4jetsht1000_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht1000_2024
+Skipping qcd4jetsht1200_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht1200_2024
+Skipping qcd4jetsht1500_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht1500_2024
+Skipping qcd4jetsht2000_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/qcd4jetsht2000_2024
+Skipping ttto4q_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/ttto4q_2024
+Skipping ttto2l2nu_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/ttto2l2nu_2024
+Skipping tttolnu2q_2024: destination already matches source -> /eos/vbc/experiments/cms/store/user/aguven/scratch_backup/MC_24/tttolnu2q_2024
+All transfers completed successfully.

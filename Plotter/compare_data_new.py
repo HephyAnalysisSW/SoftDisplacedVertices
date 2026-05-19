@@ -11,6 +11,7 @@
 
 
 import os,math
+from array import array
 import ROOT
 from array import array
 import cmsstyle as CMS
@@ -147,10 +148,12 @@ def StackHists(hs,ws):
 
 def h_command(h):
   if args.commands is None:
-    return
+    return h
   for c in args.commands:
-    exec(c)
-    return
+    l_dict = {'h': h}
+    exec(c, globals(), l_dict)
+    h = l_dict['h']
+  return h
 
 def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, ratio=True, norm=False):
   assert not (scale_to_data and norm), "Cannot set scale_to_data and norm in the same time!"
@@ -368,7 +371,7 @@ def makeplots(datafn, bkgfns, sigfns,bkglegend,siglegend,bkgcolors,sigcolors,sig
         if not ('TH1' in str(type(h))):
           break
         h.SetDirectory(0)
-        h_command(h)
+        h = h_command(h)
         hs[k].append(h)
         doit = True
     #datamccomparison(plt,hs,colors,legends,scale_to_data=False, ratio=True)

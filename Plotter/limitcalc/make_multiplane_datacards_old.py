@@ -345,7 +345,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first')
-    HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first_v2')
+    # HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_goodtk_first_v2')
+    HISTDIR = Path('/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc')
     datacard_dir = HISTDIR / "datacards"
     datacard_dir.mkdir(parents=True, exist_ok=True)
 

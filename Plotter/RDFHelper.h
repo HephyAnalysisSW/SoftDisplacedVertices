@@ -810,6 +810,135 @@ ROOT::VecOps::RVec<float> SDVSecVtx_PhyspAngle(ROOT::RVecI SDVIdxLUT_SecVtxIdx, 
     return pAngle;
 }
 
+ROOT::VecOps::RVec<float> SDVSecVtx_refitMass(
+    ROOT::RVecI SDVIdxLUT_SecVtxIdx,
+    ROOT::RVecI SDVIdxLUT_TrackIdx,
+    ROOT::RVecF SDVIdxLUT_TrackWeight,
+    ROOT::RVecI RefitTrack_svIdx,
+    ROOT::RVecI RefitTrack_tkIdx,
+    ROOT::RVecF RefitTrack_pt,
+    ROOT::RVecF RefitTrack_eta,
+    ROOT::RVecF RefitTrack_phi,
+    int nSDVSecVtx)
+{
+    constexpr double pion_mass = 0.13957018;
+    ROOT::VecOps::RVec<float> mass(nSDVSecVtx, -1.0);
+
+    for (int iSDV = 0; iSDV < nSDVSecVtx; ++iSDV) {
+        ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vtx_p4;
+        int n_used = 0;
+
+        for (size_t i = 0; i < RefitTrack_svIdx.size(); ++i) {
+            if (RefitTrack_svIdx[i] != iSDV) continue;
+
+            ROOT::RVecF tk_ws = SDVIdxLUT_TrackWeight[
+                (SDVIdxLUT_SecVtxIdx == iSDV) &
+                (SDVIdxLUT_TrackIdx == RefitTrack_tkIdx[i])
+            ];
+            if (tk_ws.size() == 0 || tk_ws[0] < 0.5) continue;
+
+            ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > tk_p4;
+            tk_p4.SetPt(RefitTrack_pt[i]);
+            tk_p4.SetEta(RefitTrack_eta[i]);
+            tk_p4.SetPhi(RefitTrack_phi[i]);
+            tk_p4.SetM(pion_mass);
+
+            vtx_p4 += tk_p4;
+            ++n_used;
+        }
+
+        if (n_used > 0) {
+            mass[iSDV] = vtx_p4.M();
+        }
+    }
+
+    return mass;
+}
+
+ROOT::VecOps::RVec<float> SDVSecVtx_originalTrackMass(
+    ROOT::RVecI SDVIdxLUT_SecVtxIdx,
+    ROOT::RVecI SDVIdxLUT_TrackIdx,
+    ROOT::RVecF SDVIdxLUT_TrackWeight,
+    ROOT::RVecF SDVTrack_pt,
+    ROOT::RVecF SDVTrack_eta,
+    ROOT::RVecF SDVTrack_phi,
+    int nSDVSecVtx)
+{
+    constexpr double pion_mass = 0.13957018;
+    ROOT::VecOps::RVec<float> mass(nSDVSecVtx, -1.0);
+
+    for (int iSDV = 0; iSDV < nSDVSecVtx; ++iSDV) {
+        ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > vtx_p4;
+        int n_used = 0;
+
+        for (size_t i = 0; i < SDVIdxLUT_SecVtxIdx.size(); ++i) {
+            if (SDVIdxLUT_SecVtxIdx[i] != iSDV) continue;
+            if (SDVIdxLUT_TrackWeight[i] < 0.5) continue;
+
+            const int itk = SDVIdxLUT_TrackIdx[i];
+            if (itk < 0 || itk >= int(SDVTrack_pt.size())) continue;
+
+            ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > tk_p4;
+            tk_p4.SetPt(SDVTrack_pt[itk]);
+            tk_p4.SetEta(SDVTrack_eta[itk]);
+            tk_p4.SetPhi(SDVTrack_phi[itk]);
+            tk_p4.SetM(pion_mass);
+
+            vtx_p4 += tk_p4;
+            ++n_used;
+        }
+
+        if (n_used > 0) {
+            mass[iSDV] = vtx_p4.M();
+        }
+    }
+
+    return mass;
+}
+
+ROOT::VecOps::RVec<int> SDVSecVtx_nOriginalTrackFromLUT(
+    ROOT::RVecI SDVIdxLUT_SecVtxIdx,
+    ROOT::RVecF SDVIdxLUT_TrackWeight,
+    int nSDVSecVtx)
+{
+    ROOT::VecOps::RVec<int> n_tracks(nSDVSecVtx, 0);
+
+    for (size_t i = 0; i < SDVIdxLUT_SecVtxIdx.size(); ++i) {
+        const int iSDV = SDVIdxLUT_SecVtxIdx[i];
+        if (iSDV < 0 || iSDV >= nSDVSecVtx) continue;
+        if (SDVIdxLUT_TrackWeight[i] < 0.5) continue;
+        ++n_tracks[iSDV];
+    }
+
+    return n_tracks;
+}
+
+ROOT::VecOps::RVec<int> SDVSecVtx_nWeightedRefitTrackFromLUT(
+    ROOT::RVecI SDVIdxLUT_SecVtxIdx,
+    ROOT::RVecI SDVIdxLUT_TrackIdx,
+    ROOT::RVecF SDVIdxLUT_TrackWeight,
+    ROOT::RVecI RefitTrack_svIdx,
+    ROOT::RVecI RefitTrack_tkIdx,
+    int nSDVSecVtx)
+{
+    ROOT::VecOps::RVec<int> n_tracks(nSDVSecVtx, 0);
+
+    for (size_t i = 0; i < RefitTrack_svIdx.size(); ++i) {
+        const int iSDV = RefitTrack_svIdx[i];
+        if (iSDV < 0 || iSDV >= nSDVSecVtx) continue;
+
+        ROOT::RVecF tk_ws = SDVIdxLUT_TrackWeight[
+            (SDVIdxLUT_SecVtxIdx == iSDV) &
+            (SDVIdxLUT_TrackIdx == RefitTrack_tkIdx[i])
+        ];
+        if (tk_ws.size() == 0 || tk_ws[0] < 0.5) continue;
+
+        ++n_tracks[iSDV];
+    }
+
+    return n_tracks;
+}
+
 //This function returns the number of good tracks in SDV
 //It requires the input of SDVTrack_isGoodTrack, which is an array of 0 or 1 that indicates whether a track is good or not
 ROOT::VecOps::RVec<int> SDVSecVtx_nselTrack(ROOT::RVecI SDVIdxLUT_SecVtxIdx, ROOT::RVecI SDVIdxLUT_TrackIdx, ROOT::RVecI SDVTrack_isGoodTrack, int nSDV)
@@ -1282,10 +1411,10 @@ using ROOT::VecOps::RVec;
 using RVecF = ROOT::VecOps::RVec<float>;
 
 struct PairwiseLVFeatures {
-    RVecF lnkt;
-    RVecF lnz;
-    RVecF lndelta;
-    RVecF lnm2;
+    RVecF kt;
+    RVecF z;
+    RVecF delta;
+    RVecF m2;
 };
 
 PairwiseLVFeatures make_pairwise_lv_fts(
@@ -1329,15 +1458,13 @@ PairwiseLVFeatures make_pairwise_lv_fts(
             const double delta = std::sqrt(dy * dy + dphi * dphi);
 
             const double ptmin = std::min(pti, ptj);
-
-            out.lndelta.emplace_back(std::log(std::max(delta, double(eps))));
-            out.lnkt.emplace_back(std::log(std::max(ptmin * delta, double(eps))));
-            out.lnz.emplace_back(
-                std::log(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)))
-            );
-
             const double m2 = (p4i + p4j).M2();
-            out.lnm2.emplace_back(std::log(std::max(m2, double(eps))));
+
+            out.delta.emplace_back(std::max(delta, double(eps)));
+            out.kt.emplace_back(std::max(ptmin * delta, double(eps)));
+            out.z.emplace_back(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)));
+            out.m2.emplace_back(std::max(m2, double(eps)));
+
         }
     }
 
@@ -1396,17 +1523,14 @@ PairwiseLVFeatures make_pairwise_lv_fts_same_vtx(
               const double dphi = TVector2::Phi_mpi_pi(phii - phij);
               const double dy = yi - yj;
               const double delta = std::sqrt(dy * dy + dphi * dphi);
-
               const double ptmin = std::min(pti, ptj);
-
-              out.lndelta.emplace_back(std::log(std::max(delta, double(eps))));
-              out.lnkt.emplace_back(std::log(std::max(ptmin * delta, double(eps))));
-              out.lnz.emplace_back(
-                  std::log(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)))
-              );
-
               const double m2 = (p4i + p4j).M2();
-              out.lnm2.emplace_back(std::log(std::max(m2, double(eps))));
+
+
+              out.delta.emplace_back(std::max(delta, double(eps)));
+              out.kt.emplace_back(std::max(ptmin * delta, double(eps)));
+              out.z.emplace_back(std::max(ptmin / std::max(pti + ptj, double(eps)), double(eps)));
+              out.m2.emplace_back(std::max(m2, double(eps)));
           }
       }
   }

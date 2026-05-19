@@ -1,0 +1,191 @@
+# Signal systematic uncertainties for CombineHarvester datacards.
+#
+# A scalar year value applies to all ABCD regions in that year.
+# A region map applies only to the listed regions.
+
+trigger:
+  type: lnN
+  values:
+    "2017":
+      A: 1.027
+      B: 1.027
+    "2018":
+      A: 1.027
+      B: 1.027
+    "2022Pre":
+      A: 1.027
+      B: 1.027
+    "2022Post":
+      A: 1.027
+      B: 1.027
+    "2023Pre":
+      A: 1.027
+      B: 1.027
+    "2023Post":
+      A: 1.027
+      B: 1.027
+    "2024":
+      A: 1.027
+      B: 1.027
+
+qcd_s:
+  type: lnN
+  values:
+    "2017": 1.015
+    "2018": 1.015
+    "2022Pre": 1.015
+    "2022Post": 1.015
+    "2023Pre": 1.015
+    "2023Post": 1.015
+    "2024": 1.015
+
+pdf:
+  type: lnN
+  values:
+    "2017": 1.006
+    "2018": 1.006
+    "2022Pre": 1.006
+    "2022Post": 1.006
+    "2023Pre": 1.006
+    "2023Post": 1.006
+    "2024": 1.006
+
+matveto:
+  type: lnN
+  values:
+    "2017": 1.01
+    "2018": 1.01
+    "2022Pre": 1.01
+    "2022Post": 1.01
+    "2023Pre": 1.01
+    "2023Post": 1.01
+    "2024": 1.01
+
+vtxreco:
+  type: lnN
+  values:
+    "2017": 1.107
+    "2018": 1.107
+    "2022Pre": 1.107
+    "2022Post": 1.107
+    "2023Pre": 1.107
+    "2023Post": 1.107
+    "2024": 1.107
+
+uncls_es:
+  type: lnN
+  values:
+    "2017":
+      A: 1.013
+      B: 1.013
+    "2018":
+      A: 1.013
+      B: 1.013
+    "2022Pre":
+      A: 1.013
+      B: 1.013
+    "2022Post":
+      A: 1.013
+      B: 1.013
+    "2023Pre":
+      A: 1.013
+      B: 1.013
+    "2023Post":
+      A: 1.013
+      B: 1.013
+    "2024":
+      A: 1.013
+      B: 1.013
+
+jes:
+  type: lnN
+  values:
+    "2017":
+      A: 1.034
+      B: 1.034
+    "2018":
+      A: 1.034
+      B: 1.034
+    "2022Pre":
+      A: 1.034
+      B: 1.034
+    "2022Post":
+      A: 1.034
+      B: 1.034
+    "2023Pre":
+      A: 1.034
+      B: 1.034
+    "2023Post":
+      A: 1.034
+      B: 1.034
+    "2024":
+      A: 1.034
+      B: 1.034
+
+jer:
+  type: lnN
+  values:
+    "2017":
+      A: 1.008
+      B: 1.008
+    "2018":
+      A: 1.008
+      B: 1.008
+    "2022Pre":
+      A: 1.008
+      B: 1.008
+    "2022Post":
+      A: 1.008
+      B: 1.008
+    "2023Pre":
+      A: 1.008
+      B: 1.008
+    "2023Post":
+      A: 1.008
+      B: 1.008
+    "2024":
+      A: 1.008
+      B: 1.008
+
+pu:
+  type: lnN
+  values:
+    "2017": 1.032
+    "2018": 1.032
+    "2022Pre": 1.032
+    "2022Post": 1.032
+    "2023Pre": 1.032
+    "2023Post": 1.032
+    "2024": 1.032
+
+lumi_13TeV_151617:
+  type: lnN
+  values:
+    "2017": 1.0055
+
+lumi_13TeV_15161718:
+  type: lnN
+  values:
+    "2017": 1.0061
+    "2018": 1.0084
+
+lumi_13p6TeV_222324:
+  type: lnN
+  values:
+    "2022Pre": 1.0138
+    "2022Post": 1.0138
+    "2023Pre": 1.0017
+    "2023Post": 1.0017
+    "2024": 1.0020
+
+lumi_13p6TeV_2324:
+  type: lnN
+  values:
+    "2023Pre": 1.0127
+    "2023Post": 1.0127
+    "2024": 1.0068
+
+lumi_13p6TeV_24:
+  type: lnN
+  values:
+    "2024": 1.0144

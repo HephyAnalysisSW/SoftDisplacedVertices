@@ -1,0 +1,766 @@
+nohup: ignoring input
+Using JSON: /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC22.json
+Using logical directory: /store/user/aguven/scratch_backup
+Using EOS redirector: root://eos.grid.vbc.ac.at/
+Using checksum filename: json2eos_v2_checksums.json
+Found 42 entries in /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC22.json
+Authentication preflight: valid proxy found via voms-proxy-info.
+Warning for zto2nu4jetsht0100_2022pre: source directory name is zto2nu4jetsht0100_2022; checksum keys and destination paths use the source directory name.
+CMD: xrdfs eos.grid.vbc.ac.at cat /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+zto2nu4jetsht0100_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0100_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0100_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125107/0000/NanoAOD_6.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0100_2022pre: 8 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_22
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0200_2022pre: source directory name is zto2nu4jetsht0200_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0200_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0200_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0200_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_15.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125119/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0200_2022pre: 17 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0400_2022pre: source directory name is zto2nu4jetsht0400_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0400_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0400_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0400_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125130/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125130/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125130/0000/NanoAOD_3.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0400_2022pre: 5 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0800_2022pre: source directory name is zto2nu4jetsht0800_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0800_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0800_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0800_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125141/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0800_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht1500_2022pre: source directory name is zto2nu4jetsht1500_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht1500_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht1500_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht1500_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125155/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125155/0000/NanoAOD_2.root (already present in checksum manifest)
+Summary for zto2nu4jetsht1500_2022pre: 4 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht2500_2022pre: source directory name is zto2nu4jetsht2500_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht2500_2022pre -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht2500_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht2500_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125205/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125205/0000/NanoAOD_2.root (already present in checksum manifest)
+Summary for zto2nu4jetsht2500_2022pre: 4 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for wjetstolnu4jets_2022pre: source directory name is wjetstolnu4jets_2022; checksum keys and destination paths use the source directory name.
+wjetstolnu4jets_2022pre -> /store/user/aguven/scratch_backup/MC_22/wjetstolnu4jets_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jets_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_123634/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_123634/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_123634/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_123634/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_123634/0000/NanoAOD_5.root (already present in checksum manifest)
+Summary for wjetstolnu4jets_2022pre: 7 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0040_2022pre: source directory name is qcd4jetsht0040_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0040_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0040_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0040_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0040_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0040_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125215/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0040_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0070_2022pre: source directory name is qcd4jetsht0070_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0070_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0070_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0070_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0070_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0070_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125225/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0070_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0100_2022pre: source directory name is qcd4jetsht0100_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0100_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0100_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0100_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0100_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0100_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125235/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0100_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0200_2022pre: source directory name is qcd4jetsht0200_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0200_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0200_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0200_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0200_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125245/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0200_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0400_2022pre: source directory name is qcd4jetsht0400_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0400_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0400_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0400_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0400_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0400_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125255/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0400_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0600_2022pre: source directory name is qcd4jetsht0600_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0600_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0600_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0600_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125304/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0600_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0800_2022pre: source directory name is qcd4jetsht0800_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0800_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0800_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0800_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125313/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0800_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1000_2022pre: source directory name is qcd4jetsht1000_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1000_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1000_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1000_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125324/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125324/0000/NanoAOD_2.root (already present in checksum manifest)
+Summary for qcd4jetsht1000_2022pre: 4 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1200_2022pre: source directory name is qcd4jetsht1200_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1200_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1200_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1200_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125333/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125333/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125333/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125333/0000/NanoAOD_4.root (already present in checksum manifest)
+Summary for qcd4jetsht1200_2022pre: 6 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1500_2022pre: source directory name is qcd4jetsht1500_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1500_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1500_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1500_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125342/0000/NanoAOD_6.root (already present in checksum manifest)
+Summary for qcd4jetsht1500_2022pre: 8 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht2000_2022pre: source directory name is qcd4jetsht2000_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht2000_2022pre -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht2000_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125353/0000/NanoAOD_7.root (already present in checksum manifest)
+Summary for qcd4jetsht2000_2022pre: 9 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for ttto4q_2022pre: source directory name is ttto4q_2022; checksum keys and destination paths use the source directory name.
+ttto4q_2022pre -> /store/user/aguven/scratch_backup/MC_22/ttto4q_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: ttto4q_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto4q_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: ttto4q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125403/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for ttto4q_2022pre: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for ttto2l2nu_2022pre: source directory name is ttto2l2nu_2022; checksum keys and destination paths use the source directory name.
+ttto2l2nu_2022pre -> /store/user/aguven/scratch_backup/MC_22/ttto2l2nu_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: ttto2l2nu_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125413/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for ttto2l2nu_2022pre: 11 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for tttolnu2q_2022pre: source directory name is tttolnu2q_2022; checksum keys and destination paths use the source directory name.
+tttolnu2q_2022pre -> /store/user/aguven/scratch_backup/MC_22/tttolnu2q_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: tttolnu2q_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: tttolnu2q_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: tttolnu2q_2022/Run3Summer22CustomNanoAODv12-130X_mcRun3_2022_realistic_v5-v1/250512_125422/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for tttolnu2q_2022pre: 16 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0100_2022post: source directory name is zto2nu4jetsht0100_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0100_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0100_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0100_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130843/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130843/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130843/0000/NanoAOD_3.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0100_2022post: 5 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0200_2022post: source directory name is zto2nu4jetsht0200_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0200_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0200_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0200_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_15.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_16.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_17.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_18.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_19.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_20.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_21.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_22.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_23.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_24.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_25.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_26.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_27.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_28.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_29.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_30.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_31.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_32.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_33.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_34.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_35.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_36.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_37.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_38.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_39.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_40.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_41.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_42.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_43.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_44.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_45.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_46.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_47.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_48.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_49.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_50.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_51.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_52.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_53.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_54.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130853/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0200_2022post: 56 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0400_2022post: source directory name is zto2nu4jetsht0400_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0400_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0400_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0400_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130904/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0400_2022post: 13 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht0800_2022post: source directory name is zto2nu4jetsht0800_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht0800_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht0800_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0800_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130914/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130914/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130914/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130914/0000/NanoAOD_4.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0800_2022post: 6 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht1500_2022post: source directory name is zto2nu4jetsht1500_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht1500_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht1500_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht1500_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130924/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130924/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130924/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130924/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130924/0000/NanoAOD_5.root (already present in checksum manifest)
+Summary for zto2nu4jetsht1500_2022post: 7 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for zto2nu4jetsht2500_2022post: source directory name is zto2nu4jetsht2500_ee_2022; checksum keys and destination paths use the source directory name.
+zto2nu4jetsht2500_2022post -> /store/user/aguven/scratch_backup/MC_22/zto2nu4jetsht2500_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht2500_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130934/0000/NanoAOD_6.root (already present in checksum manifest)
+Summary for zto2nu4jetsht2500_2022post: 8 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for wjetstolnu4jets_2022post: source directory name is wjetstolnu4jets_ee_2022; checksum keys and destination paths use the source directory name.
+wjetstolnu4jets_2022post -> /store/user/aguven/scratch_backup/MC_22/wjetstolnu4jets_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jets_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jets_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jets_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_124806/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_124806/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: wjetstolnu4jets_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_124806/0000/NanoAOD_3.root (already present in checksum manifest)
+Summary for wjetstolnu4jets_2022post: 5 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0040_2022post: source directory name is qcd4jetsht0040_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0040_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0040_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0040_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0040_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0040_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130943/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0040_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0070_2022post: source directory name is qcd4jetsht0070_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0070_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0070_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0070_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0070_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0070_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_130953/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0070_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0100_2022post: source directory name is qcd4jetsht0100_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0100_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0100_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0100_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0100_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0100_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131005/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0100_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0200_2022post: source directory name is qcd4jetsht0200_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0200_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0200_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0200_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0200_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131015/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0200_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0400_2022post: source directory name is qcd4jetsht0400_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0400_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0400_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0400_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0400_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0400_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131026/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0400_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0600_2022post: source directory name is qcd4jetsht0600_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0600_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0600_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0600_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0600_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0600_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131036/0000/NanoAOD_1.root (already present in checksum manifest)
+Summary for qcd4jetsht0600_2022post: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht0800_2022post: source directory name is qcd4jetsht0800_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht0800_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht0800_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0800_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131046/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131046/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131046/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131046/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131046/0000/NanoAOD_5.root (already present in checksum manifest)
+Summary for qcd4jetsht0800_2022post: 7 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1000_2022post: source directory name is qcd4jetsht1000_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1000_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1000_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1000_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131056/0000/NanoAOD_8.root (already present in checksum manifest)
+Summary for qcd4jetsht1000_2022post: 10 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1200_2022post: source directory name is qcd4jetsht1200_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1200_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1200_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1200_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131105/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for qcd4jetsht1200_2022post: 14 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht1500_2022post: source directory name is qcd4jetsht1500_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht1500_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht1500_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1500_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_15.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_16.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_17.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_18.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131115/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for qcd4jetsht1500_2022post: 20 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[80.88kB/80.88kB][100%][==================================================][80.88kB/s]  [80.88kB/80.88kB][100%][==================================================][80.88kB/s]  
+Warning for qcd4jetsht2000_2022post: source directory name is qcd4jetsht2000_ee_2022; checksum keys and destination paths use the source directory name.
+qcd4jetsht2000_2022post -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: qcd4jetsht2000_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_14.root (already present in checksum manifest)
+COPY: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_15.root -> /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_15.root
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_15.root root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_15.root
+[8MB/2.847GB][  0%][>                                                 ][8MB/s]  [664MB/2.847GB][ 22%][===========>                                      ][664MB/s]  [1.383GB/2.847GB][ 48%][========================>                         ][708MB/s]  [2.156GB/2.847GB][ 75%][=====================================>            ][736MB/s]  [2.847GB/2.847GB][100%][==================================================][971.7MB/s]  [2.847GB/2.847GB][100%][==================================================][265MB/s]  
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_16.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_17.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_18.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_19.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_20.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_21.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_22.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_23.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_24.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_25.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_26.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_27.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_28.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_29.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_30.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_31.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_32.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_33.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_34.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_35.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_36.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_37.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_38.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_39.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_40.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_41.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_42.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131125/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for qcd4jetsht2000_2022post: 43 skipped, 1 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[81.07kB/81.07kB][100%][==================================================][81.07kB/s]  [81.07kB/81.07kB][100%][==================================================][81.07kB/s]  
+Warning for ttto4q_2022post: source directory name is ttto4q_ee_2022; checksum keys and destination paths use the source directory name.
+ttto4q_2022post -> /store/user/aguven/scratch_backup/MC_22/ttto4q_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: ttto4q_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto4q_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: ttto4q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131135/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: ttto4q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131135/0000/NanoAOD_2.root (already present in checksum manifest)
+Summary for ttto4q_2022post: 4 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[81.07kB/81.07kB][100%][==================================================][81.07kB/s]  [81.07kB/81.07kB][100%][==================================================][81.07kB/s]  
+Warning for ttto2l2nu_2022post: source directory name is ttto2l2nu_ee_2022; checksum keys and destination paths use the source directory name.
+ttto2l2nu_2022post -> /store/user/aguven/scratch_backup/MC_22/ttto2l2nu_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: ttto2l2nu_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_15.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_16.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_17.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_18.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_19.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_20.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_21.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_22.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_23.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_24.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_25.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_26.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: ttto2l2nu_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131145/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for ttto2l2nu_2022post: 28 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[81.07kB/81.07kB][100%][==================================================][81.07kB/s]  [81.07kB/81.07kB][100%][==================================================][81.07kB/s]  
+Warning for tttolnu2q_2022post: source directory name is tttolnu2q_ee_2022; checksum keys and destination paths use the source directory name.
+tttolnu2q_2022post -> /store/user/aguven/scratch_backup/MC_22/tttolnu2q_ee_2022
+Checksum manifest: /store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+SKIP: tttolnu2q_ee_2022/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_1.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_10.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_11.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_12.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_13.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_14.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_15.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_16.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_17.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_18.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_19.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_2.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_20.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_21.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_22.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_23.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_24.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_25.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_26.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_27.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_28.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_29.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_3.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_30.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_31.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_32.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_33.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_34.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_35.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_36.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_37.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_38.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_39.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_4.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_40.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_41.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_42.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_43.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_44.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_45.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_46.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_47.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_48.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_49.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_5.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_50.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_51.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_52.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_53.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_54.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_55.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_56.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_57.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_58.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_59.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_6.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_60.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_61.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_62.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_63.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_64.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_65.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_66.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_67.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_68.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_69.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_7.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_70.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_71.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_72.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_73.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_74.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_75.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_76.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_77.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_78.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_79.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_8.root (already present in checksum manifest)
+SKIP: tttolnu2q_ee_2022/Run3Summer22EECustomNanoAODv12-130X_mcRun3_2022_realistic_postEE_v6-v1/250512_131155/0000/NanoAOD_9.root (already present in checksum manifest)
+Summary for tttolnu2q_2022post: 81 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_22/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_22/json2eos_v2_checksums.json
+[81.07kB/81.07kB][100%][==================================================][81.07kB/s]  [81.07kB/81.07kB][100%][==================================================][81.07kB/s]  
+All transfers completed successfully.

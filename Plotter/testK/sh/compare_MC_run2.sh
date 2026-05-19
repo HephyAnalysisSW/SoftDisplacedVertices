@@ -29,7 +29,7 @@ run_compareK(){
     done
 }
 
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots3
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_inputs_v2
 
 QCD=$HISTDIR/bkg_run2/qcd_run2_hist.root
 WJETS=$HISTDIR/bkg_run2/wjets_run2_hist.root

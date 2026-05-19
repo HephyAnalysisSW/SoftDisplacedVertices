@@ -1,0 +1,814 @@
+nohup: ignoring input
+Using JSON: /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC24.json
+Using logical directory: /store/user/aguven/scratch_backup
+Using EOS redirector: root://eos.grid.vbc.ac.at/
+Using checksum filename: json2eos_v2_checksums.json
+Found 24 entries in /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Samples/json/scratch_MC24.json
+Authentication preflight: valid proxy found via voms-proxy-info.
+CMD: xrdfs eos.grid.vbc.ac.at cat /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+wjetstolnu4jetsb1j_2024 -> /store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb1j_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jetsb1j_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb1j_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb1j_2024/wjetstolnu4jetsb1j_2024__merged.root (already present in checksum manifest)
+Summary for wjetstolnu4jetsb1j_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup
+CMD: xrdfs eos.grid.vbc.ac.at stat -q IsDir /store/user/aguven/scratch_backup/MC_24
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+wjetstolnu4jetsb2j_2024 -> /store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb2j_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jetsb2j_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_000.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_001.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_002.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_003.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_004.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_005.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_006.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_007.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_008.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_009.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb2j_2024/wjetstolnu4jetsb2j_2024__merged_010.root (already present in checksum manifest)
+Summary for wjetstolnu4jetsb2j_2024: 13 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+wjetstolnu4jetsb3j_2024 -> /store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb3j_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jetsb3j_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_000.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_001.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_002.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_003.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_004.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_005.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_006.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_007.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb3j_2024/wjetstolnu4jetsb3j_2024__merged_008.root (already present in checksum manifest)
+Summary for wjetstolnu4jetsb3j_2024: 11 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+wjetstolnu4jetsb4j_2024 -> /store/user/aguven/scratch_backup/MC_24/wjetstolnu4jetsb4j_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: wjetstolnu4jetsb4j_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_000.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_001.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_002.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_003.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_004.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_005.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_006.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_007.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_008.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_009.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_010.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_011.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_012.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_013.root (already present in checksum manifest)
+SKIP: wjetstolnu4jetsb4j_2024/wjetstolnu4jetsb4j_2024__merged_014.root (already present in checksum manifest)
+Summary for wjetstolnu4jetsb4j_2024: 17 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht0100_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0100_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0100_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_007.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_008.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_009.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_010.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_011.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_012.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_013.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_014.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_015.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_016.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_017.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_018.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_019.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_020.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_021.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_022.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_023.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_024.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_025.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_026.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_027.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_028.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_029.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_030.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_031.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_032.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_033.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_034.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_035.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_036.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_037.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_038.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_039.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_040.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_041.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_042.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_043.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_044.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_045.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_046.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_047.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_048.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_049.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_050.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_051.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_052.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_053.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_054.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_055.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_056.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_057.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_058.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_059.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_060.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_061.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_062.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_063.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_064.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_065.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_066.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_067.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_068.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_069.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_070.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_071.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_072.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0100_2024/zto2nu4jetsht0100_2024__merged_073.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0100_2024: 76 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht0200_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0200_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0200_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_007.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_008.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_009.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_010.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_011.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_012.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_013.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_014.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_015.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_016.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_017.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_018.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_019.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_020.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_021.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_022.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_023.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_024.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_025.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_026.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_027.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_028.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_029.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_030.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_031.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_032.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_033.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_034.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_035.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_036.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_037.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_038.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_039.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_040.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_041.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_042.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_043.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_044.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_045.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_046.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_047.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_048.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_049.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_050.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_051.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_052.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_053.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_054.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_055.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_056.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_057.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_058.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_059.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_060.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_061.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_062.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_063.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_064.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_065.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_066.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_067.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_068.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_069.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_070.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_071.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_072.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_073.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_074.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_075.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_076.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_077.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_078.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_079.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_080.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_081.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_082.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_083.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_084.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_085.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_086.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_087.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_088.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_089.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_090.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_091.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_092.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_093.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_094.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_095.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_096.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_097.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_098.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_099.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_100.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_101.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_102.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_103.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_104.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_105.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_106.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_107.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_108.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_109.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_110.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_111.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_112.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_113.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_114.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_115.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_116.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_117.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_118.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_119.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_120.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_121.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_122.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_123.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_124.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_125.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_126.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_127.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_128.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_129.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_130.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_131.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_132.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_133.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_134.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_135.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_136.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_137.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_138.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_139.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_140.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_141.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_142.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_143.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_144.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_145.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_146.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_147.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_148.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_149.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_150.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_151.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_152.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_153.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_154.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_155.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_156.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_157.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_158.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_159.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_160.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_161.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_162.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_163.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_164.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_165.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_166.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_167.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_168.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_169.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_170.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_171.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_172.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_173.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_174.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_175.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_176.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_177.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_178.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_179.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_180.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_181.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_182.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_183.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_184.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_185.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_186.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_187.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_188.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_189.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_190.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_191.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_192.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_193.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_194.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_195.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_196.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_197.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_198.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_199.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_200.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_201.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_202.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_203.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_204.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_205.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_206.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_207.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_208.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_209.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_210.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0200_2024/zto2nu4jetsht0200_2024__merged_211.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0200_2024: 214 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht0400_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0400_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0400_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_007.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_008.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_009.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_010.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_011.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_012.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_013.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_014.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_015.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_016.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_017.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_018.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_019.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_020.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_021.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_022.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_023.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_024.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_025.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_026.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_027.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_028.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_029.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0400_2024/zto2nu4jetsht0400_2024__merged_030.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0400_2024: 33 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht0800_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht0800_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht0800_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht0800_2024/zto2nu4jetsht0800_2024__merged_007.root (already present in checksum manifest)
+Summary for zto2nu4jetsht0800_2024: 10 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht1500_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht1500_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht1500_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_007.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_008.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_009.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_010.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_011.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_012.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_013.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_014.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht1500_2024/zto2nu4jetsht1500_2024__merged_015.root (already present in checksum manifest)
+Summary for zto2nu4jetsht1500_2024: 18 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+zto2nu4jetsht2500_2024 -> /store/user/aguven/scratch_backup/MC_24/zto2nu4jetsht2500_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: zto2nu4jetsht2500_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_000.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_001.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_002.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_003.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_004.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_005.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_006.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_007.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_008.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_009.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_010.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_011.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_012.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_013.root (already present in checksum manifest)
+SKIP: zto2nu4jetsht2500_2024/zto2nu4jetsht2500_2024__merged_014.root (already present in checksum manifest)
+Summary for zto2nu4jetsht2500_2024: 17 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0040_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0040_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0040_2024/qcd4jetsht0040_2024__merged.root (already present in checksum manifest)
+SKIP: qcd4jetsht0040_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0040_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0040_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0070_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0070_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0070_2024/qcd4jetsht0070_2024__merged.root (already present in checksum manifest)
+SKIP: qcd4jetsht0070_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0070_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0070_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0100_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0100_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0100_2024/qcd4jetsht0100_2024__merged.root (already present in checksum manifest)
+SKIP: qcd4jetsht0100_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0100_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0100_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0200_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0200_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0200_2024/qcd4jetsht0200_2024__merged.root (already present in checksum manifest)
+SKIP: qcd4jetsht0200_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0200_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0200_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0400_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0400_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0400_2024/qcd4jetsht0400_2024__merged.root (already present in checksum manifest)
+SKIP: qcd4jetsht0400_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0400_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0400_2024: 3 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0600_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0600_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0600_2024/qcd4jetsht0600_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2024/qcd4jetsht0600_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2024/qcd4jetsht0600_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0600_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0600_2024: 5 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht0800_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht0800_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht0800_2024/qcd4jetsht0800_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2024/qcd4jetsht0800_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2024/qcd4jetsht0800_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2024/qcd4jetsht0800_2024__merged_003.root (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht0800_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht0800_2024: 6 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht1000_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht1000_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_003.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_004.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_005.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/qcd4jetsht1000_2024__merged_006.root (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1000_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht1000_2024: 9 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht1200_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht1200_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_003.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_004.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_005.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_006.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/qcd4jetsht1200_2024__merged_007.root (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1200_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht1200_2024: 10 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht1500_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht1500_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_003.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_004.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_005.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_006.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_007.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_008.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_009.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_010.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_011.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_012.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_013.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/qcd4jetsht1500_2024__merged_014.root (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht1500_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht1500_2024: 17 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+qcd4jetsht2000_2024 -> /store/user/aguven/scratch_backup/MC_24/qcd4jetsht2000_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_000.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_001.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_002.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_003.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_004.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_005.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_006.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_007.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_008.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_009.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_010.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_011.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_012.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_013.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_014.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_015.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_016.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_017.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_018.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_019.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_020.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_021.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_022.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_023.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_024.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_025.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_026.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/qcd4jetsht2000_2024__merged_027.root (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: qcd4jetsht2000_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for qcd4jetsht2000_2024: 30 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+ttto4q_2024 -> /store/user/aguven/scratch_backup/MC_24/ttto4q_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: ttto4q_2024/ttto4q_2024__merged_000.root (already present in checksum manifest)
+SKIP: ttto4q_2024/ttto4q_2024__merged_001.root (already present in checksum manifest)
+SKIP: ttto4q_2024/ttto4q_2024__merged_002.root (already present in checksum manifest)
+SKIP: ttto4q_2024/ttto4q_2024__merged_003.root (already present in checksum manifest)
+SKIP: ttto4q_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto4q_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for ttto4q_2024: 6 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+ttto2l2nu_2024 -> /store/user/aguven/scratch_backup/MC_24/ttto2l2nu_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_000.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_001.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_002.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_003.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_004.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_005.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_006.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_007.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_008.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_009.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_010.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_011.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_012.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_013.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_014.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_015.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_016.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_017.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_018.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_019.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_020.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_021.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_022.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_023.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_024.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_025.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_026.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_027.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_028.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_029.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_030.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_031.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_032.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_033.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_034.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_035.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_036.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_037.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_038.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_039.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_040.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_041.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_042.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_043.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_044.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_045.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_046.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_047.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_048.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_049.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_050.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_051.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_052.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_053.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_054.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_055.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_056.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_057.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_058.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_059.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_060.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_061.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_062.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_063.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_064.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_065.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_066.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_067.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_068.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_069.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_070.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_071.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_072.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_073.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_074.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_075.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_076.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_077.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_078.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_079.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_080.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_081.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_082.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_083.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_084.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_085.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_086.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_087.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_088.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_089.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_090.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_091.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_092.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_093.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_094.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_095.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_096.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_097.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_098.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_099.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_100.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_101.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_102.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_103.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_104.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_105.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_106.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_107.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_108.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_109.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_110.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_111.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_112.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_113.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_114.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_115.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/ttto2l2nu_2024__merged_116.root (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: ttto2l2nu_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for ttto2l2nu_2024: 119 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+tttolnu2q_2024 -> /store/user/aguven/scratch_backup/MC_24/tttolnu2q_2024
+Checksum manifest: /store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_000.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_001.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_002.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_003.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_004.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_005.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_006.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_007.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_008.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_009.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_010.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_011.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_012.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_013.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_014.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_015.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_016.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_017.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_018.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_019.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_020.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_021.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_022.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_023.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/tttolnu2q_2024__merged_024.root (already present in checksum manifest)
+SKIP: tttolnu2q_2024/vtx_PART-1111best_valloss_epoch.parquet (already present in checksum manifest)
+SKIP: tttolnu2q_2024/vtx_PART-1111best_valloss_epoch_logitgap.parquet (already present in checksum manifest)
+Summary for tttolnu2q_2024: 27 skipped, 0 copied, 0 failed
+STAGE: /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json
+CMD: xrdcp --force /scratch-cbe/users/alikaan.gueven/ML_KAAN/20260112/MC_24/chksum_tmp.json root://eos.grid.vbc.ac.at//store/user/aguven/scratch_backup/MC_24/json2eos_v2_checksums.json
+[82.65kB/82.65kB][100%][==================================================][82.65kB/s]  [82.65kB/82.65kB][100%][==================================================][82.65kB/s]  
+All transfers completed successfully.

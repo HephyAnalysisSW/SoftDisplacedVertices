@@ -17,7 +17,7 @@ SIGNAL_RE = re.compile(
     r"(?P<params>M\d+_\d+_ct[^_]+_\d{4})_hist\d+\.root$"
 )
 RAW_HIST_RE = re.compile(r"_hist\d+\.root$")
-VALID_ERAS = ("2017", "2018", "2022pre", "2022post", "2023pre", "2023post", "2024")
+VALID_ERAS = ("2017", "2018", "2022Pre", "2022Post", "2023Pre", "2023Post", "2024")
 
 
 def natural_key(path):
@@ -42,13 +42,17 @@ def is_raw_hist_file(path):
     return bool(RAW_HIST_RE.search(path.name))
 
 
+def era_in_name(era, name):
+    return era.lower() in name.lower().replace("_", "")
+
+
 def find_eras(files):
     eras = set()
     for path in files:
         if not is_raw_hist_file(path):
             continue
         for era in VALID_ERAS:
-            if era in path.name:
+            if era_in_name(era, path.name):
                 eras.add(era)
     return sorted(eras)
 
@@ -70,15 +74,20 @@ def group_signal_files(files):
 def merge_data(files, directory, dryrun):
     data_files = [
         path for path in files
-        if path.name.startswith(("met", "jetmet")) and is_raw_hist_file(path)
+        if path.name.startswith(("data", "met", "jetmet")) and is_raw_hist_file(path)
     ]
     if not data_files:
         return
 
-    data_label = directory.name.removeprefix("data")
-    output_prefix = "met" if all(path.name.startswith("met") for path in data_files) else "jetmet"
-    output_file = directory / f"{output_prefix}_20{data_label}_hist.root"
-    run_hadd(output_file, data_files, dryrun)
+    directory_year = directory.name.removeprefix("data_")
+    years = [directory_year] if directory_year in VALID_ERAS else find_eras(data_files)
+
+    for year in years:
+        year_files = [path for path in data_files if era_in_name(year, path.name)]
+        if directory_year == year:
+            year_files = data_files
+        output_file = directory / f"data_{year}_hist.root"
+        run_hadd(output_file, year_files, dryrun)
 
 
 def merge_backgrounds(files, directory, dryrun):
@@ -86,21 +95,21 @@ def merge_backgrounds(files, directory, dryrun):
         groups = {
             "wjets": [
                 path for path in files
-                if path.name.lower().startswith("w") and year in path.name and is_raw_hist_file(path)
+                if path.name.lower().startswith("w") and era_in_name(year, path.name) and is_raw_hist_file(path)
             ],
             "zjets": [
                 path for path in files
-                if path.name.lower().startswith("z") and year in path.name and is_raw_hist_file(path)
+                if path.name.lower().startswith("z") and era_in_name(year, path.name) and is_raw_hist_file(path)
             ],
             "qcd": [
                 path for path in files
-                if path.name.lower().startswith("qcd") and year in path.name and is_raw_hist_file(path)
+                if path.name.lower().startswith("qcd") and era_in_name(year, path.name) and is_raw_hist_file(path)
             ],
             "top": [
                 path for path in files
                 if (
                     path.name.startswith("tt") or path.name.startswith("st_")
-                ) and year in path.name and is_raw_hist_file(path)
+                ) and era_in_name(year, path.name) and is_raw_hist_file(path)
             ],
         }
 
@@ -113,7 +122,7 @@ def merge_backgrounds(files, directory, dryrun):
             merged.append(output_file)
 
         if merged:
-            run_hadd(directory / f"all_{year}_hist.root", merged, dryrun)
+            run_hadd(directory / f"bkg_{year}_hist.root", merged, dryrun)
 
 
 def merge_signals(files, directory, dryrun):
