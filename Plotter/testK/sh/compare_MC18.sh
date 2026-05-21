@@ -23,10 +23,10 @@ run_compareK(){
     --bkg  $TOP $QCD $WJETS $ZJETS                                             \
     --bkgnice  "TTbar" "QCD" "WJets" "ZJets"                                   \
     --signal  $SIGNAL                                                          \
-    --signice  signal                                                          \
+    --signice  "matched signal"                                                          \
     --output $OUTDIR                                                           \
     --dirs $1                                                                  \
-    # --norm                                                                     \
+    --norm                                                                     \
 
 # python3 ../compare.py                                                            \
 # --input $SIGNAL                                                                  \
@@ -42,13 +42,13 @@ run_compareK(){
 }
 
 # HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_1111best_valloss_epoch_MET400_multiplane_dphi_test3
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_inputs_k0_v_sig
 # DATA=$HISTDIR/data/met_2018_hist.root
-QCD=$HISTDIR/bkg/qcd_2018_hist.root
-WJETS=$HISTDIR/bkg/wjets_2018_hist.root
-ZJETS=$HISTDIR/bkg/zjets_2018_hist.root
-TOP=$HISTDIR/bkg/top_2018_hist.root
-SIGNAL=$HISTDIR/sig/C1N2ML_M500_485_ct20_2018_hist.root
+QCD=$HISTDIR/bkg_2018/qcd_2018_hist.root
+WJETS=$HISTDIR/bkg_2018/wjets_2018_hist.root
+ZJETS=$HISTDIR/bkg_2018/zjets_2018_hist.root
+TOP=$HISTDIR/bkg_2018/top_2018_hist.root
+SIGNAL=$HISTDIR/sig_2018/C1N2_M500_485_ct20_2018_hist.root
 # SIGNAL=$HISTDIR/sig/stopMLstudy_M1000_988_ct20_2018_hist.root
 
 

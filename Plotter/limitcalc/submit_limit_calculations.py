@@ -7,8 +7,8 @@
 import subprocess
 import os
 
-datacard_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_v3/datacards/all_years'
-limitdir  =    '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_v3/limits/all_years/'
+datacard_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3/datacards/gmN'
+limitdir  =    '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3/limits/gmN/'
 
 
 os.makedirs(limitdir, exist_ok=True)

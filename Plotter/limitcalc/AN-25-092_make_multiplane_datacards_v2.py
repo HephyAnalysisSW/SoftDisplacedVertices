@@ -16,11 +16,11 @@ import yaml
 USER = getpass.getuser()
 
 if USER == "alikaan.gueven":
-    OUTDIR = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang")
+    OUTDIR = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3")
     SYSTEMATICS_PATH = Path(__file__).with_name("systematics_sig.yaml")
 
     # PLANES = ["SP1", "SP2", "SP3"]
-    PLANES = ["GT1lowdphi", "GT2lowdphi", "GTgt3lowdphi"]
+    PLANES = ["GT1", "GT2", "GT3"]
     REGIONS = ["A", "B", "C", "D"]
     YEARS = [
         "2017",
@@ -35,7 +35,7 @@ if USER == "alikaan.gueven":
     BKG_DIR_BY_YEAR = {year: f"bkg_{year}" for year in YEARS}
     DATA_DIR_BY_YEAR = {year: f"data_{year}" for year in YEARS}
     SIGNAL_FILE_YEAR_BY_YEAR = {year: "2018" for year in YEARS}
-    DATACARD_DIR_NAME = "all_years"
+    DATACARD_DIR_NAME = "gmN"
 
     def file_year_token(year):
         return year
@@ -108,6 +108,33 @@ parser.add_argument(
 args = parser.parse_args()
 observation_source = "data" if args.data else "bkg"
 
+
+def process_columns(lines):
+    for idx, line in enumerate(lines[:-2]):
+        fields = line.split()
+        next_fields = lines[idx + 1].split()
+        next_next_fields = lines[idx + 2].split()
+        if (
+            fields
+            and next_fields
+            and next_next_fields
+            and fields[0] == "bin"
+            and next_fields[0] == "process"
+            and next_next_fields[0] == "process"
+        ):
+            return list(zip(fields[1:], next_fields[1:]))
+    raise ValueError("Could not find the process table in the datacard.")
+
+
+def signal_mc_stat_line(nuisance, stat, columns):
+    values = [
+        f"{stat['alpha']:.6g}" if bin_name == stat["bin"] and process == "sig" else "-"
+        for bin_name, process in columns
+    ]
+    values = "".join(f"{value:<15} " for value in values).rstrip()
+    return f"{nuisance:<35} {'gmN':<7} {stat['n']:<8} {values}"
+
+
 histdir = OUTDIR
 
 sample_names = set()
@@ -124,6 +151,7 @@ outdir.mkdir(parents=True, exist_ok=True)
 for sample_name in sorted(sample_names):
     observations = {}
     rates = {}
+    signal_mc_stats = {}
     cb = ch.CombineHarvester()
     category_id = 1
 
@@ -144,6 +172,7 @@ for sample_name in sorted(sample_names):
         for plane in PLANES:
             hist_name = plane_hist_name(plane)
             tables = {}
+            errors = {}
 
             hist_sources = [("sig", sig_root.Get(hist_name)), ("bkg", bkg_root.Get(hist_name))]
             if args.data:
@@ -174,9 +203,11 @@ for sample_name in sorted(sample_names):
                 }
 
                 tables[label] = {}
+                errors[label] = {}
                 for region, (bx1, bx2, by1, by2) in ranges.items():
                     err = c_double(0.0)
                     tables[label][region] = hist.IntegralAndError(bx1, bx2, by1, by2, err)
+                    errors[label][region] = err.value
 
             for region in REGIONS:
                 bin_name = f"{year_label}_{plane}_{region}"
@@ -190,6 +221,17 @@ for sample_name in sorted(sample_names):
                 observations[bin_name] = round(max(observation, 0), 4)
                 rates[(bin_name, "sig")] = round(tables["sig"][region], 4)
                 rates[(bin_name, "bkg")] = 1.0
+
+                sig_yield = tables["sig"][region]
+                sig_error = errors["sig"][region]
+                if sig_yield > 0.0 and sig_error > 0.0:
+                    n_events = int(round((sig_yield / sig_error) ** 2))
+                    if n_events > 0:
+                        signal_mc_stats[f"stat_sig_{bin_name}"] = {
+                            "bin": bin_name,
+                            "n": n_events,
+                            "alpha": sig_yield / n_events,
+                        }
 
         sig_root.Close()
         bkg_root.Close()
@@ -241,6 +283,12 @@ for sample_name in sorted(sample_names):
             continue
         lines.append(line)
         previous_separator = is_separator
+
+    if signal_mc_stats:
+        columns = process_columns(lines)
+        lines.append("")
+        for nuisance, stat in signal_mc_stats.items():
+            lines.append(signal_mc_stat_line(nuisance, stat, columns))
 
     # Add the per-year ABCD background model. B, C, and D are free rate parameters;
     # A is constrained by the transfer factor B*C/D in the same year and plane.

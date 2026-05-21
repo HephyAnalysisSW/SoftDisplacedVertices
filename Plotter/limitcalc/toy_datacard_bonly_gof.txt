@@ -1,0 +1,22 @@
+imax    8 number of bins
+jmax    1 number of processes minus 1
+kmax    * number of nuisance parameters
+--------------------------------------------------------------------------------
+bin          y2017_GT1_A     y2017_GT1_B     y2017_GT1_C     y2017_GT1_D     y2017_GT2_A     y2017_GT2_B     y2017_GT2_C     y2017_GT2_D
+observation  1.3804          5.3776          884.1018        3444.2971       0.9757          4.5921          372.6706        1753.8736
+--------------------------------------------------------------------------
+bin          y2017_GT1_A     y2017_GT1_A     y2017_GT1_B     y2017_GT1_B     y2017_GT1_C     y2017_GT1_C     y2017_GT1_D     y2017_GT1_D     y2017_GT2_A     y2017_GT2_A     y2017_GT2_B     y2017_GT2_B     y2017_GT2_C     y2017_GT2_C     y2017_GT2_D     y2017_GT2_D
+process      sig             bkg             sig             bkg             sig             bkg             sig             bkg             sig             bkg             sig             bkg             sig             bkg             sig             bkg
+process      0               1               0               1               0               1               0               1               0               1               0               1               0               1               0               1
+rate         1               1               1               1               1               1               1               1               1               1               1               1               1               1               1               1
+--------------------------------------------------------------------------------
+
+
+rate_y2017_GT1_A     rateParam   y2017_GT1_A        bkg   (@0*@1/@2) rate_y2017_GT1_B,rate_y2017_GT1_C,rate_y2017_GT1_D
+rate_y2017_GT1_B     rateParam   y2017_GT1_B        bkg   5.3776
+rate_y2017_GT1_C     rateParam   y2017_GT1_C        bkg   884.1018
+rate_y2017_GT1_D     rateParam   y2017_GT1_D        bkg   3444.2971
+rate_y2017_GT2_A     rateParam   y2017_GT2_A        bkg   (@0*@1/@2) rate_y2017_GT2_B,rate_y2017_GT2_C,rate_y2017_GT2_D
+rate_y2017_GT2_B     rateParam   y2017_GT2_B        bkg   4.5921
+rate_y2017_GT2_C     rateParam   y2017_GT2_C        bkg   372.6706
+rate_y2017_GT2_D     rateParam   y2017_GT2_D        bkg   1753.8736

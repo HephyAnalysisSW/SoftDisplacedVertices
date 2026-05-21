@@ -10,8 +10,8 @@ import numpy as np
 # limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limits'
 # limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/plotconfig_Run2_MLscore_first/limit_tables/Run2'
 
-limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_v3/limits/all_years/'
-limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_v3/limit_tables/all_years/'
+limit_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3/limits/gmN/'
+limit_tables_dir = '/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3/limit_tables/gmN/'
 
 
 os.makedirs(limit_tables_dir, exist_ok=True)
