@@ -191,6 +191,19 @@ new_variables_mc:
   SDVSecVtx_closestbJetdRgen: "SDVSecVtx_mindRdphidetabJet_gen[0]"
   SDVSecVtx_closestbJetdphi_gen: "SDVSecVtx_mindRdphidetabJet_gen[1]"
   SDVSecVtx_closestbJetdeta_gen: "SDVSecVtx_mindRdphidetabJet_gen[2]"
+  LLP_ctau0: "LLP_ctau[0]"
+  LLP_ctau1: "LLP_ctau[1]"
+  LLP_decaymode0: "LLP_decaymode[0]"
+  LLP_decaymode1: "LLP_decaymode[1]"
+
+savepkl:
+  - evt_weight
+  - LLP_ctau0
+  - LLP_ctau1
+  - LLP_decaymode0
+  - LLP_decaymode1
+  - MET_pt_corr
+  - leadingvtx_MLscore
 
 regions:
     #All: 
