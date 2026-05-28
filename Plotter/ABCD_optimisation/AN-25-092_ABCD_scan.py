@@ -45,9 +45,13 @@ SIG_DIR = Path(
 PLOT_OUTDIR = PLOTTER / "ABCD_optimisation" / "plots"
 
 samples = [
-    "C1N2ML_M500_485_ct200_2018_hist0",
-    "C1N2ML_M500_485_ct20_2018_hist0",
-    "C1N2ML_M500_485_ct20_2018_hist0",
+    "C1N2ML_M500_485_ct200_2018_hist",
+    "C1N2ML_M500_485_ct20_2018_hist",
+    "C1N2ML_M500_485_ct2_2018_hist",
+    "stopML_M1000_975_ct0p2_2018_hist",
+    "stopML_M1000_980_ct2_2018_hist",
+    "stopML_M1000_985_ct20_2018_hist",
+    "stopML_M1000_988_ct200_2018_hist"
 ]
 
 

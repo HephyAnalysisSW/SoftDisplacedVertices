@@ -65,7 +65,7 @@ they were not the defaults.
 The code intentionally uses plain classes and common libraries. The useful
 classes are:
 
-- `AnalysisConfig`: years, planes, file names, histogram names.
+- `DatacardInputs`: years, planes, file names, histogram names.
 - `RunOptions`: thresholds, input directory, output directory, mode, data flag.
 - `RegionIntegrator`: ABCD integration from a ROOT histogram.
 - `DatacardGenerator`: sample discovery, CombineHarvester setup, writing, and

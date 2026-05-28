@@ -20,7 +20,7 @@ DEFAULT_HISTDIR = DEFAULT_SCRATCH_BASE / "AN-25-092_ML_plots_limitcalc_merge_w_A
 SYSTEMATICS_PATH = Path(__file__).with_name("systematics_sig.yaml")
 
 
-class AnalysisConfig:
+class DatacardInputs:
     def __init__(self):
         # Keep the analysis naming rules in one place. Most bugs in these
         # scripts come from mismatched file, directory, or bin names.
@@ -28,11 +28,6 @@ class AnalysisConfig:
         self.planes = DEFAULT_PLANES
         self.regions = DEFAULT_REGIONS
         self.systematics_path = SYSTEMATICS_PATH
-        self.signal_file_year_by_year = {year: "2018" for year in self.years}
-
-    def signal_file_name(self, sample_name, year):
-        signal_year = self.signal_file_year_by_year[year]
-        return f"{sample_name}_{signal_year}_hist.root"
 
     def background_file_name(self, year):
         return f"bkg_{year}_hist.root"
@@ -43,8 +38,19 @@ class AnalysisConfig:
     def plane_hist_name(self, plane):
         return f"{plane}_evt/MET_pt_corr_vs_leadingvtx_MLscore"
 
+    def signal_sample_name(self, path):
+        stem = path.name.removesuffix(".root").removesuffix("_hist")
+        parts = stem.split("_")
+        return "_".join(parts[:-1]) if parts[-1] in self.years else stem
+
     def signal_path(self, histdir, sample_name, year):
-        return histdir / f"sig_{year}" / self.signal_file_name(sample_name, year)
+        sig_dir = histdir / f"sig_{year}"
+        matches = sorted(sig_dir.glob(f"{sample_name}_*_hist.root"))
+        if len(matches) == 1:
+            return matches[0]
+        if matches:
+            raise ValueError(f"Multiple signal files match {sample_name} in {sig_dir}: {matches}")
+        return sig_dir / f"{sample_name}_hist.root"
 
     def background_path(self, histdir, year):
         return histdir / f"bkg_{year}" / self.background_file_name(year)
@@ -117,8 +123,8 @@ class RootFile:
 
 
 class RegionIntegrator:
-    def __init__(self, analysis, options):
-        self.analysis = analysis
+    def __init__(self, datacard_inputs, options):
+        self.datacard_inputs = datacard_inputs
         self.options = options
 
     def integrate(self, hist, hist_name):
@@ -151,7 +157,7 @@ class RegionIntegrator:
 
         values = {}
         errors = {}
-        for region in self.analysis.regions:
+        for region in self.datacard_inputs.regions:
             bx1, bx2, by1, by2 = ranges[region]
             err = c_double(0.0)
             values[region] = hist.IntegralAndError(bx1, bx2, by1, by2, err)
@@ -160,29 +166,26 @@ class RegionIntegrator:
 
 
 class DatacardGenerator:
-    def __init__(self, analysis, options):
-        self.analysis = analysis
+    def __init__(self, datacard_inputs, options):
+        self.datacard_inputs = datacard_inputs
         self.options = options
         self.histdir = options.histdir
         self.outdir = options.datacard_output_dir()
         self.systematics = self.load_systematics()
-        self.integrator = RegionIntegrator(analysis, options)
+        self.integrator = RegionIntegrator(datacard_inputs, options)
+        self.current_sample_name = None
 
     def load_systematics(self):
         import yaml
 
-        return yaml.safe_load(self.analysis.systematics_path.read_text(encoding="utf-8"))
+        return yaml.safe_load(self.datacard_inputs.systematics_path.read_text(encoding="utf-8"))
 
     def discover_samples(self):
         sample_names = set()
-        for year in self.analysis.years:
-            # The current signal files all use the 2018 token, even when the
-            # datacard era is another year.
-            signal_year = self.analysis.signal_file_year_by_year[year]
-            suffix = f"_{signal_year}_hist.root"
+        for year in self.datacard_inputs.years:
             sig_dir = self.histdir / f"sig_{year}"
-            for path in sorted(sig_dir.glob(f"*{suffix}")):
-                sample_names.add(path.name[:-len(suffix)])
+            for path in sorted(sig_dir.glob("*_hist.root")):
+                sample_names.add(self.datacard_inputs.signal_sample_name(path))
         return sorted(sample_names)
 
     def generate_all(self):
@@ -195,46 +198,49 @@ class DatacardGenerator:
     def generate_sample(self, sample_name):
         import CombineHarvester.CombineTools.ch as ch
 
-        # One CombineHarvester object collects all years, planes, and ABCD bins
-        # for this signal sample.
-        cb = ch.CombineHarvester()
-        observations = {}
-        rates = {}
-        signal_mc_stats = {}
-        category_id = 1
+        self.current_sample_name = sample_name
+        try:
+            # One CombineHarvester object collects all years, planes, and ABCD
+            # bins for this signal sample.
+            cb = ch.CombineHarvester()
+            observations = {}
+            rates = {}
+            signal_mc_stats = {}
+            category_id = 1
 
-        for year in self.analysis.years:
-            categories, category_id = self.fill_year(
-                sample_name,
-                year,
-                category_id,
-                observations,
-                rates,
-                signal_mc_stats,
-            )
-            cb.AddObservations(["mass"], ["AN-25-092"], [year], ["channel"], categories)
-            cb.AddProcesses(["mass"], ["AN-25-092"], [year], ["channel"], ["sig"], categories, True)
-            cb.AddProcesses(["mass"], ["AN-25-092"], [year], ["channel"], ["bkg"], categories, False)
+            for year in self.datacard_inputs.years:
+                categories, category_id = self.fill_year(
+                    year,
+                    category_id,
+                    observations,
+                    rates,
+                    signal_mc_stats,
+                )
+                cb.AddObservations(["mass"], ["AN-25-092"], [year], ["channel"], categories)
+                cb.AddProcesses(["mass"], ["AN-25-092"], [year], ["channel"], ["sig"], categories, True)
+                cb.AddProcesses(["mass"], ["AN-25-092"], [year], ["channel"], ["bkg"], categories, False)
 
-        cb.ForEachObs(lambda obs: obs.set_rate(observations[obs.bin()]))
-        cb.ForEachProc(lambda proc: proc.set_rate(rates[(proc.bin(), proc.process())]))
-        self.add_signal_systematics(cb, ch)
+            cb.ForEachObs(lambda obs: obs.set_rate(observations[obs.bin()]))
+            cb.ForEachProc(lambda proc: proc.set_rate(rates[(proc.bin(), proc.process())]))
+            self.add_signal_systematics(cb, ch)
 
-        outfile = self.outdir / f"{sample_name}.txt"
-        self.write_datacard(cb, outfile, sample_name)
-        self.postprocess_datacard(outfile, observations, signal_mc_stats)
-        print(f"Wrote all-year datacard to: {outfile}")
-        return outfile
+            outfile = self.outdir / f"{sample_name}.txt"
+            self.write_datacard(cb, outfile, sample_name)
+            self.postprocess_datacard(outfile, observations, signal_mc_stats)
+            print(f"Wrote all-year datacard to: {outfile}")
+            return outfile
+        finally:
+            self.current_sample_name = None
 
-    def fill_year(self, sample_name, year, category_id, observations, rates, signal_mc_stats):
+    def fill_year(self, year, category_id, observations, rates, signal_mc_stats):
         categories = []
-        root_files = self.open_root_files(sample_name, year)
+        root_files = self.open_root_files(self.current_sample_name, year)
 
         try:
-            for plane in self.analysis.planes:
+            for plane in self.datacard_inputs.planes:
                 tables = self.read_plane_tables(root_files, plane)
-                for region in self.analysis.regions:
-                    bin_name = self.analysis.bin_name(year, plane, region)
+                for region in self.datacard_inputs.regions:
+                    bin_name = self.datacard_inputs.bin_name(year, plane, region)
                     categories.append((category_id, bin_name))
                     category_id += 1
                     self.fill_bin(bin_name, region, tables, observations, rates, signal_mc_stats)
@@ -245,11 +251,11 @@ class DatacardGenerator:
 
     def open_root_files(self, sample_name, year):
         root_files = {
-            "sig": RootFile(self.analysis.signal_path(self.histdir, sample_name, year), "signal"),
-            "bkg": RootFile(self.analysis.background_path(self.histdir, year), "background"),
+            "sig": RootFile(self.datacard_inputs.signal_path(self.histdir, sample_name, year), "signal"),
+            "bkg": RootFile(self.datacard_inputs.background_path(self.histdir, year), "background"),
         }
         if self.options.use_data:
-            root_files["data"] = RootFile(self.analysis.data_path(self.histdir, year), "data")
+            root_files["data"] = RootFile(self.datacard_inputs.data_path(self.histdir, year), "data")
 
         opened = []
         try:
@@ -270,7 +276,7 @@ class DatacardGenerator:
             root_file.close()
 
     def read_plane_tables(self, root_files, plane):
-        hist_name = self.analysis.plane_hist_name(plane)
+        hist_name = self.datacard_inputs.plane_hist_name(plane)
         tables = {}
         for label, root_file in root_files.items():
             hist = root_file.get_hist(hist_name)
@@ -316,19 +322,22 @@ class DatacardGenerator:
     def add_signal_systematics(self, cb, ch):
         for sys_name, systematic in self.systematics.items():
             syst_map = ch.SystMap("era", "bin")
-            for year in self.analysis.years:
+            for year in self.datacard_inputs.years:
                 year_value = systematic["values"].get(year)
                 if year_value is None:
                     continue
                 if isinstance(year_value, dict):
                     for region, value in year_value.items():
-                        bins = [self.analysis.bin_name(year, plane, region) for plane in self.analysis.planes]
+                        bins = [
+                            self.datacard_inputs.bin_name(year, plane, region)
+                            for plane in self.datacard_inputs.planes
+                        ]
                         syst_map = syst_map([year], bins, value)
                 else:
                     bins = [
-                        self.analysis.bin_name(year, plane, region)
-                        for plane in self.analysis.planes
-                        for region in self.analysis.regions
+                        self.datacard_inputs.bin_name(year, plane, region)
+                        for plane in self.datacard_inputs.planes
+                        for region in self.datacard_inputs.regions
                     ]
                     syst_map = syst_map([year], bins, year_value)
             cb.cp().signals().AddSyst(cb, sys_name, systematic["type"], syst_map)

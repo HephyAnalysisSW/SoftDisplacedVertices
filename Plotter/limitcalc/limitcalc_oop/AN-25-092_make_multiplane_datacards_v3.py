@@ -18,7 +18,7 @@
 import argparse
 from pathlib import Path
 
-from datacards import AnalysisConfig, DatacardGenerator, DEFAULT_HISTDIR, RunOptions
+from datacards import DatacardGenerator, DatacardInputs, DEFAULT_HISTDIR, RunOptions
 
 
 def parse_args():
@@ -54,7 +54,7 @@ def main():
         use_data=args.data,
     )
 
-    generator = DatacardGenerator(AnalysisConfig(), options)
+    generator = DatacardGenerator(DatacardInputs(), options)
     # generator.generate_sample('C1N2_M200_195_ct20')
     generator.generate_all()
 

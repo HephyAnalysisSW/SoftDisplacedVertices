@@ -68,6 +68,18 @@ def get_ctau_weight(ct, origin, target):
     ratio = (origin / target) * np.exp(clipct * 10 * ((1 / origin) - (1 / target)))
     return ratio
 
+def clip_ctau_weight(weight):
+    return np.clip(weight, a_min=0, a_max=100)
+
+def choose_source_ctau(origin_ctaus, target_ctau):
+    origin_ctaus = sorted(origin_ctaus)
+    idx_pos = np.searchsorted(origin_ctaus, target_ctau, side="right")
+    if idx_pos == 0:
+        return origin_ctaus[idx_pos]
+    if idx_pos >= len(origin_ctaus):
+        return origin_ctaus[idx_pos - 1]
+    return origin_ctaus[idx_pos]
+
 def get_stop_decay_mode_br_weight(decaymode, origin=0.5, target=0.5):
     w4 = target / origin              # 4-body channel
     w2 = (1 - target) / (1 - origin)  # 2-body channel
