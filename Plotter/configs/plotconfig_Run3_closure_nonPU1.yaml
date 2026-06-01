@@ -81,8 +81,7 @@ mcweights:
     #  - L1PreFiringWeight_Nom
 
 new_variables:
-  veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>50) && (Jet_eta>-0.5) && (Jet_eta<-0.1) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) )>2.9)"
-  veto_jet_sel_ecalBadCalib: isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>50) && (Jet_eta>-0.5) && (Jet_eta<-0.1) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) >2.9))
+  veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>50) && (Jet_eta>-0.5) && (Jet_eta<-0.1) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) >2.9))"
   Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
   Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
   Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
