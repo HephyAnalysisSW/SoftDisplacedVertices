@@ -1,0 +1,53 @@
+#: table_doi: 10.17182/hepdata.166009.v1/t6
+#: name: Figure 10c (lower), grid of upper limits
+#: description: Observed 95% CL upper limits on the $\tilde{t}$ production cross section, as functions of $m_{\tilde{t}}$ and $\Delta m$, for $\mathcal{B}(\tilde{t} \to bf\overline{f}'\tilde{\chi}^{0}_{1})$ of 100%. The observed (solid black) and expected (dashed red) exclusion curves are overlaid on the plots. The search excludes the region to the left of the exclusion curves.
+#: data_file: figure_10c_(lower),_grid_of_upper_limits.yaml
+#: keyword observables: $\Delta m$ | $m$ | limit
+#: keyword reactions: P P --> GLUINO GLUINO
+#: keyword cmenergies: 13000.0
+$m$ [GeV],$\Delta m$ [GeV],Observed 95% CL upper limit on $\sigma B$ [fb]
+400.0,12.0,43.0
+400.0,15.0,10.75
+400.0,20.0,12.9
+400.0,25.0,66.65
+500.0,12.0,43.848
+500.0,15.0,9.135
+500.0,20.0,9.744
+500.0,25.0,36.845
+600.0,12.0,29.827
+600.0,15.0,7.175
+600.0,20.0,6.765
+600.0,25.0,22.243
+700.0,12.0,30.067
+700.0,15.0,6.4989
+700.0,20.0,5.7942
+700.0,25.0,20.75
+800.0,12.0,26.745
+800.0,15.0,4.7596
+800.0,20.0,5.1508
+800.0,25.0,13.767
+900.0,12.0,28.674
+900.0,15.0,5.1407
+900.0,20.0,4.2195
+900.0,25.0,10.621
+1000.0,12.0,27.865
+1000.0,15.0,5.4943
+1000.0,20.0,3.9022
+1000.0,25.0,8.499
+1100.0,12.0,26.293
+1100.0,15.0,5.2242
+1100.0,20.0,3.307
+1100.0,25.0,8.4499
+1200.0,12.0,28.127
+1200.0,15.0,4.6714
+1200.0,20.0,3.5396
+1200.0,25.0,7.1545
+1300.0,12.0,25.984
+1300.0,15.0,4.8539
+1300.0,20.0,3.2827
+1300.0,25.0,8.1727
+1400.0,12.0,27.581
+1400.0,15.0,4.9724
+1400.0,20.0,3.1034
+1400.0,25.0,6.701
+

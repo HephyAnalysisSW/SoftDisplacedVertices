@@ -11,15 +11,16 @@ warnings.filterwarnings(
 import math
 import os
 import random
+
 import matplotlib.pyplot as plt
+from iminuit import Minuit
 
 
 observations = [0.5, -0.2, -0.8, 1.2, -1.2, 0.4]
-# observations = [0.5,0.5,0.5,0.5,0.5,0.5,-0.5,-0.5,-0.5,-0.5,-0.5,-0.5]
-n_toys = 100_000
+n_toys = 10_000
 alpha = 0.05
 seed = 12345
-plot_file = os.path.join(os.path.dirname(__file__), "lrt_test_statistic_distribution.pdf")
+plot_file = os.path.join(os.path.dirname(__file__), "lrt_test_statistic_distribution_minuit.pdf")
 
 
 def log_likelihood(x, mean, sigma):
@@ -28,11 +29,27 @@ def log_likelihood(x, mean, sigma):
     return -0.5 * n * math.log(2.0 * math.pi) - n * math.log(sigma) - 0.5 * chi2
 
 
-def lrt_statistic(x):
-    n = len(x)
-    mean_hat = sum(x) / n
-    sigma_hat = math.sqrt(sum((xi - mean_hat) ** 2 for xi in x) / n)
+def fit_gaussian(x):
+    def nll(mean, sigma):
+        return -log_likelihood(x, mean, sigma)
 
+    fit = Minuit(
+        nll,
+        mean=sum(x) / len(x),
+        sigma=1.0,
+        error_mean=0.1,
+        error_sigma=0.1,
+        limit_sigma=(1.0e-6, None),
+        errordef=0.5,
+        print_level=0,
+        pedantic=False,
+    )
+    fit.migrad()
+    return fit.values["mean"], fit.values["sigma"]
+
+
+def lrt_statistic(x):
+    mean_hat, sigma_hat = fit_gaussian(x)
     log_l0 = log_likelihood(x, mean=0.0, sigma=1.0)
     log_l1 = log_likelihood(x, mean=mean_hat, sigma=sigma_hat)
     return -2.0 * (log_l0 - log_l1)

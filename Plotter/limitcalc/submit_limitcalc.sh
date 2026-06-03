@@ -10,7 +10,7 @@
 #SBATCH --nodes=1-1 
 #SBATCH --partition=c 
 #SBATCH --qos=rapid
-#SBATCH --time=00:05:00 
+#SBATCH --time=00:59:00 
 cd /users/alikaan.gueven/AOD_to_nanoAOD/Plotter_run3/CMSSW_15_0_5/src/SoftDisplacedVertices/Plotter/limitcalc
 cmssw-el9<<EOF
 cmsenv
