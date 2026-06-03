@@ -15,7 +15,7 @@ muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
 tau_sel: (Tau_idDeepTau2018v2p5VSmu>0) && (Tau_idDeepTau2018v2p5VSe>0) && (Tau_idDeepTau2018v2p5VSjet>0) && (abs(Tau_eta)<2.5) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
-presel: MET_pt_corr>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+presel: MET_pt_corr>250 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && veto_jet_sel_ecalBadCalib==0 && nJet_sel>0 && leadingjet_pt>100 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 
 corrections:
     PU:
@@ -83,7 +83,7 @@ mcweights:
     #  - L1PreFiringWeight_Nom
 
 new_variables:
-  veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>15) && (Jet_eta<-0.5) && (Jet_eta>-1.0) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) ))"
+  veto_jet_sel_ecalBadCalib: "isData*(run>=362433)*(run<=367144)*(MET_pt_corr>100)*Sum((Jet_pt_corr>50) && (Jet_eta>-0.5) && (Jet_eta<-0.1) && (Jet_phi<-1.8) && (Jet_phi>-2.1) && ( (Jet_neEmEF>0.9) || (Jet_chEmEF>0.9) ) && (acos(cos(Jet_phi-MET_phi_corr)) >2.9))"
   Jet_pt_sel: ['Jet_pt[{0}]',jet_sel] 
   Jet_eta_sel: ['Jet_eta[{0}]',jet_sel]
   Jet_phi_sel: ['Jet_phi[{0}]',jet_sel]
