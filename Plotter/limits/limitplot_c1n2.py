@@ -103,12 +103,14 @@ class limits:
         if os.path.isfile(fn):
             for line in open(fn):
                 p.tryset(line)
-            assert p.valid
+            #assert p.valid
+            assert p.expect_valid
             self.points.append(p)
 
     def __getitem__(self, key):
         if key == 'tau':
-            return [p.sample.tau/1000. for p in self.points]
+            #return [p.sample.tau/1000. for p in self.points]
+            return [p.sample.tau for p in self.points]
         elif key == 'mass':
             return [p.sample.mass for p in self.points]
         elif key == 'massLSP':
@@ -138,6 +140,88 @@ def make_theory(which, include_errors=True, return_list=False):
     else:
         return g
 
+def parse_theory_tau(which, mass, x_range, include_errors=True, cache={}):
+    if which not in ('gluglu', 'stop', 'C1N2'):
+        raise ValueError('bad which %r' % which)
+    fn = which + '.csv'
+    if not (fn in cache):
+        xsecs = [eval(x.strip()) for x in open(fn) if x.strip()]
+        xsec_mass = []
+        for z in xsecs:
+            if z[0]==mass:
+                xsec_mass.append((x_range[0], z[1]*1000, z[2]/100*z[1]*1000))
+                xsec_mass.append((x_range[1], z[1]*1000, z[2]/100*z[1]*1000))
+        if not include_errors:
+            xsec_mass = [(a,b,0.) for a,b,_ in xsec_mass]
+        cache[fn] = xsecs
+    return cache[fn]
+
+def make_theory_tau(which, mass, x_range, include_errors=True, return_list=False):
+    xsecs = parse_theory_tau(which, mass, x_range, include_errors)
+    g = tge(xsecs)
+    g.SetLineWidth(2)
+    g.SetLineColor(9)
+    if return_list:
+        return g, xsecs
+    else:
+        return g
+
+def make_1dplot_ctau():
+  xkey='tau'
+  if not os.path.exists(output):
+    os.makedirs(output)
+  for m in [200,500]:
+      for dm in [5,15]:
+        r = limits()
+        for ct in ['2','20','200']:
+          sample = getattr(sps,'{}ML_M{}_{}_ct{}_2018'.format(model,m,m-dm,ct))
+          #fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
+          fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'2018').replace('ML',''))
+          result_path = os.path.join(path,fn)
+          if os.path.exists(result_path):
+            r.parse(sample,result_path)
+          else:
+            print ("File {} not opened.".format(result_path))
+
+        #observed = tgae(r[xkey], r['observed'], None, None, None, None)
+        expect50 = tgae(r[xkey], r['expect50'], None, None, None, None)
+        expect95 = tgae(r[xkey], r['expect95'], None, None, r['expect95lo'], r['expect95hi'])
+        expect68 = tgae(r[xkey], r['expect68'], None, None, r['expect68lo'], r['expect68hi'])
+
+        gt = make_theory_tau(model,m,[1,300])
+
+        # Styling
+        CMS.SetExtraText("Preliminary")
+        iPos = 0
+        canv_name = 'limitplot_root'
+        CMS.SetLumi("60")
+        CMS.SetEnergy("13")
+        CMS.ResetAdditionalInfo()
+        canv = CMS.cmsCanvas(canv_name,1,300,1,1e+06,"c#tau (mm)","#sigma#bf{#it{#Beta}} (fb)",square=CMS.kSquare,extraSpace=0.01,iPos=iPos)
+        canv.GetListOfPrimitives()[1].SetLabelSize(0.045, "XYZ")
+        canv.GetListOfPrimitives()[1].SetTitleSize(0.045, "XYZ")
+        canv.GetListOfPrimitives()[1].SetTitleOffset(1.4, "XYZ")
+        expect95.GetXaxis().SetLabelSize(0.25)
+        CMS.cmsDraw(expect95, "3", fcolor = ROOT.TColor.GetColor("#F5BB54"))
+        CMS.cmsDraw(expect68, "Same3", fcolor = ROOT.TColor.GetColor("#607641"))
+        CMS.cmsDraw(expect50, "L", lwidth=2)
+        #CMS.cmsDraw(gt, "L3Same", lwidth=2, lcolor=46, fcolor = 45, alpha=0.5)
+        leg = CMS.cmsLeg(0.2, 0.90 - 0.05 * 3, 0.9, 0.90, textSize=0.04, columns=2)
+        leg.AddEntry(0, '#kern[-0.22]{95% CL upper limits:}', '')
+        leg.AddEntry(0, '', '')
+
+        leg.AddEntry(expect50, "Median expected","L")
+        leg.AddEntry(expect68, "68% expected","F")
+        leg.AddEntry(gt, "#kern[0.1]{#tilde{#chi_{1}^{#pm}}}#kern[0.1]{#tilde{#chi_{2}^{0}}} production","LF")
+        leg.AddEntry(expect95, "95% expected","F")
+        canv.SetLogy()
+        canv.SetLogx()
+        sig_text         = write(42, 0.04, 0.20, 0.255, "#tilde{#chi_{2}^{0}} #rightarrow f#bar{f}#kern[0.1]{#tilde{#chi}^{0}_{1}}")
+        mass_or_tau_text = write(42, 0.04, 0.20, 0.200, "m_{{LLP}} = {} GeV, #Delta m = {} GeV".format(m,dm))
+        CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_m{}_dm{}.pdf'.format(m,dm)),close=False)
+        CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_m{}_dm{}.root'.format(m,dm)),close=False)
+        CMS.SaveCanvas(canv,os.path.join(output,'limit1d_mass_m{}_dm{}.png'.format(m,dm)))
+
 def make_1dplot():
   xkey='mass'
   gt = make_theory(model)
@@ -145,7 +229,7 @@ def make_1dplot():
     os.makedirs(output)
   for dm,ct in zip([25,20,15,12],['0p2','2','20','200']):
     r = limits()
-    for m in [600,1000,1400]:
+    for m in [200,500]:
       sample = getattr(sps,'{}_M{}_{}_ct{}_2018'.format(model,m,m-dm,ct))
       #fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'Run2'))
       fn = 'limit_{}_datacard.txt'.format(sample.name.replace("2018",'2018'))
@@ -383,7 +467,8 @@ def draw_2dlimit():
 #model = 'stop'
 model = 'C1N2'
 #path = '/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_STOP_Run2_20241218/'
-path='/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/datacards/limit_C1N2_0909/'
-output = '/groups/hephy/cms/ang.li/SDV/{}limit_2018'.format(model)
-make_1dplot()
+path='/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/combine_run3/limit_cards_without0'
+output = '/groups/hephy/cms/ang.li/SDV/{}limit_2018_without0'.format(model)
+make_1dplot_ctau()
+#make_1dplot()
 #draw_2dlimit()
