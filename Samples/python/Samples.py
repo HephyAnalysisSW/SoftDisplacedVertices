@@ -1298,16 +1298,17 @@ all_signals = [
     stop_2017,
     c1n2_2017,
     stop_2018,
-    c1n2_2018,
-    c1n2_reweight,
-    c1n2_lowdm_2018,
-    stop_MLtraining_2018,
-    C1N2_MLtraining_2018,
-    MLstudy_2018,
+    #c1n2_2018,
+    #c1n2_reweight,
+    #c1n2_lowdm_2018,
+    #stop_MLtraining_2018,
+    #C1N2_MLtraining_2018,
+    #MLstudy_2018,
     c1n2_2024,
     stop_2024,
     old_central_sig17,
-    old_central_sig18
+    old_central_sig18,
+    private_sig18,
 ]
 
 all_bkg_2017 = [
