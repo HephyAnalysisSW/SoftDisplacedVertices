@@ -148,14 +148,15 @@ class ParTScoreProducer(Module):
           #"Track_phi": self.ArraytoNumpy(event.SDVTrack_phi),
           #"Track_dxy": self.ArraytoNumpy(event.SDVTrack_dxy),
           "Track_dxyError": self.ArraytoNumpy(event.SDVTrack_dxyError),
-          "Track_dz": self.ArraytoNumpy(event.SDVTrack_dz),
+          #"Track_dz": self.ArraytoNumpy(event.SDVTrack_dz),
           "Track_normalizedChi2": self.ArraytoNumpy(event.SDVTrack_normalizedChi2),
           "Track_pfRelIso03_all": self.ArraytoNumpy(event.SDVTrack_pfRelIso03_all),
         }
 
         d_derive = {
                 'Track_phi': "VtxTrack_phi_rot",
-                'Track_dxy': "vtx_Lxy",
+                'Track_dxy': "VtxTrack_dxy_rot",
+                'Track_dz': "VtxTrack_dz_rot",
                 }
 
         d_vtx_gets = {
@@ -293,7 +294,22 @@ class ParTScoreProducer(Module):
             vtx_pAngle_rot = math.acos(pdotv_rot)
             vtx_pt_rot = vtx_p4_rot.pt()
             vtx_mass_rot = vtx_p4_rot.mass()
-            vtx_Lxy = vtx.Lxy
+            # Recompute the transverse impact parameter (dxy) of each rotated track
+            # w.r.t. the primary vertex. Each track originates from the secondary
+            # vertex, so the SV is a point on the track; in the straight-line
+            # approximation the signed dxy depends only on the (rotated) track
+            # direction phi and is invariant along the track:
+            #     dxy = -(x_SV - x_PV) * sin(phi) + (y_SV - y_PV) * cos(phi)
+            # Here (dx, dy) = (x_SV - x_PV, y_SV - y_PV), computed just above. This
+            # matches the CMS convention reco::TrackBase::dxy(PV) used to fill
+            # SDVTrack_dxy (signed, relative to the primary vertex).
+            VtxTrack_dxy_rot = -dx * np.sin(VtxTrack_phi_rot) + dy * np.cos(VtxTrack_phi_rot)
+            # Likewise recompute the longitudinal impact parameter (dz) of each rotated
+            # track w.r.t. the primary vertex, with the same straight-line model and the
+            # SV as a point on the track (dz here is z_SV - z_PV, computed above):
+            #     dz = (z_SV - z_PV) - (dx*cos(phi) + dy*sin(phi)) * sinh(eta)
+            # matching the CMS convention reco::TrackBase::dz(PV) used to fill SDVTrack_dz.
+            VtxTrack_dz_rot = dz - (dx * np.cos(VtxTrack_phi_rot) + dy * np.sin(VtxTrack_phi_rot)) * np.sinh(VtxTrack_eta)
 
             new_branches["nRotateVtx"] += 1
             new_branches["RotateVtx_mass"].append(vtx_mass_rot)
