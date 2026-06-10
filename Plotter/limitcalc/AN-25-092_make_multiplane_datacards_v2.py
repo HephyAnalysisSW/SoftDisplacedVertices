@@ -58,6 +58,49 @@ if USER == "alikaan.gueven":
     def plane_hist_name(plane):
         return f"{plane}_evt/MET_pt_corr_vs_leadingvtx_MLscore"
 
+if USER == "ang.li":
+    OUTDIR = Path("/users/ang.li/public/SoftDV/Combine/CMSSW_14_1_0_pre4/src/HiggsAnalysis/CombinedLimit/combine_run3/testlimit")
+    SYSTEMATICS_PATH = Path(__file__).with_name("systematics_sig.yaml")
+
+    # PLANES = ["SP1", "SP2", "SP3"]
+    PLANES = ["GT1", "GT2", "GT3"]
+    REGIONS = ["A", "B", "C", "D"]
+    YEARS = [
+        "2017",
+        "2018",
+        "2022Pre",
+        "2022Post",
+        "2023Pre",
+        "2023Post",
+        "2024",
+    ]
+    SIG_DIR_BY_YEAR = {year: f"sig_{year}" for year in YEARS}
+    BKG_DIR_BY_YEAR = {year: f"bkg_{year}" for year in YEARS}
+    DATA_DIR_BY_YEAR = {year: f"data_{year}" for year in YEARS}
+    SIGNAL_FILE_YEAR_BY_YEAR = {year: "2018" for year in YEARS}
+    DATACARD_DIR_NAME = "gmN"
+
+    def file_year_token(year):
+        return year
+
+    def signal_file_year_token(year):
+        return SIGNAL_FILE_YEAR_BY_YEAR[year]
+
+    def signal_file_name(sample_name, year):
+        return f"{sample_name}_{signal_file_year_token(year)}_hist.root"
+
+    def background_file_name(year):
+        return f"bkg_{file_year_token(year)}_hist.root"
+
+    def data_file_name(year):
+        return f"data_{file_year_token(year)}_hist.root"
+
+    # def plane_hist_name(plane):
+    #     return f"{plane}_evt/MET_pt_corr_vs_{plane}_Max_ML_score"
+
+    def plane_hist_name(plane):
+        return f"{plane}_evt/MET_pt_corr_vs_leadingvtx_MLscore"
+
 SIGNAL_SYSTEMATICS = yaml.safe_load(SYSTEMATICS_PATH.read_text(encoding="utf-8"))
 
 
