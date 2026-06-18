@@ -15,7 +15,7 @@ muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
 tau_sel: (Tau_idDeepTau2017v2p1VSmu>0) && (Tau_idDeepTau2017v2p1VSe>0) && (Tau_idDeepTau2017v2p1VSjet>0) && (abs(Tau_eta)<2.3) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
-presel: MET_pt_corr>200 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
+presel: MET_pt_corr>250 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0
 
 corrections:
   PU:
@@ -191,6 +191,19 @@ new_variables_mc:
   SDVSecVtx_closestbJetdRgen: "SDVSecVtx_mindRdphidetabJet_gen[0]"
   SDVSecVtx_closestbJetdphi_gen: "SDVSecVtx_mindRdphidetabJet_gen[1]"
   SDVSecVtx_closestbJetdeta_gen: "SDVSecVtx_mindRdphidetabJet_gen[2]"
+  LLP_ctau0: "LLP_ctau[0]"
+  LLP_ctau1: "LLP_ctau[1]"
+  LLP_decaymode0: "LLP_decaymode[0]"
+  LLP_decaymode1: "LLP_decaymode[1]"
+
+savepkl:
+  - evt_weight
+  - LLP_ctau0
+  - LLP_ctau1
+  - LLP_decaymode0
+  - LLP_decaymode1
+  - MET_pt_corr
+  - leadingvtx_MLscore
 
 regions:
     #All: 

@@ -382,7 +382,17 @@ new_variables_mc:
   b0_sel_0_2:  SDVSecVtx_closestbJetdR_gen<0.2  && (SDVSecVtx_mass<0.4 || SDVSecVtx_mass>0.6) && SDVSecVtx_ndof>1
   b0_sel_0_4:  SDVSecVtx_closestbJetdR_gen<0.4  && (SDVSecVtx_mass<0.4 || SDVSecVtx_mass>0.6) && SDVSecVtx_ndof>1
   b0_sel:                                          (SDVSecVtx_mass<0.4 || SDVSecVtx_mass>0.6) && SDVSecVtx_ndof>1
+  LLP_ctau0: "LLP_ctau[0]"
+  LLP_ctau1: "LLP_ctau[1]"
+  LLP_decaymode0: "LLP_decaymode[0]"
+  LLP_decaymode1: "LLP_decaymode[1]"
 
+savepkl:
+  - evt_weight
+  - LLP_ctau0
+  - LLP_ctau1
+  - LLP_decaymode0
+  - LLP_decaymode1
 
 regions:
   MET350SP3:    SP3_Max_ML_score >= 0.2 && SP3_Max_ML_score < 0.8 && MET_pt_corr > 350 && nSDVSecVtx_SP3 > 0
@@ -412,13 +422,6 @@ event_2d_plots:
   - [leading_vtx_SP0_dphiMET, SP0_Max_ML_score]
 
 objects:
-
-# savepkl:
-#   - evt_weight
-#   - LLP_ctau0
-#   - LLP_ctau1
-#   - LLP_decaymode0
-#   - LLP_decaymode1
 
 plot_setting:
   MET_pt_corr:      [MET_pt_corr,   ';MET_corr (GeV);Counts',     20,      0,  1000]

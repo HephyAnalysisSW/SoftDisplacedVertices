@@ -19,7 +19,7 @@ if USER == "alikaan.gueven":
     OUTDIR = Path("/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_limitcalc_merge_w_Ang_v3")
     SYSTEMATICS_PATH = Path(__file__).with_name("systematics_sig.yaml")
 
-    # PLANES = ["SP1", "SP2", "SP3"]
+    
     PLANES = ["GT1", "GT2", "GT3"]
     REGIONS = ["A", "B", "C", "D"]
     YEARS = [
@@ -31,11 +31,11 @@ if USER == "alikaan.gueven":
         "2023Post",
         "2024",
     ]
-    SIG_DIR_BY_YEAR = {year: f"sig_{year}" for year in YEARS}
-    BKG_DIR_BY_YEAR = {year: f"bkg_{year}" for year in YEARS}
+    SIG_DIR_BY_YEAR  = {year: f"sig_{year}" for year in YEARS}
+    BKG_DIR_BY_YEAR  = {year: f"bkg_{year}" for year in YEARS}
     DATA_DIR_BY_YEAR = {year: f"data_{year}" for year in YEARS}
     SIGNAL_FILE_YEAR_BY_YEAR = {year: "2018" for year in YEARS}
-    DATACARD_DIR_NAME = "gmN"
+    DATACARD_DIR_NAME = "test"
 
     def file_year_token(year):
         return year
@@ -138,6 +138,23 @@ parser.add_argument(
     help="Lower ML score threshold for regions C and D. Default: first histogram bin.",
 )
 parser.add_argument(
+    "--histdir",
+    type=Path,
+    default=OUTDIR,
+    help="Plotter unique directory containing sig_*, bkg_*, and data_* histogram directories.",
+)
+parser.add_argument(
+    "--datacard-dir-name",
+    default=DATACARD_DIR_NAME,
+    help="Directory name below <histdir>/datacards when --output-dir is not set.",
+)
+parser.add_argument(
+    "--output-dir",
+    type=Path,
+    default=None,
+    help="Exact output directory for datacards. Overrides --datacard-dir-name.",
+)
+parser.add_argument(
     "--mode",
     choices=["Asimov", "observation"],
     default="Asimov",
@@ -178,7 +195,7 @@ def signal_mc_stat_line(nuisance, stat, columns):
     return f"{nuisance:<35} {'gmN':<7} {stat['n']:<8} {values}"
 
 
-histdir = OUTDIR
+histdir = args.histdir.expanduser()
 
 sample_names = set()
 for year in YEARS:
@@ -188,10 +205,11 @@ for year in YEARS:
         if path.name.endswith(sig_suffix):
             sample_names.add(path.name[:-len(sig_suffix)])
 
-outdir = histdir / "datacards" / DATACARD_DIR_NAME / args.mode
+outdir = args.output_dir.expanduser() if args.output_dir else histdir / "datacards" / args.datacard_dir_name / args.mode
 outdir.mkdir(parents=True, exist_ok=True)
 
 for sample_name in sorted(sample_names):
+    # if sample_name != "stop_M1000_980_ct2": continue
     observations = {}
     rates = {}
     signal_mc_stats = {}

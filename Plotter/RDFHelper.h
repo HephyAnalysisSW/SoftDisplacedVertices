@@ -896,6 +896,77 @@ ROOT::VecOps::RVec<float> SDVSecVtx_originalTrackMass(
     return mass;
 }
 
+ROOT::VecOps::RVec<float> SDVSecVtx_DpmMass(
+    ROOT::RVecI SDVIdxLUT_SecVtxIdx,
+    ROOT::RVecI SDVIdxLUT_TrackIdx,
+    ROOT::RVecF SDVIdxLUT_TrackWeight,
+    ROOT::RVecI RefitTrack_svIdx,
+    ROOT::RVecI RefitTrack_tkIdx,
+    ROOT::RVecF RefitTrack_pt,
+    ROOT::RVecF RefitTrack_eta,
+    ROOT::RVecF RefitTrack_phi,
+    ROOT::RVecI SDVTrack_charge,
+    int nSDVSecVtx)
+{
+    constexpr double kaon_mass = 0.493677;
+    constexpr double pion_mass = 0.13957039;
+    ROOT::VecOps::RVec<float> mass(nSDVSecVtx, -1.0);
+
+    for (int iSDV = 0; iSDV < nSDVSecVtx; ++iSDV) {
+        ROOT::RVecI refit_idx;
+        int total_charge = 0;
+
+        for (size_t i = 0; i < RefitTrack_svIdx.size(); ++i) {
+            if (RefitTrack_svIdx[i] != iSDV) continue;
+
+            const int itk = RefitTrack_tkIdx[i];
+            if (itk < 0 || itk >= int(SDVTrack_charge.size())) continue;
+            if (std::abs(SDVTrack_charge[itk]) != 1) continue;
+
+            ROOT::RVecF tk_ws = SDVIdxLUT_TrackWeight[
+                (SDVIdxLUT_SecVtxIdx == iSDV) &
+                (SDVIdxLUT_TrackIdx == itk)
+            ];
+            if (tk_ws.size() == 0 || tk_ws[0] < 0.5) continue;
+
+            refit_idx.push_back(i);
+            total_charge += SDVTrack_charge[itk];
+        }
+
+        if (refit_idx.size() != 3) continue;
+        if (std::abs(total_charge) != 1) continue;
+
+        double sum_e = 0.0;
+        double sum_px = 0.0;
+        double sum_py = 0.0;
+        double sum_pz = 0.0;
+        int n_kaon = 0;
+
+        for (const int irefit : refit_idx) {
+            const int itk = RefitTrack_tkIdx[irefit];
+            const double px = RefitTrack_pt[irefit] * std::cos(RefitTrack_phi[irefit]);
+            const double py = RefitTrack_pt[irefit] * std::sin(RefitTrack_phi[irefit]);
+            const double pz = RefitTrack_pt[irefit] * std::sinh(RefitTrack_eta[irefit]);
+            const bool is_kaon = SDVTrack_charge[itk] == -total_charge;
+            const double tk_mass = is_kaon ? kaon_mass : pion_mass;
+            const double p2 = px * px + py * py + pz * pz;
+
+            sum_e += std::sqrt(p2 + tk_mass * tk_mass);
+            sum_px += px;
+            sum_py += py;
+            sum_pz += pz;
+            n_kaon += is_kaon;
+        }
+
+        if (n_kaon != 1) continue;
+
+        const double m2 = sum_e * sum_e - sum_px * sum_px - sum_py * sum_py - sum_pz * sum_pz;
+        mass[iSDV] = std::sqrt(std::max(m2, 0.0));
+    }
+
+    return mass;
+}
+
 ROOT::VecOps::RVec<int> SDVSecVtx_nOriginalTrackFromLUT(
     ROOT::RVecI SDVIdxLUT_SecVtxIdx,
     ROOT::RVecF SDVIdxLUT_TrackWeight,

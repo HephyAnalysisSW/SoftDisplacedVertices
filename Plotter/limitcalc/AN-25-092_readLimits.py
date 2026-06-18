@@ -157,37 +157,154 @@ for dM in [5,10,15,25]:
     Z84 = np.ma.masked_invalid(Z84)
     Z84 = np.ma.masked_less_equal(Z84, 0)
 
-    plt.figure(figsize=(10, 7.5))
-    pcm = plt.pcolormesh(X, Y, Z, shading='auto', norm=LogNorm())
+    fig = plt.figure(figsize=(10, 8.2))
+    gs = fig.add_gridspec(
+        2, 2,
+        height_ratios=[1, 6],
+        width_ratios=[20, 1],
+        hspace=0.04,
+        wspace=0.06,
+    )
+    top_ax = fig.add_subplot(gs[0, 0])
+    ax = fig.add_subplot(gs[1, 0])
+    cax = fig.add_subplot(gs[1, 1])
 
-    c50 = plt.contour(X, Y, Z, levels=[1], colors='w', linewidths=2)
-    c16 = plt.contour(X, Y, Z16, levels=[1], colors='w', linewidths=2, linestyles='--')
-    c84 = plt.contour(X, Y, Z84, levels=[1], colors='w', linewidths=2, linestyles='--')
+    top_ax.set_xticks([])
+    top_ax.set_yticks([])
+    top_ax.set_xlim(0, 1)
+    top_ax.set_ylim(0, 1)
 
-    pts = plt.plot(x, y, '*k', markersize=10)[0]
+    pcm = ax.pcolormesh(X, Y, Z, shading='auto', norm=LogNorm())
 
-    plt.yscale('log')
-    cbar = plt.colorbar(pcm)
-    cbar.set_label(r'Signal strength $r$', fontsize=18)
+    c50 = ax.contour(X, Y, Z, levels=[1], colors='w', linewidths=2)
+    c16 = ax.contour(X, Y, Z16, levels=[1], colors='w', linewidths=2, linestyles='--')
+    c84 = ax.contour(X, Y, Z84, levels=[1], colors='w', linewidths=2, linestyles='--')
+
+    pts = ax.plot(
+        x, y, '*',
+        markerfacecolor='k',
+        markeredgecolor='w',
+        markeredgewidth=0.8,
+        markersize=11.5,
+        lw=0,
+    )[0]
+
+    ax.set_yscale('log')
+    cbar = fig.colorbar(pcm, cax=cax)
+    cbar.set_label(r'Signal strength ($r$)', fontsize=18)
     cbar.ax.tick_params(labelsize=TICK_LABEL_SIZE)
-    plt.xlim(150, 550)
-    plt.ylim(1.5, 4e2)
-    plt.xlabel('M', fontsize=AXIS_LABEL_SIZE)
-    plt.ylabel(r'c$\tau$', fontsize=AXIS_LABEL_SIZE)
-    plt.tick_params(axis="both", which="both", labelsize=TICK_LABEL_SIZE)
-    plt.annotate(f'{model}\n$\\Delta M = {dM}$ GeV', (0.80, 0.90), xycoords='axes fraction', fontsize=14)
+    ax.set_xlim(190, 510)
+    ax.set_ylim(1.7, 230)
+    ax.set_xlabel('LLP mass (GeV)', fontsize=AXIS_LABEL_SIZE)
+    ax.set_ylabel(r'c$\tau$ (mm)', fontsize=AXIS_LABEL_SIZE)
+    ax.tick_params(axis="both", which="both", labelsize=TICK_LABEL_SIZE)
 
-
-
-    plt.legend(handles=[
+    top_ax.text(0.98, 0.50, f'{model}\n$\\Delta M = {dM}$ GeV',
+                transform=top_ax.transAxes, ha='right', va='center', fontsize=14)
+    top_ax.legend(handles=[
         Line2D([0], [0], color='k', lw=2, label='Expected mean'),
         Line2D([0], [0], color='k', lw=2, ls='--', label='68% CL'),
-        Line2D([0], [0], color='k', marker='*', lw=0, markersize=10, label='Input points'),
-    ], loc='upper left'
+        Line2D([0], [0], color='k', marker='*', lw=0, markersize=11.5,
+               markerfacecolor='k', markeredgecolor='w', markeredgewidth=0.8,
+               label='Input points'),
+    ], loc='center left', bbox_to_anchor=(0.02, 0.50),
+        bbox_transform=top_ax.transAxes, frameon=False, borderaxespad=0.0
     )
 
-    plt.tight_layout()
     pdf_path = pdf_dir / f'{model}_dM{dM}_limit_map.pdf'
-    plt.savefig(pdf_path)
-    plt.close()
+    fig.savefig(pdf_path, bbox_inches='tight')
+    plt.close(fig)
     print(f'Wrote {pdf_path}')
+
+
+model = 'stop'
+mask = (
+    ((df['dM'] == 12) & (df['ct'] == 200)) |
+    ((df['dM'] == 15) & (df['ct'] == 20)) |
+    ((df['dM'] == 20) & (df['ct'] == 2)) |
+    ((df['dM'] == 25) & (df['ct'] == 0.2))
+) & (df['model'] == model)
+
+x = df.loc[mask, 'M']
+y = df.loc[mask, 'dM']
+z = df.loc[mask, 'Expected 50.0%']
+
+X = np.linspace(x.min(), x.max(), 100)
+Y = np.linspace(y.min(), y.max(), 100)
+X, Y = np.meshgrid(X, Y)
+
+interp = LinearNDInterpolator(list(zip(x, y)), z)
+Z = interp(X, Y)
+
+Z = np.ma.masked_invalid(Z)
+Z = np.ma.masked_less_equal(Z, 0)
+
+z16 = df.loc[mask, 'Expected 16.0%']
+z84 = df.loc[mask, 'Expected 84.0%']
+
+Z16 = LinearNDInterpolator(list(zip(x, y)), z16)(X, Y)
+Z84 = LinearNDInterpolator(list(zip(x, y)), z84)(X, Y)
+
+Z16 = np.ma.masked_invalid(Z16)
+Z16 = np.ma.masked_less_equal(Z16, 0)
+
+Z84 = np.ma.masked_invalid(Z84)
+Z84 = np.ma.masked_less_equal(Z84, 0)
+
+fig = plt.figure(figsize=(10, 8.2))
+gs = fig.add_gridspec(
+    2, 2,
+    height_ratios=[1, 6],
+    width_ratios=[20, 1],
+    hspace=0.04,
+    wspace=0.06,
+)
+top_ax = fig.add_subplot(gs[0, 0])
+ax = fig.add_subplot(gs[1, 0])
+cax = fig.add_subplot(gs[1, 1])
+
+top_ax.set_xticks([])
+top_ax.set_yticks([])
+top_ax.set_xlim(0, 1)
+top_ax.set_ylim(0, 1)
+
+pcm = ax.pcolormesh(X, Y, Z, shading='auto', norm=LogNorm())
+
+c50 = ax.contour(X, Y, Z, levels=[1], colors='w', linewidths=2)
+c16 = ax.contour(X, Y, Z16, levels=[1], colors='w', linewidths=2, linestyles='--')
+c84 = ax.contour(X, Y, Z84, levels=[1], colors='w', linewidths=2, linestyles='--')
+
+pts = ax.plot(
+    x, y, '*',
+    markerfacecolor='k',
+    markeredgecolor='w',
+    markeredgewidth=0.8,
+    markersize=11.5,
+    lw=0,
+)[0]
+
+cbar = fig.colorbar(pcm, cax=cax)
+cbar.set_label(r'Signal strength ($r$)', fontsize=18)
+cbar.ax.tick_params(labelsize=TICK_LABEL_SIZE)
+ax.set_xlim(990, 1210)
+ax.set_ylim(11, 26)
+ax.set_xlabel('Stop mass (GeV)', fontsize=AXIS_LABEL_SIZE)
+ax.set_ylabel(r'$\Delta M$ (GeV)', fontsize=AXIS_LABEL_SIZE)
+ax.tick_params(axis="both", which="both", labelsize=TICK_LABEL_SIZE)
+
+top_ax.text(0.98, 0.50, f'{model}',
+            transform=top_ax.transAxes, ha='right', va='center', fontsize=14)
+top_ax.legend(handles=[
+    Line2D([0], [0], color='k', lw=2, label='Expected mean'),
+    Line2D([0], [0], color='k', lw=2, ls='--', label='68% CL'),
+    Line2D([0], [0], color='k', marker='*', lw=0, markersize=11.5,
+           markerfacecolor='k', markeredgecolor='w', markeredgewidth=0.8,
+           label='Input points'),
+], loc='center left', bbox_to_anchor=(0.02, 0.50),
+    bbox_transform=top_ax.transAxes, frameon=False, borderaxespad=0.0
+)
+
+pdf_path = pdf_dir / f'{model}_dM_ct_limit_map.pdf'
+fig.savefig(pdf_path, bbox_inches='tight')
+plt.close(fig)
+print(f'Wrote {pdf_path}')
