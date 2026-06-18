@@ -147,7 +147,7 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JER_jet_MC(const std::vector<correction::Corr
         //std::cout << "JER jet " << i << jet_pt[i] << std::endl;
         // calculate resolution and scale factor
         double reso = jer[0]->evaluate({jet_eta[i],jet_pt[i],rho});
-        double sf = jer[1]->evaluate({jet_eta[i],jet_pt[i],"nom"});
+        double sf = jer[1]->evaluate({jet_eta[i],jet_pt[i]});
         //std::cout << " sf " << sf << " reso " << reso << std::endl;
 
         // check gen jet
@@ -366,7 +366,7 @@ std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correctio
         if (!isData) {
             // calculate resolution and scale factor
             double reso = jer[0]->evaluate({jet_eta[i],pt_corr,rho});
-            double sf = jer[1]->evaluate({jet_eta[i],pt_corr,"nom"});
+            double sf = jer[1]->evaluate({jet_eta[i],pt_corr});
 
             // check gen jet
             double genPtForSmear = -1.0;
