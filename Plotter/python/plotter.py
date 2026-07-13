@@ -328,23 +328,16 @@ class Plotter:
 
     def ApplyJERCSystRun3(self,d):
         '''Run 3 systematic variations that are not handled inside the JERC recompute:
-        - jes_up/down: the stored (production-corrected) Jet_pt/Jet_mass are used by the
-          jet selections, so they are shifted on top by the same total JES uncertainty
-          (Jet_pt_corr / MET_pt_corr are already varied inside JERC_jet_MC / JERC_MET_MC).
         - unclust_up/down: shift the recomputed MET by the unclustered-energy delta taken
           from the NanoAOD PuppiMET_*Unclustered* branches (the production Type-1 part
           cancels in the difference). Jets are untouched.
-        Note: for jer_up/down the stored Jet_pt is left unvaried on purpose -- the stored
-        Run 3 jets are unsmeared, so a JER variation is only defined for the recomputed
-        (smeared) Jet_pt_corr and MET_pt_corr.'''
+        jes_up/down and jer_up/down are fully handled inside JERC_jet_MC / JERC_MET_MC:
+        all jet selections in the configs must cut on the recomputed Jet_pt_corr (never
+        on the stored Jet_pt), so the variations propagate through Jet_pt_corr and
+        MET_pt_corr alone.'''
         if self.isData or self.jerc_syst=='nom':
             return d
-        if self.jerc_syst in ('jes_up','jes_down'):
-            dirn = 1 if self.jerc_syst=='jes_up' else -1
-            d = d.Define('Jet_ptmass_jesvar','JES_vary_onTop(jerc_refs, Jet_pt, Jet_eta, Jet_mass, {})'.format(dirn))
-            d = d.Redefine('Jet_pt','Jet_ptmass_jesvar.first')
-            d = d.Redefine('Jet_mass','Jet_ptmass_jesvar.second')
-        elif self.jerc_syst in ('unclust_up','unclust_down'):
+        if self.jerc_syst in ('unclust_up','unclust_down'):
             ud = 'Up' if self.jerc_syst=='unclust_up' else 'Down'
             d = d.Define('MET_px_uncl','MET_pt_corr*cos(MET_phi_corr) + PuppiMET_ptUnclustered{0}*cos(PuppiMET_phiUnclustered{0}) - PuppiMET_pt*cos(PuppiMET_phi)'.format(ud))
             d = d.Define('MET_py_uncl','MET_pt_corr*sin(MET_phi_corr) + PuppiMET_ptUnclustered{0}*sin(PuppiMET_phiUnclustered{0}) - PuppiMET_pt*sin(PuppiMET_phi)'.format(ud))

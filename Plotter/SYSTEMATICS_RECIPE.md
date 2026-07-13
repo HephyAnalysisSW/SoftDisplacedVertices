@@ -233,17 +233,17 @@ windows (JER: apply the SF variation only to jets inside the window);
   `JERC_jet_MC` / `JERC_MET_MC` (extra `syst` argument, default `"nom"`), so
   `Jet_pt_corr`, `Jet_mass_corr`, `MET_pt_corr`, `MET_phi_corr` are varied
   consistently. The `"nom"` path is bit-identical to the previous code.
-* The Run 3 jet **selections** (`jet_sel`, `bjet*`, `leadingjet_pt`) cut on the
-  *stored* `Jet_pt` (production JEC), not on `Jet_pt_corr`. For `jes_up/down`
-  the stored `Jet_pt`/`Jet_mass` are therefore additionally shifted on top by
-  the same total-JES delta (`JES_vary_onTop` + `Redefine` in
-  `Plotter.ApplyJERCSystRun3`), so the selection migration is included.
-* For `jer_up/down` the stored `Jet_pt` is deliberately **not** varied: the
-  stored Run 3 jets are unsmeared, so no nominal smearing exists there to
-  vary; the JER variation enters through `Jet_pt_corr` and `MET_pt_corr`.
+* **All Run 3 jet selections must cut on the recomputed `Jet_pt_corr`, never
+  on the stored `Jet_pt`** — otherwise the variations do not migrate events
+  across those cuts. `AN-25-092_limitcalc_Run3.yaml` was fixed accordingly
+  (`jet_sel`, `Jet_pt_sel` and everything derived from them:
+  `leadingjet_pt`, `nJet_sel`, `JetHT*`, `dphi_MET_jet0`; the `bjet*`
+  selections and the ecalBadCalib veto already used `Jet_pt_corr`).
 * JER SF variation uses the `SFUncertainty` correction
   (`tagNameJerSFUncertainty` in `JecConfigAK4.json`):
   `sf_var = sf ± sf_unc` (inputs `(JetEta, JetPt)`, verified for all years).
+* `Plotter.ApplyJERCSystRun3` only implements the unclustered-MET shift;
+  the on-top helpers (`JES_vary_onTop` etc.) are used for Run 2 only.
 
 ---
 
