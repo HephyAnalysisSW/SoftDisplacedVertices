@@ -139,8 +139,13 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JEC_jet(const std::vector<correction::Correct
 }
 
 // Returns std::pair: first -- new jet pt, second -- new jet mass
-std::pair<ROOT::RVecF,ROOT::RVecF> JER_jet_MC(const std::vector<correction::Correction::Ref>& jer, const std::string& year, const int& event, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi) {
-    // input: jer -- a vector of corrections in order: ptResolution, scaleFactor, smearing
+// syst: "nom" (default), "jer_up"/"jer_down" vary the JER scale factor by its uncertainty
+// (requires a 4th element in jer: the SFUncertainty correction)
+std::pair<ROOT::RVecF,ROOT::RVecF> JER_jet_MC(const std::vector<correction::Correction::Ref>& jer, const std::string& year, const int& event, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
+    // input: jer -- a vector of corrections in order: ptResolution, scaleFactor, smearing, [sfUncertainty]
+    const bool do_jer_var = (syst=="jer_up") || (syst=="jer_down");
+    if (do_jer_var && jer.size()<4)
+        throw std::runtime_error("JER systematic '"+syst+"' requested but SF uncertainty ref not provided!");
     ROOT::RVecF jet_pt_jer;
     ROOT::RVecF jet_mass_jer;
     for(size_t i=0; i<jet_pt.size(); ++i) {
@@ -148,6 +153,10 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JER_jet_MC(const std::vector<correction::Corr
         // calculate resolution and scale factor
         double reso = jer[0]->evaluate({jet_eta[i],jet_pt[i],rho});
         double sf = jer[1]->evaluate({jet_eta[i],jet_pt[i]});
+        if (do_jer_var) {
+            const double sf_unc = jer[3]->evaluate({jet_eta[i],jet_pt[i]});
+            sf = (syst=="jer_up") ? sf + sf_unc : std::max(0.0, sf - sf_unc);
+        }
         //std::cout << " sf " << sf << " reso " << reso << std::endl;
 
         // check gen jet
@@ -209,7 +218,10 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_data(const std::map<std::string,corr
     return jets;
 }
 
-std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC(const std::map<std::string,correction::Correction::Ref>& jerc, const std::string& year, const int& run, const int& event, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const ROOT::RVecF& jet_rawFactor, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi) {
+// syst: "nom" (default), "jes_up"/"jes_down" shift the fully corrected pt/mass by the total
+// JES uncertainty (requires "MC_jes_unc" in jerc), "jer_up"/"jer_down" vary the JER scale
+// factor (requires "MC_jer_sf_unc" in jerc). The JES shift is applied before the JER smearing.
+std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC(const std::map<std::string,correction::Correction::Ref>& jerc, const std::string& year, const int& run, const int& event, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const ROOT::RVecF& jet_rawFactor, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
     // For MC
     std::vector<std::string> corrs_names = {"L1","L2"};
     std::vector<correction::Correction::Ref> jes_refs = {};
@@ -233,8 +245,27 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC(const std::map<std::string,correc
         throw std::invalid_argument("Correction ref for MC jer smear not found!");
     }
     auto jets_jec = JEC_jet(jes_refs, year, false, run, jet_area, jet_eta, jet_phi, jet_pt, jet_mass, jet_rawFactor, rho);
+    if ((syst=="jes_up") || (syst=="jes_down")) {
+        auto jes_unc_iter = jerc.find("MC_jes_unc");
+        if (jes_unc_iter==jerc.end()) {
+            throw std::runtime_error("JES systematic '"+syst+"' requested but MC_jes_unc ref not found!");
+        }
+        for (size_t i=0; i<jets_jec.first.size(); ++i) {
+            const double delta = jes_unc_iter->second->evaluate({jet_eta[i],jets_jec.first[i]});
+            const double shift = (syst=="jes_up") ? (1.0+delta) : (1.0-delta);
+            jets_jec.first[i] *= shift;
+            jets_jec.second[i] *= shift;
+        }
+    }
     std::vector<correction::Correction::Ref> jer_refs = {jer_reso_iter->second, jer_sf_iter->second, jer_smear_iter->second};
-    auto jets_jecjer = JER_jet_MC(jer_refs, year, event, jet_area, jet_eta, jet_phi, jets_jec.first, jets_jec.second, rho, jet_genJetIdx, genJet_pt, genJet_eta, genJet_phi);
+    if ((syst=="jer_up") || (syst=="jer_down")) {
+        auto jer_sf_unc_iter = jerc.find("MC_jer_sf_unc");
+        if (jer_sf_unc_iter==jerc.end()) {
+            throw std::runtime_error("JER systematic '"+syst+"' requested but MC_jer_sf_unc ref not found!");
+        }
+        jer_refs.push_back(jer_sf_unc_iter->second);
+    }
+    auto jets_jecjer = JER_jet_MC(jer_refs, year, event, jet_area, jet_eta, jet_phi, jets_jec.first, jets_jec.second, rho, jet_genJetIdx, genJet_pt, genJet_eta, genJet_phi, syst);
     return jets_jecjer;
 }
 
@@ -272,11 +303,33 @@ ROOT::RVecI genJetIdx_CorrT1METJet(const ROOT::RVecF& CorrT1METJet_eta, const RO
 }
 
 //std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correction::Ref>& jerc, const bool& isData, const std::string& year, const int& run, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const std::optional<ROOT::RVecI>& jet_genJetIdx, const std::optional<ROOT::RVecF>& genJet_pt, const std::optional<ROOT::RVecF>& genJet_eta, const std::optional<ROOT::RVecF>& genJet_phi) {
-std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correction::Ref>& jerc, const bool& isData, const std::string& year, const int& run, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi) {
+// syst: "nom" (default), "jes_up"/"jes_down"/"jer_up"/"jer_down" (MC only) -- consistent
+// with JERC_jet_MC: the JES shift is applied to the fully corrected jet pt before the JER
+// smearing, and enters the Type-1 propagation via dpt = pt_corr - pt_corrL1.
+std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correction::Ref>& jerc, const bool& isData, const std::string& year, const int& run, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
     //std::cout << "year " << year << " run " << run << " event " << event << std::endl;
     //std::cout << "MET pt" << MET_pt << " phi " << MET_phi << std::endl;
 
     assert( (jet_area.size()==jet_eta.size()==jet_phi.size()==jet_pt.size()==jet_rawFactor.size()==jet_muonSubtrFactor.size()==jet_chEmEF.size()==jet_neEmEF.size()) );
+
+    const bool do_jes_var = (!isData) && ((syst=="jes_up") || (syst=="jes_down"));
+    const bool do_jer_var = (!isData) && ((syst=="jer_up") || (syst=="jer_down"));
+    correction::Correction::Ref jes_unc;
+    correction::Correction::Ref jer_sf_unc;
+    if (do_jes_var) {
+        auto jes_unc_iter = jerc.find("MC_jes_unc");
+        if (jes_unc_iter==jerc.end()) {
+            throw std::runtime_error("JES systematic '"+syst+"' requested but MC_jes_unc ref not found!");
+        }
+        jes_unc = jes_unc_iter->second;
+    }
+    if (do_jer_var) {
+        auto jer_sf_unc_iter = jerc.find("MC_jer_sf_unc");
+        if (jer_sf_unc_iter==jerc.end()) {
+            throw std::runtime_error("JER systematic '"+syst+"' requested but MC_jer_sf_unc ref not found!");
+        }
+        jer_sf_unc = jer_sf_unc_iter->second;
+    }
 
     std::vector<correction::Correction::Ref> jes = {};
     std::vector<correction::Correction::Ref> jer = {};
@@ -347,6 +400,13 @@ std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correctio
         pt_corr = pt_corr * c2;
         //std::cout << "L2 c2 " << c2 << " ptcorr " << pt_corr << std::endl;
 
+        // JES uncertainty shift (MC only), applied on the fully corrected pt
+        // before the JER smearing so it enters dpt = pt_corr - pt_corrL1
+        if (do_jes_var) {
+            const double delta = jes_unc->evaluate({jet_eta[i],pt_corr});
+            pt_corr = pt_corr * ((syst=="jes_up") ? (1.0+delta) : (1.0-delta));
+        }
+
         // Residual (Data only)
         if (isData) {
             if (jes.size()<3)
@@ -367,6 +427,10 @@ std::pair<float,float> JERC_MET(const std::map<std::string,correction::Correctio
             // calculate resolution and scale factor
             double reso = jer[0]->evaluate({jet_eta[i],pt_corr,rho});
             double sf = jer[1]->evaluate({jet_eta[i],pt_corr});
+            if (do_jer_var) {
+                const double sf_unc = jer_sf_unc->evaluate({jet_eta[i],pt_corr});
+                sf = (syst=="jer_up") ? sf + sf_unc : std::max(0.0, sf - sf_unc);
+            }
 
             // check gen jet
             double genPtForSmear = -1.0;
@@ -416,6 +480,95 @@ std::pair<float,float> JERC_MET_data(const std::map<std::string,correction::Corr
     return JERC_MET(jerc, true, year, run, event, MET_pt, MET_phi, jet_area, jet_eta, jet_phi, jet_pt, jet_rawFactor, jet_muonSubtrFactor, jet_chEmEF, jet_neEmEF, rho, empty_I, empty_F, empty_F, empty_F);
 }
 
-std::pair<float,float> JERC_MET_MC(const std::map<std::string,correction::Correction::Ref>& jerc, const std::string& year, const int& run, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi) {
-    return JERC_MET(jerc, false, year, run, event, MET_pt, MET_phi, jet_area, jet_eta, jet_phi, jet_pt, jet_rawFactor, jet_muonSubtrFactor, jet_chEmEF, jet_neEmEF, rho, jet_genJetIdx, genJet_pt, genJet_eta, genJet_phi);
+std::pair<float,float> JERC_MET_MC(const std::map<std::string,correction::Correction::Ref>& jerc, const std::string& year, const int& run, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
+    return JERC_MET(jerc, false, year, run, event, MET_pt, MET_phi, jet_area, jet_eta, jet_phi, jet_pt, jet_rawFactor, jet_muonSubtrFactor, jet_chEmEF, jet_neEmEF, rho, jet_genJetIdx, genJet_pt, genJet_eta, genJet_phi, syst);
+}
+
+// ---------------------------------------------------------------------------
+// On-top systematic variations for jets that are already fully corrected in
+// the input NanoAOD (Run 2 stored jets, and the stored Run 3 Jet_pt used in
+// the jet selections). These do NOT re-derive the nominal correction; they
+// only shift the stored values.
+// ---------------------------------------------------------------------------
+
+// JES total-uncertainty shift on already-corrected jets.
+// dir = +1 (up) / -1 (down). Requires "MC_jes_unc" in jerc.
+// Returns std::pair: first -- varied jet pt, second -- varied jet mass
+std::pair<ROOT::RVecF,ROOT::RVecF> JES_vary_onTop(const std::map<std::string,correction::Correction::Ref>& jerc, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_mass, const int& dir) {
+    auto jes_unc_iter = jerc.find("MC_jes_unc");
+    if (jes_unc_iter==jerc.end()) {
+        throw std::runtime_error("JES_vary_onTop: MC_jes_unc ref not found!");
+    }
+    ROOT::RVecF jet_pt_var;
+    ROOT::RVecF jet_mass_var;
+    for (size_t i=0; i<jet_pt.size(); ++i) {
+        const double delta = jes_unc_iter->second->evaluate({jet_eta[i],jet_pt[i]});
+        const double shift = 1.0 + dir*delta;
+        jet_pt_var.push_back(jet_pt[i]*shift);
+        jet_mass_var.push_back(jet_mass[i]*shift);
+    }
+    return std::pair<ROOT::RVecF,ROOT::RVecF>({jet_pt_var,jet_mass_var});
+}
+
+// JER variation on jets that were already smeared at production (Run 2).
+// The nominal smearing cannot be undone, so the standard "ratio of smear
+// factors" method is used for gen-matched jets:
+//   c_nom = 1 + (sf_nom-1)*(pt-genpt)/pt,  c_var = 1 + (sf_var-1)*(pt-genpt)/pt
+//   pt_var = pt * c_var/c_nom
+// The scale factors come from the Run 2 (AK4PFchs, jsonpog-integration)
+// ScaleFactor correction, which uses the systematic-string API:
+// sf_nom = sf(eta,"nom"), sf_var = sf(eta,"up"/"down").
+// Unmatched (stochastically smeared) jets are left unvaried.
+// Requires "MC_jer_reso", "MC_jer_sf" in jerc.
+// dir = +1 (up) / -1 (down) / 0 (nominal closure).
+// Returns std::pair: first -- varied jet pt, second -- varied jet mass
+template <typename T>
+std::pair<ROOT::RVecF,ROOT::RVecF> JER_vary_onTop(const std::map<std::string,correction::Correction::Ref>& jerc, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_mass, const float& rho, const ROOT::RVec<T>& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const int& dir) {
+    auto jer_reso_iter = jerc.find("MC_jer_reso");
+    auto jer_sf_iter = jerc.find("MC_jer_sf");
+    if (jer_reso_iter==jerc.end() || jer_sf_iter==jerc.end()) {
+        throw std::runtime_error("JER_vary_onTop: MC_jer_reso/MC_jer_sf ref not found!");
+    }
+    const std::string systname = (dir>0) ? "up" : ((dir<0) ? "down" : "nom");
+    ROOT::RVecF jet_pt_var;
+    ROOT::RVecF jet_mass_var;
+    for (size_t i=0; i<jet_pt.size(); ++i) {
+        double ratio = 1.0;
+        const int genIdx = static_cast<int>(jet_genJetIdx[i]);
+        if ( (genIdx > -1) && (static_cast<UInt_t>(genIdx) < genJet_pt.size()) ) {
+            const double reso = jer_reso_iter->second->evaluate({jet_eta[i],jet_pt[i],rho});
+            const float genpt = genJet_pt[genIdx];
+            const double dR = ROOT::VecOps::DeltaR(jet_eta[i], genJet_eta[genIdx], jet_phi[i], genJet_phi[genIdx]);
+            if ( (dR<0.2) && (std::abs(jet_pt[i]-genpt) < 3.0 * reso * jet_pt[i]) ) {
+                const double sf = jer_sf_iter->second->evaluate({jet_eta[i],"nom"});
+                const double sf_var = std::max(0.0, static_cast<double>(jer_sf_iter->second->evaluate({jet_eta[i],systname})));
+                const double x = (jet_pt[i]-genpt)/jet_pt[i];
+                const double c_nom = 1.0 + (sf-1.0)*x;
+                const double c_var = 1.0 + (sf_var-1.0)*x;
+                if (c_nom > 1e-2 && c_var > 0.0) {
+                    ratio = c_var/c_nom;
+                }
+            }
+        }
+        jet_pt_var.push_back(jet_pt[i]*ratio);
+        jet_mass_var.push_back(jet_mass[i]*ratio);
+    }
+    return std::pair<ROOT::RVecF,ROOT::RVecF>({jet_pt_var,jet_mass_var});
+}
+
+// Propagate a jet-pt variation to MET (Type-1-like): subtract the vector sum
+// of the jet pt changes, for jets passing the Type-1 selection used in
+// JERC_MET (pt>15, |eta|<5.2, EM fraction < 0.9), evaluated on the nominal pt.
+// Returns std::pair: first -- varied MET pt, second -- varied MET phi
+std::pair<float,float> MET_shift_from_jets(const float& met_pt, const float& met_phi, const ROOT::RVecF& jet_pt_nom, const ROOT::RVecF& jet_pt_var, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF) {
+    float met_px = met_pt * std::cos(met_phi);
+    float met_py = met_pt * std::sin(met_phi);
+    for (size_t i=0; i<jet_pt_nom.size(); ++i) {
+        const bool passSel = (jet_pt_nom[i] > 15.0 && std::abs(jet_eta[i]) < 5.2 && (jet_chEmEF[i]+jet_neEmEF[i]) < 0.9);
+        if (!passSel) continue;
+        const double dpt = (jet_pt_var[i] - jet_pt_nom[i]);
+        met_px -= dpt * std::cos(jet_phi[i]);
+        met_py -= dpt * std::sin(jet_phi[i]);
+    }
+    return std::pair<float,float>({std::hypot(met_px,met_py),std::atan2(met_py,met_px)});
 }

@@ -33,6 +33,16 @@ class Plotter:
         with open(config, "r") as f_cfg:
             cfg = yaml.load(f_cfg, Loader=yaml.FullLoader)
         self.cfg = cfg
+        # JERC systematic variation knob (config: corrections -> JERC_syst)
+        self.jerc_syst = 'nom'
+        if ('corrections' in cfg) and (cfg['corrections'] is not None) and ('JERC_syst' in cfg['corrections']) and cfg['corrections']['JERC_syst']:
+            self.jerc_syst = cfg['corrections']['JERC_syst']
+        valid_systs = ['nom','jes_up','jes_down','jer_up','jer_down','unclust_up','unclust_down']
+        assert self.jerc_syst in valid_systs, "JERC_syst {} not valid! Choose from {}".format(self.jerc_syst,valid_systs)
+        if self.jerc_syst != 'nom':
+            assert not self.isData, "JERC_syst variations are MC-only, do not use them on data!"
+            if ('2022' in str(self.year)) or ('2023' in str(self.year)) or ('2024' in str(self.year)):
+                assert cfg['corrections'].get('JERC'), "JERC_syst for Run3 requires corrections: JERC: True!"
         self.setJERC()
         if not self.isData:
             self.setCorrections()
@@ -145,8 +155,31 @@ class Plotter:
                 jercloadcmd += 'jerc_refs.insert({{"MC_jer_sf",jercf->at("{}")}});'.format(jercconf[self.year]['ApplyOnMC'][jermode][jersftagname])
                 jercloadcmd += 'auto jersmearf = correction::CorrectionSet::from_file("{}");'.format(jersmear_jsonpath)
                 jercloadcmd += 'jerc_refs.insert({{"MC_jer_smear",jersmearf->at("{}")}});'.format("JERSmear")
+                # uncertainty evaluators for the systematic variations
+                jercloadcmd += 'jerc_refs.insert({{"MC_jes_unc",jercf->at("{}")}});'.format(jercconf[self.year]['ApplyOnMC']['JesUncertaintySet']['JesUncertaintySetTotal']['CMS_scale_j_Total'])
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_sf_unc",jercf->at("{}")}});'.format(jercconf[self.year]['ApplyOnMC'][jermode]['tagNameJerSFUncertainty'])
 
             ROOT.gInterpreter.ProcessLine(jercloadcmd)
+        elif self.year in ["2016Pre","2016Post","2017","2018"]:
+            # Run 2: jets in the NanoAOD (v9) are AK4 CHS and already corrected and
+            # smeared, so only the uncertainty evaluators for the on-top systematic
+            # variations are needed. The NanoAODv15-recomputed JERC entries above are
+            # AK4PFPuppi only; following the Run 2 NanoAOD-tools recipe
+            # (jetmetHelperRun2: Summer19UL1x_V5_MC / Summer19UL1x_JRV2_MC, AK4PFchs,
+            # jesUncert="Total"), the AK4PFchs corrections are loaded from the
+            # jsonpog-integration files configured in the "CHS" block. Note: the CHS
+            # JER ScaleFactor uses the systematic-string API (eta, "nom"/"up"/"down"),
+            # there is no separate SFUncertainty correction.
+            if (not self.isData) and (self.jerc_syst in ["jes_up","jes_down","jer_up","jer_down"]):
+                assert self.year in jercconf, "Year {} not available in JERC!".format(self.year)
+                assert 'CHS' in jercconf[self.year], "CHS JERC block not configured for {}!".format(self.year)
+                chsconf = jercconf[self.year]['CHS']
+                jercloadcmd = 'auto jercf = correction::CorrectionSet::from_file("{}");'.format(chsconf["jercJsonPath"])
+                jercloadcmd += 'std::map<std::string,correction::Correction::Ref> jerc_refs;'
+                jercloadcmd += 'jerc_refs.insert({{"MC_jes_unc",jercf->at("{}")}});'.format(chsconf['tagNameUncTotal'])
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_reso",jercf->at("{}")}});'.format(chsconf['tagNamePtResolution'])
+                jercloadcmd += 'jerc_refs.insert({{"MC_jer_sf",jercf->at("{}")}});'.format(chsconf['tagNameJerScaleFactor'])
+                ROOT.gInterpreter.ProcessLine(jercloadcmd)
 
     def setCorrections(self):
       if 'corrections' in self.cfg and self.cfg['corrections'] is not None:
@@ -279,16 +312,74 @@ class Plotter:
             d = d.Define('JERC_jet_ptmass','JERC_jet_data(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll)')
             d = d.Define('JERC_MET_ptphi','JERC_MET_data(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll)')
         else:
+            # jes/jer variations are handled inside the JERC functions; unclust is applied afterwards
+            jerc_syst_cpp = self.jerc_syst if self.jerc_syst in ('jes_up','jes_down','jer_up','jer_down') else 'nom'
             d = d.Define('CorrT1METJet_genJetIdx','genJetIdx_CorrT1METJet(CorrT1METJet_eta, CorrT1METJet_phi, GenJet_eta, GenJet_phi)')
             d = d.Define('METJet_genJetIdx','ROOT::VecOps::Concatenate(Jet_genJetIdx,CorrT1METJet_genJetIdx)')
-            d = d.Define('JERC_jet_ptmass','JERC_jet_MC(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi)')
-            d = d.Define('JERC_MET_ptphi','JERC_MET_MC(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi )')
+            d = d.Define('JERC_jet_ptmass','JERC_jet_MC(jerc_refs, year, run, event, Jet_area, Jet_eta, Jet_phi, Jet_pt, Jet_mass, Jet_rawFactor, Rho_fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi, "{}")'.format(jerc_syst_cpp))
+            d = d.Define('JERC_MET_ptphi','JERC_MET_MC(jerc_refs, year, run, event, RawPuppiMET_pt, RawPuppiMET_phi, METJet_area, METJet_eta, METJet_phi, METJet_pt, METJet_rawFactor, METJet_muonSubtrFactor, METJet_chEmEF, METJet_neEmEF, Rho_fixedGridRhoFastjetAll, METJet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi, "{}")'.format(jerc_syst_cpp))
 
         d = d.Define('Jet_pt_corr','JERC_jet_ptmass.first')
         d = d.Define('Jet_mass_corr','JERC_jet_ptmass.second')
         d = d.Define('MET_pt_corr','JERC_MET_ptphi.first')
         d = d.Define('MET_phi_corr','JERC_MET_ptphi.second')
 
+        return d
+
+    def ApplyJERCSystRun3(self,d):
+        '''Run 3 systematic variations that are not handled inside the JERC recompute:
+        - jes_up/down: the stored (production-corrected) Jet_pt/Jet_mass are used by the
+          jet selections, so they are shifted on top by the same total JES uncertainty
+          (Jet_pt_corr / MET_pt_corr are already varied inside JERC_jet_MC / JERC_MET_MC).
+        - unclust_up/down: shift the recomputed MET by the unclustered-energy delta taken
+          from the NanoAOD PuppiMET_*Unclustered* branches (the production Type-1 part
+          cancels in the difference). Jets are untouched.
+        Note: for jer_up/down the stored Jet_pt is left unvaried on purpose -- the stored
+        Run 3 jets are unsmeared, so a JER variation is only defined for the recomputed
+        (smeared) Jet_pt_corr and MET_pt_corr.'''
+        if self.isData or self.jerc_syst=='nom':
+            return d
+        if self.jerc_syst in ('jes_up','jes_down'):
+            dirn = 1 if self.jerc_syst=='jes_up' else -1
+            d = d.Define('Jet_ptmass_jesvar','JES_vary_onTop(jerc_refs, Jet_pt, Jet_eta, Jet_mass, {})'.format(dirn))
+            d = d.Redefine('Jet_pt','Jet_ptmass_jesvar.first')
+            d = d.Redefine('Jet_mass','Jet_ptmass_jesvar.second')
+        elif self.jerc_syst in ('unclust_up','unclust_down'):
+            ud = 'Up' if self.jerc_syst=='unclust_up' else 'Down'
+            d = d.Define('MET_px_uncl','MET_pt_corr*cos(MET_phi_corr) + PuppiMET_ptUnclustered{0}*cos(PuppiMET_phiUnclustered{0}) - PuppiMET_pt*cos(PuppiMET_phi)'.format(ud))
+            d = d.Define('MET_py_uncl','MET_pt_corr*sin(MET_phi_corr) + PuppiMET_ptUnclustered{0}*sin(PuppiMET_phiUnclustered{0}) - PuppiMET_pt*sin(PuppiMET_phi)'.format(ud))
+            d = d.Redefine('MET_pt_corr','static_cast<float>(std::hypot(MET_px_uncl,MET_py_uncl))')
+            d = d.Redefine('MET_phi_corr','static_cast<float>(std::atan2(MET_py_uncl,MET_px_uncl))')
+        return d
+
+    def ApplyJERCSystRun2(self,d):
+        '''Run 2 systematic variations, applied on top of the stored (already corrected
+        and smeared) jets and MET, before the MET xy correction:
+        - jes_up/down: shift Jet_pt/Jet_mass by the total JES uncertainty and propagate
+          the change to MET (Type-1-like).
+        - jer_up/down: re-smear gen-matched jets with the varied JER scale factor
+          (ratio-of-smear-factors method) and propagate to MET.
+        - unclust_up/down: shift MET by the stored unclustered-energy delta
+          (MET_MetUnclustEnUpDeltaX/Y); Down = minus the same delta.'''
+        if self.isData or self.jerc_syst=='nom':
+            return d
+        if self.jerc_syst in ('jes_up','jes_down','jer_up','jer_down'):
+            dirn = 1 if self.jerc_syst.endswith('_up') else -1
+            if self.jerc_syst.startswith('jes'):
+                d = d.Define('Jet_ptmass_var','JES_vary_onTop(jerc_refs, Jet_pt, Jet_eta, Jet_mass, {})'.format(dirn))
+            else:
+                d = d.Define('Jet_ptmass_var','JER_vary_onTop(jerc_refs, Jet_pt, Jet_eta, Jet_phi, Jet_mass, fixedGridRhoFastjetAll, Jet_genJetIdx, GenJet_pt, GenJet_eta, GenJet_phi, {})'.format(dirn))
+            d = d.Define('MET_ptphi_var','MET_shift_from_jets(MET_pt, MET_phi, Jet_pt, Jet_ptmass_var.first, Jet_eta, Jet_phi, Jet_chEmEF, Jet_neEmEF)')
+            d = d.Redefine('Jet_pt','Jet_ptmass_var.first')
+            d = d.Redefine('Jet_mass','Jet_ptmass_var.second')
+            d = d.Redefine('MET_pt','MET_ptphi_var.first')
+            d = d.Redefine('MET_phi','MET_ptphi_var.second')
+        elif self.jerc_syst in ('unclust_up','unclust_down'):
+            sign = '+' if self.jerc_syst=='unclust_up' else '-'
+            d = d.Define('MET_px_uncl','MET_pt*cos(MET_phi) {} MET_MetUnclustEnUpDeltaX'.format(sign))
+            d = d.Define('MET_py_uncl','MET_pt*sin(MET_phi) {} MET_MetUnclustEnUpDeltaY'.format(sign))
+            d = d.Redefine('MET_pt','static_cast<float>(std::hypot(MET_px_uncl,MET_py_uncl))')
+            d = d.Redefine('MET_phi','static_cast<float>(std::atan2(MET_py_uncl,MET_px_uncl))')
         return d
 
     def AddJetID(self,d):
@@ -339,10 +430,14 @@ class Plotter:
         if ('2022' in self.year) or ('2023' in self.year) or ('2024' in self.year):
             if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('JERC' in self.cfg['corrections']) and (self.cfg['corrections']['JERC']):
                 d = self.AddJERCVars(d)
+                d = self.ApplyJERCSystRun3(d)
             d = self.AddJetID(d)
             if ("corrections" in self.cfg) and ('jetmapveto' in self.cfg['corrections']) and (self.cfg['corrections']['jetmapveto'] is not None) and ('use' in self.cfg['corrections']['jetmapveto']) and (self.cfg['corrections']['jetmapveto']['use']):
                 d = self.applyJvm(d)
         d = self.addBTag(d)
+        # Run 2 on-top JERC/unclustered systematic variations (before the MET xy correction)
+        if ('2017' in self.year) or ('2018' in self.year):
+            d = self.ApplyJERCSystRun2(d)
         # MET xy corrections
         # FIXME: Is this needed for run3?
         if ("corrections" in self.cfg) and (self.cfg['corrections'] is not None) and ('metxy' in self.cfg['corrections']) and (self.cfg['corrections']['metxy']):
