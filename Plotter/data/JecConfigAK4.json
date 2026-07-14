@@ -238,6 +238,9 @@
   "2017": {
     "CHS": {
       "jercJsonPath": "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2017_UL/jet_jerc.json.gz",
+      "tagNameL1FastJet": "Summer19UL17_V5_MC_L1FastJet_AK4PFchs",
+      "tagNameL2Relative": "Summer19UL17_V5_MC_L2Relative_AK4PFchs",
+      "tagNameL3Absolute": "Summer19UL17_V5_MC_L3Absolute_AK4PFchs",
       "tagNameUncTotal": "Summer19UL17_V5_MC_Total_AK4PFchs",
       "tagNamePtResolution": "Summer19UL17_JRV2_MC_PtResolution_AK4PFchs",
       "tagNameJerScaleFactor": "Summer19UL17_JRV2_MC_ScaleFactor_AK4PFchs"
@@ -362,6 +365,9 @@
   "2018": {
     "CHS": {
       "jercJsonPath": "/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2018_UL/jet_jerc.json.gz",
+      "tagNameL1FastJet": "Summer19UL18_V5_MC_L1FastJet_AK4PFchs",
+      "tagNameL2Relative": "Summer19UL18_V5_MC_L2Relative_AK4PFchs",
+      "tagNameL3Absolute": "Summer19UL18_V5_MC_L3Absolute_AK4PFchs",
       "tagNameUncTotal": "Summer19UL18_V5_MC_Total_AK4PFchs",
       "tagNamePtResolution": "Summer19UL18_JRV2_MC_PtResolution_AK4PFchs",
       "tagNameJerScaleFactor": "Summer19UL18_JRV2_MC_ScaleFactor_AK4PFchs"

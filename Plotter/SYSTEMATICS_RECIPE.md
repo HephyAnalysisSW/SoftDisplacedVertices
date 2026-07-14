@@ -21,7 +21,8 @@ It is based on the current state of:
 > `python/plotter.py` and `RDF_JERC.h`, steered by a single config knob
 > `corrections: JERC_syst:` with values
 > `nom` (default) / `jes_up` / `jes_down` / `jer_up` / `jer_down` /
-> `unclust_up` / `unclust_down`, plus the PU `mode` for pileup.
+> `jer_nom` (Run 2 only) / `unclust_up` / `unclust_down`, plus the PU `mode`
+> for pileup.
 > Use `make_syst_configs.py` to (re)generate the variant configs from the
 > nominal analysis configs:
 >
@@ -29,7 +30,8 @@ It is based on the current state of:
 > python3 make_syst_configs.py --config configs/AN-25-092_limitcalc_Run2.yaml configs/AN-25-092_limitcalc_Run3.yaml
 > ```
 >
-> which produces `configs/AN-25-092_limitcalc_{Run2,Run3}_{puUp,puDown,jesUp,jesDown,jerUp,jerDown,unclUp,unclDown}.yaml`.
+> which produces `configs/AN-25-092_limitcalc_{Run2,Run3}_{puUp,puDown,jesUp,jesDown,jerUp,jerDown,unclUp,unclDown}.yaml`
+> (plus `AN-25-092_limitcalc_Run2_jerNom.yaml`, Run 2 only).
 > Then run autoplotter on the signal samples with each variant config and a
 > matching `--postfix`. The variant configs are **MC-only** (the plotter refuses
 > to run them with `--data`). The sections below document what each variation
@@ -243,7 +245,8 @@ windows (JER: apply the SF variation only to jets inside the window);
   (`tagNameJerSFUncertainty` in `JecConfigAK4.json`):
   `sf_var = sf ± sf_unc` (inputs `(JetEta, JetPt)`, verified for all years).
 * `Plotter.ApplyJERCSystRun3` only implements the unclustered-MET shift;
-  the on-top helpers (`JES_vary_onTop` etc.) are used for Run 2 only.
+  the Run 2 variations go through `Plotter.ApplyJERCSystRun2` /
+  `JERC_jet_MC_run2` (see section 3).
 
 ---
 
@@ -252,14 +255,26 @@ windows (JER: apply the SF variation only to jets inside the window);
 ### The situation is different
 
 `AN-25-092_limitcalc_Run2.yaml` has `corrections: JERC: False`: no on-the-fly
-recorrection. The Run 2 custom NanoAOD jets (`Jet_pt`) are **already fully
-JEC-corrected and JER-smeared** at production time (AK4 **CHS** jets,
-NanoAODv9), and `MET_pt_corr`/`MET_phi_corr` are simply the **xy-corrected**
-stored MET (`SDV::METXYCorr_Met_MetPhi` in `AddVars`).
+recorrection. The Run 2 custom NanoAOD jets (`Jet_pt`, AK4 **CHS**, NanoAODv9)
+are **JEC-corrected with the up-to-date corrections but NOT JER-smeared**.
+This was verified explicitly on a 2018 signal sample: applying
+`Summer19UL18_V5_MC` L1FastJet+L2Relative+L3Absolute (AK4PFchs) to the raw pt
+(`Jet_pt*(1-Jet_rawFactor)`) reproduces the stored `Jet_pt` with a mean
+offset of −0.003% and an RMS of 0.15% — the precision of the NanoAOD
+`rawFactor` quantization. (Had the jets been smeared, gen-matched jets would
+scatter at the few-% level and unmatched jets at the 10% level; they do not.)
 
-The variation must therefore be applied **on top of the stored, corrected
-objects**, using **AK4PFchs** corrections (the NanoAODv15-recomputed entries
-in `JecConfigAK4.json` are AK4PFPuppi and do not apply to these jets):
+Consequences:
+
+* **Nominal selections need no change**: the stored `Jet_pt` already carries
+  the recommended JEC. `MET_pt_corr`/`MET_phi_corr` remain the
+  **xy-corrected** stored MET (`SDV::METXYCorr_Met_MetPhi` in `AddVars`).
+* The JES/JER **variations recompute the jets from raw**, with the same
+  procedure as Run 3: undo the `rawFactor`, apply L1+L2+L3, optionally shift
+  by the total JES uncertainty, then apply the JER smearing
+  (nominal/up/down SF). AK4PFchs corrections are used throughout (the
+  NanoAODv15-recomputed entries in `JecConfigAK4.json` are AK4PFPuppi and do
+  not apply to these jets).
 
 ### Code changes (implemented)
 
@@ -267,58 +282,70 @@ in `JecConfigAK4.json` are AK4PFPuppi and do not apply to these jets):
    the official jsonpog-integration files
    (`/cvmfs/cms.cern.ch/rsync/cms-nanoAOD/jsonpog-integration/POG/JME/2017_UL(2018_UL)/jet_jerc.json.gz`),
    with the tags of the NanoAOD-tools recipe (`jetmetHelperRun2.py`):
+   * `tagNameL1FastJet` / `tagNameL2Relative` / `tagNameL3Absolute`:
+     `Summer19UL17_V5_MC` / `Summer19UL18_V5_MC` `AK4PFchs` (the JEC chain
+     for the recompute; L3 is unity for these sets but applied for
+     completeness)
    * `tagNameUncTotal`: `Summer19UL17_V5_MC_Total_AK4PFchs` /
      `Summer19UL18_V5_MC_Total_AK4PFchs` (JES `jesUncert="Total"`)
    * `tagNamePtResolution`, `tagNameJerScaleFactor`:
      `Summer19UL17_JRV2_MC` / `Summer19UL18_JRV2_MC` `AK4PFchs`
 
 2. **`plotter.py::setJERC`** — Run 2 branch: for MC with a jes/jer variation
-   requested, load `MC_jes_unc`, `MC_jer_reso`, `MC_jer_sf` from the `CHS`
-   block (no nominal L1/L2 needed — jets are already corrected; no
-   SFUncertainty — the CHS `ScaleFactor` correction provides the variations
-   through its systematic-string input).
+   (or `jer_nom`) requested, load `MC_jes_L1/L2/L3`, `MC_jes_unc`,
+   `MC_jer_reso`, `MC_jer_sf` from the `CHS` block plus the generic
+   `MC_jer_smear` evaluator (`data/jer_smear.json.gz`). There is no
+   SFUncertainty tag — the CHS `ScaleFactor` correction provides the
+   variations through its systematic-string input.
 
-3. **`RDF_JERC.h`** — on-top helpers usable from RDF Defines:
+3. **`RDF_JERC.h::JERC_jet_MC_run2`** — full recompute from raw, mirroring
+   the Run 3 `JERC_jet_MC`:
+   * raw pt/mass from `rawFactor`, then L1FastJet(area,eta,pt,rho),
+     L2Relative(eta,pt), L3Absolute(eta,pt);
+   * for `jes_up/down`: multiply pt/mass by `(1 ± delta(eta,pt_corr))` from
+     `MC_jes_unc`, **before** the smearing (the smear uses the shifted pt);
+   * JER smearing with the same gen-matching as Run 3 (`Jet_genJetIdx`,
+     dR<0.2, |pt−genpt|<3σ) through the `JERSmear` evaluator;
+     `sf = sf(eta,"nom"/"up"/"down")` (CHS systematic-string API). Unmatched
+     jets get the stochastic smearing.
 
-   * `JES_vary_onTop(jerc, Jet_pt, Jet_eta, Jet_mass, dir)`:
-     returns pt/mass scaled by `(1 ± delta(eta,pt))` from `MC_jes_unc`.
+   `MET_shift_from_jets(...)` then shifts the stored MET by the vector sum
+   of the jet-pt changes relative to the stored (JEC-only) `Jet_pt`
+   (Type-1-like, jets with pt>15, |eta|<5.2, EM fraction <0.9).
 
-   * `JER_vary_onTop(...)`: standard "ratio of smear factors" method
-     (the nominal smearing cannot be undone). For jets matched to a GenJet
-     (`Jet_genJetIdx`, dR<0.2, |pt−genpt|<3σ):
+4. **`plotter.py::ApplyJERCSystRun2`** — called from `AddVars` for Run 2
+   before the MET xy correction: `Redefine`s `Jet_pt`/`Jet_mass` to the
+   recomputed values and `MET_pt`/`MET_phi` to the shifted MET, so all
+   downstream selections and the xy correction pick up the variation
+   automatically. No config-side selection changes are needed.
 
-     ```
-     c_var = ( 1 + (sf_var − 1) · (pt − genpt)/pt )
-           / ( 1 + (sf_nom − 1) · (pt − genpt)/pt )
-     ```
+### The JER baseline: `jer_nom`
 
-     with `sf_nom = sf(eta,"nom")` and `sf_var = sf(eta,"up"/"down")`
-     (Run 2 CHS systematic-string API). Unmatched (stochastically smeared)
-     jets are left unvaried — deterministic and conservative.
+Because the nominal Run 2 analysis runs on **unsmeared** jets, `jer_up` and
+`jer_down` (which both *apply* the smearing, with SF varied) must **not** be
+compared to the stored-jet nominal — the smearing itself would dominate both
+and push them in the same direction. The extra variation `jer_nom`
+(config `AN-25-092_limitcalc_Run2_jerNom.yaml`, postfix `_jerNom`) recomputes
+JEC+JER with the **nominal** SF and provides the smeared reference:
 
-   * `MET_shift_from_jets(...)`: shift MET by the vector sum of the jet-pt
-     changes (Type-1-like, jets with pt>15, |eta|<5.2, EM fraction <0.9).
+```
+δ_up = N(jerUp)/N(jerNom) − 1,   δ_down = N(jerDown)/N(jerNom) − 1
+```
 
-3. **`plotter.py::AddVars`** — for Run 2 MC, when a syst is requested
-   (reuse the same `corrections: JERC_syst:` knob):
-   * define `Jet_pt_var` (and use it in place of `Jet_pt`),
-   * define the shifted raw MET via `MET_shift_from_jets`, and only then
-     apply the MET-xy correction, so `MET_pt_corr`/`MET_phi_corr` are built
-     from the varied MET.
-
-4. **Config copies** — in `AN-25-092_limitcalc_Run2_jes*.yaml` / `_jer*.yaml`, set
-   `JERC_syst` and replace `Jet_pt` → `Jet_pt_var` in the selection strings
-   that cut on jet pt (`jet_sel`, `bjetmedium`, `bjettight`,
-   `Jet_pt_sel`). Everything cutting on `MET_pt_corr`, `leadingjet_pt`,
-   `dphi_MET_jet0` then follows automatically.
-
-   (You cannot `Define` a column named `Jet_pt` — the branch already
-   exists — hence the `_var` name and the config-side substitution.)
+The difference `N(jerNom)` vs the stored-jet nominal `N(nom)` measures the
+effect of the smearing itself; it can be treated as an additional (one-sided)
+resolution uncertainty or used to decide whether the nominal Run 2 yields
+should be corrected for the missing smearing. JES yields are still compared
+to the stored-jet nominal (`δ = N(jesUp/Down)/N(nom) − 1`): the JES recompute
+uses nominal smearing, whose net yield effect cancels in the ratio to first
+order — if preferred, `jerNom` can be used as the denominator there too for
+full consistency.
 
 ### Running
 
-Same as Run 3: four variations (`_jesUp/_jesDown/_jerUp/_jerDown`) × signal
-samples × {2017, 2018}, then yield comparison per region.
+Same as Run 3, with one extra set: five variations
+(`_jesUp/_jesDown/_jerUp/_jerDown/_jerNom`) × signal samples × {2017, 2018},
+then yield comparison per region (JER vs `_jerNom`, JES vs nominal).
 
 ### CHS jets in 2017/2018 (NanoAODv9)
 

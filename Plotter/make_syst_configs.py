@@ -4,6 +4,10 @@
 #   <name>_puUp.yaml / <name>_puDown.yaml       -- PU weight mode "up"/"down"
 #   <name>_jesUp.yaml / <name>_jesDown.yaml     -- corrections: JERC_syst: jes_up/jes_down
 #   <name>_jerUp.yaml / <name>_jerDown.yaml     -- corrections: JERC_syst: jer_up/jer_down
+#   <name>_jerNom.yaml                          -- corrections: JERC_syst: jer_nom
+#       (Run 2 configs only, i.e. those without corrections: JERC: True. The Run 2
+#        stored jets are unsmeared, so jer_nom provides the JEC+nominal-JER-smeared
+#        reference that jer_up/jer_down must be compared against.)
 #   <name>_unclUp.yaml / <name>_unclDown.yaml   -- corrections: JERC_syst: unclust_up/unclust_down
 #
 # Example (nominal analysis configs):
@@ -30,6 +34,7 @@ variations = {
     'jesDown':  ('JERC_syst', 'jes_down'),
     'jerUp':    ('JERC_syst', 'jer_up'),
     'jerDown':  ('JERC_syst', 'jer_down'),
+    'jerNom':   ('JERC_syst', 'jer_nom'),
     'unclUp':   ('JERC_syst', 'unclust_up'),
     'unclDown': ('JERC_syst', 'unclust_down'),
 }
@@ -41,6 +46,8 @@ for config in args.config:
     outdir = args.outdir if args.outdir else os.path.dirname(config)
     base = os.path.splitext(os.path.basename(config))[0]
     for label, (key, value) in variations.items():
+        if label == 'jerNom' and nominal['corrections'].get('JERC'):
+            continue  # Run 2 only: the Run 3 nominal recompute already includes JER smearing
         cfg = copy.deepcopy(nominal)
         if key == 'PU':
             assert cfg['corrections'].get('PU'), "{}: no PU correction configured!".format(config)
