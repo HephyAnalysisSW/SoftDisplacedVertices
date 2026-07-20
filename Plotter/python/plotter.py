@@ -18,6 +18,26 @@ ROOT.gROOT.SetBatch(ROOT.kTRUE)
 ROOT.TH1.SetDefaultSumw2(True)
 ROOT.gStyle.SetOptStat(0)
 
+# Per-object weight lookup for custom reweighting: for each element of x, return the
+# content of the weight histogram bin it falls in (under/overflow clamped to the edge
+# bins). FindFixBin is FindBin without the axis-extension side effect (const-safe).
+ROOT.gInterpreter.Declare('''
+#ifndef CUSTOM_WEIGHT_LOOKUP
+#define CUSTOM_WEIGHT_LOOKUP
+template <typename T>
+ROOT::VecOps::RVec<double> CustomWeightLookup(const TH1* h, const ROOT::VecOps::RVec<T>& x) {
+  ROOT::VecOps::RVec<double> w(x.size());
+  for (size_t i = 0; i < x.size(); ++i) {
+    int b = h->GetXaxis()->FindFixBin(x[i]);
+    if (b < 1) b = 1;
+    if (b > h->GetNbinsX()) b = h->GetNbinsX();
+    w[i] = h->GetBinContent(b);
+  }
+  return w;
+}
+#endif
+''')
+
 class Plotter:
     def __init__(self,s=None,datalabel="",outputDir="./",lumi=1,info_path="",input_json="",input_filelist=None,config="",year="",isData=False,postfix=""):
         self.s = None
@@ -116,6 +136,69 @@ class Plotter:
                 assert str(self.year) in self.cfg['corrections']['jetmapveto'], "Year {} not defined in jetmapveto!".format(self.year)
                 ROOT.gInterpreter.ProcessLine('auto jetmepvetof = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['path']))
                 ROOT.gInterpreter.ProcessLine('auto jetmapvetoeva = jetmepvetof->at("{}");'.format(self.cfg['corrections']['jetmapveto'][str(self.year)]['name']))
+
+        self.setCustomWeights()
+
+    def setCustomWeights(self):
+        '''Load custom per-object weight histograms for reweighting object-level plots.
+
+        Config (per object, weights derived e.g. with deriveWeights.py):
+          objects:
+            SDVSecVtx:
+              custom_weights:
+                - file: /path/to/weights.root
+                  hist: w_SDVSecVtx_Lxy         # name in the file (optional if unique)
+                  var: SDVSecVtx_Lxy            # column/expression the weight is looked up on
+        Multiple entries per object are multiplied. The lookup variable must be the
+        full-length (unselected) per-object column; the object selections are applied
+        to the weight column automatically. MC only: data histograms stay unweighted,
+        as everywhere else. Note: custom weights are not applied to N-1 plots (their
+        per-variable masks differ from the object selection).
+        '''
+        self.custom_weights = {}
+        if self.isData or not self.cfg.get('objects'):
+            return
+        for obj in self.cfg['objects']:
+            weight_cfgs = self.cfg['objects'][obj].get('custom_weights')
+            if not weight_cfgs:
+                continue
+            self.custom_weights[obj] = weight_cfgs
+            for i, wcfg in enumerate(weight_cfgs):
+                path = wcfg['file']
+                assert os.path.exists(path), "Custom weight file {} does not exist!".format(path)
+                fw = ROOT.TFile.Open(path)
+                histname = wcfg.get('hist')
+                if histname is None:
+                    keys = [k.GetName() for k in fw.GetListOfKeys()]
+                    assert len(keys)==1, "'hist' not specified and {} has multiple objects: {}".format(path, keys)
+                    histname = keys[0]
+                assert fw.Get(histname), "Histogram {} not found in {}!".format(histname, path)
+                hname = 'h_customweight_{}_{}'.format(obj, i)
+                ROOT.gInterpreter.ProcessLine('auto {n} = (TH1*)gDirectory->Get("{h}"); {n}->SetDirectory(0);'.format(n=hname, h=histname))
+                fw.Close()
+
+    def AddCustomWeights(self, d):
+        '''Define the per-object custom weight column <obj>_customweight (full length,
+        aligned with the unselected object columns).'''
+        for obj, weight_cfgs in self.custom_weights.items():
+            terms = []
+            for i, wcfg in enumerate(weight_cfgs):
+                wcol = '{}_customweight_{}'.format(obj, i)
+                d = d.Define(wcol, 'CustomWeightLookup(h_customweight_{}_{}, {})'.format(obj, i, wcfg['var']))
+                terms.append(wcol)
+            d = d.Define('{}_customweight'.format(obj), ' * '.join(terms))
+        return d
+
+    def AddObjectPlotWeights(self, d):
+        '''Combine the event weight with the selection-masked custom object weights into
+        the per-object histogram weight <obj>_plotweight<sel>. MC only: data histograms
+        stay unweighted, as everywhere else.'''
+        if self.isData:
+            return d
+        for obj in self.custom_weights:
+            for sel in self.cfg['objects'][obj]['selections']:
+                d = d.Define('{}_plotweight{}'.format(obj, sel), 'evt_weight * {}_customweight{}'.format(obj, sel))
+        return d
 
     def setJERC(self):
         # read the config file that includes the path and tag names of the corrections
@@ -474,6 +557,10 @@ class Plotter:
       for obj in self.cfg['objects']:
         selections = self.cfg['objects'][obj]['selections']
         variables  = self.cfg['objects'][obj]['variables']
+        if obj in self.custom_weights:
+          # mask the custom weight column like any other object variable so it stays
+          # aligned with the selected object columns
+          variables = list(variables) + ['{}_customweight'.format(obj)]
         for sel in selections:
           for v in variables:
             if selections[sel]:
@@ -520,6 +607,7 @@ class Plotter:
       '''
       d = ROOT.RDataFrame("Events",self.filelist)
       d = self.AddVars(d)
+      d = self.AddCustomWeights(d)
       d = self.AddVarsWithSelection(d)
       if self.cfg['presel'] is not None:
         d = d.Filter(self.cfg['presel'])
@@ -536,6 +624,7 @@ class Plotter:
         xsec_weights = self.lumi*self.s.xsec/(nevt)
         print("Total gen events {}, xsec {}, weight {}".format(nevt,self.s.xsec,xsec_weights))
       d = self.AddWeights(d,xsec_weights)
+      d = self.AddObjectPlotWeights(d)
       return d,xsec_weights
 
     def getplotsOld(self,d,weight):
@@ -576,7 +665,7 @@ class Plotter:
     
       return dhs
     
-    def getplots(self,d,weight,plots_1d,plots_2d,plots_nm1,varlabel):
+    def getplots(self,d,weight,plots_1d,plots_2d,plots_nm1,varlabel,obj_weight=None):
       hs = []
       if plots_1d is None:
         plots_1d = []
@@ -585,13 +674,20 @@ class Plotter:
       if plots_nm1 is None:
         plots_nm1 = []
 
+      # per-object custom weight column: overrides the event weight for the 1D/2D plots
+      # (MC only, like all weights; data histograms stay unweighted); N-1 plots keep
+      # the event weight (their masks differ from the object selection)
+      plot_weight = None
+      if not self.isData:
+        plot_weight = obj_weight if obj_weight is not None else weight
+
       for plt in plots_1d:
         if not plt in self.cfg['plot_setting']:
           print("{} not registered in plot setting!".format(plt))
-        if self.isData:
+        if plot_weight is None:
           h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel)
         else:
-          h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,weight)
+          h = d.Histo1D(tuple(self.cfg['plot_setting'][plt]),plt+varlabel,plot_weight)
         hs.append(h)
 
       for plt in plots_nm1:
@@ -623,10 +719,10 @@ class Plotter:
             print("Warning! Variable {} not registered in this level!".format(y))
             y2d = y
           #h = d.Histo2D(hset,x+varlabel,y+varlabel,weight)
-          if self.isData:
+          if plot_weight is None:
             h = d.Histo2D(hset,x2d,y2d)
           else:
-            h = d.Histo2D(hset,x2d,y2d,weight)
+            h = d.Histo2D(hset,x2d,y2d,plot_weight)
           hs.append(h)
     
       for i in range(len(hs)):
@@ -680,7 +776,10 @@ class Plotter:
             for obj in self.cfg['objects']:
               for sels in self.cfg['objects'][obj]['selections']:
                 newd = fout.mkdir("{}_{}_{}".format(sr,obj,sels))
-                hs = self.getplots(d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],plots_nm1=self.cfg['objects'][obj].get('nm1'),varlabel=sels)
+                obj_weight = None
+                if obj in self.custom_weights:  # MC only: empty for data
+                  obj_weight = '{}_plotweight{}'.format(obj,sels)
+                hs = self.getplots(d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],plots_nm1=self.cfg['objects'][obj].get('nm1'),varlabel=sels,obj_weight=obj_weight)
                 newd.cd()
                 for h in hs:
                   h.Write()
