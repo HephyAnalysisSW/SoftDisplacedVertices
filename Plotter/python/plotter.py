@@ -139,6 +139,15 @@ class Plotter:
 
         self.setCustomWeights()
 
+    def _perYear(self, value):
+        '''Resolve a config value that may be year-dependent. If value is a dict it is
+        treated as a {year: value} map and the entry for self.year is returned (asserting
+        it exists); otherwise value is returned unchanged (same for every year).'''
+        if isinstance(value, dict):
+            assert self.year in value, "Year {} not configured (have {})!".format(self.year, list(value.keys()))
+            return value[self.year]
+        return value
+
     def setCustomWeights(self):
         '''Load custom per-object weight histograms for reweighting object-level plots.
 
@@ -149,11 +158,17 @@ class Plotter:
                 - file: /path/to/weights.root
                   hist: w_SDVSecVtx_Lxy         # name in the file (optional if unique)
                   var: SDVSecVtx_Lxy            # column/expression the weight is looked up on
-        Multiple entries per object are multiplied. The lookup variable must be the
-        full-length (unselected) per-object column; the object selections are applied
-        to the weight column automatically. MC only: data histograms stay unweighted,
-        as everywhere else. Note: custom weights are not applied to N-1 plots (their
-        per-variable masks differ from the object selection).
+        Each of file/hist/var may instead be a {year: value} map to apply different
+        weights per year, e.g.
+                - file:
+                    2022Pre: /path/to/weights_2022Pre.root
+                    2022Post: /path/to/weights_2022Post.root
+                  var: SDVSecVtx_Lxy
+        the entry matching self.year is used. Multiple entries per object are multiplied.
+        The lookup variable must be the full-length (unselected) per-object column; the
+        object selections are applied to the weight column automatically. MC only: data
+        histograms stay unweighted, as everywhere else. Note: custom weights are not
+        applied to N-1 plots (their per-variable masks differ from the object selection).
         '''
         self.custom_weights = {}
         if self.isData or not self.cfg.get('objects'):
@@ -162,12 +177,12 @@ class Plotter:
             weight_cfgs = self.cfg['objects'][obj].get('custom_weights')
             if not weight_cfgs:
                 continue
-            self.custom_weights[obj] = weight_cfgs
+            resolved_cfgs = []
             for i, wcfg in enumerate(weight_cfgs):
-                path = wcfg['file']
+                path = self._perYear(wcfg['file'])
                 assert os.path.exists(path), "Custom weight file {} does not exist!".format(path)
                 fw = ROOT.TFile.Open(path)
-                histname = wcfg.get('hist')
+                histname = self._perYear(wcfg.get('hist'))
                 if histname is None:
                     keys = [k.GetName() for k in fw.GetListOfKeys()]
                     assert len(keys)==1, "'hist' not specified and {} has multiple objects: {}".format(path, keys)
@@ -176,6 +191,8 @@ class Plotter:
                 hname = 'h_customweight_{}_{}'.format(obj, i)
                 ROOT.gInterpreter.ProcessLine('auto {n} = (TH1*)gDirectory->Get("{h}"); {n}->SetDirectory(0);'.format(n=hname, h=histname))
                 fw.Close()
+                resolved_cfgs.append({'file': path, 'hist': histname, 'var': self._perYear(wcfg['var'])})
+            self.custom_weights[obj] = resolved_cfgs
 
     def AddCustomWeights(self, d):
         '''Define the per-object custom weight column <obj>_customweight (full length,
