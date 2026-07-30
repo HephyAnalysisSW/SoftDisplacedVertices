@@ -416,6 +416,25 @@ met_2024 = [
         Sample("jetmet1_2024i2", xsec=-1),
         ]
 
+muon_2024 = [
+    Sample("mu0_2024c", xsec=-1),
+    Sample("mu0_2024d", xsec=-1),
+    Sample("mu0_2024e", xsec=-1),
+    Sample("mu0_2024f", xsec=-1),
+    Sample("mu0_2024g", xsec=-1),
+    Sample("mu0_2024h", xsec=-1),
+    Sample("mu0_2024i1", xsec=-1),
+    Sample("mu0_2024i2", xsec=-1),
+    Sample("mu1_2024c", xsec=-1),
+    Sample("mu1_2024d", xsec=-1),
+    Sample("mu1_2024e", xsec=-1),
+    Sample("mu1_2024f", xsec=-1),
+    Sample("mu1_2024g", xsec=-1),
+    Sample("mu1_2024h", xsec=-1),
+    Sample("mu1_2024i1", xsec=-1),
+    Sample("mu1_2024i2", xsec=-1),
+        ]
+
 # Signal 
 stop_2017 = [
     Sample("stop_M400_375_ct0p2_2017", xsec=2.15),
@@ -1291,7 +1310,8 @@ all_samples = [
     wlnu_2024,
     znunu_2024,
     qcd_2024,
-    top_2024
+    top_2024,
+    muon_2024
 ]
 
 all_signals = [
