@@ -29,12 +29,40 @@
             "wjetstolnu4jets_2023pre": "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer23CustomNanoAODv12-130X_mcRun3_2023_realistic_v14-v1-00000000000000000000000000000000/USER",
             "wjetstolnu4jets_2023post": "/WtoLNu-4Jets_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-Run3Summer23BPixNanoAODv12-130X_mcRun3_2023_realistic_postBPix_v2-v1-00000000000000000000000000000000/USER"
 
+            "mu0_2024c":    "/Muon0/wuzh-Run2024C-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024d":    "/Muon0/wuzh-Run2024D-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024e":    "/Muon0/wuzh-Run2024E-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024f":    "/Muon0/wuzh-Run2024F-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024g":    "/Muon0/wuzh-Run2024G-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024h":    "/Muon0/wuzh-Run2024H-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024i1":   "/Muon0/wuzh-Run2024I-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu0_2024i2":   "/Muon0/wuzh-Run2024I-PromptReco-v2_nano_v1-00000000000000000000000000000000/USER",
+
+            "mu1_2024c":    "/Muon1/wuzh-Run2024C-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024d":    "/Muon1/wuzh-Run2024D-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024e":    "/Muon1/wuzh-Run2024E-2024CDEReprocessing-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024f":    "/Muon1/wuzh-Run2024F-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024g":    "/Muon1/wuzh-Run2024G-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024h":    "/Muon1/wuzh-Run2024H-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024i1":   "/Muon1/wuzh-Run2024I-PromptReco-v1_nano_v1-00000000000000000000000000000000/USER",
+            "mu1_2024i2":   "/Muon1/wuzh-Run2024I-PromptReco-v2_nano_v1-00000000000000000000000000000000/USER"
+ 
+            "wjetstolnu4jetsb1j_2024": "/WtoLNu-4Jets_Bin-1J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jetsb2j_2024": "/WtoLNu-4Jets_Bin-2J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jetsb3j_2024": "/WtoLNu-4Jets_Bin-3J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jetsb4j_2024": "/WtoLNu-4Jets_Bin-4J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
+
+
         },
         "totalsumWeights": {
             "wjetstolnu4jets_2022pre":     11088691133724.3,
             "wjetstolnu4jets_2022post": 43912646977129.375,
             "wjetstolnu4jets_2023pre":   23517689261848.203,
             "wjetstolnu4jets_2023post":   11932667489629.225
+            "wjetstolnu4jetsb1j_2024":  1175375209769.5198,
+            "wjetstolnu4jetsb2j_2024":  5306322091237.876,
+            "wjetstolnu4jetsb3j_2024":  1612666569482.4536,
+            "wjetstolnu4jetsb4j_2024":  586334385552.3887,
         }
     }
 }
