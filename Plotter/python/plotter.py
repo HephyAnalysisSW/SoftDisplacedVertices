@@ -164,7 +164,8 @@ class Plotter:
                     2022Pre: /path/to/weights_2022Pre.root
                     2022Post: /path/to/weights_2022Post.root
                   var: SDVSecVtx_Lxy
-        the entry matching self.year is used. Multiple entries per object are multiplied.
+        the entry matching self.year is used. Multiple entries per object are multiplied;
+        a single entry may be written as a plain mapping instead of a one-element list.
         The lookup variable must be the full-length (unselected) per-object column; the
         object selections are applied to the weight column automatically. MC only: data
         histograms stay unweighted, as everywhere else. Note: custom weights are not
@@ -177,6 +178,8 @@ class Plotter:
             weight_cfgs = self.cfg['objects'][obj].get('custom_weights')
             if not weight_cfgs:
                 continue
+            if isinstance(weight_cfgs, dict):  # a single entry may be written as a plain mapping
+                weight_cfgs = [weight_cfgs]
             resolved_cfgs = []
             for i, wcfg in enumerate(weight_cfgs):
                 path = self._perYear(wcfg['file'])
