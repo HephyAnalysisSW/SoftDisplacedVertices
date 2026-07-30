@@ -1216,6 +1216,8 @@ all_samples = [
     qcd_2023Post,
     top_2023Post,
     met_2024,
+    muon_2024,
+    wlnu_2024,
 ]
 
 all_signals = [

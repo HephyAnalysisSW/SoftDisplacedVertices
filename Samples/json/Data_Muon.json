@@ -50,7 +50,7 @@
             "wjetstolnu4jetsb1j_2024": "/WtoLNu-4Jets_Bin-1J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
             "wjetstolnu4jetsb2j_2024": "/WtoLNu-4Jets_Bin-2J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
             "wjetstolnu4jetsb3j_2024": "/WtoLNu-4Jets_Bin-3J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
-            "wjetstolnu4jetsb4j_2024": "/WtoLNu-4Jets_Bin-4J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER",
+            "wjetstolnu4jetsb4j_2024": "/WtoLNu-4Jets_Bin-4J_TuneCP5_13p6TeV_madgraphMLM-pythia8/aguven-RunIII2024Summer24NanoAODv15-150X_mcRun3_2024_realistic_v2-v1-00000000000000000000000000000000/USER"
 
 
         },
@@ -62,7 +62,7 @@
             "wjetstolnu4jetsb1j_2024":  1175375209769.5198,
             "wjetstolnu4jetsb2j_2024":  5306322091237.876,
             "wjetstolnu4jetsb3j_2024":  1612666569482.4536,
-            "wjetstolnu4jetsb4j_2024":  586334385552.3887,
+            "wjetstolnu4jetsb4j_2024":  586334385552.3887
         }
     }
 }
