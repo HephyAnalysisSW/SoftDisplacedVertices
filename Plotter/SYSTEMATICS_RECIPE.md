@@ -556,7 +556,7 @@ production it averages ≈0.79 (`stop_M600_580_ct2_2018`), because the PDF group
 that NanoAOD is not the set used for the nominal generator weight. That is harmless
 here, because every member — including the reference — enters the same double ratio
 `A_k/A_0`, with its own inclusive denominator. It does mean the PDF reference must be
-member 0, never the unweighted nominal yield. See §7.1 for why the two productions
+member 0, never the unweighted nominal yield. See below (FYI) for why the two productions
 differ.
 
 PDF combination (`hessian`, the default): the symmetric quadrature sum of the member
@@ -642,7 +642,9 @@ answer decides the combination prescription:
    <weight MUF="1.0" MUR="1.0" PDF="325300" id="1001">
    ```
 
-## 7.1 Private vs centrally produced signal MC
+### (FYI) Private vs centrally produced signal MC
+
+**This section is FYI, the samples listed in the table below is outdated.**
 
 The same physical signal point exists in two NanoAOD productions with **different PDF
 weight content**, and the difference is not cosmetic for this systematic:
