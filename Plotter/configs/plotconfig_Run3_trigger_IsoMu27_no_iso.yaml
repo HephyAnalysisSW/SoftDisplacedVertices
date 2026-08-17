@@ -7,7 +7,7 @@ jet_sel: (Jet_jetId_TightLepVeto) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (J
 jet_sel_mapveto: (Jet_jetId_TightLepVeto) && (Jet_neEmEF+Jet_chEmEF<0.9) && (Jet_pt_corr>15)
 #met_hlt : (HLT_PFMETNoMu120_PFMHTNoMu120_IDTight==1)
 
-presel: MET_pt>0 && veto_jet_sel_ecalBadCalib==0 && nMuon_tight_sel==1 && HLT_IsoMu27==1
+presel: MET_pt_corr>0 && veto_jet_sel_ecalBadCalib==0 && nMuon_tight_sel==1 && HLT_IsoMu27==1
 
 corrections:
     PU:
