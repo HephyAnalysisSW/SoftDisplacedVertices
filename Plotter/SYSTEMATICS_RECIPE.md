@@ -496,3 +496,159 @@ For each systematic S, region R, sample and year:
 * **Statistics:** up/down and nominal run over the same events, so
   statistical fluctuations largely cancel; still, for small signal samples
   check the MC stat error on N_nom before quoting sub-% systematics.
+
+---
+
+## 7. PDF and QCD scale (μR/μF) — signal acceptance
+
+**STATUS: IMPLEMENTED.** Unlike the systematics above, this one needs **no extra
+plotter run per variation**: the per-event LHE weights are stored once, and all
+variations are built from them offline.
+
+### How it works
+
+The generator stores, per event, the ratio of the event weight under a varied
+scale/PDF to the nominal one (`LHEScaleWeight`, `LHEPdfWeight`). The yield under
+variation *k* is therefore just a reweighted sum of the same events, and the
+uncertainty is a *double* ratio: the acceptance under variation *k*, divided by the
+nominal acceptance.
+
+```
+N_k(R) = Σ_events(R)  evt_weight · w_k        (from the pkl)
+S_k    = Σ_all events Generator_weight · w_k  (inclusive, from metadata/ in the ROOT file)
+A_k(R) = N_k(R) / S_k
+δ_k(R) = A_k(R) / A_nom(R) − 1
+```
+
+Dividing by `S_k` removes the change of the **total cross section** under the
+variation. That part is already covered by the theory cross-section uncertainty on the
+signal, so including it here would double-count it. What is left is the acceptance
+effect, which is what the datacard nuisance describes.
+
+`S_k` is summed over the **unfiltered** `Events` tree of the job's file list, before
+`presel` and before the region cuts. This is only inclusive because the signal
+NanoAODs are unskimmed: verified on `stop_M600_580_ct2_2018`, the `Events`-tree sums
+agree with the `Runs`-tree `genEventSumw` / `LHEScaleSumw` / `LHEPdfSumw` to 1e-6
+(float32 accumulation). The plotter re-checks this at the end of every job and prints a
+red warning if the two disagree by more than 1e-4 — that is what would catch skimmed
+inputs, where the denominators would be biased low.
+
+### Weight indexing (verified on the signal NanoAODs)
+
+`LHEScaleWeight`, 9 entries, μF varying fastest:
+
+| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|---|
+| μF | 0.5 | 1 | 2 | 0.5 | 1 | 2 | 0.5 | 1 | 2 |
+| μR | 0.5 | 0.5 | 0.5 | 1 | **1** | 1 | 2 | 2 | 2 |
+
+Index 4 is the nominal (`LHEScaleWeight[4] ≡ 1`). Indices **2 and 6** are the
+anti-correlated (μR, μF) combinations and are dropped by convention. The uncertainty is
+the envelope of the remaining six:
+`δ_up = max δ_k`, `δ_down = min δ_k`, `k ∈ {0,1,3,5,7,8}`.
+
+`LHEPdfWeight`, 103 entries: `[0]` central, `[1..100]` members, `[101],[102]` αS
+down/up. Note the branch title on these files reads `LHA IDs 306000 - 306000`, a
+degenerate range, so the PDF set cannot be identified from the title — the member
+layout is keyed off `nLHEPdfWeight` instead.
+
+Unlike the scale weights, `LHEPdfWeight[0]` is **not** 1 in these samples (it averages
+≈0.79 in `stop_M600_580_ct2_2018`): the nominal generator weight does not use the
+central member of this PDF set. That is harmless here, because every member — including
+the reference — enters the same double ratio `A_k/A_0`, with its own inclusive
+denominator. It does mean the PDF reference must be member 0, never the unweighted
+nominal yield.
+
+PDF combination (`mc68`, the default): order the 100 member acceptances and take the
+central 68% interval, i.e. the 16th and 84th percentiles. This is asymmetric by
+construction. The αS variation is `(A_102 − A_101)/(2·A_0)` and is added in quadrature
+on each side. `--pdf-combination hessian` gives the symmetric quadrature sum
+`sqrt(Σ(A_i−A_0)²)/A_0` as a cross-check.
+
+The two give quite different answers on a 103-member set — on
+`stop_M600_580_ct2_2018` with `MET_pt_corr>500`, `mc68` gives +0.06/−0.11 % and
+`hessian` gives ±0.97 %. That is expected: for a Hessian set the members are
+eigenvector displacements, whose quadrature sum is the textbook combination, whereas
+the percentile of their spread is not. The analysis quotes the `mc68` number by
+choice; if that choice is revisited, `--pdf-combination hessian` is the alternative.
+
+### Running
+
+1. Generate the config (nominal configs are not touched):
+
+   ```bash
+   python3 make_syst_configs.py --config configs/AN-25-092_limitcalc_Run2.yaml configs/AN-25-092_limitcalc_Run3.yaml
+   ```
+
+   which writes, among the others, `configs/AN-25-092_limitcalc_{Run2,Run3}_lhe.yaml`.
+   These are the nominal configs plus
+
+   ```yaml
+   savepkl_mc: [LHEScaleWeight, LHEPdfWeight]
+   ```
+
+   `savepkl_mc` is merged into `savepkl` for MC only, so the same config still runs on
+   data (where it is a no-op). The selection is identical to the nominal one.
+
+2. Run the plotter on the signal samples with `--postfix _lhe`, exactly like any other
+   variant config, then `haddplots.py --pkl` as usual. The pkl then carries
+   `LHEScaleWeight` as an (Nevents, 9) array and `LHEPdfWeight` as an (Nevents, 103)
+   array, and the ROOT file carries `metadata/genEventSumw`, `metadata/LHEScaleSumw`,
+   `metadata/LHEPdfSumw`, which `hadd` adds up across jobs.
+
+3. Extract the numbers:
+
+   ```bash
+   python3 getPDFScaleUnc.py --input <dir with the merged files> --output pdfscale.json
+   ```
+
+   By default it evaluates the signal-region cell of each ABCD plane
+   (`GT1/GT2/GT3`, `MET_pt_corr ≥ 500`, `leadingvtx_MLscore ≥ 0.999`, the defaults of
+   `AN-25-092_make_reweighted_pkl_datacards_v2.py`); `--whole-plane` uses the whole
+   plane, and `--reweight` applies the ctau/BR reweighting of the datacard writer
+   first. Feed the resulting `δ` into the datacards as `lnN`, following §5.
+
+> **Caveat:** `haddjobs*.sh` merges *different samples* into
+> `background_<year>_hist.root`. The `metadata` histograms are then summed across
+> samples and are meaningless. These uncertainties are per signal sample — always use
+> the per-sample `<sample>_hist.root`.
+
+### The multi-threading caveat (fixed)
+
+This method needs per-event arrays that stay row-aligned across columns, and until now
+they did not: `getpklData` called `GetValue()` while booking, so **every column got its
+own event loop**, and under `EnableImplicitMT` different loops process the entry ranges
+in different orders. The columns came back permuted with respect to each other, which
+is why the pkl was only usable single-threaded.
+
+The fix (in `python/plotter.py`) is to book every `Take` first and trigger them
+together with `ROOT.RDF.RunGraphs`: within one event loop all columns fill in lockstep.
+It also collapses what used to be one event loop per column into a single pass. The
+global row order is still shuffled with respect to the input files — that is inherent
+to implicit MT and harmless, since every consumer only sums or multiplies row-wise.
+
+Checked in ROOT 6.32.11 (CMSSW_15_0_5) on both an empty-source RDF and a real `Events`
+tree, defining `b = 2*a`: with the old pattern `b == 2a` fails row-wise, with the new
+one it holds exactly.
+
+### Sanity checks
+
+* **Closure, and the strongest one:** `LHEScaleWeight[4] ≡ 1`, so
+  `Σ evt_weight·w_4` must equal `Σ evt_weight` exactly, in every region. Under MT with
+  the old code it does not — this is the check that detects a regression of the row
+  alignment.
+* **Inclusive region:** run `getPDFScaleUnc.py --whole-plane` on a region with no
+  selection at all. Every δ must come out at 0 by construction, since the numerator and
+  the denominator are then the same sum. Verified on `stop_M600_580_ct2_2018`: the
+  preselection-level region gives ≤0.01 % for scale, PDF and αS (not exactly 0 only
+  because `presel` still removes a handful of events), while `MET_pt_corr>500` gives
+  +1.1/−0.9 % (scale) and +0.06/−0.11 % (PDF, `mc68`).
+* **Denominators:** `metadata/LHEScaleSumw` bin 5 (index 4) must equal
+  `metadata/genEventSumw`, and the `Runs`-tree cross-check printed by the plotter must
+  pass.
+* **Size:** acceptance-only scale uncertainties are typically a few %, PDF ~1–5 %.
+  A ≳20 % number almost always means the inclusive denominator was dropped, i.e. the
+  cross-section variation leaked into the acceptance.
+* **Statistics:** in the signal-region cell the event count is small; check `N=` in the
+  `getPDFScaleUnc.py` output before quoting a percent-level number, and consider
+  `--whole-plane` to see how much of the spread is MC statistics.

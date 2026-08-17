@@ -81,6 +81,11 @@ class Plotter:
                     self.cfg['event_variables'] += self.cfg['event_variables_mc']
                 else:
                     self.cfg['event_variables'] = self.cfg['event_variables_mc']
+            if ('savepkl_mc' in self.cfg) and (self.cfg['savepkl_mc'] is not None):
+                if self.cfg.get('savepkl'):
+                    self.cfg['savepkl'] += self.cfg['savepkl_mc']
+                else:
+                    self.cfg['savepkl'] = self.cfg['savepkl_mc']
             if ('objects' in self.cfg) and (self.cfg['objects'] is not None):
                 for o in self.cfg['objects']:
                     if ('variables_mc' in self.cfg['objects'][o]) and (self.cfg['objects'][o]['variables_mc'] is not None):
@@ -618,6 +623,102 @@ class Plotter:
         d = d.Define("evt_weight","Generator_weight*{0}{1}".format(weight,self.weightstr))
       return d
     
+    def getLHESize(self,column):
+      '''Number of elements of an LHE weight vector, read from the first input file.'''
+      f0 = ROOT.TFile.Open(self.filelist[0])
+      t = f0.Get("Events")
+      n = -1
+      if t.GetBranch(column):
+        t.GetEntry(0)
+        n = getattr(t,"n"+column)
+      f0.Close()
+      return n
+
+    def bookLHESums(self,d):
+      '''Book the inclusive (pre-selection) sums of Generator_weight*LHE?Weight[i].
+
+      These are the denominators of the acceptance ratios used for the PDF and
+      QCD-scale uncertainties, so they must not see any selection: they are booked on
+      the unfiltered Events node and cover this job's whole file list. hadd of the
+      per-job outputs then adds them up correctly, because the jobs process disjoint
+      file lists.
+      '''
+      self.lhesums = {}
+      if self.isData:
+        return d
+      savepkl = self.cfg.get('savepkl') or []
+      columns = set(str(c) for c in d.GetColumnNames())
+      for w in ['LHEScaleWeight','LHEPdfWeight']:
+        if not w in savepkl:
+          continue
+        if not w in columns:
+          print("Warning! {} not available in this sample, its inclusive sums are not stored.".format(w))
+          continue
+        n = self.getLHESize(w)
+        assert n>0, "Cannot determine the size of {} in {}!".format(w,self.filelist[0])
+        sums = []
+        for i in range(n):
+          col = "_sumw_{}_{}".format(w,i)
+          d = d.Define(col,"Generator_weight*{}[{}]".format(w,i))
+          sums.append(d.Sum(col))
+        self.lhesums[w.replace('Weight','Sumw')] = sums
+      if len(self.lhesums)>0:
+        self.lhesums['genEventSumw'] = [d.Sum("Generator_weight")]
+      return d
+
+    def writeLHESums(self,fout):
+      '''Store the inclusive LHE sums as hadd-mergeable histograms.'''
+      if len(self.lhesums)==0:
+        return
+      newd = fout.mkdir("metadata")
+      newd.cd()
+      for name in self.lhesums:
+        sums = self.lhesums[name]
+        h = ROOT.TH1D(name,";weight index;sum of weights",len(sums),0,len(sums))
+        h.Sumw2(False)
+        for i in range(len(sums)):
+          h.SetBinContent(i+1,sums[i].GetValue())
+        h.Write()
+      self.checkLHESums()
+
+    def checkLHESums(self):
+      '''Cross-check the Events-tree sums against the Runs tree.
+
+      The Events-tree sums are only inclusive if the input files are unskimmed (which
+      the current signal NanoAODs are, and where the two agree to float precision). A
+      mismatch means the inputs are skimmed, and the acceptance denominators would be
+      biased low.
+      '''
+      try:
+        dr = ROOT.RDataFrame("Runs",self.filelist)
+        cols = set(str(c) for c in dr.GetColumnNames())
+      except Exception:
+        print("Warning! No Runs tree in the input files, the inclusive LHE sums cannot be cross-checked.")
+        return
+      if not 'genEventSumw' in cols:
+        print("Warning! No Runs tree information, the inclusive LHE sums cannot be cross-checked.")
+        return
+      r = dr.AsNumpy([c for c in ['genEventSumw','LHEScaleSumw','LHEPdfSumw'] if c in cols])
+      sumw = np.asarray(r['genEventSumw'])
+      ref = {'genEventSumw': np.array([sumw.sum()])}
+      for name in ['LHEScaleSumw','LHEPdfSumw']:
+        if name in r:
+          # the Runs tree stores the sums divided by genEventSumw, file by file
+          ref[name] = (np.stack([np.asarray(v) for v in r[name]])*sumw[:,None]).sum(axis=0)
+      for name in self.lhesums:
+        if not name in ref:
+          print("Warning! {} is not in the Runs tree, cannot cross-check it.".format(name))
+          continue
+        got = np.array([s.GetValue() for s in self.lhesums[name]])
+        if len(got)!=len(ref[name]):
+          print("Warning! {}: {} entries from the Events tree but {} from the Runs tree!".format(name,len(got),len(ref[name])))
+          continue
+        reldiff = np.max(np.abs(got-ref[name])/np.abs(np.where(ref[name]==0,1,ref[name])))
+        if reldiff>1e-4:
+          print("\033[1;31mWarning! {} from the Events tree disagrees with the Runs tree by {:.3g}. Are the input files skimmed? The PDF/scale denominators would then be biased.\033[0m".format(name,reldiff))
+        else:
+          print("{} cross-check against the Runs tree passed (max relative difference {:.3g}).".format(name,reldiff))
+
     def getRDF(self):
       '''
       This function gets RDataFrame for a given sample
@@ -626,6 +727,7 @@ class Plotter:
       - Produce normalisation weights based on xsec
       '''
       d = ROOT.RDataFrame("Events",self.filelist)
+      d = self.bookLHESums(d)
       d = self.AddVars(d)
       d = self.AddCustomWeights(d)
       d = self.AddVarsWithSelection(d)
@@ -757,12 +859,46 @@ class Plotter:
       for h in hs:
         h.Write()
 
-    def getpklData(self,d):
+    def bookpklData(self,d):
+      '''Book, but do not trigger, the Take actions for the savepkl columns.
+
+      Every Take must be booked before any of them is triggered. They then fill in a
+      single event loop and the rows stay aligned across columns. Triggering one column
+      at a time (a GetValue() inside this loop, as this used to do) gives every column
+      its own event loop, and with implicit MT the loops process the entry ranges in
+      different orders, so the arrays end up scrambled with respect to each other.
+      '''
+      handles = {}
+      columns = set(str(c) for c in d.GetColumnNames())
+      for ii in (self.cfg.get('savepkl') or []):
+        if not ii in columns:
+          print("Warning! savepkl column {} not available in this sample, skipping it.".format(ii))
+          continue
+        coltype = d.GetColumnType(ii)
+        handles[ii] = (d.Take[coltype](ii),coltype)
+
+      return handles
+
+    def materialisepkl(self,handles):
+      '''Turn booked Take results into numpy arrays.
+
+      Vector columns (e.g. LHEScaleWeight) become 2D (Nevents, Nelements) arrays, which
+      haddplots.py merges correctly since it concatenates along axis 0.
+      '''
       output = {}
-      if 'savepkl' in self.cfg:
-        for ii in self.cfg['savepkl']:
-          temparr = d.Take[d.GetColumnType(ii)](ii)
-          output[ii] = np.array(temparr.GetValue())
+      for ii,(handle,coltype) in handles.items():
+        vals = handle.GetValue()
+        if not coltype.startswith('ROOT::VecOps::RVec'):
+          output[ii] = np.array(vals)
+          continue
+        if len(vals)==0:
+          output[ii] = np.empty((0,0))
+          continue
+        try:
+          output[ii] = np.stack([np.asarray(v) for v in vals])
+        except ValueError:
+          lengths = sorted(set(len(v) for v in vals))
+          raise ValueError("Column {} of sample {} has varying lengths {}, it cannot be stored as a 2D array!".format(ii,self.s.name,lengths))
 
       return output
 
@@ -774,17 +910,26 @@ class Plotter:
         self.getFileList()
         d,w = self.getRDF()
 
-        d_pkl = {}
-
+        d_srs = {}
+        pkl_handles = {}
         for sr in self.cfg['regions']:
-          print("Plotting region {}".format(sr))
           d_sr = d
           if self.cfg['regions'][sr] is not None:
             d_sr = d_sr.Filter(self.cfg['regions'][sr])
-          #ROOT.RDF.Experimental.AddProgressBar(d_sr)
+          d_srs[sr] = d_sr
+          # Prepare data to pickle file: book here, trigger below, so that all columns
+          # of all regions are filled in one event loop and stay row-aligned under MT
+          pkl_handles[sr] = self.bookpklData(d_sr)
 
-          # Prepare data to pickle file
-          d_pkl[sr] = self.getpklData(d_sr)
+        alltakes = [h for hs in pkl_handles.values() for h,_ in hs.values()]
+        if len(alltakes)>0:
+          ROOT.RDF.RunGraphs(alltakes)
+        d_pkl = {sr: self.materialisepkl(hs) for sr,hs in pkl_handles.items()}
+
+        for sr in self.cfg['regions']:
+          print("Plotting region {}".format(sr))
+          d_sr = d_srs[sr]
+          #ROOT.RDF.Experimental.AddProgressBar(d_sr)
 
           newd_evt = fout.mkdir("{}_evt".format(sr))
           hs = self.getplots(d_sr,weight="evt_weight",plots_1d=self.cfg['event_variables'],plots_2d=self.cfg['event_2d_plots'],plots_nm1=self.cfg.get('event_nm1'),varlabel="")
@@ -804,6 +949,8 @@ class Plotter:
                 for h in hs:
                   h.Write()
                 #self.writeplots(newd,d=d_sr,weight="evt_weight",plots_1d=self.cfg['objects'][obj]['variables'],plots_2d=self.cfg['objects'][obj]['2d_plots'],varlabel=sels)
+
+        self.writeLHESums(fout)
 
         fout.Close()
         with open("{}/{}_hist{}.pkl".format(self.outputDir,self.s.name,self.postfix), "wb") as f:
