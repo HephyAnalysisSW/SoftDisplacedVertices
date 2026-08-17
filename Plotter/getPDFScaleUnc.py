@@ -12,8 +12,10 @@ inclusive sum removes the change of the total cross section, which is covered by
 theory cross-section uncertainty, and leaves the acceptance effect.
 
 QCD scale: envelope of the six (muR,muF) points, dropping the two anti-correlated ones.
-PDF: the member acceptances are ordered and the central 68% interval is taken, with the
-alphaS members added in quadrature.
+PDF: the members of these samples are symmetric-Hessian eigenvectors, so the default
+combination is the quadrature sum of their displacements from member 0, with the alphaS
+members added in quadrature (--pdf-combination mc68 gives the MC-replica 68% interval
+instead, which only applies to a replica set).
 
 Example:
   python3 getPDFScaleUnc.py --input /scratch/.../sig_2018 --output pdfscale_2018.json
@@ -37,6 +39,17 @@ PDF_NREPLICAS = 100
 # NNPDF *_pdfas sets: central + 100 members + 2 alphaS variations
 PDF_SIZE_WITH_ALPHAS = 103
 PDF_SIZE_WITHOUT_ALPHAS = 101
+
+# The PDF set of a sample is the first LHA ID in the title of the LHEPdfWeight branch:
+#   python3 -c "import ROOT; f=ROOT.TFile.Open('<nano>.root'); print(f.Get('Events').GetBranch('LHEPdfWeight').GetTitle())"
+# and its error type is ErrorType in the set's LHAPDF .info file on cvmfs (or the
+# combine= attribute of the weightgroup in the LHE header of the parent MiniAOD).
+# Both PDF sets appearing in the signal NanoAODs are symmetric-Hessian sets with 103
+# members (306000 NNPDF31_nnlo_hessian_pdfas, 325300 NNPDF31_nnlo_as_0118_mc_hessian_pdfas,
+# both ErrorType symmhessian+as), hence the 'hessian' default below. The replica set
+# 316200, for which 'mc68' would be the right prescription, is in the LHE header but is
+# not the group kept in the NanoAOD.
+PDF_COMBINATION_DEFAULT = 'hessian'
 
 # the datacard signal region is cell A of the ABCD plane, see
 # limitcalc/limitcalc_oop_v2/AN-25-092_make_reweighted_pkl_datacards_v2.py
@@ -88,9 +101,13 @@ def splitPdfMembers(acceptances):
 def pdfUncertainty(acceptances, combination):
   '''PDF uncertainty, with the alphaS variation added in quadrature on each side.
 
-  mc68 (default) orders the member acceptances and takes the central 68% interval,
-  which is the MC-replica prescription and is asymmetric by construction. hessian is
-  kept as a symmetric cross-check.
+  hessian (default) is the symmetric quadrature sum of the member displacements from
+  member 0, which is the prescription for the symmetric-Hessian sets these samples
+  carry. mc68 orders the member acceptances and takes the central 68% interval; that is
+  the MC-replica prescription and applies only to a replica set, where it is asymmetric
+  by construction. Applying mc68 to a Hessian set takes the percentile of a set of
+  eigenvector displacements, which has no interpretation as an interval and badly
+  underestimates the uncertainty.
   '''
   central, members, alphas = splitPdfMembers(acceptances)
   if combination == 'mc68':
@@ -179,8 +196,10 @@ if __name__ == "__main__":
                       help='leadingvtx_MLscore cut of the signal region')
   parser.add_argument('--whole-plane', action='store_true', default=False,
                       help='evaluate the whole plane instead of the signal-region cell')
-  parser.add_argument('--pdf-combination', choices=['mc68', 'hessian'], default='mc68',
-                      help='PDF member combination (default: mc68, the MC-replica 68%% interval)')
+  parser.add_argument('--pdf-combination', choices=['mc68', 'hessian'], default=PDF_COMBINATION_DEFAULT,
+                      help='PDF member combination (default: %(default)s, the symmetric-Hessian '
+                           'quadrature sum matching the ErrorType of these samples; mc68 is the '
+                           'MC-replica 68%% interval, only valid for a replica set)')
   parser.add_argument('--reweight', action='store_true', default=False,
                       help='apply the ctau/BR reweighting of the datacard writer first')
   parser.add_argument('--target-ctau', type=float, default=0.,
