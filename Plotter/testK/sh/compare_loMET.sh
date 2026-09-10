@@ -2,7 +2,7 @@
 
 run_compareK(){
 
-    OUTDIR=$HISTDIR/plots/MC/$1
+    OUTDIR=$HISTDIR/plots/datavMC/$1
     PDFDIR=$OUTDIR/pdf
     PNGDIR=$OUTDIR/png
     LOGPNGDIR=$OUTDIR/logpng
@@ -11,22 +11,17 @@ run_compareK(){
     mkdir -p $PNGDIR
     mkdir -p $LOGPNGDIR
 
-
-    # python3 ../compare_data_new.py                                             \
-    # --bkg  $TOP $QCD $WJETS $ZJETS                                             \
-    # --bkgnice  "TTbar" "QCD" "WJets" "ZJets"                                   \
-    # --output $OUTDIR                                                           \
-    # --dirs $1                                                                  \
-    # --ratio                                                                    \
-
     python3 ../compare_data_new.py                                             \
+    --data $DATA                                                               \
     --bkg  $TOP $QCD $WJETS $ZJETS                                             \
     --bkgnice  "TTbar" "QCD" "WJets" "ZJets"                                   \
-    --signal  $SIGNAL                                                          \
-    --signice  "matched signal"                                                          \
     --output $OUTDIR                                                           \
     --dirs $1                                                                  \
-    --norm                                                                     \
+    --ratio                                                                    \
+    --commands "if h.GetName() == 'leadingvtx_MLscore': [(h.SetBinContent(i, 0), h.SetBinError(i, 0)) for i in range(h.GetXaxis().FindBin(0.99), h.GetNbinsX()+2)]; h=h.Rebin(50); h.GetXaxis().SetRangeUser(0, 0.99)"
+    # --commands "if h.GetName() == 'leadingvtx_MLscore': h=h.Rebin(50)"
+    # --signal  $SIGNAL                                                        \
+    # --signice  "matched signal"                                              \
 
 # python3 ../compare.py                                                            \
 # --input $SIGNAL                                                                  \
@@ -42,13 +37,14 @@ run_compareK(){
 }
 
 # HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/SDVSecVtx_ParTScore
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_inputs_k0_v_sig
-# DATA=$HISTDIR/data/met_2018_hist.root
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_loMET
+# /scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_inputs_k0_v_sig
+DATA=$HISTDIR/data_2018/data_2018_hist.root
 QCD=$HISTDIR/bkg_2018/qcd_2018_hist.root
 WJETS=$HISTDIR/bkg_2018/wjets_2018_hist.root
 ZJETS=$HISTDIR/bkg_2018/zjets_2018_hist.root
 TOP=$HISTDIR/bkg_2018/top_2018_hist.root
-SIGNAL=$HISTDIR/sig_2018/C1N2_M500_485_ct20_2018_hist.root
+# SIGNAL=$HISTDIR/sig_2018/C1N2_M500_485_ct20_2018_hist.root
 # SIGNAL=$HISTDIR/sig/stopMLstudy_M1000_988_ct20_2018_hist.root
 
 
@@ -60,5 +56,3 @@ do
     echo "Processing directory: $line"
     run_compareK $line
 done
-
-

@@ -150,9 +150,10 @@ def h_command(h):
   if args.commands is None:
     return h
   for c in args.commands:
-    l_dict = {'h': h}
-    exec(c, globals(), l_dict)
-    h = l_dict['h']
+    context = globals().copy()
+    context['h'] = h
+    exec(c, context, context)
+    h = context['h']
   return h
 
 def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, ratio=True, norm=False):
@@ -385,5 +386,4 @@ if __name__ == "__main__":
   if not os.path.exists(args.output):
     os.makedirs(args.output)
   makeplots(args.data,args.bkg,args.signal,args.bkgnice,args.signice,bkg_colors,signal_colors,args.sig_scale,args.scale_to_data,ratio=args.ratio,norm=args.norm)
-
 

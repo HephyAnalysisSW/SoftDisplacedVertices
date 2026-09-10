@@ -15,8 +15,8 @@ run_compareK(){
     python3 ../compare_data_new.py                                             \
     --data $DATA                                                               \
     --bkg  $TOP $QCD $WJETS $ZJETS                                             \
-    --signal $SIGNAL                                                           \
-    --signice "unmatched sig."                                                 \
+    # --signal $SIGNAL                                                           \
+    # --signice "unmatched sig."                                                 \
     --bkgnice  "TTbar" "QCD" "WJets" "ZJets"                                   \
     --output $OUTDIR                                                           \
     --dirs $1                                                                  \
@@ -27,14 +27,15 @@ run_compareK(){
     mv $OUTDIR/*.png            $PNGDIR
 }
 
-HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_1111best_valloss_epoch_MET400_multiplane_dphi_test5
+# HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/vtx_PART_1111best_valloss_epoch_MET400_multiplane_dphi_test5
+HISTDIR=/scratch-cbe/users/alikaan.gueven/AN_plots/ParT_hists/AN-25-092_ML_plots_loMET
 
-DATA=$HISTDIR/data/met_2018_hist.root
-QCD=$HISTDIR/bkg/qcd_2018_hist.root
-WJETS=$HISTDIR/bkg/wjets_2018_hist.root
-ZJETS=$HISTDIR/bkg/zjets_2018_hist.root
-TOP=$HISTDIR/bkg/top_2018_hist.root
-SIGNAL=$HISTDIR/sig/C1N2ML_M500_485_ct200_2018_hist.root
+DATA=$HISTDIR/data_2018/met_2018_hist.root
+QCD=$HISTDIR/bkg_2018/qcd_2018_hist.root
+WJETS=$HISTDIR/bkg_2018/wjets_2018_hist.root
+ZJETS=$HISTDIR/bkg_2018/zjets_2018_hist.root
+TOP=$HISTDIR/bkg_2018/top_2018_hist.root
+# SIGNAL=$HISTDIR/sig/C1N2ML_M500_485_ct200_2018_hist.root
 
 
 # Extract and process the names directly using a pipeline and a while-read loop
