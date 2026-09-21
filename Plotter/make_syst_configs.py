@@ -9,6 +9,10 @@
 #        stored jets are unsmeared, so jer_nom provides the JEC+nominal-JER-smeared
 #        reference that jer_up/jer_down must be compared against.)
 #   <name>_unclUp.yaml / <name>_unclDown.yaml   -- corrections: JERC_syst: unclust_up/unclust_down
+#   <name>_lhe.yaml                             -- savepkl_mc: LHEScaleWeight, LHEPdfWeight
+#       (PDF / QCD scale: same selection as the nominal, but the per-event LHE weights
+#        are stored in the pkl output; the variations are built offline by
+#        getPDFScaleUnc.py, so no per-variation plotter run is needed.)
 #
 # Example (nominal analysis configs):
 #   python3 make_syst_configs.py --config configs/AN-25-092_limitcalc_Run2.yaml configs/AN-25-092_limitcalc_Run3.yaml
@@ -61,3 +65,13 @@ for config in args.config:
         with open(outpath, 'w') as f:
             yaml.dump(cfg, f, default_flow_style=None, sort_keys=False, width=200)
         print('Wrote', outpath)
+
+    # The PDF / QCD-scale variant is not a variation of the event selection or of any
+    # correction: it is the nominal config plus the per-event LHE weights in the pkl
+    # output, from which the variations are built offline by getPDFScaleUnc.py.
+    cfg = copy.deepcopy(nominal)
+    cfg['savepkl_mc'] = ['LHEScaleWeight', 'LHEPdfWeight']
+    outpath = os.path.join(outdir, '{}_lhe.yaml'.format(base))
+    with open(outpath, 'w') as f:
+        yaml.dump(cfg, f, default_flow_style=None, sort_keys=False, width=200)
+    print('Wrote', outpath)

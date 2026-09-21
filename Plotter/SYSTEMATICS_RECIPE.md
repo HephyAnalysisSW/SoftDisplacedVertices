@@ -496,3 +496,346 @@ For each systematic S, region R, sample and year:
 * **Statistics:** up/down and nominal run over the same events, so
   statistical fluctuations largely cancel; still, for small signal samples
   check the MC stat error on N_nom before quoting sub-% systematics.
+
+---
+
+## 7. PDF and QCD scale (μR/μF) — signal acceptance
+
+**STATUS: IMPLEMENTED.** Unlike the systematics above, this one needs **no extra
+plotter run per variation**: the per-event LHE weights are stored once, and all
+variations are built from them offline.
+
+### How it works
+
+The generator stores, per event, the ratio of the event weight under a varied
+scale/PDF to the nominal one (`LHEScaleWeight`, `LHEPdfWeight`). The yield under
+variation *k* is therefore just a reweighted sum of the same events, and the
+uncertainty is a *double* ratio: the acceptance under variation *k*, divided by the
+nominal acceptance.
+
+```
+N_k(R) = Σ_events(R)  evt_weight · w_k        (from the pkl)
+S_k    = Σ_all events Generator_weight · w_k  (inclusive, from metadata/ in the ROOT file)
+A_k(R) = N_k(R) / S_k
+δ_k(R) = A_k(R) / A_nom(R) − 1
+```
+
+Dividing by `S_k` removes the change of the **total cross section** under the
+variation. That part is already covered by the theory cross-section uncertainty on the
+signal, so including it here would double-count it. What is left is the acceptance
+effect, which is what the datacard nuisance describes.
+
+`S_k` is summed over the **unfiltered** `Events` tree of the job's file list, before
+`presel` and before the region cuts. This is only inclusive because the signal
+NanoAODs are unskimmed: verified on `stop_M600_580_ct2_2018`, the `Events`-tree sums
+agree with the `Runs`-tree `genEventSumw` / `LHEScaleSumw` / `LHEPdfSumw` to 1e-6
+(float32 accumulation). The plotter re-checks this at the end of every job and prints a
+red warning if the two disagree by more than 1e-4 — that is what would catch skimmed
+inputs, where the denominators would be biased low.
+
+### Weight indexing (verified on the signal NanoAODs)
+
+`LHEScaleWeight`, 9 entries, μF varying fastest:
+
+| index | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|---|
+| μF | 0.5 | 1 | 2 | 0.5 | 1 | 2 | 0.5 | 1 | 2 |
+| μR | 0.5 | 0.5 | 0.5 | 1 | **1** | 1 | 2 | 2 | 2 |
+
+Index 4 is the nominal (`LHEScaleWeight[4] ≡ 1`). Indices **2 and 6** are the
+anti-correlated (μR, μF) combinations and are dropped by convention. The uncertainty is
+the envelope of the remaining six:
+`δ_up = max δ_k`, `δ_down = min δ_k`, `k ∈ {0,1,3,5,7,8}`.
+
+`LHEPdfWeight`, 103 entries: `[0]` central, `[1..100]` members, `[101],[102]` αS
+down/up. This layout is not assumed, it is the documented one of the sets these samples
+actually carry — see *Identifying the PDF set* below.
+
+Unlike the scale weights, `LHEPdfWeight[0]` is **not** necessarily 1: in the private
+production it averages ≈0.79 (`stop_M600_580_ct2_2018`), because the PDF group kept in
+that NanoAOD is not the set used for the nominal generator weight. That is harmless
+here, because every member — including the reference — enters the same double ratio
+`A_k/A_0`, with its own inclusive denominator. It does mean the PDF reference must be
+member 0, never the unweighted nominal yield. See below (FYI) for why the two productions
+differ.
+
+PDF combination (`hessian`, the default): the symmetric quadrature sum of the member
+displacements, `sqrt(Σ(A_i−A_0)²)/A_0`. The αS variation is `(A_102 − A_101)/(2·A_0)`
+and is added in quadrature on each side. This is the prescription for a
+symmetric-Hessian set, which is what both PDF groups appearing in these NanoAODs are
+(`ErrorType: symmhessian+as`, `combine="symmhessian+as"`).
+
+`--pdf-combination mc68` orders the member acceptances and takes the central 68%
+interval (16th/84th percentiles), asymmetric by construction. That is the **MC-replica**
+prescription and is *not* applicable here: it takes the percentile of a set of
+eigenvector displacements, which is not an interval, and it collapses — on
+`stop_M600_580_ct2_2018` with `MET_pt_corr>500`, `mc68` gives +0.06/−0.11 % where
+`hessian` gives ±0.97 %. It is kept only as a cross-check and for the case of a sample
+whose NanoAOD carries a genuine replica group (e.g. LHA 316200, which is present in the
+LHE header of these samples but is not the group NanoAOD kept).
+
+> Earlier versions of this note defaulted to `mc68`, on the grounds that the PDF set
+> could not be identified from the degenerate `LHA IDs 306000 - 306000` branch title.
+> The first ID in that title is enough to identify the set, and it is a Hessian one, so
+> the default was changed to `hessian`. Numbers produced with the old default are
+> underestimates and must be regenerated.
+
+### Identifying the PDF set
+
+Four routes, cheapest first — worth doing for any new signal production, since the
+answer decides the combination prescription:
+
+1. **The NanoAOD branch title.**
+
+   ```bash
+   python3 -c "import ROOT; f=ROOT.TFile.Open('<nano>.root'); print(f.Get('Events').GetBranch('LHEPdfWeight').GetTitle())"
+   ```
+
+   Central production: `... for LHA IDs 325300 - 325402`. Private production:
+   `... for LHA IDs 306000 - 306000` — a degenerate range where only the first ID
+   survived. The **first** ID is the set's base LHA ID and is all that is needed.
+
+2. **LHAPDF's index on cvmfs**, base LHA ID → set name:
+
+   ```bash
+   awk '$1==306000{print $2}' /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/lhapdf/6.4.0-105c5ba1aa8fdfe89813ce7c7a167669/share/LHAPDF/pdfsets.index
+   ```
+
+   `306000` → `NNPDF31_nnlo_hessian_pdfas`, `325300` →
+   `NNPDF31_nnlo_as_0118_mc_hessian_pdfas`. Only base IDs are listed (one row per set);
+   the trailing column is the LHAPDF data version, not the member count.
+
+3. **The set's `.info` file** → member layout and, decisively, the error type:
+
+   ```bash
+   grep -E "^(SetDesc|NumMembers|ErrorType)" /cvmfs/cms.cern.ch/*/external/lhapdf/*/share/LHAPDF/NNPDF31_nnlo_hessian_pdfas/NNPDF31_nnlo_hessian_pdfas.info
+   ```
+
+   `NumMembers: 103`, `ErrorType: symmhessian+as`, and a `SetDesc` spelling out
+   `mem=0` central, `mem=1-100` eigenvectors, `mem=101/102` αS = 0.116/0.120. Identical
+   for 325300. This confirms both the `splitPdfMembers` layout and the αS ordering
+   (down, up) that `(A_102 − A_101)/2` assumes.
+
+4. **The LHE header of the parent MiniAOD/AODSIM** (definitive — lists *every* weight
+   group, with the generator's own combination prescription):
+
+   ```bash
+   python3 -c "
+   import ROOT; ROOT.gSystem.Load('libFWCoreFWLite.so'); ROOT.FWLiteEnabler.enable()
+   from DataFormats.FWLite import Runs, Handle
+   h=Handle('LHERunInfoProduct')
+   for r in Runs('<miniaod>.root'):
+       r.getByLabel('externalLHEProducer',h); p=h.product(); it=p.headers_begin()
+       while it!=p.headers_end():
+           for l in it.lines():
+               if 'weightgroup' in l.lower(): print(l.strip()[:200])
+           it.__preinc__()
+       break"
+   ```
+
+   On `crab_stop_M600_580_ct2_2018`:
+
+   ```
+   <weightgroup combine="symmhessian+as" name="NNPDF31_nnlo_as_0118_mc_hessian_pdfas">  # 325300
+   <weightgroup combine="replicas"       name="NNPDF31_nnlo_as_0118_mc">                # 316200
+   <weightgroup combine="symmhessian+as" name="NNPDF31_nnlo_hessian_pdfas">             # 306000
+   <weight MUF="1.0" MUR="1.0" PDF="325300" id="1001">
+   ```
+
+### (FYI) Private vs centrally produced signal MC
+
+**This section is FYI, the samples listed in the table below is outdated.**
+
+The same physical signal point exists in two NanoAOD productions with **different PDF
+weight content**, and the difference is not cosmetic for this systematic:
+
+| | private | central |
+|---|---|---|
+| sample json | `Samples/json/PrivateSignal_v3.json` | `CustomNanoAOD_v3_centralprod{,_scratch}.json`, `scratch_CustomNanoAOD_v3_centralprod.json` |
+| NanoAOD path | `.../lian/CustomNanoAOD_v3/<sample>/output` | `.../lian/CustomNanoAOD_v3_centralprod/<sample>/output` |
+| nevents, `stop_M600_580_ct2_2018` | 129364 | 174924 |
+| `LHEPdfWeight` group kept | LHA 306000, `NNPDF31_nnlo_hessian_pdfas` | LHA 325300, `NNPDF31_nnlo_as_0118_mc_hessian_pdfas` |
+| `mean(LHEPdfWeight[0])` | **0.7987** (std 0.2280) | **1.0000** (std 0.0000) |
+| `mean(LHEPdfWeight[1..100])` | 0.7985 | 0.9997 |
+| αS members `[101]/[102]` | 0.7613 / 0.8420 | 0.9458 / 1.0461 |
+| per-event `rms(members)/[0]` | 1.05 % | 1.02 % |
+| `ErrorType` | `symmhessian+as` | `symmhessian+as` |
+
+(First file of each production; 1637 and 20000 events respectively — enough to establish
+the reference offset, not the final percentages.)
+
+**Why they differ.** The generator wrote several PDF weight groups into the LHE header
+(325300, 316200, 306000, …), and NanoAOD keeps only **one** of them. The choice is made
+in `PhysicsTools/NanoAOD/plugins/GenWeightsTableProducer.cc` (the PDF VARIATIONS block):
+it loops over the error sets found in the header — a `std::set` sorted by ascending LHA
+ID — and takes the first one whose base ID appears anywhere in the
+`preferredPDFs` list of `genWeightsTable_cfi.py`, skipping groups with a single weight.
+
+So `preferredPDFs` is an **allow-list, not a priority list**: its order is irrelevant,
+and the group that wins is simply the *lowest* allow-listed LHA ID present in the header
+(306000 < 316200 < 325300 among the ones these samples carry). The list itself is
+identical in every release from `10_6_X` to `15_0_5`, so the difference between the two
+productions is in what their headers contain (or in a modified `preferredPDFs`), not in
+release-to-release drift. To force a particular group one must *remove* the lower IDs
+from the list — adding the wanted one changes nothing.
+
+The generation card of these samples (`MGRunCard` in the LHE header) sets
+`pdlabel = lhapdf`, `lhaid = 325300`, so the nominal ME weight is 325300 — matching
+`<weight ... PDF="325300" id="1001">` in `initrwgt`. Hence:
+
+* the **central** production kept the group that *is* the nominal ME PDF →
+  `LHEPdfWeight[0] ≡ 1` exactly, with zero variance;
+* the **private** production kept 306000, a *different* set from the nominal ME PDF →
+  `LHEPdfWeight[0]` is the event-by-event ratio of two PDFs, ≈0.79 on average with a
+  0.23 spread from the *x*, *Q²* dependence.
+
+Neither file is broken. Three checks show the private offset is a common
+renormalisation and not a corrupted weight block: `mean(members)` tracks `mean([0])` to
+2e-4, the αS pair straddles it symmetrically, and the **relative** member spread is
+~1 % in *both* productions — the physics content of the members is the same, only the
+common reference differs.
+
+**Consequences for the analysis:**
+
+* The `A_k/A_0` double ratio is insensitive to which group was kept: the offset cancels
+  between `N_k` and `S_k`, since `metadata/LHEPdfSumw[k]` is built from the same
+  weights. Both productions are usable, and both need `hessian`.
+* But the two productions are **not interchangeable for cross-checking numbers**: a
+  per-mille comparison of PDF δ between them is meaningless, because they are different
+  PDF sets on different event counts. Quote uncertainties from the production the
+  datacards use — the `*_centralprod*` jsons — and do not carry over percentages
+  derived on the private samples.
+* Other differences beyond PDFs (event counts, and hence MC statistics in the
+  signal-region cell) are the ordinary private-vs-central ones; the `nevents` entries in
+  the sample jsons are the reference.
+* Any *new* production must be re-checked with the four routes above before its PDF
+  numbers are trusted — the kept group is a property of the LHE header and the NanoAOD
+  config, not of the physics.
+
+> **Open point.** The selection rule above (lowest allow-listed LHA ID) predicts that
+> any NanoAOD made from a header containing a usable 306000 error set keeps 306000. The
+> central production nevertheless kept 325300, so either its parent MiniAODs come from a
+> campaign whose header has no usable 306000 error set, or that group was skipped
+> (single weight / non-matching base ID), or its NanoAOD step used a trimmed
+> `preferredPDFs`. This has no effect on the extracted uncertainties — the double ratio
+> is insensitive to which group was kept — but if it needs settling, dump the weight
+> groups of *each* production's own parent MiniAOD with route 4, or re-run the NanoAOD
+> step with `process.genWeightsTable.debug = True`, which prints every error set found
+> with its ID range and weight count.
+
+### Setting the PDF sets at generation
+
+For a MadGraph5_aMC@NLO gridpack (all these signals) the relevant `run_card.dat` knobs
+are, verbatim from the `MGRunCard` header of `stop_M600_580_ct2_2018`:
+
+```
+lhapdf = pdlabel                                              ! PDF set
+325300 = lhaid                                                ! if pdlabel=lhapdf, this is the lhapdf number
+True   = use_syst                                             ! Enable systematics studies
+['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments
+```
+
+* `pdlabel = lhapdf` + `lhaid` choose the **nominal** PDF used for the matrix element.
+  This is what makes `LHEPdfWeight[0] ≡ 1` in a NanoAOD that keeps this same set, and
+  ≠ 1 in one that keeps another.
+* `use_syst = True` runs MG's `systematics.py` after generation, which writes the
+  `<initrwgt>` weight groups. `systematics_arguments` controls them:
+  `--mur/--muf` give the 9-point scale grid (the `LHEScaleWeight` block),
+  `--pdf=errorset` means "the error members of the nominal set". Explicit sets can be
+  requested instead, e.g. `--pdf=325300@0,306000,316200`, or `--dyn=...` for the
+  dynamical-scale choices also visible in this header. Each requested set becomes one
+  `<weightgroup>` with its own `combine=` attribute, which is exactly the attribute that
+  decides `hessian` vs `mc68` downstream.
+* LHAPDF must have the requested sets installed when the gridpack is produced.
+* Since NanoAOD keeps the lowest allow-listed ID, requesting *extra* low-numbered sets
+  can silently change which group ends up in `LHEPdfWeight` — which is how a sample can
+  end up with a PDF group that is not its nominal set.
+
+For POWHEG the equivalents are `lhans1`/`lhans2` in the powheg input and the
+`pwg-rwl.dat` reweighting block. In both cases the CMS-facing place to set this is the
+McM request's gen fragment / gridpack, not anything in this repository.
+
+### Running
+
+1. Generate the config (nominal configs are not touched):
+
+   ```bash
+   python3 make_syst_configs.py --config configs/AN-25-092_limitcalc_Run2.yaml configs/AN-25-092_limitcalc_Run3.yaml
+   ```
+
+   which writes, among the others, `configs/AN-25-092_limitcalc_{Run2,Run3}_lhe.yaml`.
+   These are the nominal configs plus
+
+   ```yaml
+   savepkl_mc: [LHEScaleWeight, LHEPdfWeight]
+   ```
+
+   `savepkl_mc` is merged into `savepkl` for MC only, so the same config still runs on
+   data (where it is a no-op). The selection is identical to the nominal one.
+
+2. Run the plotter on the signal samples with `--postfix _lhe`, exactly like any other
+   variant config, then `haddplots.py --pkl` as usual. The pkl then carries
+   `LHEScaleWeight` as an (Nevents, 9) array and `LHEPdfWeight` as an (Nevents, 103)
+   array, and the ROOT file carries `metadata/genEventSumw`, `metadata/LHEScaleSumw`,
+   `metadata/LHEPdfSumw`, which `hadd` adds up across jobs.
+
+3. Extract the numbers:
+
+   ```bash
+   python3 getPDFScaleUnc.py --input <dir with the merged files> --output pdfscale.json
+   ```
+
+   By default it evaluates the signal-region cell of each ABCD plane
+   (`GT1/GT2/GT3`, `MET_pt_corr ≥ 500`, `leadingvtx_MLscore ≥ 0.999`, the defaults of
+   `AN-25-092_make_reweighted_pkl_datacards_v2.py`); `--whole-plane` uses the whole
+   plane, and `--reweight` applies the ctau/BR reweighting of the datacard writer
+   first. Feed the resulting `δ` into the datacards as `lnN`, following §5.
+
+> **Caveat:** `haddjobs*.sh` merges *different samples* into
+> `background_<year>_hist.root`. The `metadata` histograms are then summed across
+> samples and are meaningless. These uncertainties are per signal sample — always use
+> the per-sample `<sample>_hist.root`.
+
+### The multi-threading caveat (fixed)
+
+This method needs per-event arrays that stay row-aligned across columns, and until now
+they did not: `getpklData` called `GetValue()` while booking, so **every column got its
+own event loop**, and under `EnableImplicitMT` different loops process the entry ranges
+in different orders. The columns came back permuted with respect to each other, which
+is why the pkl was only usable single-threaded.
+
+The fix (in `python/plotter.py`) is to book every `Take` first and trigger them
+together with `ROOT.RDF.RunGraphs`: within one event loop all columns fill in lockstep.
+It also collapses what used to be one event loop per column into a single pass. The
+global row order is still shuffled with respect to the input files — that is inherent
+to implicit MT and harmless, since every consumer only sums or multiplies row-wise.
+
+Checked in ROOT 6.32.11 (CMSSW_15_0_5) on both an empty-source RDF and a real `Events`
+tree, defining `b = 2*a`: with the old pattern `b == 2a` fails row-wise, with the new
+one it holds exactly.
+
+### Sanity checks
+
+* **Closure, and the strongest one:** `LHEScaleWeight[4] ≡ 1`, so
+  `Σ evt_weight·w_4` must equal `Σ evt_weight` exactly, in every region. Under MT with
+  the old code it does not — this is the check that detects a regression of the row
+  alignment.
+* **Inclusive region:** run `getPDFScaleUnc.py --whole-plane` on a region with no
+  selection at all. Every δ must come out at 0 by construction, since the numerator and
+  the denominator are then the same sum. Verified on `stop_M600_580_ct2_2018`: the
+  preselection-level region gives ≤0.01 % for scale, PDF and αS (not exactly 0 only
+  because `presel` still removes a handful of events), while `MET_pt_corr>500` gives
+  +1.1/−0.9 % (scale) and ±0.97 % (PDF, `hessian`; the same configuration gave
+  +0.06/−0.11 % with the superseded `mc68` default).
+* **Combination:** the PDF numbers must be produced with the combination matching the
+  set's `ErrorType`. If a δ of order 0.1 % comes out of a 103-member set, suspect that
+  `mc68` was applied to a Hessian set.
+* **Denominators:** `metadata/LHEScaleSumw` bin 5 (index 4) must equal
+  `metadata/genEventSumw`, and the `Runs`-tree cross-check printed by the plotter must
+  pass.
+* **Size:** acceptance-only scale uncertainties are typically a few %, PDF ~1–5 %.
+  A ≳20 % number almost always means the inclusive denominator was dropped, i.e. the
+  cross-section variation leaked into the acceptance.
+* **Statistics:** in the signal-region cell the event count is small; check `N=` in the
+  `getPDFScaleUnc.py` output before quoting a percent-level number, and consider
+  `--whole-plane` to see how much of the spread is MC statistics.
