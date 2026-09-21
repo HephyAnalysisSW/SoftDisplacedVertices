@@ -9,7 +9,7 @@ import cmsstyle as CMS
 import numpy as np
 
 ROOT.gROOT.SetBatch(True)
-colors = [1,2,4,8]
+colors = [1,2,4,8,801]
 
 def find_x_at_efficiency(eff, target):
     h = eff.GetTotalHistogram()
@@ -49,8 +49,8 @@ def main(eras_list,var,run):
 
     #input_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
     #output_dir = "/groups/hephy/cms/lisa.benato/SDV/trigger_efficiency_v2/merged/"
-    input_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso/merged/"
-    output_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso/merged/"
+    input_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso_v3/merged/"
+    output_dir = f"/scratch/lisa.benato/SDV/trigger_efficiency_{run}_IsoMu27_no_iso_v3/merged/"
     tag = ""
         
     if not os.path.isdir(input_dir):
@@ -176,7 +176,7 @@ def main(eras_list,var,run):
         c.SaveAs(output_dir+f"ratio_combined_{run}.pdf")
     
 if __name__ == "__main__":
-    main(["2022pre","2022post","2023pre","2023post"],var="nomu",run="run3")
-    main(["2022pre","2022post","2023pre","2023post"],var="nPV",run="run3")
+    main(["2022pre","2022post","2023pre","2023post","2024"],var="nomu",run="run3")
+    #main(["2022pre","2022post","2023pre","2023post","2024"],var="nPV",run="run3")
     main(["2017","2018"],var="nomu",run="run2")
-    main(["2017","2018"],var="nPV",run="run2")
+    #main(["2017","2018"],var="nPV",run="run2")

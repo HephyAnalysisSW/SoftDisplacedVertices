@@ -327,6 +327,8 @@ def main():
 
     #clipping for numerical precision
     eps = 1e-9
+    #more tolerance
+    eps = 1e-4
 
     for i in range(0, num_mc_rb.GetNbinsX()+2):
         num_c = num_mc_rb.GetBinContent(i)
