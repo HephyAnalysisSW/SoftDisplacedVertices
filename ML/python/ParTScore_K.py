@@ -229,14 +229,14 @@ class ParTScoreProducer(Module):
         #print('origin ->', event.vtx_PART_1111best_valloss_epoch)
 
         self.out.fillBranch("SDVSecVtx_ParTScore", outputs[:,1])
-        if len(outputs[:,1])>0 and (max(outputs[:,1])>0.999):
-            print("="*50)
-            print('origin ->', self.ArraytoNumpy(event.vtx_PART_1111best_valloss_epoch))
-            print("input")
-            print(d_input)
-            print("score")
-            print(outputs[:,1])
-            print("="*50)
+        #if len(outputs[:,1])>0 and (max(outputs[:,1])>0.999):
+        #    print("="*50)
+        #    print('origin ->', self.ArraytoNumpy(event.vtx_PART_1111best_valloss_epoch))
+        #    print("input")
+        #    print(d_input)
+        #    print("score")
+        #    print(outputs[:,1])
+        #    print("="*50)
         return True
 
 # define modules using the syntax 'name = lambda : constructor' to avoid having them loaded when not needed

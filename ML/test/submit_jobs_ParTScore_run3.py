@@ -10,7 +10,7 @@ import SoftDisplacedVertices.Samples.cmsRunJobs as job
 dryrun = True
 isData = False
 input_label = "CustomNanoAOD"
-version = "RotateD"
+version = "RotateD_dxydz"
 
 input_samples = []
 
