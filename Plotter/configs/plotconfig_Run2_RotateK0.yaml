@@ -1,12 +1,12 @@
 vtx_loosesel: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0)
 vtx_loosesel_lowdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) && (SDVSecVtx_dphiMET<1.5) && (SDVSecVtx_dphijet0>1.0)
 vtx_loosesel_highdphi: (SDVSecVtx_mapveto==0) && (SDVSecVtx_nnonPUTrack>0) && (SDVSecVtx_dphiMET>1.5) && (SDVSecVtx_dphijet0>0.4)
-vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0) 
-vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0) 
-vtx_sel_1gt: (SDVSecVtx_ngoodtrack==1) && (SDVSecVtx_mapveto==0) 
-vtx_sel_0gt: (SDVSecVtx_ngoodtrack==0) && (SDVSecVtx_mapveto==0) 
+vtx_sel_3gt: (SDVSecVtx_ngoodtrack>=3) && (SDVSecVtx_mapveto==0)
+vtx_sel_2gt: (SDVSecVtx_ngoodtrack==2) && (SDVSecVtx_mapveto==0)
+vtx_sel_1gt: (SDVSecVtx_ngoodtrack==1) && (SDVSecVtx_mapveto==0)
+vtx_sel_0gt: (SDVSecVtx_ngoodtrack==0) && (SDVSecVtx_mapveto==0)
 jet_sel: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20)
-jet_selHEM: (Jet_jetId==6) 
+jet_selHEM: (Jet_jetId==6)
 bjetloose: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.0490)
 bjetmedium: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.2783)
 bjettight: (Jet_jetId==6) && (abs(Jet_eta)<2.4) && (Jet_neHEF<0.8) && (Jet_chHEF>0.1) && (Jet_pt>20) && (Jet_btagDeepFlavB>0.7100)
@@ -15,7 +15,7 @@ muon_sel: (Muon_looseId>0) && (abs(Muon_eta)<2.4) && (Muon_pt>10)
 ele_sel: (Electron_cutBased>=1) && (abs(Electron_eta)<2.5) && (Electron_pt>10)
 photon_sel: (Photon_cutBased>=1) && (abs(Photon_eta)<2.5) && (Photon_pt>15)
 tau_sel: (Tau_idDeepTau2017v2p1VSmu>0) && (Tau_idDeepTau2017v2p1VSe>0) && (Tau_idDeepTau2017v2p1VSjet>0) && (abs(Tau_eta)<2.3) && (Tau_pt>20) && (abs(Tau_dz)<0.2)
-presel: MET_pt_corr>250 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && leadingvtx_MLscore<0.8
+presel: MET_pt_corr>250 && HLT_PFMETNoMu120_PFMHTNoMu120_IDTight && nJet_sel>0 && leadingjet_pt>100 && nJetHEM==0 && dphi_MET_jet0>1.0 && nMuon_sel==0 && nEle_sel==0 && nPhoton_sel==0 && nTau_sel==0 && leadingvtx_MLscore<0.8 
 
 corrections:
   PU:
@@ -224,7 +224,8 @@ event_2d_plots:
 objects:
     RotateVtx:
         selections:
-            all:
+            all: (RotateVtx_MLScore<=1) && (RotateVtx_MLScore>=0)
+            tight: (RotateVtx_MLScore<=1) && (RotateVtx_MLScore>=0) && (RotateVtx_mass_before>=1.82) && (RotateVtx_mass_before<=1.92)
         variables:
         - RotateVtx_mass
         - RotateVtx_mass_before
@@ -400,5 +401,5 @@ plot_setting:
   RotateVtx_trackdphi: [RotateVtx_trackdphi,';RotateVtx_trackdphi;A.U.',128,-3.2,3.2]
   RotateVtx_MLScore: [RotateVtx_MLScore,';RotateVtx_MLScore;A.U.',2020,0,1.01]
   RotateVtx_MLScore_before: [RotateVtx_MLScore_before,';RotateVtx_MLScore_before;A.U.',2020,0,1.01]
-  RotateVtx_Lxy: [RotateVtx_Lxy,';RotateVtx_Lxy;A.U.',100,0,10]
+  RotateVtx_Lxy: [RotateVtx_Lxy,';RotateVtx_Lxy;A.U.',1000,0,10]
 
