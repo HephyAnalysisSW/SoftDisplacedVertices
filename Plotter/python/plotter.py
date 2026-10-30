@@ -38,6 +38,36 @@ ROOT::VecOps::RVec<double> CustomWeightLookup(const TH1* h, const ROOT::VecOps::
 #endif
 ''')
 
+# MET trigger scale factor lookup: the SF graph has one point per MET bin, with the bin
+# edges given by the x errors. Return the value of the point whose [x-exl, x+exh) range
+# contains met (shifted by the y error for mode "up"/"down"); MET above the last edge
+# uses the last bin, MET outside any filled bin (empty bins have zero width) gives 0.
+ROOT.gInterpreter.Declare('''
+#ifndef TRIGGER_SF_LOOKUP
+#define TRIGGER_SF_LOOKUP
+double TriggerSFLookup(const TGraphAsymmErrors* g, double met, const std::string& mode) {
+  int ilast = -1;
+  for (int i = 0; i < g->GetN(); ++i) {
+    double lo = g->GetPointX(i) - g->GetErrorXlow(i);
+    double hi = g->GetPointX(i) + g->GetErrorXhigh(i);
+    if (hi <= lo) continue;
+    if (ilast < 0 || hi > g->GetPointX(ilast) + g->GetErrorXhigh(ilast)) ilast = i;
+    if (met >= lo && met < hi) {
+      if (mode == "up") return g->GetPointY(i) + g->GetErrorYhigh(i);
+      if (mode == "down") return g->GetPointY(i) - g->GetErrorYlow(i);
+      return g->GetPointY(i);
+    }
+  }
+  if (ilast >= 0 && met >= g->GetPointX(ilast) + g->GetErrorXhigh(ilast)) {
+    if (mode == "up") return g->GetPointY(ilast) + g->GetErrorYhigh(ilast);
+    if (mode == "down") return g->GetPointY(ilast) - g->GetErrorYlow(ilast);
+    return g->GetPointY(ilast);
+  }
+  return 0.;
+}
+#endif
+''')
+
 class Plotter:
     def __init__(self,s=None,datalabel="",outputDir="./",lumi=1,info_path="",input_json="",input_filelist=None,config="",year="",isData=False,postfix=""):
         self.s = None
@@ -316,6 +346,17 @@ class Plotter:
         if 'muon' in self.cfg['corrections'] and self.cfg['corrections']['muon'] is not None:
           ROOT.gInterpreter.ProcessLine('auto muc = correction::CorrectionSet::from_file("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['path']))
           ROOT.gInterpreter.ProcessLine('auto musf = muc->at("{}");'.format(self.cfg['corrections']['muon'][str(self.year)]['name']))
+        if 'trigger_met' in self.cfg['corrections'] and self.cfg['corrections']['trigger_met'] is not None and not self.isData:
+          # MET trigger data/MC scale factor vs MET_pt_corr, one TGraphAsymmErrors per year
+          trigcfg = self.cfg['corrections']['trigger_met']
+          assert trigcfg.get('mode') in ('nominal','up','down'), "trigger_met mode must be nominal/up/down, got {}!".format(trigcfg.get('mode'))
+          assert str(self.year) in trigcfg, "Year {} not defined in trigger_met correction!".format(self.year)
+          path = trigcfg[str(self.year)]['path']
+          assert os.path.exists(path), "Trigger SF file {} does not exist!".format(path)
+          ftrig = ROOT.TFile.Open(path)
+          assert ftrig.Get(trigcfg[str(self.year)]['name']), "Graph {} not found in {}!".format(trigcfg[str(self.year)]['name'], path)
+          ftrig.Close()
+          ROOT.gInterpreter.ProcessLine('TFile* ftrigsf = TFile::Open("{}"); auto trigsf_graph = (TGraphAsymmErrors*)ftrigsf->Get("{}")->Clone(); ftrigsf->Close();'.format(path, trigcfg[str(self.year)]['name']))
 
     def applyCorrections(self,d):
       self.weightstr = ''
@@ -341,6 +382,9 @@ class Plotter:
           if 'met' in self.cfg['corrections'] and  self.cfg['corrections']['met'] is not None:
             d = d.Define("metweight",'METweight(MET_pt_corr, "{}", "{}")'.format(str(self.year),self.cfg['corrections']['met']['mode']))
             self.weightstr += ' * metweight'
+          if 'trigger_met' in self.cfg['corrections'] and  self.cfg['corrections']['trigger_met'] is not None:
+            d = d.Define("trigweight",'TriggerSFLookup(trigsf_graph, MET_pt_corr, "{}")'.format(self.cfg['corrections']['trigger_met']['mode']))
+            self.weightstr += ' * trigweight'
           if 'vtx' in self.cfg['corrections'] and  self.cfg['corrections']['vtx'] is not None:
             d = d.Define("vtxweight",'SDVSecVtx_evtweight(LeadingVtx_Lxy, "{}", "{}")'.format(str(self.year),self.cfg['corrections']['vtx']['mode']))
             self.weightstr += ' * vtxweight'
