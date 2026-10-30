@@ -28,12 +28,9 @@ class ParTScoreProducer(Module):
         dphi = self.deltaPhi(dphi)
         return np.hypot(dphi,deta)
 
-    def ArraytoNumpy(self,array):
-        arr_np = []
-        for i in array:
-          arr_np.append(i)
-        arr_np = np.array(arr_np,dtype=np.float64)
-        return arr_np
+    def ArraytoNumpy(self,array,dtype=np.float64):
+        # index access: iterating over a TTreeReaderArray leaks memory in PyROOT
+        return np.array([array[i] for i in range(array.GetSize())], dtype=dtype)
 
     def beginJob(self):
         self.ort_sess = ort.InferenceSession(self.model_path, providers=['CPUExecutionProvider'])
@@ -64,26 +61,15 @@ class ParTScoreProducer(Module):
         self.out.branch("RotateVtx_refittk0Idx", "I", lenVar="nRotateVtx")
         self.out.branch("RotateVtx_refittk1Idx", "I", lenVar="nRotateVtx")
         self.out.branch("RotateVtx_refittk2Idx", "I", lenVar="nRotateVtx")
+        # the output tree inherits AutoFlush=0 from the input, which keeps all baskets in memory;
+        # flush every ~30 MB instead (changes only the on-disk clustering, not the content)
+        self.out.tree().SetAutoFlush(-30000000)
 
     def endFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         pass
 
-    def analyze(self, event):
-        """process event, return True (go to next module) or False (fail, go to next event)"""
-
-        pvx = event.PV_x
-        pvy = event.PV_y
-        pvz = event.PV_z
-
-
-        SDVSecVtx = Collection(event, "SDVSecVtx")
-        SDVTrack = Collection(event, "SDVTrack")
-        SDVIdxLUT = Collection(event, "SDVIdxLUT")
-
-        SDVMLScore = self.ArraytoNumpy(event.vtx_PART_1111best_valloss_epoch)
-
-        Jet = Collection(event, "Jet")
-
+    def selectedJets(self, event):
+        """eta, phi of jets passing jetId>=2, pt>15, EM fraction<0.9 and no matched muon"""
         Jet_eta = self.ArraytoNumpy(event.Jet_eta)
         Jet_phi = self.ArraytoNumpy(event.Jet_phi)
 
@@ -102,8 +88,25 @@ class ParTScoreProducer(Module):
                 (Jet_muonIdx2 == -1)
                 )
 
-        Jet_eta_vetomapsel = Jet_eta[Jet_sel_vetomapsel]
-        Jet_phi_vetomapsel = Jet_phi[Jet_sel_vetomapsel]
+        return Jet_eta[Jet_sel_vetomapsel], Jet_phi[Jet_sel_vetomapsel]
+
+    def analyze(self, event):
+        """process event, return True (go to next module) or False (fail, go to next event)"""
+
+        pvx = event.PV_x
+        pvy = event.PV_y
+        pvz = event.PV_z
+
+
+        SDVSecVtx = Collection(event, "SDVSecVtx")
+        SDVTrack = Collection(event, "SDVTrack")
+        SDVIdxLUT = Collection(event, "SDVIdxLUT")
+
+        SDVMLScore = self.ArraytoNumpy(event.SDVSecVtx_ParTScore)
+
+        Jet = Collection(event, "Jet")
+
+        Jet_eta_vetomapsel, Jet_phi_vetomapsel = self.selectedJets(event)
 
         if len(Jet)>0:
           jet0_phi = Jet[0].phi
