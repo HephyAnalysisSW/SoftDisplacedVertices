@@ -489,9 +489,10 @@ std::pair<float,float> JERC_MET_MC(const std::map<std::string,correction::Correc
 // carry the up-to-date JEC (Summer19UL1x_V5, verified: recomputed L1L2L3 on the
 // raw pt closes with the stored pt to ~0.1%, the rawFactor precision) but NO
 // JER smearing. The variations therefore recompute the jets from raw, exactly
-// as in the Run 3 pipeline: undo the rawFactor, apply L1+L2+L3, optionally
+// as in the Run 3 pipeline: undo the rawFactor, apply L1+L2, optionally
 // shift by the total JES uncertainty, then apply the JER smearing with the
-// nominal/up/down scale factor.
+// nominal/up/down scale factor. L3Absolute is not applied: it is exactly 1
+// for the Summer19UL17/18 V5 AK4PFchs sets (as in the Run 3 MC chain).
 // ---------------------------------------------------------------------------
 
 // Recompute JEC(+JES shift)+JER on Run 2 CHS jets from the raw pt/mass.
@@ -500,12 +501,12 @@ std::pair<float,float> JERC_MET_MC(const std::map<std::string,correction::Correc
 // The JES shift is applied on the fully corrected pt before the JER smearing,
 // consistent with JERC_jet_MC. The CHS JER ScaleFactor uses the
 // systematic-string API sf(eta,"nom"/"up"/"down") -- no SFUncertainty tag.
-// Requires "MC_jes_L1/L2/L3", "MC_jer_reso", "MC_jer_sf", "MC_jer_smear" in
+// Requires "MC_jes_L1/L2", "MC_jer_reso", "MC_jer_sf", "MC_jer_smear" in
 // jerc, plus "MC_jes_unc" for the JES variations.
 // Returns std::pair: first -- varied jet pt, second -- varied jet mass
 std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC_run2(const std::map<std::string,correction::Correction::Ref>& jerc, const int& event, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_mass, const ROOT::RVecF& jet_rawFactor, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
     std::vector<correction::Correction::Ref> jes_refs = {};
-    for (const std::string& n : {"L1","L2","L3"}) {
+    for (const std::string& n : {"L1","L2"}) {
         auto jerc_iter = jerc.find("MC_jes_"+n);
         if (jerc_iter==jerc.end()) {
             throw std::runtime_error("JERC_jet_MC_run2: correction ref for "+n+" not found!");
@@ -541,9 +542,6 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC_run2(const std::map<std::string,c
         // L2Relative
         const double c2 = jes_refs[1]->evaluate({jet_eta[i],pt_corr});
         pt_corr *= c2; mass_corr *= c2;
-        // L3Absolute (unity for the Summer19UL sets, applied for completeness)
-        const double c3 = jes_refs[2]->evaluate({jet_eta[i],pt_corr});
-        pt_corr *= c3; mass_corr *= c3;
         // JES uncertainty shift, before the smearing so the smear uses the shifted pt
         if (do_jes_var) {
             const double delta = jes_unc->evaluate({jet_eta[i],pt_corr});
@@ -579,6 +577,88 @@ std::pair<ROOT::RVecF,ROOT::RVecF> JERC_jet_MC_run2(const std::map<std::string,c
         jet_mass_var.push_back(mass_corr);
     }
     return std::pair<ROOT::RVecF,ROOT::RVecF>({jet_pt_var,jet_mass_var});
+}
+
+// Recompute the Run 2 Type-1 PFMET (CHS jets) from the raw MET, following
+// JERC_MET for Run 3: for every jet of Jet+CorrT1METJet, take the muon-subtracted
+// raw pt, apply L1 -> L2 (+ optional JES shift) -> JER smearing, and for
+// jets passing pt>15, |eta|<5.2, EM fraction<0.9 subtract dpt = pt_corr - pt_corrL1.
+// syst as in JERC_jet_MC_run2. Same refs required as JERC_jet_MC_run2.
+// Returns std::pair: first -- MET pt, second -- MET phi
+std::pair<float,float> JERC_MET_MC_run2(const std::map<std::string,correction::Correction::Ref>& jerc, const int& event, const float& MET_pt, const float& MET_phi, const ROOT::RVecF& jet_area, const ROOT::RVecF& jet_eta, const ROOT::RVecF& jet_phi, const ROOT::RVecF& jet_pt, const ROOT::RVecF& jet_rawFactor, const ROOT::RVecF& jet_muonSubtrFactor, const ROOT::RVecF& jet_chEmEF, const ROOT::RVecF& jet_neEmEF, const float& rho, const ROOT::RVecI& jet_genJetIdx, const ROOT::RVecF& genJet_pt, const ROOT::RVecF& genJet_eta, const ROOT::RVecF& genJet_phi, const std::string& syst="nom") {
+    std::vector<correction::Correction::Ref> jes_refs = {};
+    for (const std::string& n : {"L1","L2"}) {
+        auto jerc_iter = jerc.find("MC_jes_"+n);
+        if (jerc_iter==jerc.end()) {
+            throw std::runtime_error("JERC_MET_MC_run2: correction ref for "+n+" not found!");
+        }
+        jes_refs.push_back(jerc_iter->second);
+    }
+    auto jer_reso_iter = jerc.find("MC_jer_reso");
+    auto jer_sf_iter = jerc.find("MC_jer_sf");
+    auto jer_smear_iter = jerc.find("MC_jer_smear");
+    if (jer_reso_iter==jerc.end() || jer_sf_iter==jerc.end() || jer_smear_iter==jerc.end()) {
+        throw std::runtime_error("JERC_MET_MC_run2: MC_jer_reso/MC_jer_sf/MC_jer_smear ref not found!");
+    }
+    const bool do_jes_var = (syst=="jes_up") || (syst=="jes_down");
+    correction::Correction::Ref jes_unc;
+    if (do_jes_var) {
+        auto jes_unc_iter = jerc.find("MC_jes_unc");
+        if (jes_unc_iter==jerc.end()) {
+            throw std::runtime_error("JES systematic '"+syst+"' requested but MC_jes_unc ref not found!");
+        }
+        jes_unc = jes_unc_iter->second;
+    }
+    const std::string jer_systname = (syst=="jer_up") ? "up" : ((syst=="jer_down") ? "down" : "nom");
+
+    float met_px = MET_pt * std::cos(MET_phi);
+    float met_py = MET_pt * std::sin(MET_phi);
+
+    for (size_t i=0; i<jet_pt.size(); ++i) {
+        // muon-subtracted raw pt
+        const double ptRaw = jet_pt[i]*(1.0-jet_rawFactor[i]);
+        double pt_corr = ptRaw * (1.0-jet_muonSubtrFactor[i]);
+        // L1FastJet
+        pt_corr *= jes_refs[0]->evaluate({jet_area[i],jet_eta[i],pt_corr,rho});
+        const double pt_corrL1 = pt_corr;
+        // L2Relative
+        pt_corr *= jes_refs[1]->evaluate({jet_eta[i],pt_corr});
+        // JES uncertainty shift, before the smearing so it enters dpt
+        if (do_jes_var) {
+            const double delta = jes_unc->evaluate({jet_eta[i],pt_corr});
+            pt_corr *= (syst=="jes_up") ? (1.0+delta) : (1.0-delta);
+        }
+        // JER smearing
+        const double reso = jer_reso_iter->second->evaluate({jet_eta[i],pt_corr,rho});
+        const double sf = std::max(0.0, static_cast<double>(jer_sf_iter->second->evaluate({jet_eta[i],jer_systname})));
+        double genPtForSmear = -1.0;
+        const int genIdx = jet_genJetIdx[i];
+        if ( (genIdx > -1) && (static_cast<UInt_t>(genIdx) < genJet_pt.size()) ) {
+            const float genpt = genJet_pt[genIdx];
+            const double dR = ROOT::VecOps::DeltaR(jet_eta[i], genJet_eta[genIdx], jet_phi[i], genJet_phi[genIdx]);
+            if ( (dR<0.2) && (std::abs(pt_corr-genpt) < 3.0 * reso * pt_corr) ) {
+                genPtForSmear = genpt;
+            }
+        }
+        std::vector<correction::Variable::Type> vals;
+        vals.reserve(7);
+        vals.emplace_back(static_cast<double>(pt_corr));        // JetPt
+        vals.emplace_back(static_cast<double>(jet_eta[i]));     // JetEta
+        vals.emplace_back(static_cast<double>(genPtForSmear));  // GenPt or -1
+        vals.emplace_back(static_cast<double>(rho));            // Rho
+        vals.emplace_back(static_cast<int>(event));             // EventID
+        vals.emplace_back(static_cast<double>(reso));           // JER
+        vals.emplace_back(static_cast<double>(sf));             // JERSF
+        const double smear = jer_smear_iter->second->evaluate(vals);
+        pt_corr *= (std::isfinite(smear) && smear > 0.0) ? smear : 1.0;
+
+        const bool passSel = (pt_corr > 15.0 && std::abs(jet_eta[i]) < 5.2 && (jet_chEmEF[i]+jet_neEmEF[i]) < 0.9);
+        if (!passSel) continue;
+        const double dpt = (pt_corr - pt_corrL1);
+        met_px -= dpt * std::cos(jet_phi[i]);
+        met_py -= dpt * std::sin(jet_phi[i]);
+    }
+    return std::pair<float,float>({std::hypot(met_px,met_py),std::atan2(met_py,met_px)});
 }
 
 // Propagate a jet-pt variation to MET (Type-1-like): subtract the vector sum
