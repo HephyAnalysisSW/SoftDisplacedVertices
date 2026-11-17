@@ -1,0 +1,37 @@
+# Copy validation of NanoAOD_ParTScore_K (store/user/lian -> group/cms/ang.li, 2026-11-16).
+# Plain unweighted event- and vertex-level histograms with no selection (the Plotter always applies the
+# year's MET noise filters, identically for both copies). Run every sample with --data --lumi -1 so MC is
+# not weighted either. plotconfig_copycheck_D.yaml is the same plus the RotateVtx object.
+presel:
+
+corrections:
+    jetid:  # the 2024 jet ID is recomputed unconditionally, so the correction file must be defined
+        "2024":
+            path: "/cvmfs/cms-griddata.cern.ch/cat/metadata/JME/Run3-24CDEReprocessingFGHIPrompt-Summer24-NanoAODv15/latest/jetid.json.gz"
+            name: "AK4PUPPI_TightLeptonVeto"
+
+regions:
+  All:
+
+event_variables: [nSDVSecVtx, nSDVTrack, nJet, PV_npvs, PuppiMET_pt]
+event_2d_plots:
+
+objects:
+  SDVSecVtx:
+    selections:
+      all:
+    variables: [SDVSecVtx_Lxy, SDVSecVtx_LxySig, SDVSecVtx_mass, SDVSecVtx_nTracks, SDVSecVtx_pt, SDVSecVtx_ParTScore]
+    2d_plots:
+
+plot_setting:
+  nSDVSecVtx:          [nSDVSecVtx,          ';Number of SDV vertices;Events',   50, 0, 50]
+  nSDVTrack:           [nSDVTrack,           ';Number of SDV tracks;Events',    300, 0, 300]
+  nJet:                [nJet,                ';Number of jets;Events',           30, 0, 30]
+  PV_npvs:             [PV_npvs,             ';Number of PVs;Events',           100, 0, 100]
+  PuppiMET_pt:         [PuppiMET_pt,         ';PUPPI MET (GeV);Events',         200, 0, 2000]
+  SDVSecVtx_Lxy:       [SDVSecVtx_Lxy,       ';vertex L_{xy} (cm);Vertices',    200, 0, 20]
+  SDVSecVtx_LxySig:    [SDVSecVtx_LxySig,    ';vertex L_{xy}/#sigma;Vertices',  500, 0, 500]
+  SDVSecVtx_mass:      [SDVSecVtx_mass,      ';vertex mass (GeV);Vertices',     500, 0, 50]
+  SDVSecVtx_nTracks:   [SDVSecVtx_nTracks,   ';vertex nTracks;Vertices',         30, 0, 30]
+  SDVSecVtx_pt:        [SDVSecVtx_pt,        ';vertex p_{T} (GeV);Vertices',    200, 0, 200]
+  SDVSecVtx_ParTScore: [SDVSecVtx_ParTScore, ';vertex ParTScore;Vertices',     1010, 0, 1.01]

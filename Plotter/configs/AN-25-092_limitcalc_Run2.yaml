@@ -41,11 +41,11 @@ corrections:
 
 mapveto:
   data_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2017.root"
+    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2018.root"
   mc_path: 
-    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2017.root"
-    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2018.root"
+    "2017": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2017.root"
+    "2018": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2018.root"
 
 weights:
 

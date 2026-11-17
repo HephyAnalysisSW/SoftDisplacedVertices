@@ -82,17 +82,17 @@ corrections:
 
 mapveto:
   data_path: 
-    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
-    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
-    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
-    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
-    "2024": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
+    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2022.root"
+    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2022.root"
+    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2023.root"
+    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2023.root"
+    "2024": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2024.root"
   mc_path: 
-    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
-    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2022.root"
-    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
-    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
-    "2024": "root://eos.grid.vbc.ac.at//eos/vbc/group/cms/ang.li/material_maps_new/material_maps/material_map_2023.root"
+    "2022Pre": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2022.root"
+    "2022Post": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2022.root"
+    "2023Pre": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2023.root"
+    "2023Post": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2023.root"
+    "2024": "root://eos.grid.vbc.ac.at//eos/vbc/experiments/cms/store/user/lian/material_maps/material_map_2024.root"
 
 weights:
 
