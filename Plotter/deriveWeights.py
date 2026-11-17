@@ -20,7 +20,9 @@ Example:
     --output weights_Lxy.root
 '''
 import os
+import math
 import argparse
+from array import array
 import ROOT
 
 ROOT.gROOT.SetBatch(ROOT.kTRUE)
@@ -40,9 +42,49 @@ def getHist(spec):
   return h
 
 
-def deriveWeights(h_num, h_den, normalize, rebin, default_weight):
+def regroup(h, edges, name):
+  '''Return h regrouped into variable bins with the given edges.
+
+  Every edge inside the axis range of h must coincide with a bin edge of h. If the last
+  (first) edge lies above (below) the axis range, the overflow (underflow) of h is added to
+  the last (first) new bin, so that e.g. edges ending in 1000 for an axis ending at 10 put
+  everything above 10 into the last bin. Content outside the new edges goes to the
+  under/overflow of the result (ignored by the normalisation, as without --edges).
+  '''
+  ax = h.GetXaxis()
+  low_edges = [ax.GetBinLowEdge(b) for b in range(1, ax.GetNbins() + 2)]
+  tol = 1e-6 * (ax.GetXmax() - ax.GetXmin()) / ax.GetNbins()
+  for e in edges:
+    if ax.GetXmin() < e < ax.GetXmax():
+      assert min(abs(le - e) for le in low_edges) < tol, \
+          "Edge {} is not a bin edge of {}!".format(e, h.GetName())
+  out = ROOT.TH1D(name, h.GetTitle(), len(edges) - 1, array('d', edges))
+  out.SetDirectory(0)
+  out.GetXaxis().SetTitle(ax.GetTitle())
+  for b in range(0, ax.GetNbins() + 2):
+    if b == 0:
+      if edges[0] >= ax.GetXmin():
+        continue
+      target = 1
+    elif b == ax.GetNbins() + 1:
+      if edges[-1] <= ax.GetXmax():
+        continue
+      target = out.GetNbinsX()
+    else:
+      target = out.FindFixBin(ax.GetBinCenter(b))
+    out.SetBinContent(target, out.GetBinContent(target) + h.GetBinContent(b))
+    out.SetBinError(target, math.hypot(out.GetBinError(target), h.GetBinError(b)))
+  return out
+
+
+def deriveWeights(h_num, h_den, normalize, rebin, default_weight, edges=None):
   assert h_num.GetNbinsX() == h_den.GetNbinsX(), \
       "Binning mismatch: numerator has {} bins, denominator has {}!".format(h_num.GetNbinsX(), h_den.GetNbinsX())
+  if edges:
+    assert rebin == 1, "--edges and --rebin cannot be combined!"
+    assert all(lo < hi for lo, hi in zip(edges[:-1], edges[1:])), "--edges must be increasing!"
+    h_num = regroup(h_num, edges, "numerator_regrouped")
+    h_den = regroup(h_den, edges, "denominator_regrouped")
   if rebin > 1:
     h_num.Rebin(rebin)
     h_den.Rebin(rebin)
@@ -75,11 +117,15 @@ if __name__ == "__main__":
                       help='rebin both histograms by this factor before taking the ratio')
   parser.add_argument('--default-weight', type=float, default=1.,
                       help='weight assigned to bins with an empty denominator')
+  parser.add_argument('--edges', type=float, nargs='+', default=None,
+                      help='regroup both histograms into variable bins with these edges before taking the '
+                           'ratio (edges inside the axis range must be existing bin edges; a last edge above '
+                           'the axis range folds the overflow into the last bin)')
   args = parser.parse_args()
 
   h_num = getHist(args.numerator)
   h_den = getHist(args.denominator)
-  h_weight = deriveWeights(h_num, h_den, args.normalize, args.rebin, args.default_weight)
+  h_weight = deriveWeights(h_num, h_den, args.normalize, args.rebin, args.default_weight, args.edges)
   name = args.name if args.name else 'w_{}'.format(h_num.GetName())
   h_weight.SetName(name)
   h_weight.SetTitle(';{};weight'.format(h_num.GetXaxis().GetTitle()))

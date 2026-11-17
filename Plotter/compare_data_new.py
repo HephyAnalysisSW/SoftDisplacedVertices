@@ -121,6 +121,10 @@ parser.add_argument('--commands', type=str, nargs='+',
                     help="Additional commands, such as rebinning or set range etc.")
 parser.add_argument('--ratio', action='store_true', default=False,
                     help="Whether to plot the ratio")
+parser.add_argument('--lumi', type=str, default="100",
+                    help="Luminosity label in fb^-1")
+parser.add_argument('--energy', type=str, default="13",
+                    help="Centre-of-mass energy label in TeV")
 
 args = parser.parse_args()
 
@@ -228,7 +232,8 @@ def comparehists_cms(name,hs,colors,legends,sig_scale=[], scale_to_data=False, r
     CMS.SetExtraText("Preliminary")
   else:
     CMS.SetExtraText("Simulation Preliminary")
-  CMS.SetLumi("100")
+  CMS.SetLumi(args.lumi)
+  CMS.SetEnergy(args.energy)
   square=CMS.kSquare
   iPos=0
   

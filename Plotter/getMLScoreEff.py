@@ -14,15 +14,19 @@ DEN_CUT = 0.8
 # canonical per-era files (avoid double-counting the per-run/sub-era pieces
 # that get hadd'ed into these, see haddfiles_run3.sh / haddfiles.sh)
 # ordered so that data/background pairs line up under the same year label
-YEARS = ["2017", "2018", "2022pre", "2022post", "2023pre", "2023post"]
+#YEARS = ["2017", "2018", "2022pre", "2022post", "2023pre", "2023post", "2024"]
+YEARS = ["2017", "2018", "2022", "2023", "2024"]
 
 DATA_FILES = {
     "2017": "met2017_hist.root",
     "2018": "met2018_hist.root",
     "2022pre": "jetmet_2022pre_hist.root",
     "2022post": "jetmet_2022post_hist.root",
+    "2022": "jetmet_2022all_hist.root",
     "2023pre": "jetmet_2023pre_hist.root",
     "2023post": "jetmet_2023post_hist.root",
+    "2023": "jetmet_2023all_hist.root",
+    "2024": "jetmet_2024_hist.root",
 }
 
 BKG_FILES = {
@@ -30,8 +34,11 @@ BKG_FILES = {
     "2018": "background_2018_hist.root",
     "2022pre": "background_2022pre_hist.root",
     "2022post": "background_2022post_hist.root",
+    "2022": "background_2022all_hist.root",
     "2023pre": "background_2023pre_hist.root",
     "2023post": "background_2023post_hist.root",
+    "2023": "background_2023all_hist.root",
+    "2024": "background_2024_hist.root",
 }
 
 parser = argparse.ArgumentParser(

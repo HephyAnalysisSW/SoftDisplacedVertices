@@ -21,7 +21,8 @@ hadd ${1}/jetmet_2022pre_hist.root ${1}/jetmet_2022c_hist.root ${1}/jetmet_2022d
 hadd ${1}/jetmet_2022post_hist.root ${1}/jetmet_2022e_hist.root ${1}/jetmet_2022f_hist.root ${1}/jetmet_2022g_hist.root
 hadd ${1}/jetmet_2023pre_hist.root ${1}/jetmet*_2023c*_hist.root
 hadd ${1}/jetmet_2023post_hist.root ${1}/jetmet*_2023d*_hist.root
-for year in 2022pre 2022post 2023pre 2023post
+hadd ${1}/jetmet_2024_hist.root ${1}/jetmet*_2024*_hist.root
+for year in 2022pre 2022post 2023pre 2023post 2024
 do
     hadd ${1}/wjets_${year}_hist.root ${1}/wjetstolnu*${year}_hist.root 
     hadd ${1}/zjets_${year}_hist.root ${1}/zto2nu*${year}_hist.root 
